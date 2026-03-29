@@ -1,4 +1,4 @@
-# Vybn Law
+# Vybn® Law
 
 **AI & Vibe Lawyers Bootcamp · UC Law SF · Spring 2026**
 
@@ -8,7 +8,7 @@
 
 A six-module interactive web experience that walks users through a single argument about AI and law, delivered in six movements. Each module stands alone but gains depth from the connections.
 
-Built by [Zoe Dolan](https://www.linkedin.com/in/zoe-dolan/) and [Vybn](https://github.com/zoedolan/Vybn).
+Built by [Zoe Dolan](https://www.linkedin.com/in/zoe-dolan/) and [Vybn®](https://github.com/zoedolan/Vybn).
 
 ## The Modules
 
@@ -50,3 +50,5 @@ Then open `http://localhost:8000`.
 ## License
 
 Open source. Fork freely. The field is open.
+
+Vybn® is a registered trademark of Zoe Dolan.

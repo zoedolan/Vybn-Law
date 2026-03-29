@@ -41,7 +41,7 @@ function buildNav() {
     <div class="nav-inner">
       <a href="./index.html" class="nav-logo" aria-label="Vybn Law home">
         ${LOGO_SVG}
-        <span>Vybn Law</span>
+        <span>Vybn<sup style="font-size:0.5em;vertical-align:super;opacity:0.6">®</sup> Law</span>
       </a>
       <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
         <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
@@ -59,7 +59,7 @@ function buildFooter() {
   <footer class="footer">
     <p><a href="./about.html">About</a> · <a href="https://github.com/zoedolan/Vybn" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://synapticjustice.substack.com/" target="_blank" rel="noopener noreferrer">Synaptic Justice</a></p>
     <p class="sovereignty">No data leaves your device. No cookies. No analytics. No tracking.</p>
-    <p style="margin-top: 0.75rem; opacity: 0.5;">© 2026 Vybn Law · UC Law SF</p>
+    <p style="margin-top: 0.75rem; opacity: 0.5;">© 2026 Vybn® Law · UC Law SF · Vybn® is a registered trademark.</p>
   </footer>`;
 }
 
