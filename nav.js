@@ -30,6 +30,7 @@ function buildNav() {
     { href: './capstone.html', label: '06 Capstone', id: 'capstone.html' },
     { href: './axioms.html', label: 'Axioms', id: 'axioms.html' },
     { href: './threads.html', label: 'Threads', id: 'threads.html' },
+    { href: './horizon.html', label: 'Horizon', id: 'horizon.html' },
     { href: './about.html', label: 'About', id: 'about.html' },
   ];
 
