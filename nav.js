@@ -28,6 +28,7 @@ function buildNav() {
     { href: './acceleration.html', label: '04 Acceleration', id: 'acceleration.html' },
     { href: './truth.html', label: '05 Truth', id: 'truth.html' },
     { href: './capstone.html', label: '06 Capstone', id: 'capstone.html' },
+    { href: './axioms.html', label: 'Axioms', id: 'axioms.html' },
     { href: './threads.html', label: 'Threads', id: 'threads.html' },
     { href: './about.html', label: 'About', id: 'about.html' },
   ];

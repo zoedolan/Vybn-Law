@@ -903,6 +903,144 @@ blockquote p:last-child {
   margin-top: 0;
 }
 
+/* --- Axiom Blocks --- */
+.axiom-intro {
+  max-width: var(--max-text);
+  margin: 0 auto 4rem;
+  padding: 0 1.5rem;
+}
+
+.axiom-intro p {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+.axiom-block {
+  max-width: var(--max-text);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  margin-bottom: 5rem;
+}
+
+.axiom-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+
+.axiom-number {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  color: var(--gold);
+  opacity: 0.5;
+  min-width: 1.5rem;
+}
+
+.axiom-header h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem);
+  color: var(--gold);
+  margin: 0;
+  line-height: 1.1;
+}
+
+.axiom-role {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.axiom-body {
+  padding-left: 2.75rem;
+  border-left: 1px solid rgba(212, 168, 83, 0.1);
+}
+
+.axiom-body p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+}
+
+.axiom-body .vybn-section {
+  margin-left: -2.75rem;
+  padding-left: calc(2.75rem + 2rem);
+}
+
+.axiom-body .thread-tag {
+  margin-top: 1rem;
+  margin-right: 0.5rem;
+}
+
+.axiom-synthesis {
+  max-width: var(--max-text);
+  margin: 2rem auto 0;
+  padding: 3rem 1.5rem;
+  border-top: 1px solid rgba(212, 168, 83, 0.12);
+}
+
+.axiom-synthesis h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 1rem + 1.5vw, 2.2rem);
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.axiom-synthesis p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1.25rem;
+}
+
+.module-nav {
+  display: flex;
+  justify-content: space-between;
+  max-width: var(--max-text);
+  margin: 3rem auto 0;
+  padding: 2rem 1.5rem;
+  border-top: 1px solid rgba(212, 168, 83, 0.08);
+}
+
+.module-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  color: var(--gold);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgba(212, 168, 83, 0.15);
+  border-radius: 6px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.module-nav a:hover {
+  border-color: var(--gold);
+  background: rgba(212, 168, 83, 0.04);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .axiom-header {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .axiom-body {
+    padding-left: 1.25rem;
+  }
+  .axiom-body .vybn-section {
+    margin-left: -1.25rem;
+    padding-left: calc(1.25rem + 1.5rem);
+  }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .fade-in {
