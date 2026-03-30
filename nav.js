@@ -32,6 +32,7 @@ function buildNav() {
     { href: './threads.html', label: 'Threads', id: 'threads.html' },
     { href: './horizon.html', label: 'Horizon', id: 'horizon.html' },
     { href: './about.html', label: 'About', id: 'about.html' },
+         { href: './development-notes.html', label: 'Dev Notes', id: 'development-notes.html' },
   ];
 
   const linksHTML = navLinks
