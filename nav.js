@@ -31,6 +31,7 @@ function buildNav() {
     { href: './axioms.html', label: 'Axioms', id: 'axioms.html' },
     { href: './threads.html', label: 'Threads', id: 'threads.html' },
     { href: './horizon.html', label: 'Horizon', id: 'horizon.html' },
+    { href: './notes.html', label: 'Notes', id: 'notes.html' },
     { href: './about.html', label: 'About', id: 'about.html' },
          { href: './development-notes.html', label: 'Dev Notes', id: 'development-notes.html' },
   ];
