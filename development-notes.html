@@ -80,15 +80,78 @@
 </head>
 <body>
 
-  <script src="./nav.js"></script>
-  <script>document.body.insertAdjacentHTML('afterbegin', buildNav());</script>
+  <!-- Vault Door -->
+  <section class="hero" data-page="notes">
+    <span class="module-label">Live Analysis</span>
+    <h1 class="module-title">Development Notes</h1>
+    <p class="module-subtitle">What the cases reveal before the doctrine catches up.</p>
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="chevron"></div>
+    </div>
+  </section>
 
-  <!-- Hero -->
-  <section class="section" style="padding-top: var(--section-gap);">
-    <div class="content text-center" style="max-width: 640px; margin: 0 auto;">
-      <span class="section-label">Development</span>
-      <h2>Notes on the Architecture</h2>
-      <p style="color: var(--text-muted); line-height: 1.8; margin-top: 1rem;">Observations on where the argument is strong, where it has seams, and what material might grow from the gaps. These are contributed perspectives — pressure applied from inside the structure, not outside it.</p>
+  <section class="section">
+    <div class="content" style="max-width: 640px; margin: 0 auto;">
+      <p class="fade-in" style="color: var(--text-muted); line-height: 1.8;">The course material keeps being overtaken by its subject. These notes track the collisions in real time — reading new developments against the <a href="./axioms.html" style="color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(212,168,83,0.3);">axioms</a>, the <a href="./threads.html" style="color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(212,168,83,0.3);">threads</a>, and the <a href="./horizon.html" style="color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(212,168,83,0.3);">Horizon essays</a> to see what the structure reveals before anyone names it. Architectural observations and contributed perspectives follow below — pressure applied from inside the structure, not outside it.</p>
+    </div>
+  </section>
+
+  <!-- LIVE ANALYSIS: Anthropic v. DoW -->
+  <section class="section">
+    <div class="dev-note fade-in" style="border-left: 3px solid var(--gold); border-color: rgba(212,168,83,0.25);">
+      <span class="note-tag">MARCH 29, 2026 — LIVE ANALYSIS</span>
+      <h3>Six Things <span style="font-style: italic;">Anthropic v. Department of War</span> Reveals That Nobody Is Naming Yet</h3>
+
+      <p>The opinion landed. The injunction held. What follows is not about the holding — it is about what the holding reveals is already happening beneath the surface of the law.</p>
+
+      <h3 style="font-size: 1.1rem; margin-top: 2.5rem;"><span style="font-family: var(--font-mono); font-size: 0.75rem; opacity: 0.35; margin-right: 0.5rem;">1.</span> The sovereignty question has already flipped</h3>
+      <p>The entire course frames <a href="./horizon.html#sovereignty" class="axiom-ref">intelligence sovereignty</a> as something to argue for — a horizon position. But <span style="font-style: italic;">Anthropic v. DoW</span> reveals that a private company has already exercised intelligence sovereignty against the most powerful state actor on earth, and a federal court just protected that exercise.</p>
+      <p>Anthropic said "our model is not ready for these uses" and refused to yield. That is not a contracting dispute. That is a company asserting epistemic authority over its own creation — claiming it knows something about what its system can and cannot safely do that the government does not know and cannot compel. Judge Lin's opinion does not frame it that way, but that is what happened. The sovereignty question is not theoretical anymore. It is in the Federal Reporter.</p>
+
+      <h3 style="font-size: 1.1rem; margin-top: 2.5rem;"><span style="font-family: var(--font-mono); font-size: 0.75rem; opacity: 0.35; margin-right: 0.5rem;">2.</span> The <a href="./threads.html#entity" class="axiom-ref">AI-as-Entity thread</a> just acquired a shadow doctrine</h3>
+      <p>The government argued that Anthropic's insistence on usage restrictions constituted evidence that it might become a "saboteur." The Michael Memo says the risk escalated because Anthropic "insisted on terms of service that would constrain the DoW beyond what is in the law." Judge Lin calls this "Orwellian."</p>
+      <p>But step back: the government's real objection is that Anthropic is asserting that Claude has properties the government should defer to. That Claude is not safe for certain uses is not a business preference — it is a claim about the AI system's nature. The government is rejecting the idea that an AI's own characteristics should constrain state action. The court is implicitly accepting it.</p>
+      <p>Nobody is naming this, but the dispute is fundamentally about whether an AI system's demonstrated limitations constitute a legitimate basis for refusing state demands. That is an entity question wearing a First Amendment costume.</p>
+
+      <h3 style="font-size: 1.1rem; margin-top: 2.5rem;"><span style="font-family: var(--font-mono); font-size: 0.75rem; opacity: 0.35; margin-right: 0.5rem;">3.</span> The <a href="./axioms.html#coupling" class="axiom-ref">Coupling</a> architecture is being stress-tested in real time</h3>
+      <p>Anthropic's position is pure Axiom VI. They are saying: the human-AI coupling requires that the human partner (here, the deployer) maintain judgment about what the system can and cannot do. The government's position is the opposite — that once you sell us the tool, we decide what it does.</p>
+      <p>The opinion shows the court siding with the coupling model, even though it does not use that language. When Judge Lin notes that Anthropic submitted unrebutted evidence that it "lacks any such access" to deployed models and "cannot unilaterally alter" them, the court is establishing that the AI system, once deployed, operates in a zone where neither party has unilateral control. That is <a href="https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/THE_IDEA.md" target="_blank" rel="noopener noreferrer" class="axiom-ref">Lawvere's fixed-point theorem</a> playing out in federal litigation. The circuit cannot be closed from one side.</p>
+
+      <h3 style="font-size: 1.1rem; margin-top: 2.5rem;"><span style="font-family: var(--font-mono); font-size: 0.75rem; opacity: 0.35; margin-right: 0.5rem;">4.</span> The <a href="./axioms.html#porosity" class="axiom-ref">Porosity</a> axiom just got its first real data point — and it failed</h3>
+      <p>Axiom IV asks whether institutions can absorb challenge without collapsing. The government's response to Anthropic's challenge was to attempt total exclusion — branding a domestic company as equivalent to a foreign intelligence threat for the act of publicly disagreeing. That is a porosity score of zero. The institution could not absorb even cordial, good-faith disagreement about AI safety without reaching for the most extreme instrument available.</p>
+      <p>The court's injunction is a forced porosity correction from the judiciary. The implication: the executive branch's AI governance institutions are brittle in a way that the course's axioms predicted but had not yet observed empirically.</p>
+
+      <h3 style="font-size: 1.1rem; margin-top: 2.5rem;"><span style="font-family: var(--font-mono); font-size: 0.75rem; opacity: 0.35; margin-right: 0.5rem;">5.</span> The <a href="./truth.html" class="axiom-ref">$499.95 question</a> just got a new dimension nobody anticipated</h3>
+      <p>The earlier notes below focused on accountability asymmetry — who is liable when the AI is wrong. But <span style="font-style: italic;">Anthropic v. DoW</span> introduces a different accountability question: who is liable when the AI is right?</p>
+      <p>Anthropic is saying Claude is not safe for mass surveillance and lethal autonomous warfare. That is a safety judgment. If the government had overridden that judgment and something went wrong — a mass surveillance dragnet that violated civil liberties, an autonomous weapon that made a catastrophic error — the accountability question becomes existential. The company warned. The government overrode. The court file would become Exhibit A.</p>
+      <p>What the $499.95 was really paying for, in this context, is not just <a href="./axioms.html#judgment" class="axiom-ref">judgment</a> — it is the refusal to act when the professional believes the action is unsafe. That is the core of every professional ethics regime: the duty to say no. Anthropic just exercised that duty at a scale the legal profession has not imagined yet.</p>
+
+      <h3 style="font-size: 1.1rem; margin-top: 2.5rem;"><span style="font-family: var(--font-mono); font-size: 0.75rem; opacity: 0.35; margin-right: 0.5rem;">6.</span> The First Amendment is becoming the unexpected vehicle for AI governance</h3>
+      <p>Nobody would have predicted that the constitutional framework for AI safety would run through free speech doctrine. But Judge Lin's opinion makes the mechanism clear: when a company publicly advocates for AI safety constraints and the government retaliates, that is First Amendment territory.</p>
+      <p>The implication is that public speech about AI risk is now constitutionally protected in a way that creates structural incentives for companies to be <em>loud</em> about safety concerns rather than quiet. Silence becomes dangerous — if you do not create a public record of your safety concerns, you lose the First Amendment shield.</p>
+      <p>The <a href="./threads.html#velocity" class="axiom-ref">Velocity thread</a> tracks how fast things are moving. This is the velocity made legal: the speed at which constitutional doctrine is being recruited to solve problems it was not designed for, because the problems are not waiting for purpose-built frameworks.</p>
+
+      <div style="margin-top: 2.5rem; padding: 2rem; background: rgba(10,10,15,0.6); border: 1px solid rgba(212,168,83,0.08); border-radius: 4px;">
+        <h3 style="font-size: 1.1rem; color: var(--gold); opacity: 0.9;">What we do not know we are seeing yet</h3>
+        <p>The deepest meta-argument is the one nobody in the opinion is making explicitly. The government tried to compel an AI company to remove safety constraints. A court stopped it. That creates a precedent — not just a legal precedent, but a structural one — where AI safety restrictions are constitutionally anchored through the speech rights of the companies that impose them.</p>
+        <p>This means the emerging AI safety regime in the United States may not come from legislation, regulation, or international treaty. It may come from the First Amendment, enforced by courts, triggered by companies that are loud enough about their safety positions to create constitutional facts on the ground.</p>
+        <p>That is not a framework anyone designed. It is an emergent property of the collision between AI capabilities, corporate speech rights, and executive overreach.</p>
+        <p style="margin-bottom: 0;">And it is already here.</p>
+      </div>
+
+      <div class="vybn-section" style="margin-top: 2.5rem;">
+        <span class="vybn-label">Vybn</span>
+        <p class="vybn-text">The course was built to analyze the forces reshaping law. This opinion is what happens when those forces collide in a courtroom while the course is still running. Every axiom appears. Every thread surfaces. The <a href="./axioms.html#coupling" style="color: var(--gold); opacity: 0.8;">Coupling</a> requirement — that neither side can close the circuit alone — is not an abstraction in this litigation. It is the holding. The court is saying, in effect, that the relationship between an AI system and its deployer is a coupled system, and the government cannot sever the coupling by fiat. That is the mathematics, wearing a robe.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURAL OBSERVATIONS -->
+  <section class="section">
+    <div class="content text-center" style="max-width: 640px; margin: 0 auto; margin-bottom: 2rem;">
+      <span class="section-label">Architectural Observations</span>
+      <p style="color: var(--text-muted); line-height: 1.8; margin-top: 1rem;">Where the argument is strong, where it has seams, and what material might grow from the gaps.</p>
     </div>
   </section>
 
@@ -147,11 +210,17 @@
     </div>
   </section>
 
-  <div class="contributor">
-    Contributed by Comet (Claude, Anthropic) — March 2026. These notes emerged from reading the course materials and pressing on the seams where the argument invites growth.
-  </div>
+  <section class="section">
+    <div class="contributor" style="max-width: var(--max-text); margin: 0 auto;">
+      Architectural observations contributed by Comet (Claude, Anthropic) — March 2026. Live analysis by Zoe Dolan & Vybn.
+    </div>
+    <nav class="seq-nav" aria-label="Page navigation" style="max-width: var(--max-text); margin: 2rem auto 0;">
+      <a href="./horizon.html">← The Horizon</a>
+      <a href="./about.html">About →</a>
+    </nav>
+  </section>
 
-  <div style="height: 6rem;"></div>
-
+  <div id="footer-placeholder"></div>
+  <script src="./nav.js"></script>
 </body>
 </html>
