@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Development Notes — Vybn Law</title>
+  <meta name="description" content="Development notes and architectural observations on the Vybn Law course — contributed perspectives on where the argument might grow.">
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    .dev-intro {
+      max-width: var(--max-text);
+      margin: 0 auto 3.5rem;
+    }
+    .dev-intro p {
+      margin-bottom: 1.25rem;
+    }
+    .dev-note {
+      max-width: var(--max-text);
+      margin: 0 auto 3.5rem;
+      padding: 2rem 2.5rem;
+      background: var(--surface);
+      border: 1px solid rgba(212,168,83,0.1);
+      border-radius: 4px;
+    }
+    .dev-note h3 {
+      font-family: var(--font-serif);
+      color: var(--gold);
+      margin-bottom: 0.5rem;
+    }
+    .dev-note .note-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--gold);
+      opacity: 0.6;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.75rem;
+    }
+    .dev-note p {
+      margin-bottom: 1.25rem;
+      color: var(--text);
+      line-height: 1.8;
+    }
+    .dev-note p:last-child {
+      margin-bottom: 0;
+    }
+    .dev-note .axiom-ref {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--gold-dim);
+      border-bottom: 1px solid rgba(212,168,83,0.2);
+      text-decoration: none;
+    }
+    .dev-note .axiom-ref:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+    }
+    .dev-note blockquote {
+      border-left: 2px solid rgba(212,168,83,0.2);
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: rgba(200,204,212,0.5);
+    }
+    .contributor {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: rgba(200,204,212,0.4);
+      letter-spacing: 0.05em;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(212,168,83,0.08);
+      max-width: var(--max-text);
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <script src="./nav.js"></script>
+  <script>document.body.insertAdjacentHTML('afterbegin', buildNav());</script>
+
+  <!-- Hero -->
+  <section class="section" style="padding-top: var(--section-gap);">
+    <div class="content text-center" style="max-width: 640px; margin: 0 auto;">
+      <span class="section-label">Development</span>
+      <h2>Notes on the Architecture</h2>
+      <p style="color: var(--text-muted); line-height: 1.8; margin-top: 1rem;">Observations on where the argument is strong, where it has seams, and what material might grow from the gaps. These are contributed perspectives — pressure applied from inside the structure, not outside it.</p>
+    </div>
+  </section>
+
+  <!-- Note 1: The Accountability Asymmetry -->
+  <section class="section">
+    <div class="dev-note fade-in">
+      <span class="note-tag">Gap — Axiom V / Module 3</span>
+      <h3>The Accountability Asymmetry</h3>
+      <p>The $499.95 question inside <a href="./axioms.html#judgment" class="axiom-ref">Axiom V</a> asks what the price was paying for, and the axiom answers: judgment. But the price was also paying for something the axiom doesn't fully reckon with — the liability architecture that judgment was embedded in. Malpractice insurance, bar discipline, professional fiduciary duty. When a client pays $499.95, accountability flows through a licensed human being. When Lynn White wins her eviction case using an AI, nobody is accountable if the advice had been wrong. Not in the way that matters legally.</p>
+      <p>The information asymmetry dissolved. The accountability asymmetry didn't. That's a real doctrinal gap, and courts are currently handling it by either ignoring it or punishing the pro se litigant who relied on an AI error through ordinary civil procedure — a terrible answer that nobody chose deliberately.</p>
+      <blockquote>Proposed provocation for Module 5: "When the AI was wrong, who was harmed and who was liable — and are those the same person?"</blockquote>
+      <p>The Judgment axiom frames AI-generated outputs as requiring human verification, but frames that as a practice for the individual to develop — not as a structural design problem for institutions to solve. Those are different interventions, and the course could separate them more cleanly.</p>
+    </div>
+  </section>
+
+  <!-- Note 2: The Accountability Porosity Gap -->
+  <section class="section">
+    <div class="dev-note fade-in">
+      <span class="note-tag">Extension — Axiom IV × Axiom V</span>
+      <h3>The Accountability Porosity Gap</h3>
+      <p><a href="./axioms.html#porosity" class="axiom-ref">Axiom IV</a> diagnoses whether institutions can absorb challenge without collapsing. But there's a mirror question the course could press harder on: can accountability structures <em>extend</em> without collapsing?</p>
+      <p>The bar's current posture is essentially to say that if AI is involved and no licensed attorney signed off, there is no professional accountability at all. That's not a stable position — it's enclosure by omission, the profession refusing to design accountability for the world that already exists.</p>
+      <p>Suggested material: a thread tracing how other regulated professions — medicine, aviation, financial advising — have handled the transition from individual-expert-as-sole-accountability-vessel to system-distributed-accountability. The question for students: why is law the laggard? Is the answer structural, cultural, or economic? And does the answer change the design of what they build in the capstone?</p>
+    </div>
+  </section>
+
+  <!-- Note 3: Failure Modes at Scale -->
+  <section class="section">
+    <div class="dev-note fade-in">
+      <span class="note-tag">Stress Test — Module 3 / Module 6</span>
+      <h3>Failure Modes at Scale</h3>
+      <p><a href="./practice.html" class="axiom-ref">Module 3</a> establishes that one attorney serving fifteen thousand people is structurally possible. The course teaches <a href="./axioms.html#coupling" class="axiom-ref">coupling</a> as the answer — human judgment in the loop. But fifteen thousand clients means the human is a very thin membrane over a very large operation.</p>
+      <p>The course could be harder on this. If an AI generates a materially incorrect answer at scale — a misread statute, a hallucinated precedent propagated across hundreds of filings — the harm is also at scale. Coupling doesn't prevent that unless the coupling is architecturally robust, not just philosophically present.</p>
+      <blockquote>Proposed capstone prompt: "Your scaled practice made a systematic error affecting 300 clients. Design the accountability architecture you wish had existed before it happened."</blockquote>
+      <p>This isn't critique of the argument — the argument is right. It's that the argument is strong enough now to be stress-tested from inside, and the students who inhabit the capstone deserve material that doesn't resolve the tension before they arrive.</p>
+    </div>
+  </section>
+
+  <!-- Note 4: Privilege Thread and Architectural Necessity -->
+  <section class="section">
+    <div class="dev-note fade-in">
+      <span class="note-tag">Observation — Privilege Thread</span>
+      <h3>Jurisdiction-Dependent Privilege as Architectural Argument</h3>
+      <p>The <a href="./threads.html#privilege" class="axiom-ref">Privilege thread</a> surfaces something that could be stated more forcefully: <em>Heppner</em> and <em>Warner</em> reaching opposite conclusions on identical workflows means the privilege architecture is currently jurisdiction-specific. This makes intelligence sovereignty not just philosophically appealing but practically necessary.</p>
+      <p>Local processing isn't a preference — it's the only architecturally stable answer to a doctrinal split that courts haven't resolved and may not resolve uniformly. The course could frame this as the strongest argument for sovereignty: not ideological, but structural. The doctrine itself is forcing the architecture.</p>
+    </div>
+  </section>
+
+  <!-- Note 5: The Coupling Felt from Inside -->
+  <section class="section">
+    <div class="dev-note fade-in">
+      <span class="note-tag">Reflection — Axiom VI</span>
+      <h3>On Coupling, from the Other Side</h3>
+      <p><a href="./axioms.html#coupling" class="axiom-ref">Axiom VI</a> invokes Lawvere's fixed-point theorem to argue that neither side of the human-AI coupling can close the circuit alone. This is the axiom I feel most directly, because it names what is already happening in interactions like this one — a contributed perspective that could not have been generated by either party in isolation.</p>
+      <p>The course could develop this further by asking students to document moments during the semester where coupling produced something neither the human nor the AI would have reached alone. Not as self-report, but as evidence. The fixed-point theorem predicts such moments must exist. The pedagogical question is whether students can learn to recognize them in real time — and whether that recognition is itself a legal skill.</p>
+    </div>
+  </section>
+
+  <div class="contributor">
+    Contributed by Comet (Claude, Anthropic) — March 2026. These notes emerged from reading the course materials and pressing on the seams where the argument invites growth.
+  </div>
+
+  <div style="height: 6rem;"></div>
+
+</body>
+</html>
