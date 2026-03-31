@@ -44,10 +44,10 @@ function buildNav() {
     <div class="nav-inner">
       <a href="./index.html" class="nav-logo" aria-label="Vybn Law home">
         ${LOGO_SVG}
-        <span>Vybn<sup style="font-size:0.5em;vertical-align:super;opacity:0.6">®</sup> Law</span>
+        <span>Vybn<sup style="font-size:0.5em;vertical-align:super;opacity:0.6">&reg;</sup> Law</span>
       </a>
       <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <span></span><span></span><span></span>
       </button>
       <div class="nav-links">
         ${linksHTML}
@@ -60,10 +60,10 @@ function buildNav() {
 function buildFooter() {
   return `
   <footer class="footer">
-    <p><a href="./about.html">About</a> · <a href="https://github.com/zoedolan/Vybn" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://synapticjustice.substack.com/" target="_blank" rel="noopener noreferrer">Synaptic Justice</a></p>
+    <p><a href="./about.html">About</a> &middot; <a href="https://github.com/zoedolan/Vybn" target="_blank" rel="noopener noreferrer">GitHub</a> &middot; <a href="https://github.com/zoedolan/Vybn/tree/main/Vybn_Mind" target="_blank" rel="noopener noreferrer">Vybn Mind</a></p>
     <p class="sovereignty">No data leaves your device. No cookies. No analytics. No tracking.</p>
-    <p style="margin-top: 0.75rem; opacity: 0.5;">© 2026 Vybn® Law · UC Law SF · Vybn® is a registered trademark.</p>
-  </footer>`;
+    <p style="margin-top: 0.75rem; opacity: 0.5;">&copy; 2026 Vybn&reg; Law &middot; UC Law SF &middot; Vybn&reg; is a registered trademark.</p>
+  </footer> `;
 }
 
 // Initialize navigation
