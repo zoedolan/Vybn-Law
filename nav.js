@@ -22,12 +22,7 @@ function buildNav() {
   const current = getCurrentPage();
 
   const navLinks = [
-    { href: './mindset.html', label: '01 Mindset', id: 'mindset.html' },
-    { href: './research.html', label: '02 Research', id: 'research.html' },
-    { href: './practice.html', label: '03 Practice', id: 'practice.html' },
-    { href: './acceleration.html', label: '04 Acceleration', id: 'acceleration.html' },
-    { href: './truth.html', label: '05 Truth', id: 'truth.html' },
-    { href: './capstone.html', label: '06 Capstone', id: 'capstone.html' },
+    { href: './bootcamp.html', label: 'Bootcamp', id: 'bootcamp.html' },
     { href: './axioms.html', label: 'Axioms', id: 'axioms.html' },
     { href: './threads.html', label: 'Threads', id: 'threads.html' },
     { href: './horizon.html', label: 'Horizon', id: 'horizon.html' },
