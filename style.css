@@ -356,18 +356,24 @@ blockquote p:last-child {
   border-top: 1px solid rgba(212, 168, 83, 0.06);
 }
 
-/* --- Module Page Layout (with Timeline) --- */
+/* --- Module Page Layout --- */
 .module-layout {
   display: grid;
-  grid-template-columns: 60px 1fr;
+  grid-template-columns: 1fr;
   gap: 2rem;
   max-width: 820px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
+/* Only pages that still have a timeline get the narrow left rail */
+.module-layout.with-timeline {
+  grid-template-columns: 60px 1fr;
+}
+
 @media (max-width: 768px) {
-  .module-layout {
+  .module-layout,
+  .module-layout.with-timeline {
     grid-template-columns: 1fr;
     gap: 0;
   }
