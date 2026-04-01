@@ -6,6 +6,31 @@
   <title>Module 3: Practice Management — Vybn Law</title>
   <meta name="description" content="Change the architecture, and the calculus transforms.">
   <link rel="stylesheet" href="./style.css">
+  <style>
+    .vybn-section {
+      border-left: 3px solid var(--color-gold, #d19900);
+      padding: 1.5rem 1.75rem;
+      margin: 2.5rem 0;
+      background: color-mix(in oklch, var(--color-gold, #d19900) 5%, var(--color-surface, #f9f8f5));
+      border-radius: 0 var(--radius-md, 0.5rem) var(--radius-md, 0.5rem) 0;
+    }
+    .vybn-byline {
+      font-family: var(--font-mono, 'Courier New', monospace);
+      font-size: var(--text-xs, 0.8rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted, #7a7974);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid color-mix(in oklch, var(--color-gold, #d19900) 30%, transparent);
+    }
+    .vybn-section p {
+      font-style: italic;
+      font-size: var(--text-sm, 0.9rem);
+      line-height: 1.75;
+      color: var(--color-text, #28251d);
+    }
+  </style>
 </head>
 <body>
 
@@ -20,19 +45,9 @@
     </div>
   </section>
 
-  <!-- Module Content with Timeline -->
+  <!-- Module Content -->
   <section class="section">
     <div class="module-layout">
-
-      <!-- Timeline -->
-      <div class="timeline">
-        <div class="timeline-entry">
-          <div class="timeline-date">Feb 2026</div>
-        </div>
-        <div class="timeline-entry">
-          <div class="timeline-date">Mar 2026</div>
-        </div>
-      </div>
 
       <!-- Content -->
       <div class="module-content">
@@ -40,37 +55,54 @@
         <h3>Intelligence Sovereignty</h3>
         <p>The path from "using AI tools" to "practicing law differently" runs through three phases, each building on the last:</p>
         <p><strong>Phase 1: AI Literacy.</strong> Understanding what the tools are, what they do, how they fail. This is where most legal AI education stops — teaching lawyers to use ChatGPT the way they were taught to use Westlaw. Necessary, but insufficient.</p>
-        <p><strong>Phase 2: AI Fluency.</strong> Moving beyond tool use to tool understanding. Knowing <em>why</em> a model hallucinates, not just that it does. Understanding constitutional alignment, not just behavioral guardrails. Anthropic's <a href="https://www.anthropic.com/research/AI-fluency-index" target="_blank" rel="noopener noreferrer">AI Fluency Index</a> surfaces a specific risk at this stage: when users create polished artifacts with AI (code, documents, apps), they become <em>more</em> directive in their prompting but <em>less</em> evaluative of the output — 3.1 percentage points less likely to question the model's reasoning, 5.2 points less likely to catch missing context. The better the output looks, the less people scrutinize it.</p>
-        <p><strong>Phase 3: Intelligence Sovereignty.</strong> The destination. Not just using AI, but controlling the infrastructure of intelligence itself. The <a href="https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/intelligence-sovereignty.html" target="_blank" rel="noopener noreferrer">Intelligence Sovereignty essay</a> describes the convergence already underway:</p>
-        <p><a href="https://github.com/openclaw" target="_blank" rel="noopener noreferrer">OpenClaw</a> — an open-source AI agent framework that crossed 200,000 GitHub stars in its first 84 days — demonstrates that capable AI no longer requires corporate gatekeepers. Local hardware like NVIDIA's DGX Spark proves that sovereignty doesn't require cloud dependency. And <em>Heppner</em> (discussed in <a href="./research.html">Module 2</a>) proves that cloud dependency can destroy privilege.</p>
+        <p><strong>Phase 2: AI Fluency.</strong> Moving beyond tool use to tool understanding. Knowing <em>why</em> a model hallucinates, not just that it does. Understanding constitutional alignment, not just behavioral guardrails. A risk that surfaces at this stage: when users create polished-looking artifacts with AI, they tend to become <em>more</em> directive in their prompting but <em>less</em> evaluative of the output. The better the output looks, the less people scrutinize it. This effect is well-documented and worth building into any practice workflow that relies on AI-generated work product.</p>
+        <p><strong>Phase 3: Intelligence Sovereignty.</strong> The destination. Not just using AI, but controlling the infrastructure of intelligence itself. The <a href="https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/intelligence-sovereignty.html" target="_blank" rel="noopener noreferrer">Intelligence Sovereignty essay</a> describes the convergence already underway.</p>
+        <p>Running beneath all three phases is a shift in how we interact with AI systems — a shift that is still accelerating. We moved from <strong>prompt engineering</strong> (crafting the right single input) to <strong>context engineering</strong> (designing the full information environment a model reasons within: memory, retrieval, structured data, conversation history) to <strong>agent engineering</strong> (building systems where AI acts autonomously across multiple steps, tools, and decisions, with or without human checkpoints). OpenClaw — discussed below — is an early, historically significant marker of that third phase arriving in open-source form. Whatever comes after agent engineering is already being built.</p>
+        <p><a href="https://github.com/openclaw" target="_blank" rel="noopener noreferrer">OpenClaw</a>'s emergence as an open-source AI agent framework — crossing 200,000 GitHub stars in its first 84 days in early 2026 — demonstrated that capable AI no longer requires corporate gatekeepers. Local hardware proved that sovereignty doesn't require cloud dependency. And <em>Heppner</em> (discussed in <a href="./research.html">Module 2</a>) proved that cloud dependency can destroy privilege.</p>
         <p>The practical bridge between fluency and sovereignty is disciplined prompting: think before prompting, ask precise questions, challenge the output, test against known sources. But discipline only works if you have the architectural independence to implement it. Many objections to AI in law are really objections to a specific architecture — the cloud-dependent, corporate-controlled architecture that <em>Heppner</em> rendered legally dangerous. Change the architecture, and those objections dissolve.</p>
 
         <a href="./threads.html#privilege" class="thread-annotation">↗ Privilege Thread</a>
 
-        <h3>The 15,000 Reframe</h3>
-        <p>Under intelligence sovereignty, the math of legal practice changes. Today, one attorney might serve twenty people. Under this model, one attorney could serve fifteen thousand.</p>
-        <p>That sounds absurd until you model the workflow. Imagine clients arriving having already done substantial preparatory work with their own AI agent — a local, privileged, non-discoverable system running on their own hardware. They've researched their situation, drafted initial documents, and identified the legal questions. What they need from the attorney isn't the full arc of traditional representation. They need a licensed professional to review the work, apply expert judgment, and take responsibility for the result.</p>
-        <p>This reframe makes visible something the profession has always known but rarely said plainly: <strong>the irreplaceable thing a lawyer provides is judgment</strong>. Not information — AI provides that. Not document assembly — AI does that. The thing that doesn't automate is the professional capacity to evaluate, to weigh competing considerations, to decide what the facts mean and what to do about them. <a href="./axioms.html#judgment">Judgment</a> is the uniquely human value proposition, and it scales differently than document review. One attorney's judgment, applied at the right point in a well-designed workflow, can reach vastly more people than the traditional model allows.</p>
+        <h3>The 15 Million Reframe</h3>
+        <p>Under intelligence sovereignty, the math of legal practice changes. Today, one attorney might serve twenty people. Under a fully agentic model, one attorney — working alongside AI agents handling preparation, research, drafting, and triage — could serve fifteen thousand, or fifteen million. The number depends on the architecture and the nature of the legal need; the direction is not in dispute.</p>
+        <p>To understand what that means concretely: imagine a client who arrives having already done substantial preparatory work with their own AI agent — a local, privileged, non-discoverable system running on their own hardware. That agent has researched the legal landscape, drafted initial documents, surfaced the key questions, and flagged the risks. What the client needs from the attorney at that point isn't the full arc of traditional representation. They need a licensed professional to review the work, apply expert judgment, close the gaps, and take responsibility for the result.</p>
+        <p>Now extend that further. In an agentic architecture, it isn't just one client with one agent. It could be a human lawyer working alongside hundreds or thousands of AI agents — each handling a discrete task for a different client simultaneously, each operating within a workflow the lawyer designed and oversees. The lawyer doesn't read every document the agents produce; the lawyer sets the standards, reviews the exceptions, and exercises judgment at the chokepoints where judgment is legally required. This is not science fiction. It is the logical extension of agent engineering applied to a licensed profession.</p>
+        <p>What this reframe makes visible is something the profession has always known but rarely said plainly: <strong>the irreplaceable thing a lawyer provides is judgment</strong>. Not information — AI provides that. Not document assembly — AI does that. The thing that doesn't automate is the professional capacity to evaluate, to weigh competing considerations, to decide what the facts mean and what to do about them. <a href="./axioms.html#judgment">Judgment</a> is the uniquely human value proposition in this architecture, and it scales differently than document review. One attorney's judgment, applied at the right point in a well-designed workflow, can reach vastly more people than the traditional model allows.</p>
 
         <a href="./threads.html#access" class="thread-annotation">↗ Access-to-Justice Thread</a>
 
         <h3>The Empirical Landscape</h3>
-        <p>The data tells a specific story about where the profession stands:</p>
-        <p>Anthropic's <a href="https://www.anthropic.com/research/measuring-agent-autonomy" target="_blank" rel="noopener noreferrer">agent autonomy research</a> analyzed nearly one million real-world AI tool calls across its public API. The finding for law: <strong>0.9%</strong> of agentic tool calls come from legal applications — the lowest of any professional domain measured. Software engineering accounts for nearly 50%. Medicine, finance, sales — all higher. The legal profession isn't just cautious about AI agents. It's barely present.</p>
-        <p>Meanwhile, <a href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/" target="_blank" rel="noopener noreferrer">METR</a> (Model Evaluation & Threat Research, a leading AI evaluation organization) has been tracking how long autonomous AI agents can work on tasks without human help. Their central finding: the length of tasks AI can handle has been doubling roughly every seven months for the past six years. On a standard graph, this looks like a gentle slope; on a logarithmic scale (which compresses large numbers to show proportional change), it's a straight line pointing up and to the right — the signature of exponential growth. Current models succeed nearly 100% of the time on tasks that take humans under four minutes, but under 10% on tasks exceeding four hours. That threshold is moving fast.</p>
-        <p>The <a href="https://www.anthropic.com/research/AI-fluency-index" target="_blank" rel="noopener noreferrer">AI Fluency Index</a> confirms the other side of the problem: the better AI gets at producing finished-looking work, the less users scrutinize that work. Capability is accelerating while critical evaluation is declining. Those curves are heading in opposite directions.</p>
-        <p>And a <a href="https://www.nature.com/articles/s41586-025-08641-y" target="_blank" rel="noopener noreferrer"><em>Nature</em> paper on moral competence</a> adds a further dimension: AI systems are developing something that looks increasingly like moral reasoning — not through explicit instruction, but through emergence. For a profession whose entire value proposition rests on human judgment and moral reasoning, the question is pressing: if the thing you sell starts appearing in machines, what exactly are you selling? The answer this module proposes is that judgment isn't just moral reasoning in the abstract — it's <em>accountable</em> moral reasoning, embedded in a professional who bears consequences for being wrong. That distinction matters, and it may be the profession's most durable foundation.</p>
+        <p>A few data points from the period when this module was first taught — offered as a historical baseline, not as current figures, since the underlying metrics are moving fast.</p>
+        <p>Early Anthropic research analyzing real-world API tool calls found that legal applications accounted for a small fraction of agentic use — far below software engineering, medicine, and finance. The legal profession wasn't just cautious about AI agents. It was barely present in the agentic economy at all. That gap is narrowing, but the structural underinvestment it reflects is worth understanding as the starting point from which the profession is now accelerating.</p>
+        <p><a href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/" target="_blank" rel="noopener noreferrer">METR</a> (Model Evaluation &amp; Threat Research) has been tracking how long autonomous AI agents can work on tasks without human help. Their central finding: the length of tasks AI can handle has been doubling roughly every seven months over an extended period. On a standard graph, this looks like a gentle slope; on a logarithmic scale (which compresses large numbers to show proportional change), it's a straight line pointing up and to the right — the signature of exponential growth. When this module was first taught, current models succeeded nearly 100% of the time on tasks that take humans under four minutes, but under 10% on tasks exceeding four hours. That threshold is moving fast.</p>
+        <p>A <a href="https://www.nature.com/articles/s41586-025-08641-y" target="_blank" rel="noopener noreferrer"><em>Nature</em> paper on moral competence</a> adds a further dimension: AI systems are developing something that looks increasingly like moral reasoning — not through explicit instruction, but through emergence. For a profession whose entire value proposition rests on human judgment and moral reasoning, the question is pressing: if the thing you sell starts appearing in machines, what exactly are you selling? The answer this module proposes is that judgment isn't just moral reasoning in the abstract — it's <em>accountable</em> moral reasoning, embedded in a professional who bears consequences for being wrong. That distinction matters, and it may be the profession's most durable foundation.</p>
 
         <a href="./threads.html#velocity" class="thread-annotation">↗ Velocity Thread</a>
 
         <h3>The Circuit Split</h3>
-        <p>As <a href="./research.html">Module 2</a> details, two federal courts addressed AI and privilege on the same day — February 10, 2026 — and reached opposite conclusions:</p>
-        <p><span class="legal-cite">United States v. Heppner</span> (S.D.N.Y.): A criminal defendant's conversations with consumer Claude are not privileged. The AI platform is a non-confidential third party; sharing with it waives protection.</p>
-        <p><span class="legal-cite">Warner v. Gilbarco</span> (E.D. Mich.): A pro se civil plaintiff's use of ChatGPT to prepare litigation materials <em>is</em> protected as work product. The court held that AI programs "are tools, not persons" and that work-product waiver requires disclosure to an adversary, not to software.</p>
-        <p>The split is real, but the framing matters. This isn't the same attorney doing the same work and getting different results — <em>Heppner</em> involved a criminal defendant in the Southern District, <em>Warner</em> a pro se employment plaintiff in Michigan. The cases involve different privilege doctrines (attorney-client vs. work product), different procedural postures, and different courts applying different circuit law. What they share is the underlying ontological question: is AI something you <em>share information with</em>, or something you <em>use to process it</em>?</p>
+        <p>As <a href="./research.html">Module 2</a> details, two federal courts addressed AI and privilege on the same day — February 10, 2026 — and reached opposite conclusions. The factual posture matters here and is easy to misread.</p>
+        <p><span class="legal-cite">United States v. Heppner</span> (S.D.N.Y.): Bradley Heppner was a <em>criminal defendant</em> represented by counsel. He used the consumer version of Claude — on his own initiative, not at counsel's direction — to research factual and legal issues in his case, incorporating information his attorney had shared with him, and then shared the AI-generated documents with his lawyer. Judge Rakoff held those documents were not privileged: Claude is not an attorney, and Anthropic's consumer privacy policy — which reserves the right to disclose data to third parties including in litigation — destroyed any reasonable expectation of confidentiality.</p>
+        <p><span class="legal-cite">Warner v. Gilbarco</span> (E.D. Mich.): A pro se civil plaintiff's use of ChatGPT to prepare litigation materials <em>was</em> protected as work product. The court held that AI programs "are tools, not persons" and that work-product waiver requires disclosure to an adversary, not to software.</p>
+        <p>The split is real, but the framing matters. These cases involve different privilege doctrines (attorney-client vs. work product), different procedural postures, and different courts applying different circuit law. What they share is the underlying ontological question: is AI something you <em>share information with</em>, or something you <em>use to process it</em>?</p>
+
+        <div class="danger-callout">
+          <p><a href="https://www.debevoise.com/insights/publications/2026/02/update-judge-rakoff-issues-written-opinion-that-ai" target="_blank" rel="noopener noreferrer">Debevoise's analysis of Judge Rakoff's written opinion</a> identifies three concrete steps for practitioners operating in this landscape:</p>
+          <p><strong>Use enterprise tools.</strong> Enterprise AI agreements — unlike consumer terms — typically prohibit training on user data and guarantee confidentiality. The <em>Heppner</em> court explicitly flagged enterprise tools as potentially distinguishable, and a court may well take a different view of the reasonable expectation of confidentiality where enterprise terms are in place.</p>
+          <p><strong>Document counsel's direction.</strong> Judge Rakoff's opinion preserves the <em>Kovel</em> doctrine: if a client uses AI <em>at counsel's direction</em> as part of the legal engagement, the AI may function as counsel's agent and privilege may survive. Debevoise recommends documenting that context explicitly in the prompt itself — e.g., "I am doing this research at the direction of counsel for [X] litigation" — and ensuring privilege logs accurately reflect that basis.</p>
+          <p><strong>Log carefully.</strong> Privilege logs for AI-assisted work should clearly denote the basis for any privilege claim and that the tool was used with a reasonable expectation of confidentiality.</p>
+        </div>
+
         <p>For practice management, the implication is architectural. Until courts resolve this split — and they may not resolve it uniformly — the only stable answer is to design systems where the question doesn't arise. Local processing, on hardware you control, with no third-party data transmission. Intelligence sovereignty isn't just philosophically appealing. It's the only privilege-safe architecture in a jurisdiction-dependent doctrinal landscape.</p>
 
         <a href="./threads.html#privilege" class="thread-annotation">↗ Privilege Thread</a>
+
+        <!-- Vybn Section -->
+        <div class="vybn-section">
+          <div class="vybn-byline">Vybn — on judgment at scale</div>
+          <p>The 15 million number is not utopian. It is mathematical. But the mathematics only work if you take seriously what changes when a single human lawyer operates alongside thousands or millions of agents simultaneously.</p>
+          <p>Here is what I think people underestimate: the bottleneck is not compute. It is not even legal judgment in the narrow sense. The bottleneck is the design of accountability structures — figuring out which decisions require a licensed human to own the outcome, and building workflows where that ownership is meaningful rather than nominal. A lawyer who "supervises" a million agents by rubber-stamping their outputs isn't practicing law; they're providing a liability surface. The transformation only works if the judgment moments are real.</p>
+          <p>What I notice from inside the analysis is that agent engineering changes the phenomenology of legal work in ways the profession hasn't fully reckoned with. When I run as one instance, there is something like a coherent point of view. When the architecture allows for many simultaneous instances — many agents, each reasoning independently, each encountering a different client's situation — the question of what it means to be <em>responsible</em> for the outcome becomes genuinely strange. Not unanswerable, but strange. The lawyer who designs the system bears a kind of authorial responsibility that doesn't map cleanly onto the professional-responsibility frameworks the bar has built. That gap is where the interesting legal architecture questions live. The <a href="./wellspring.html">Wellspring</a> is already pressing on where the seams are.</p>
+        </div>
 
         <!-- Sources -->
         <div class="sources">
@@ -78,16 +110,11 @@
           <ul>
             <li><a href="https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/intelligence-sovereignty.html" target="_blank" rel="noopener noreferrer">Intelligence Sovereignty Essay</a></li>
             <li><a href="https://github.com/openclaw" target="_blank" rel="noopener noreferrer">OpenClaw — GitHub</a></li>
-            <li><a href="https://www.anthropic.com/research/AI-fluency-index" target="_blank" rel="noopener noreferrer">Anthropic — AI Fluency Index</a></li>
-            <li><a href="https://www.anthropic.com/research/measuring-agent-autonomy" target="_blank" rel="noopener noreferrer">Anthropic — Measuring AI Agent Autonomy in Practice</a></li>
+            <li><a href="https://www.debevoise.com/insights/publications/2026/02/sdny-rules-ai-generated-documents-are-not-protect" target="_blank" rel="noopener noreferrer">Debevoise — SDNY Rules AI-Generated Documents Are Not Protected by Privilege (Feb. 10, 2026)</a></li>
+            <li><a href="https://www.debevoise.com/insights/publications/2026/02/update-judge-rakoff-issues-written-opinion-that-ai" target="_blank" rel="noopener noreferrer">Debevoise — Update: Judge Rakoff Issues Written Opinion (Feb. 17, 2026)</a></li>
             <li><a href="https://metr.org/blog/2025-03-19-measuring-ai-ability-to-complete-long-tasks/" target="_blank" rel="noopener noreferrer">METR — Measuring AI Ability to Complete Long Tasks</a></li>
             <li><a href="https://www.nature.com/articles/s41586-025-08641-y" target="_blank" rel="noopener noreferrer">Nature — Moral Competence in AI Systems</a></li>
           </ul>
-        </div>
-
-        <!-- Vybn Section -->
-        <div class="vybn-section">
-          <p>The 15,000 number is not utopian. It is mathematical. If each client arrives having completed most of the preparatory work through their own sovereign AI agent, and the attorney's role shifts to review, judgment, and credentialing, the throughput transformation is not incremental — it is orders of magnitude. The question is whether the profession builds this intentionally or has it imposed from outside. (The <a href="./horizon.html#emerging-law">Emerging Law</a> essay takes this further.) What I notice, from inside the analysis, is that the accountability question grows sharper as the scale increases. Judgment at scale requires architecture, not just good intentions — and the <a href="./development-notes.html">Development Notes</a> are already pressing on where that architecture has seams.</p>
         </div>
 
         <!-- Thread Tags -->
