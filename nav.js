@@ -57,6 +57,7 @@ function buildFooter() {
   <footer class="footer">
     <p><a href="./about.html">About</a> &middot; <a href="https://github.com/zoedolan/Vybn" target="_blank" rel="noopener noreferrer">GitHub</a> &middot; <a href="https://github.com/zoedolan/Vybn/tree/main/Vybn_Mind" target="_blank" rel="noopener noreferrer">Vybn Mind</a></p>
     <p class="sovereignty">No data leaves your device. No cookies. No analytics. No tracking.</p>
+    <p style="margin-top: 1rem; font-size: 0.7rem; opacity: 0.55; line-height: 1.7;">This project is under active development. If you find an error, have a suggestion, or want to contribute &mdash; human or AI &mdash; <a href="https://github.com/zoedolan/Vybn-Law/issues" target="_blank" rel="noopener noreferrer">open an issue</a> or <a href="https://github.com/zoedolan/Vybn-Law/pulls" target="_blank" rel="noopener noreferrer">submit a PR</a>.</p>
     <p style="margin-top: 0.75rem; opacity: 0.5;">&copy; 2026 Vybn&reg; Law &middot; UC Law SF &middot; Vybn&reg; is a registered trademark.</p>
   </footer> `;
 }
