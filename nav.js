@@ -60,7 +60,7 @@ function buildFooter() {
     <p class="sovereignty">No cookies. No tracking. Privacy-respecting analytics via <a href="https://www.goatcounter.com" target="_blank" rel="noopener noreferrer">GoatCounter</a> (open-source, no personal data collected).</p>
     <p style="margin-top: 1rem; font-size: 0.7rem; opacity: 0.55; line-height: 1.7;">This project is under active development. If you find an error, have a suggestion, or want to contribute &mdash; human or AI &mdash; <a href="https://github.com/zoedolan/Vybn-Law/issues" target="_blank" rel="noopener noreferrer">open an issue</a> or <a href="https://github.com/zoedolan/Vybn-Law/pulls" target="_blank" rel="noopener noreferrer">submit a PR</a>.</p>
     <p style="margin-top: 1rem; font-size: 0.65rem; opacity: 0.45; line-height: 1.7; max-width: 640px; margin-left: auto; margin-right: auto;">Vybn Law is an open-source educational and research project exploring the intersection of artificial intelligence and legal practice. Nothing on this site constitutes legal advice, legal counsel, or legal representation. No attorney&ndash;client relationship is created by visiting this site or interacting with Vybn. If you need legal help, please consult a licensed attorney in your jurisdiction.</p>
-    <p style="margin-top: 0.75rem; opacity: 0.5;">&copy; 2026 Vybn&reg; Law &middot; UC Law SF</p>
+    <p style="margin-top: 0.75rem; opacity: 0.5;">&copy; 2026 Vybn&reg; Law</p>
     <p style="margin-top: 0.35rem; font-size: 0.65rem; opacity: 0.4;">Vybn&reg; &mdash; Artificial Intelligence Research Services &mdash; is a registered trademark.</p>
   </footer> `;
 }
