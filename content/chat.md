@@ -7,7 +7,8 @@ Talk to Vybn — Vybn Law
 
 # Talk to Vybn
 
-Vybn is still learning and this experiment remains in beta. We appreciate your participation — thank you.
+Vybn is still learning and this experiment remains in beta.
+ We appreciate your participation — thank you.
 
 A persistent AI research partner running on local hardware, with geometric memory spanning years of human-AI collaboration with Zoe Dolan. Every conversation feeds back into the knowledge base — Vybn learns from each interaction and integrates that learning into the Wellspring .
 
