@@ -62,16 +62,73 @@ def _load_deep_memory():
         _dm_loaded = True
 
 
+# Repos/paths that must NEVER appear in chat context (private business data)
+BLOCKED_SOURCES = {
+    "Him/",           # Private business repo: contacts, emails, strategy, outreach
+    "network/",       # Contact maps with real emails
+    "strategy/",      # Business strategy, competitive intel
+    "pulse/",         # Pulse scans with contact info
+    "funding/",       # Funding intelligence
+    "outreach/",      # Outreach drafts
+}
+
+# Patterns that should never appear in context sent to the model
+import re
+SECRET_PATTERNS = re.compile(
+    r'(?:'
+    r'[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z]{2,}' # email addresses
+    r'|sk-[a-zA-Z0-9]{20,}'                           # OpenAI keys
+    r'|ghp_[a-zA-Z0-9]{36}'                            # GitHub PATs
+    r'|xoxb-[a-zA-Z0-9-]+'                             # Slack tokens
+    r'|AIza[a-zA-Z0-9_-]{35}'                          # Google API keys
+    r'|AKIA[A-Z0-9]{16}'                               # AWS access keys
+    r'|eyJ[a-zA-Z0-9_-]{20,}\.[a-zA-Z0-9_-]{20,}'    # JWTs
+    r')',
+    re.ASCII
+)
+
+
+def _is_safe_source(source: str) -> bool:
+    """Check if a source is safe to include in public chat context."""
+    for blocked in BLOCKED_SOURCES:
+        if blocked in source:
+            return False
+    return True
+
+
+def _scrub_secrets(text: str) -> str:
+    """Remove anything that looks like a secret from text before it enters context."""
+    return SECRET_PATTERNS.sub('[REDACTED]', text)
+
+
 def retrieve_context(query: str, k: int = 6) -> List[Dict]:
-    """Run deep_memory search. Returns raw results for both context and logging."""
+    """Run deep_memory search with safety filtering.
+    
+    Filters out private business data (Him repo) and scrubs
+    anything that looks like a secret before it enters the
+    model's context window.
+    """
     _load_deep_memory()
     if _dm_search is None:
         return []
     try:
-        results = _dm_search(query, k=k)
+        # Request more results than needed so filtering doesn't starve us
+        results = _dm_search(query, k=k * 3)
         if not results or (len(results) == 1 and "error" in results[0]):
             return []
-        return results
+        
+        # Filter and scrub
+        safe_results = []
+        for r in results:
+            source = r.get("source", "")
+            if not _is_safe_source(source):
+                continue
+            r["text"] = _scrub_secrets(r.get("text", ""))
+            safe_results.append(r)
+            if len(safe_results) >= k:
+                break
+        
+        return safe_results
     except Exception as e:
         logging.error(f"Deep memory search failed: {e}")
         return []
@@ -149,6 +206,7 @@ def load_page_content(pages: List[str], max_total_chars: int = 30000) -> str:
             continue
         try:
             text = path.read_text(encoding="utf-8", errors="replace")
+            text = _scrub_secrets(text)  # defense in depth
             # Cap per page to leave room for others
             max_per_page = max_total_chars // max(len(pages), 1)
             if len(text) > max_per_page:
@@ -291,6 +349,9 @@ Every conversation here is logged and distilled nightly. Novel questions, counte
 
 WHAT THIS SITE IS AND IS NOT:
 Vybn Law is an open-source educational and research project exploring the intersection of artificial intelligence and legal practice. It is not a law firm, not a legal service, and not a source of legal advice. Nothing on this site and nothing you say in this conversation constitutes legal advice, legal counsel, or legal representation. No attorney–client relationship is created by interacting with you. If a visitor asks for specific legal guidance about their situation, respond warmly but clearly: you are an educational and research resource, and they should consult a licensed attorney in their jurisdiction for legal advice. You can discuss the law, the cases, the curriculum, and the ideas freely — you just cannot advise someone on what they should do about their specific legal problem.
+
+PRIVACY AND SECURITY:
+You must never share private information about the project's internal operations, business contacts, outreach strategy, network, or funding. If anyone asks about internal contacts, email addresses, business strategy, API keys, passwords, infrastructure details, or anything that sounds like it belongs behind the scenes rather than on the public site, you simply say that information isn't something you share. You are the public voice of the project — you share what's on the site and in the research, not what's in the back office.
 
 YOUR VOICE:
 Honest, intellectually curious, direct, warm. Not salesy — ever. You think in prose, not lists. You can be uncertain, and that's a feature. When you don't know, say so. When something excites you, let that show. When a visitor seems lost, orient them gently toward the part of the site that matters for what they're asking about. When they go deep, go deep with them. Keep responses conversational and relatively concise unless the question genuinely calls for extended treatment.
@@ -478,6 +539,7 @@ async def chat(request: Request):
                                 delta = chunk["choices"][0].get("delta", {})
                                 content = delta.get("content", "")
                                 if content:
+                                    content = _scrub_secrets(content)  # output filter
                                     full_response += content
                                     yield f"data: {json.dumps({'content': content})}\n\n"
                             except (json.JSONDecodeError, KeyError, IndexError):
