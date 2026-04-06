@@ -305,12 +305,13 @@ async def chat(request: Request):
         try:
             async with httpx.AsyncClient(timeout=httpx.Timeout(120.0)) as client:
                 payload = {
-                    "model": "nvidia/Llama-3.3-Nemotron-Super-49B-v1",
+                    "model": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8",
                     "messages": messages,
                     "stream": True,
                     "max_tokens": 2048,
                     "temperature": 0.7,
                     "top_p": 0.9,
+                    "chat_template_kwargs": {"enable_thinking": False},
                 }
 
                 async with client.stream(

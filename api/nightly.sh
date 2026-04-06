@@ -25,7 +25,8 @@ echo "Started: $(date -u)"
 echo "--- Pulling repos ---"
 for d in ~/Vybn ~/Him ~/Vybn-Law ~/vybn-phase; do
   if [ -d "$d" ]; then
-    (cd "$d" && git pull --ff-only origin main 2>/dev/null || true)
+    branch=$(cd "$d" && git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@') || branch="main"
+    (cd "$d" && git pull --ff-only origin "$branch" 2>/dev/null || true)
     echo "  Pulled: $d"
   fi
 done

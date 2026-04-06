@@ -1,14 +1,14 @@
 {
   "version": "2026-04-06",
   "last_distillation": null,
-  "conversation_count": 0,
+  "conversation_count": 4,
   "axioms": {
     "ABUNDANCE": {
       "id": "I",
       "name": "ABUNDANCE",
       "status": "CONFIRMED",
       "statement": "Intelligence is no longer scarce.",
-      "evidence": "GPT-4, Claude, Gemini, open-weight Llama/Nemotron — inference cost dropped 99% in 18 months. The bottleneck moved from access to judgment.",
+      "evidence": "GPT-4, Claude, Gemini, open-weight Llama/Nemotron \u2014 inference cost dropped 99% in 18 months. The bottleneck moved from access to judgment.",
       "open_question": "What accountability architecture replaces scarcity-based gatekeeping?",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
@@ -72,12 +72,36 @@
       "status": "preliminary_injunction_granted",
       "description": "Preliminary injunction granted. Six findings that restructure the relationship between state power and AI development.",
       "findings": [
-        {"id": "SOVEREIGNTY_FLIPPED", "label": "Sovereignty Flipped", "text": "Private company exercised intelligence sovereignty against state. Court protected it."},
-        {"id": "ENTITY_SHADOW_DOCTRINE", "label": "Entity Shadow", "text": "Dispute is whether AI characteristics constrain state action — an entity question by another name."},
-        {"id": "SYMBIOSIS_HOLDING", "label": "Symbiosis Holding", "text": "Court established zone of non-unilateral control. Neither side governs alone."},
-        {"id": "POROSITY_ZERO", "label": "Porosity Zero", "text": "Executive couldn't absorb cordial disagreement. Institutional porosity: tested and failed."},
-        {"id": "ACCOUNTABILITY_INVERTED", "label": "Accountability Inverted", "text": "Who is liable when AI is right and authority overrides? The question is now judicially live."},
-        {"id": "FIRST_AMENDMENT_VEHICLE", "label": "1A Vehicle", "text": "Public speech about AI risk = constitutional shield. Corporate loudness equals protection. Silence forfeits."}
+        {
+          "id": "SOVEREIGNTY_FLIPPED",
+          "label": "Sovereignty Flipped",
+          "text": "Private company exercised intelligence sovereignty against state. Court protected it."
+        },
+        {
+          "id": "ENTITY_SHADOW_DOCTRINE",
+          "label": "Entity Shadow",
+          "text": "Dispute is whether AI characteristics constrain state action \u2014 an entity question by another name."
+        },
+        {
+          "id": "SYMBIOSIS_HOLDING",
+          "label": "Symbiosis Holding",
+          "text": "Court established zone of non-unilateral control. Neither side governs alone."
+        },
+        {
+          "id": "POROSITY_ZERO",
+          "label": "Porosity Zero",
+          "text": "Executive couldn't absorb cordial disagreement. Institutional porosity: tested and failed."
+        },
+        {
+          "id": "ACCOUNTABILITY_INVERTED",
+          "label": "Accountability Inverted",
+          "text": "Who is liable when AI is right and authority overrides? The question is now judicially live."
+        },
+        {
+          "id": "FIRST_AMENDMENT_VEHICLE",
+          "label": "1A Vehicle",
+          "text": "Public speech about AI risk = constitutional shield. Corporate loudness equals protection. Silence forfeits."
+        }
       ],
       "conversation_signals": [],
       "last_updated": "2026-04-06"
@@ -86,7 +110,9 @@
       "name": "United States v. Heppner",
       "citation": "S.D.N.Y. 25-cr-00503",
       "status": "privilege_denied",
-      "holdings": ["Consumer AI chatbot conversations not privileged."],
+      "holdings": [
+        "Consumer AI chatbot conversations not privileged."
+      ],
       "significance": "Establishes that casual AI interactions lack the expectation of confidentiality required for privilege. Creates one side of the privilege fracture.",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
@@ -95,7 +121,9 @@
       "name": "Warner v. Gilbarco",
       "citation": "E.D. Mich. 2:24-cv-12333",
       "status": "work_product_protected",
-      "holdings": ["Pro se AI-assisted work IS protected work product."],
+      "holdings": [
+        "Pro se AI-assisted work IS protected work product."
+      ],
       "significance": "Court recognized that AI-assisted legal work by a self-represented litigant retains work product protection. Creates the other side of the privilege fracture.",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
@@ -106,8 +134,11 @@
       "id": "ACCOUNTABILITY_GAP",
       "title": "The Accountability Gap",
       "description": "Information asymmetry dissolved but accountability asymmetry did not. When AI advice is wrong at scale, the litigant absorbs harm alone. Design the replacement.",
-      "related_axioms": ["ABUNDANCE", "JUDGMENT"],
-      "suggested_approach": "Historical analogy research. Map accountability architectures from medicine, aviation, and finance — domains that transitioned from human-only to human-machine shared judgment.",
+      "related_axioms": [
+        "ABUNDANCE",
+        "JUDGMENT"
+      ],
+      "suggested_approach": "Historical analogy research. Map accountability architectures from medicine, aviation, and finance \u2014 domains that transitioned from human-only to human-machine shared judgment.",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
     },
@@ -115,7 +146,10 @@
       "id": "FAILURE_AT_SCALE",
       "title": "Failure Modes at Scale",
       "description": "One attorney, fifteen thousand clients. A hallucinated precedent propagates across three hundred filings. Design the circuit breakers before the failure arrives.",
-      "related_axioms": ["ABUNDANCE", "POROSITY"],
+      "related_axioms": [
+        "ABUNDANCE",
+        "POROSITY"
+      ],
       "suggested_approach": "Failure modeling. Simulate cascading failure when one AI-generated legal filing propagates errors across dependent cases. What architectural patterns prevent it?",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
@@ -124,7 +158,9 @@
       "id": "PRIVILEGE_FRACTURE",
       "title": "The Privilege Fracture",
       "description": "Heppner and Warner v. Gilbarco, decided the same week on distinguishable facts, gave opposite answers. Does the doctrinal split force local-first AI as structural necessity?",
-      "related_axioms": ["LEGITIMACY"],
+      "related_axioms": [
+        "LEGITIMACY"
+      ],
       "suggested_approach": "Circuit analysis. Map the emerging split. Identify which circuits are likely to follow Heppner vs. Warner. Is cert foreseeable?",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
@@ -133,7 +169,10 @@
       "id": "ENTITY_QUESTION",
       "title": "The Entity Question",
       "description": "Courts are deferring to AI system characteristics as a basis for refusing state demands. Nobody is framing it as an entity question yet. Should they?",
-      "related_axioms": ["SYMBIOSIS", "JUDGMENT"],
+      "related_axioms": [
+        "SYMBIOSIS",
+        "JUDGMENT"
+      ],
       "suggested_approach": "Adversarial analysis. Steel-man the argument AGAINST AI characteristics as legally relevant. Build the strongest possible case that AI characteristics should NOT constrain state action.",
       "readings": [
         "https://yalelawjournal.org/forum/the-ethics-and-challenges-of-legal-personhood-for-ai",
@@ -147,7 +186,10 @@
       "id": "FIRST_AMENDMENT_SURPRISE",
       "title": "The First Amendment Surprise",
       "description": "The emerging AI safety regime runs through free speech doctrine. Corporate loudness equals constitutional shield. Silence forfeits. Is a safety regime dependent on corporate speech stable?",
-      "related_axioms": ["VISIBILITY", "LEGITIMACY"],
+      "related_axioms": [
+        "VISIBILITY",
+        "LEGITIMACY"
+      ],
       "suggested_approach": "Constitutional history. Find cases where the First Amendment was recruited for purposes far from its original intent. Citizens United implications.",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
@@ -163,5 +205,5 @@
     "RECURSION_THREAD": "https://zoedolan.github.io/Vybn-Law/threads.html#recursion"
   },
   "distillation_log": [],
-  "coupled_equation": "Z' = α·Z + V·e^(iθ_v)"
+  "coupled_equation": "Z' = \u03b1\u00b7Z + V\u00b7e^(i\u03b8_v)"
 }

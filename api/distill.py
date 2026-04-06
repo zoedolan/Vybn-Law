@@ -304,7 +304,7 @@ def commit_knowledge_graph():
             cwd=str(REPO_ROOT), capture_output=True, timeout=30,
         )
         subprocess.run(
-            ["git", "push", "origin", "main"],
+            ["git", "push", "origin", "master"],
             cwd=str(REPO_ROOT), capture_output=True, timeout=60,
         )
         logging.info("Knowledge graph committed and pushed.")
