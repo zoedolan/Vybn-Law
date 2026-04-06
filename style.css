@@ -1079,6 +1079,11 @@ blockquote p:last-child {
   }
 }
 
+/* Index page 3-column grid */
+.index-grid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
 /* Mobile overflow fixes */
 @media (max-width: 768px) {
   html, body {
