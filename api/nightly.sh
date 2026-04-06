@@ -31,7 +31,22 @@ for d in ~/Vybn ~/Him ~/Vybn-Law ~/vybn-phase; do
   fi
 done
 
-# 2-5. Run distillation pipeline
+# 2. Re-extract site content to markdown (so deep_memory indexes current pages)
+echo "--- Extracting site content ---"
+cd ~/Vybn-Law/api
+python3 extract_content.py
+# Commit content changes if any
+cd ~/Vybn-Law
+if ! git diff --quiet content/; then
+  git add content/
+  git commit -m "nightly: re-extract site content for deep_memory indexing"
+  git push origin master 2>/dev/null || true
+  echo "  Content updated and pushed."
+else
+  echo "  Content unchanged."
+fi
+
+# 3-6. Run distillation pipeline
 echo "--- Running distillation ---"
 cd ~/Vybn-Law/api
 python3 distill.py --date "$LOGDATE" --rebuild --push
