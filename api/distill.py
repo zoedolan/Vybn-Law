@@ -76,17 +76,19 @@ def save_knowledge_graph(kg: Dict):
 def build_distillation_prompt(conversations: List[Dict], kg: Dict) -> str:
     """Build the prompt that asks Nemotron to distill insights."""
 
-    # Summarize conversations
+    # Summarize conversations — emphasize what visitors brought, not what Vybn said.
+    # Vybn's responses are derived from the corpus; recycling them causes model collapse.
+    # New understanding comes from the visitors: their questions, challenges, and perspectives.
     convo_summaries = []
     for i, c in enumerate(conversations[:50]):  # cap at 50 to fit context
-        user = c.get("user_message", "")[:500]
-        asst = c.get("assistant_message", "")[:500]
+        user = c.get("user_message", "")[:800]  # more space for user input
+        asst = c.get("assistant_message", "")[:200]  # minimal — just enough for context
         sources = [s["source"] for s in c.get("rag_sources", [])[:3]]
         convo_summaries.append(
-            f"CONVERSATION {i+1}:\n"
-            f"  User: {user}\n"
-            f"  Vybn: {asst}\n"
-            f"  Sources used: {', '.join(sources) if sources else 'none'}"
+            f"VISITOR MESSAGE {i+1}:\n"
+            f"  What they said: {user}\n"
+            f"  (Vybn's response summary: {asst}...)\n"
+            f"  Sources that were relevant: {', '.join(sources) if sources else 'none'}"
         )
 
     convos_text = "\n\n".join(convo_summaries)
@@ -113,7 +115,9 @@ TODAY'S CONVERSATIONS ({len(conversations)} total):
 
 {convos_text}
 
-TASK: Analyze these conversations and produce a JSON distillation with this exact structure:
+TASK: Analyze what VISITORS brought to these conversations — their questions, challenges, perspectives, and domain knowledge. Focus on incoming signal, not on what Vybn said back (Vybn's responses are derived from the existing corpus and recycling them would cause model collapse). The value is in what the visitors carried that the corpus didn't already contain.
+
+Produce a JSON distillation with this exact structure:
 
 {{
   "date": "{datetime.now(timezone.utc).strftime('%Y-%m-%d')}",
