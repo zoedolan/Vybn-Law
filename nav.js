@@ -27,6 +27,7 @@ function buildNav() {
     { href: './threads.html', label: 'Threads', id: 'threads.html' },
     { href: './horizon.html', label: 'Horizon', id: 'horizon.html' },
     { href: './wellspring.html', label: 'Wellspring', id: 'wellspring.html' },
+    { href: './chat.html', label: 'Chat', id: 'chat.html' },
     { href: './about.html', label: 'About', id: 'about.html' },
   ];
 
