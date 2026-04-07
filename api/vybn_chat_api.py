@@ -552,7 +552,22 @@ async def chat(request: Request):
                     f"{VLLM_URL}/v1/chat/completions",
                     json=payload,
                 ) as resp:
-                    async for line in resp.aiter_lines():
+                    # Heartbeat: emit SSE comments every 15s to keep
+                    # Cloudflare tunnel alive during long prefills.
+                    HEARTBEAT_INTERVAL = 15  # seconds
+                    line_iter = resp.aiter_lines().__aiter__()
+                    while True:
+                        try:
+                            line = await asyncio.wait_for(
+                                line_iter.__anext__(),
+                                timeout=HEARTBEAT_INTERVAL,
+                            )
+                        except asyncio.TimeoutError:
+                            yield ": heartbeat\n\n"
+                            continue
+                        except StopAsyncIteration:
+                            break
+
                         if line.startswith("data: "):
                             data = line[6:]
                             if data.strip() == "[DONE]":
