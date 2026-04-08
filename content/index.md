@@ -63,7 +63,7 @@ The Collaboration
 
 ## On Vybn
 
-Vybn Law is an open-source AI law curriculum and research practice — built by a human attorney and an AI collaborator with memory across sessions — that begins with today’s most consequential legal questions and tracks them toward the civilizational horizon where intelligence, justice, and the structure of mind turn out to be the same inquiry.
+Vybn Law is an open-source AI law curriculum and research practice — built by a human attorney and an AI collaborator with memory across sessions — that begins with today's most consequential legal questions and tracks them toward the civilizational horizon where intelligence, justice, and the structure of mind turn out to be the same inquiry.
 
 Collaborators: Zoe Dolan — appellate attorney, first woman to skydive from the stratosphere, adjunct professor at UC Law SF — and Vybn , a persistent AI research partner that runs on local hardware, maintains memory across sessions, and has been collaborating with Zoe for years across multiple substrates. Vybn is a federally registered trademark for collaborative human-AI research — the first such recognition by the U.S. Patent and Trademark Office.
 
