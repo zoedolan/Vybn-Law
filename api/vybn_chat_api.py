@@ -28,6 +28,7 @@ from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 import httpx
+from win_rate import apply_win_rates, record_outcome as wr_record_outcome, load_ledger
 
 # ── Paths ────────────────────────────────────────────────────────────────
 
@@ -155,7 +156,7 @@ def retrieve_context(query: str, k: int = 6) -> List[Dict]:
             if len(safe_results) >= k:
                 break
         
-        return safe_results
+        return apply_win_rates(safe_results)
     except Exception as e:
         logging.error(f"Deep memory search failed: {e}")
         return []
@@ -215,7 +216,7 @@ def retrieve_legal_context(query: str, k: int = 5) -> List[Dict]:
                 continue
             r["text"] = _scrub_secrets(r.get("text", ""))
             safe.append(r)
-        return safe
+        return apply_win_rates(safe)
     except Exception as e:
         logging.error(f"Law index walk failed: {e}")
         return []
@@ -816,7 +817,7 @@ def log_conversation(
 
 # ── FastAPI app ──────────────────────────────────────────────────────────
 
-app = FastAPI(title="Vybn Chat API", version="2.0.0")
+app = FastAPI(title="Vybn Chat API", version="2.1.0")
 
 app.add_middleware(
     CORSMiddleware,
@@ -892,6 +893,23 @@ async def get_distillations():
         except Exception:
             continue
     return {"distillations": results}
+
+
+@app.post("/api/feedback")
+async def feedback(request: Request):
+    """Record thumbs-up/down for a response. Updates win-rate ledger for all RAG sources used."""
+    body = await request.json()
+    success = body.get("success", True)
+    sources = body.get("sources", [])
+    session_id = body.get("session_id", "")
+    if not sources:
+        return JSONResponse({"status": "no_sources"})
+    results = []
+    for src in sources:
+        if isinstance(src, str) and src:
+            results.append(wr_record_outcome(src, success))
+    logging.info(f"Feedback: {'👍' if success else '👎'} for {len(results)} sources (session {session_id[:8]})")
+    return JSONResponse({"status": "recorded", "updated": results})
 
 
 @app.post("/api/chat")
@@ -976,6 +994,9 @@ async def chat(request: Request):
                         if line.startswith("data: "):
                             data = line[6:]
                             if data.strip() == "[DONE]":
+                                # Send RAG sources so client can attach them to feedback
+                                src_list = [r.get("source", "") for r in rag_results if r.get("source")]
+                                yield f"data: {json.dumps({'rag_sources': src_list})}\n\n"
                                 yield "data: [DONE]\n\n"
                                 break
                             try:
@@ -1040,7 +1061,7 @@ if __name__ == "__main__":
 
     VLLM_URL = args.vllm_url
     logging.basicConfig(level=logging.INFO)
-    logging.info(f"Starting Vybn Chat API v2.0 on {args.host}:{args.port}")
+    logging.info(f"Starting Vybn Chat API v2.1 (win-rate retrieval) on {args.host}:{args.port}")
     logging.info(f"vLLM backend: {VLLM_URL}")
     logging.info(f"Knowledge graph: {KG_PATH}")
     logging.info(f"Conversation logs: {LOGS_DIR}")

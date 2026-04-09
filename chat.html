@@ -549,6 +549,9 @@
             if (data === '[DONE]') continue;
             try {
               const parsed = JSON.parse(data);
+              if (parsed.rag_sources) {
+                msgEl._ragSources = parsed.rag_sources;
+              }
               const delta = parsed.content || parsed.choices?.[0]?.delta?.content || '';
               if (delta) {
                 fullResponse += delta;
@@ -560,6 +563,7 @@
         }
 
         conversationHistory.push({ role: 'assistant', content: fullResponse });
+        addFeedbackButtons(msgEl);
 
       } catch (err) {
         typingIndicator.classList.remove('active');
@@ -604,6 +608,36 @@
                  .replace(/<p>\s*(<(?:pre|ul|blockquote)>)/g, '$1')
                  .replace(/(<\/(?:pre|ul|blockquote)>)\s*<\/p>/g, '$1');
       return html;
+    }
+
+    function addFeedbackButtons(msgEl) {
+      const fb = document.createElement('div');
+      fb.className = 'msg-feedback';
+      const up = document.createElement('button');
+      up.textContent = '👍';
+      up.title = 'Helpful';
+      const down = document.createElement('button');
+      down.textContent = '👎';
+      down.title = 'Not helpful';
+      const handler = (success) => {
+        up.disabled = true;
+        down.disabled = true;
+        (success ? up : down).classList.add('selected');
+        fb.classList.add('voted');
+        const sources = msgEl._ragSources || [];
+        if (sources.length) {
+          fetch(CHAT_API + '/api/feedback', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ success, sources, session_id: sessionId }),
+          }).catch(() => {});
+        }
+      };
+      up.addEventListener('click', () => handler(true));
+      down.addEventListener('click', () => handler(false));
+      fb.appendChild(up);
+      fb.appendChild(down);
+      msgEl.querySelector('.msg-body').appendChild(fb);
     }
 
     function scrollToBottom() { chatMessages.scrollTop = chatMessages.scrollHeight; }
