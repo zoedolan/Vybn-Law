@@ -288,31 +288,38 @@ def extract_legal_concepts(query: str, history: List[Dict] = None) -> List[str]:
     No curated word list — any substantive term gets searched.
     Also scans recent conversation history for concepts Vybn discussed.
     """
-    concepts = []
+    phrases = []   # higher priority: multi-word concepts
+    singles = []   # lower priority: individual words
     q = query.lower().strip()
 
     # 1. If query is short (<=4 words), search the whole thing as-is
     if len(q.split()) <= 4:
         cleaned = q.strip(".,?!;:\"'()")
         if cleaned and len(cleaned) > 2:
-            concepts.append(cleaned)
+            phrases.append(cleaned)
 
-    # 2. Extract all non-trivial words from the query
-    for word in q.split():
-        word = word.strip(".,?!;:\"'()-").lower()
-        if len(word) >= 4 and word not in _FOLIO_STOPWORDS:
-            if word not in concepts:
-                concepts.append(word)
-
-    # 3. Detect multi-word phrases by adjacency (bigrams)
+    # 2. Bigrams FIRST — "due process" is far more useful than "process"
     words = [w.strip(".,?!;:\"'()-").lower() for w in q.split()]
     for i in range(len(words) - 1):
         bigram = f"{words[i]} {words[i+1]}"
         if (len(words[i]) >= 3 and len(words[i+1]) >= 3
                 and words[i] not in _FOLIO_STOPWORDS
                 and words[i+1] not in _FOLIO_STOPWORDS
-                and bigram not in concepts):
-            concepts.append(bigram)
+                and bigram not in phrases):
+            phrases.append(bigram)
+
+    # 3. Single words fill remaining slots
+    for word in q.split():
+        word = word.strip(".,?!;:\"'()-").lower()
+        if len(word) >= 4 and word not in _FOLIO_STOPWORDS:
+            if word not in singles:
+                singles.append(word)
+
+    # Combine: phrases first, then singles not already covered by a phrase
+    concepts = list(phrases)
+    for s in singles:
+        if s not in concepts:
+            concepts.append(s)
 
     # 4. Scan conversation history for concepts to search
     if history:
