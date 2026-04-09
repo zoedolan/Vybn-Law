@@ -20,7 +20,7 @@ Usage:
     python3 distill.py --rebuild          # also rebuild deep_memory index
 """
 
-import argparse, json, sys, logging, subprocess
+import argparse, json, re, sys, logging, subprocess
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import List, Dict
@@ -153,34 +153,67 @@ Return ONLY the JSON. No markdown fences. No explanation."""
 
 # ── Call Nemotron for distillation ───────────────────────────────────────
 
+def _extract_json(text: str) -> Dict:
+    """Extract the first valid top-level JSON object from model output.
+
+    Nemotron 120B sometimes emits chain-of-thought reasoning before JSON.
+    This walks the string looking for balanced braces.
+    """
+    # Strip <think>…</think> blocks if present
+    text = re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL)
+    # Strip markdown fences
+    text = re.sub(r"```(?:json)?\n?", "", text)
+
+    start = text.find("{")
+    if start == -1:
+        raise json.JSONDecodeError("No JSON object found", text, 0)
+
+    depth = 0
+    in_string = False
+    escape = False
+    for i in range(start, len(text)):
+        c = text[i]
+        if escape:
+            escape = False
+            continue
+        if c == "\\":
+            escape = True
+            continue
+        if c == '"' and not escape:
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+        if c == '{':
+            depth += 1
+        elif c == '}':
+            depth -= 1
+            if depth == 0:
+                return json.loads(text[start:i + 1])
+
+    raise json.JSONDecodeError("Unterminated JSON object", text[start:start+200], 0)
+
+
 def distill_via_nemotron(prompt: str) -> Dict:
     """Send the distillation prompt to Nemotron and parse the JSON response."""
+    content = ""
     try:
-        with httpx.Client(timeout=httpx.Timeout(180.0)) as client:
+        with httpx.Client(timeout=httpx.Timeout(300.0)) as client:
             resp = client.post(
                 f"{VLLM_URL}/v1/chat/completions",
                 json={
-                    "model": "nvidia/Llama-3.3-Nemotron-Super-49B-v1",
+                    "model": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8",
                     "messages": [
-                        {"role": "system", "content": "You are a precise analytical engine. Return only valid JSON."},
+                        {"role": "system", "content": "You are a precise analytical engine. You MUST return ONLY a single JSON object. No reasoning, no preamble, no explanation — just the JSON."},
                         {"role": "user", "content": prompt},
                     ],
                     "max_tokens": 4096,
-                    "temperature": 0.3,  # low temp for analytical precision
+                    "temperature": 0.2,
                 },
             )
             resp.raise_for_status()
             content = resp.json()["choices"][0]["message"]["content"]
-
-            # Strip markdown fences if present
-            content = content.strip()
-            if content.startswith("```"):
-                content = content.split("\n", 1)[1]
-                if content.endswith("```"):
-                    content = content[:-3]
-                content = content.strip()
-
-            return json.loads(content)
+            return _extract_json(content)
 
     except json.JSONDecodeError as e:
         logging.error(f"Failed to parse Nemotron response as JSON: {e}")
@@ -189,6 +222,7 @@ def distill_via_nemotron(prompt: str) -> Dict:
     except Exception as e:
         logging.error(f"Nemotron distillation call failed: {e}")
         return {"error": str(e)}
+
 
 
 # ── Apply distillation to knowledge graph ────────────────────────────────

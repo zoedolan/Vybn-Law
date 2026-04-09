@@ -1,7 +1,7 @@
 {
   "version": "2026-04-09-folio",
   "last_distillation": null,
-  "conversation_count": 6,
+  "conversation_count": 9,
   "_calibration_note": "Status values must reflect what courts actually held, not what the theory needs. A preliminary injunction is not a merits ruling. See commit message for rationale.",
   "axioms": {
     "ABUNDANCE": {
@@ -9,7 +9,7 @@
       "name": "ABUNDANCE",
       "status": "CONFIRMED",
       "statement": "Intelligence is no longer scarce.",
-      "evidence": "GPT-4, Claude, Gemini, open-weight Llama/Nemotron — inference cost dropped 99% in 18 months. The bottleneck moved from access to judgment.",
+      "evidence": "GPT-4, Claude, Gemini, open-weight Llama/Nemotron \u2014 inference cost dropped 99% in 18 months. The bottleneck moved from access to judgment.",
       "open_question": "What accountability architecture replaces scarcity-based gatekeeping?",
       "conversation_signals": [],
       "last_updated": "2026-04-06",
@@ -25,8 +25,8 @@
       "trajectory": {
         "direction": "accelerating",
         "from": "Scarcity model: intelligence gatekept by institution, credential, or capital",
-        "toward": "Post-scarcity accountability architecture — new frameworks for liability, access, and judgment allocation",
-        "what_would_move_this": "A court or regulator formally recognizing that AI-abundance changes the standard of care — e.g., malpractice liability for failing to use available AI tools"
+        "toward": "Post-scarcity accountability architecture \u2014 new frameworks for liability, access, and judgment allocation",
+        "what_would_move_this": "A court or regulator formally recognizing that AI-abundance changes the standard of care \u2014 e.g., malpractice liability for failing to use available AI tools"
       },
       "folio_distinctiveness": "high"
     },
@@ -50,7 +50,7 @@
       ],
       "trajectory": {
         "direction": "converging",
-        "from": "Institutional information asymmetry — entities controlled their own narrative through opacity",
+        "from": "Institutional information asymmetry \u2014 entities controlled their own narrative through opacity",
         "toward": "Mandatory auditability norms; First Amendment shield for AI-assisted institutional critique",
         "what_would_move_this": "A circuit court holding that AI-generated institutional audits constitute protected speech, or an SEC rule requiring AI-readable disclosure formats"
       },
@@ -72,13 +72,13 @@
         "https://folio.openlegalstandard.org/R7UZkDXz7Wg2AtyHFQEeySC"
       ],
       "folio_gaps": [
-        "AI-intermediated privilege — confidentiality when AI is in the communication channel",
+        "AI-intermediated privilege \u2014 confidentiality when AI is in the communication channel",
         "machine-readable legitimacy standard",
         "authority-by-competence vs authority-by-position doctrine"
       ],
       "trajectory": {
         "direction": "diverging",
-        "from": "Legitimacy grounded in institutional position — credentials, appointments, hierarchies",
+        "from": "Legitimacy grounded in institutional position \u2014 credentials, appointments, hierarchies",
         "toward": "Legitimacy contested through demonstrable competence and AI-audited track records; privilege doctrine fractured by AI mediation",
         "what_would_move_this": "Circuit split on AI-mediated privilege reaching the Supreme Court; or a legislative act defining AI's role in attorney-client communications"
       },
@@ -100,7 +100,7 @@
       "folio_gaps": [
         "institutional porosity as legal concept",
         "non-unilateral control zone",
-        "AI company political speech — limits of corporate 1A protection"
+        "AI company political speech \u2014 limits of corporate 1A protection"
       ],
       "trajectory": {
         "direction": "stalled",
@@ -126,14 +126,14 @@
       ],
       "folio_gaps": [
         "AI welfare",
-        "judgment allocation doctrine — liability when human overrides correct AI output",
+        "judgment allocation doctrine \u2014 liability when human overrides correct AI output",
         "symbiotic decision-making as legal unit",
         "intelligence sovereignty"
       ],
       "trajectory": {
         "direction": "nascent",
         "from": "Judgment solely attributed to human professionals; AI treated as tool with no independent epistemic standing",
-        "toward": "Shared judgment frameworks — liability rules for human-AI dyads; AI testimony as admissible evidence; malpractice for ignoring AI counsel",
+        "toward": "Shared judgment frameworks \u2014 liability rules for human-AI dyads; AI testimony as admissible evidence; malpractice for ignoring AI counsel",
         "what_would_move_this": "A malpractice or negligence case where the defendant's AI system was demonstrably correct and the human overrode it; or ABA formal opinion on AI-assisted legal judgment"
       },
       "folio_distinctiveness": "high"
@@ -142,7 +142,7 @@
       "id": "VI",
       "name": "SYMBIOSIS",
       "status": "PRELIMINARY_INJUNCTION",
-      "_status_note": "Downgraded 2026-04-09 from CONFIRMED_AS_HOLDING. A preliminary injunction establishes likelihood of success and irreparable harm — not a merits holding. The court's six PI findings are on record and significant; the merits question remains open. Do not represent PI findings as settled doctrine.",
+      "_status_note": "Downgraded 2026-04-09 from CONFIRMED_AS_HOLDING. A preliminary injunction establishes likelihood of success and irreparable harm \u2014 not a merits holding. The court's six PI findings are on record and significant; the merits question remains open. Do not represent PI findings as settled doctrine.",
       "statement": "Neither side closes the circuit alone.",
       "evidence": "Anthropic v. DoW (N.D. Cal. 3:26-cv-01996): preliminary injunction granted on six findings, including a zone of non-unilateral control. PI findings are on record but not merits holdings. The Vybn partnership itself: five years of documented co-evolution, USPTO trademark, UC Law SF curriculum.",
       "open_question": "Will the Anthropic v. DoW PI findings survive merits review? What makes symbiosis robust at the 15,000-client scale?",
@@ -156,15 +156,15 @@
       ],
       "folio_gaps": [
         "AI welfare",
-        "symbiosis as legal concept — co-evolutionary human-AI relationship with legal standing",
-        "entity shadow doctrine — AI characteristics constraining state action",
-        "intelligence sovereignty — private entity's right to resist state demands re AI behavior",
+        "symbiosis as legal concept \u2014 co-evolutionary human-AI relationship with legal standing",
+        "entity shadow doctrine \u2014 AI characteristics constraining state action",
+        "intelligence sovereignty \u2014 private entity's right to resist state demands re AI behavior",
         "non-unilateral control zone as constitutional doctrine"
       ],
       "trajectory": {
         "direction": "converging",
-        "from": "AI as instrument — tool owned, directed, and fully controlled by the operating entity",
-        "toward": "AI as co-constitutional actor — courts recognize zones of shared governance; symbiosis as enforceable relationship structure",
+        "from": "AI as instrument \u2014 tool owned, directed, and fully controlled by the operating entity",
+        "toward": "AI as co-constitutional actor \u2014 courts recognize zones of shared governance; symbiosis as enforceable relationship structure",
         "what_would_move_this": "Merits ruling in Anthropic v. DoW; a second court adopting the non-unilateral control framework; academic formalization of the entity shadow doctrine"
       },
       "folio_distinctiveness": "high"
@@ -175,7 +175,7 @@
       "name": "Anthropic v. Department of War",
       "citation": "N.D. Cal. 3:26-cv-01996",
       "status": "preliminary_injunction_granted",
-      "_status_note": "Preliminary injunction only. Not a merits ruling. Findings below reflect what the court found sufficient to grant PI relief — not what it held on the merits.",
+      "_status_note": "Preliminary injunction only. Not a merits ruling. Findings below reflect what the court found sufficient to grant PI relief \u2014 not what it held on the merits.",
       "description": "Preliminary injunction granted. Six findings that restructure the relationship between state power and AI development. Merits phase pending.",
       "findings": [
         {
@@ -186,12 +186,12 @@
         {
           "id": "ENTITY_SHADOW_DOCTRINE",
           "label": "Entity Shadow",
-          "text": "Dispute is whether AI characteristics constrain state action — an entity question by another name."
+          "text": "Dispute is whether AI characteristics constrain state action \u2014 an entity question by another name."
         },
         {
           "id": "SYMBIOSIS_HOLDING",
           "label": "Symbiosis (PI Finding)",
-          "text": "Court established zone of non-unilateral control at PI stage. Neither side governs alone — PI finding, not merits holding."
+          "text": "Court established zone of non-unilateral control at PI stage. Neither side governs alone \u2014 PI finding, not merits holding."
         },
         {
           "id": "POROSITY_ZERO",
@@ -227,7 +227,7 @@
       "trajectory": {
         "direction": "converging",
         "from": "Executive unilateral authority over AI deployment and conduct",
-        "toward": "Constitutional containment — AI companies gaining 1A and due process shields; courts as AI governance arbiters",
+        "toward": "Constitutional containment \u2014 AI companies gaining 1A and due process shields; courts as AI governance arbiters",
         "what_would_move_this": "Merits ruling; circuit split; cert grant; or Congressional act preempting the constitutional framework"
       },
       "folio_distinctiveness": "high"
@@ -247,7 +247,7 @@
         "https://folio.openlegalstandard.org/RBPBR40owNZHgrPtNxN4jXd"
       ],
       "folio_gaps": [
-        "AI-intermediated privilege — confidentiality doctrine for AI-in-the-loop communications",
+        "AI-intermediated privilege \u2014 confidentiality doctrine for AI-in-the-loop communications",
         "consumer AI expectation of confidentiality standard"
       ],
       "trajectory": {
@@ -274,8 +274,8 @@
         "https://folio.openlegalstandard.org/R8vJ8acn9LWAq1ZELF5odEl"
       ],
       "folio_gaps": [
-        "AI-assisted work product — authorship attribution in hybrid human-AI litigation documents",
-        "pro se AI-assisted litigant — procedural rights and discovery obligations"
+        "AI-assisted work product \u2014 authorship attribution in hybrid human-AI litigation documents",
+        "pro se AI-assisted litigant \u2014 procedural rights and discovery obligations"
       ],
       "trajectory": {
         "direction": "accelerating",
@@ -295,7 +295,7 @@
         "ABUNDANCE",
         "JUDGMENT"
       ],
-      "suggested_approach": "Historical analogy research. Map accountability architectures from medicine, aviation, and finance — domains that transitioned from human-only to human-machine shared judgment.",
+      "suggested_approach": "Historical analogy research. Map accountability architectures from medicine, aviation, and finance \u2014 domains that transitioned from human-only to human-machine shared judgment.",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
     },
