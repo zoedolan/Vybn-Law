@@ -353,8 +353,38 @@ def extract_legal_concepts(query: str, history: List[Dict] = None) -> List[str]:
     return final[:8]  # cap at 8 lookups
 
 
+def _is_relevant_folio_result(concept: str, label: str) -> bool:
+    """Check if a FOLIO result is relevant to the search concept.
+
+    FOLIO prefix search returns anything that starts with the query string,
+    so 'paint' returns 'Paint Manufacturing' and 'picture' returns
+    'Picture Frame'. Filter those out by checking whether the concept
+    and label share meaningful overlap.
+    """
+    c = concept.lower()
+    l = label.lower()
+    # Direct containment in either direction
+    if c in l or l in c:
+        return True
+    # Check if any word from the concept appears in the label
+    concept_words = {w for w in c.split() if len(w) >= 4 and w not in _FOLIO_STOPWORDS}
+    label_words = {w for w in l.split() if len(w) >= 4}
+    if concept_words & label_words:
+        return True
+    return False
+
+
 async def search_folio_live(concepts: List[str]) -> Dict:
-    """Search FOLIO API for each concept. Returns structured results."""
+    """Search FOLIO API for each concept. Returns structured results.
+
+    Two key filters:
+    1. Mapped results are checked for relevance — 'Paint Manufacturing'
+       is not a relevant result for a query about painting a picture.
+    2. Unmapped concepts are only reported as 'gaps' if they are known
+       frontier concepts. Random words that return 0 results (like
+       'actually' or 'abundant') are silently dropped — they are not
+       legal concepts and their absence from FOLIO is not meaningful.
+    """
     mapped = []
     unmapped = []
     errors = []
@@ -365,7 +395,7 @@ async def search_folio_live(concepts: List[str]) -> Dict:
             try:
                 resp = await client.get(
                     FOLIO_API_URL,
-                    params={"query": concept, "limit": 3}
+                    params={"query": concept, "limit": 5}
                 )
                 if resp.status_code != 200:
                     errors.append(f"{concept}: HTTP {resp.status_code}")
@@ -374,8 +404,11 @@ async def search_folio_live(concepts: List[str]) -> Dict:
                 data = resp.json()
                 classes = data.get("classes", [])
 
-                if classes:
-                    for c in classes[:2]:
+                # Filter for relevance
+                relevant = [c for c in classes if _is_relevant_folio_result(concept, c.get("label", ""))]
+
+                if relevant:
+                    for c in relevant[:2]:
                         iri = c.get("iri", "")
                         if iri in seen_iris:
                             continue
@@ -387,6 +420,8 @@ async def search_folio_live(concepts: List[str]) -> Dict:
                             "definition": (c.get("comment") or "")[:200],
                         })
                 else:
+                    # Only report as a gap if it's a KNOWN frontier concept.
+                    # Random words returning 0 results is not a frontier signal.
                     gap_key = concept.lower()
                     gap_info = KNOWN_FOLIO_GAPS.get(gap_key)
                     if not gap_info:
@@ -394,10 +429,12 @@ async def search_folio_live(concepts: List[str]) -> Dict:
                             if gap_key in k or k in gap_key:
                                 gap_info = v
                                 break
-                    unmapped.append({
-                        "concept": concept,
-                        "gap_info": gap_info,
-                    })
+                    # Only include if we found gap_info — otherwise silently skip
+                    if gap_info:
+                        unmapped.append({
+                            "concept": concept,
+                            "gap_info": gap_info,
+                        })
 
             except httpx.TimeoutException:
                 errors.append(f"{concept}: timeout")
