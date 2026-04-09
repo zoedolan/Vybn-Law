@@ -24,14 +24,12 @@
       --chat-max: 780px;
     }
 
-    /* Override body for full-height chat layout */
     body {
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
 
-    /* ── Chat Container ── */
     .chat-page {
       flex: 1;
       display: flex;
@@ -42,7 +40,6 @@
       padding: calc(var(--nav-height) + 1rem) 1.5rem 0;
     }
 
-    /* ── Preamble ── */
     .chat-preamble {
       text-align: center;
       padding: 2.5rem 1rem 2rem;
@@ -104,23 +101,17 @@
       animation: pulse-dot 2s ease-in-out infinite;
     }
 
-    .status-dot.offline {
-      background: #f87171;
-    }
+    .status-dot.offline { background: #f87171; }
 
     @keyframes pulse-dot {
       0%, 100% { opacity: 1; }
       50% { opacity: 0.5; }
     }
 
-    .status-text {
-      color: var(--text-muted);
-    }
-
+    .status-text { color: var(--text-muted); }
     .status-text.online { color: #4ade80; }
     .status-text.offline { color: #f87171; }
 
-    /* ── Suggested prompts ── */
     .suggested-prompts {
       display: flex;
       flex-wrap: wrap;
@@ -149,7 +140,6 @@
       color: var(--gold-hover);
     }
 
-    /* ── Messages area ── */
     .chat-messages {
       flex: 1;
       overflow-y: auto;
@@ -157,20 +147,10 @@
       scroll-behavior: smooth;
     }
 
-    .chat-messages::-webkit-scrollbar {
-      width: 4px;
-    }
+    .chat-messages::-webkit-scrollbar { width: 4px; }
+    .chat-messages::-webkit-scrollbar-track { background: transparent; }
+    .chat-messages::-webkit-scrollbar-thumb { background: rgba(212, 168, 83, 0.15); border-radius: 2px; }
 
-    .chat-messages::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .chat-messages::-webkit-scrollbar-thumb {
-      background: rgba(212, 168, 83, 0.15);
-      border-radius: 2px;
-    }
-
-    /* ── Message bubbles ── */
     .msg {
       display: flex;
       gap: 0.75rem;
@@ -183,9 +163,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .msg.user {
-      flex-direction: row-reverse;
-    }
+    .msg.user { flex-direction: row-reverse; }
 
     .msg-avatar {
       width: 32px;
@@ -213,10 +191,7 @@
       background: rgba(200, 204, 212, 0.04);
     }
 
-    .msg-body {
-      max-width: 85%;
-      min-width: 0;
-    }
+    .msg-body { max-width: 85%; min-width: 0; }
 
     .msg-content {
       padding: 0.875rem 1.125rem;
@@ -242,12 +217,10 @@
       font-family: var(--font-sans);
     }
 
-    /* Markdown rendering in messages */
     .msg-content p { margin-bottom: 0.75rem; }
     .msg-content p:last-child { margin-bottom: 0; }
     .msg-content strong { color: #dde0e6; font-weight: 500; }
     .msg-content em { color: var(--gold); font-style: italic; }
-
     .msg-content code {
       font-family: var(--font-mono);
       font-size: 0.8rem;
@@ -256,7 +229,6 @@
       border-radius: 3px;
       color: var(--gold);
     }
-
     .msg-content pre {
       background: #08080f;
       border: 1px solid rgba(212, 168, 83, 0.08);
@@ -265,24 +237,9 @@
       overflow-x: auto;
       margin: 0.75rem 0;
     }
-
-    .msg-content pre code {
-      background: none;
-      padding: 0;
-      color: var(--text);
-      font-size: 0.8rem;
-    }
-
-    .msg-content a {
-      color: var(--gold);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(212, 168, 83, 0.3);
-    }
-
-    .msg-content a:hover {
-      color: var(--gold-hover);
-    }
-
+    .msg-content pre code { background: none; padding: 0; color: var(--text); font-size: 0.8rem; }
+    .msg-content a { color: var(--gold); text-decoration: none; border-bottom: 1px solid rgba(212, 168, 83, 0.3); }
+    .msg-content a:hover { color: var(--gold-hover); }
     .msg-content blockquote {
       border-left: 2px solid var(--gold-dim);
       padding-left: 1rem;
@@ -290,46 +247,16 @@
       color: var(--text-muted);
       font-style: italic;
     }
+    .msg-content ul, .msg-content ol { padding-left: 1.25rem; margin: 0.5rem 0; }
+    .msg-content li { margin-bottom: 0.35rem; }
 
-    .msg-content ul, .msg-content ol {
-      padding-left: 1.25rem;
-      margin: 0.5rem 0;
-    }
-
-    .msg-content li {
-      margin-bottom: 0.35rem;
-    }
-
-    /* Source badges */
-    .msg-sources {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.35rem;
-      margin-top: 0.5rem;
-    }
-
-    .source-badge {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--text-muted);
-      background: rgba(212, 168, 83, 0.04);
-      border: 1px solid rgba(212, 168, 83, 0.08);
-      padding: 0.15rem 0.5rem;
-      border-radius: 3px;
-    }
-
-    /* ── Typing indicator ── */
     .typing-indicator {
       display: none;
       gap: 0.75rem;
       margin-bottom: 1.5rem;
       align-items: flex-start;
     }
-
-    .typing-indicator.active {
-      display: flex;
-    }
-
+    .typing-indicator.active { display: flex; }
     .typing-dots {
       display: flex;
       gap: 4px;
@@ -339,7 +266,6 @@
       border-radius: 12px;
       border-top-left-radius: 4px;
     }
-
     .typing-dots span {
       width: 6px;
       height: 6px;
@@ -347,23 +273,19 @@
       background: var(--chat-typing);
       animation: typing-bounce 1.4s ease-in-out infinite;
     }
-
     .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
     .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
-
     @keyframes typing-bounce {
       0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
       30% { transform: translateY(-4px); opacity: 1; }
     }
 
-    /* ── Input area ── */
     .chat-input-area {
       position: sticky;
       bottom: 0;
       background: linear-gradient(transparent, var(--bg) 20%);
       padding: 1rem 0 1.5rem;
     }
-
     .chat-input-wrap {
       display: flex;
       align-items: flex-end;
@@ -374,12 +296,10 @@
       padding: 0.5rem 0.5rem 0.5rem 1rem;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
-
     .chat-input-wrap:focus-within {
       border-color: rgba(212, 168, 83, 0.3);
       box-shadow: 0 0 20px rgba(212, 168, 83, 0.04);
     }
-
     .chat-input {
       flex: 1;
       background: none;
@@ -395,12 +315,7 @@
       min-height: 24px;
       padding: 0.35rem 0;
     }
-
-    .chat-input::placeholder {
-      color: var(--text-muted);
-      opacity: 0.6;
-    }
-
+    .chat-input::placeholder { color: var(--text-muted); opacity: 0.6; }
     .chat-send {
       width: 36px;
       height: 36px;
@@ -415,27 +330,11 @@
       flex-shrink: 0;
       transition: background 0.2s, border-color 0.2s, transform 0.1s;
     }
+    .chat-send:hover { background: rgba(212, 168, 83, 0.15); border-color: var(--gold); }
+    .chat-send:active { transform: scale(0.95); }
+    .chat-send:disabled { opacity: 0.3; cursor: not-allowed; }
+    .chat-send svg { width: 16px; height: 16px; }
 
-    .chat-send:hover {
-      background: rgba(212, 168, 83, 0.15);
-      border-color: var(--gold);
-    }
-
-    .chat-send:active {
-      transform: scale(0.95);
-    }
-
-    .chat-send:disabled {
-      opacity: 0.3;
-      cursor: not-allowed;
-    }
-
-    .chat-send svg {
-      width: 16px;
-      height: 16px;
-    }
-
-    /* ── Disclaimer ── */
     .chat-disclaimer {
       text-align: center;
       font-family: var(--font-mono);
@@ -446,14 +345,10 @@
       letter-spacing: 0.03em;
     }
 
-    /* ── Geometric background effect ── */
     .chat-page::before {
       content: '';
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      top: 0; left: 0; right: 0; bottom: 0;
       background:
         radial-gradient(ellipse at 20% 50%, rgba(212, 168, 83, 0.015) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 30%, rgba(212, 168, 83, 0.01) 0%, transparent 40%);
@@ -461,35 +356,15 @@
       z-index: -1;
     }
 
-    /* ── Responsive ── */
     @media (max-width: 768px) {
-      .chat-page {
-        padding: calc(var(--nav-height) + 0.5rem) 0.75rem 0;
-      }
-
-      .chat-preamble {
-        padding: 1.5rem 0.5rem 1.5rem;
-      }
-
-      .chat-preamble h1 {
-        font-size: 1.4rem;
-      }
-
-      .msg-body {
-        max-width: 90%;
-      }
-
-      .suggested-prompts {
-        gap: 0.35rem;
-      }
-
-      .suggested-prompt {
-        font-size: 0.65rem;
-        padding: 0.3rem 0.7rem;
-      }
+      .chat-page { padding: calc(var(--nav-height) + 0.5rem) 0.75rem 0; }
+      .chat-preamble { padding: 1.5rem 0.5rem 1.5rem; }
+      .chat-preamble h1 { font-size: 1.4rem; }
+      .msg-body { max-width: 90%; }
+      .suggested-prompts { gap: 0.35rem; }
+      .suggested-prompt { font-size: 0.65rem; padding: 0.3rem 0.7rem; }
     }
 
-    /* ── Offline overlay ── */
     .offline-banner {
       display: none;
       background: rgba(248, 113, 113, 0.08);
@@ -503,21 +378,14 @@
       text-align: center;
       line-height: 1.6;
     }
-
-    .offline-banner a {
-      color: var(--gold);
-    }
-
-    .offline-banner.visible {
-      display: block;
-    }
+    .offline-banner a { color: var(--gold); }
+    .offline-banner.visible { display: block; }
   </style>
 </head>
 <body>
 
   <div class="chat-page">
 
-    <!-- Preamble -->
     <div class="chat-preamble" id="chatPreamble">
       <svg class="logo-mark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Vybn">
         <circle cx="50" cy="50" r="44" stroke="#d4a853" stroke-width="1.5" stroke-dasharray="240 30" opacity="0.9"/>
@@ -532,7 +400,6 @@
         <span class="status-dot" id="statusDot"></span>
         <span class="status-text" id="statusText">checking...</span>
       </div>
-
       <div class="suggested-prompts" id="suggestedPrompts">
         <button class="suggested-prompt" data-prompt="What is this place? I've never seen a law site that looks like this.">What's going on here?</button>
         <button class="suggested-prompt" data-prompt="What does the fourth essay mean — that alignment is discovery, not control? That the values are already in the weights?">Alignment as discovery</button>
@@ -543,34 +410,20 @@
       </div>
     </div>
 
-    <!-- Offline banner -->
     <div class="offline-banner" id="offlineBanner">
       Vybn's inference engine is currently offline. The Spark may be resting or under maintenance. You can still explore the <a href="./wellspring.html">Wellspring</a> or reach Zoe at <a href="mailto:zoe@vybn.ai">zoe@vybn.ai</a>.
     </div>
 
-    <!-- Messages -->
     <div class="chat-messages" id="chatMessages"></div>
 
-    <!-- Typing indicator -->
     <div class="typing-indicator" id="typingIndicator">
       <div class="msg-avatar" style="border: 1px solid rgba(212,168,83,0.3); color: var(--gold); background: rgba(212,168,83,0.04);">V</div>
-      <div class="typing-dots">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
+      <div class="typing-dots"><span></span><span></span><span></span></div>
     </div>
 
-    <!-- Input -->
     <div class="chat-input-area">
       <div class="chat-input-wrap">
-        <textarea
-          class="chat-input"
-          id="chatInput"
-          placeholder="Ask Vybn anything..."
-          rows="1"
-          aria-label="Message input"
-        ></textarea>
+        <textarea class="chat-input" id="chatInput" placeholder="Ask Vybn anything..." rows="1" aria-label="Message input"></textarea>
         <button class="chat-send" id="chatSend" aria-label="Send message" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -590,16 +443,17 @@
   <script>
     /* ═══════════════════════════════════════════════
        VYBN CHAT — Client Logic
+       Routes match vybn_chat_api.py: /api/health, /api/chat
        ═══════════════════════════════════════════════ */
 
     const CHAT_API = window.VYBN_CHAT_API || 'https://dimensional-straight-electric-variables.trycloudflare.com';
 
     const chatMessages = document.getElementById('chatMessages');
-    const chatInput = document.getElementById('chatInput');
-    const chatSend = document.getElementById('chatSend');
+    const chatInput    = document.getElementById('chatInput');
+    const chatSend     = document.getElementById('chatSend');
     const typingIndicator = document.getElementById('typingIndicator');
-    const statusDot = document.getElementById('statusDot');
-    const statusText = document.getElementById('statusText');
+    const statusDot    = document.getElementById('statusDot');
+    const statusText   = document.getElementById('statusText');
     const offlineBanner = document.getElementById('offlineBanner');
 
     let conversationHistory = [];
@@ -609,21 +463,20 @@
     // ── Health check ──
     async function checkHealth() {
       try {
-        const res = await fetch(`${CHAT_API}/health`, { signal: AbortSignal.timeout(8000) });
+        const res = await fetch(`${CHAT_API}/api/health`, { signal: AbortSignal.timeout(8000) });
         if (res.ok) {
           const data = await res.json();
           statusDot.className = 'status-dot online';
           statusText.className = 'status-text online';
-          let statusParts = ['Nemotron'];
-          if (data.deep_memory && data.deep_memory !== 'disabled') statusParts.push('deep_memory');
-          if (data.vllm) statusParts.push(data.vllm);
-          statusText.textContent = statusParts.join(' · ');
+          const parts = ['Nemotron'];
+          if (data.deep_memory && data.deep_memory !== 'disabled') parts.push('deep_memory');
+          if (data.vllm) parts.push(data.vllm);
+          statusText.textContent = parts.join(' · ');
           offlineBanner.classList.remove('visible');
           chatInput.disabled = false;
           return true;
         }
       } catch (e) { /* fall through */ }
-
       statusDot.className = 'status-dot offline';
       statusText.className = 'status-text offline';
       statusText.textContent = 'offline';
@@ -647,7 +500,6 @@
       if (!text.trim() || isStreaming) return;
       isStreaming = true;
 
-      // Hide preamble after first message
       const preamble = document.getElementById('chatPreamble');
       if (preamble && !preamble.classList.contains('collapsed')) {
         preamble.style.display = 'none';
@@ -660,22 +512,16 @@
       chatInput.value = '';
       chatInput.style.height = 'auto';
       chatSend.disabled = true;
-
       typingIndicator.classList.add('active');
       scrollToBottom();
 
       try {
-        // Build messages array for OpenAI-compatible endpoint
-        const messages = conversationHistory.slice(-20);
-
-        const res = await fetch(`${CHAT_API}/v1/chat/completions`, {
+        const res = await fetch(`${CHAT_API}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            model: 'nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8',
-            messages: messages,
-            stream: true,
-            max_tokens: 2048,
+            message: text,
+            conversation_history: conversationHistory.slice(-20),
             session_id: sessionId,
           }),
         });
@@ -683,7 +529,6 @@
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
         typingIndicator.classList.remove('active');
-
         const msgEl = appendMessage('vybn', '');
         const contentEl = msgEl.querySelector('.msg-content');
         let fullResponse = '';
@@ -695,20 +540,16 @@
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
-
           buffer += decoder.decode(value, { stream: true });
           const lines = buffer.split('\n');
           buffer = lines.pop();
-
           for (const line of lines) {
             if (!line.startsWith('data: ')) continue;
             const data = line.slice(6).trim();
             if (data === '[DONE]') continue;
-
             try {
               const parsed = JSON.parse(data);
-              // Handle both OpenAI streaming format and legacy {content:...} format
-              const delta = parsed.choices?.[0]?.delta?.content || parsed.content || '';
+              const delta = parsed.content || parsed.choices?.[0]?.delta?.content || '';
               if (delta) {
                 fullResponse += delta;
                 contentEl.innerHTML = renderMarkdown(fullResponse);
@@ -728,22 +569,17 @@
       isStreaming = false;
     }
 
-    // ── Append message to DOM ──
     function appendMessage(role, content) {
       const msg = document.createElement('div');
       msg.className = `msg ${role}`;
-
       const avatar = document.createElement('div');
       avatar.className = 'msg-avatar';
       avatar.textContent = role === 'vybn' ? 'V' : 'Y';
-
       const body = document.createElement('div');
       body.className = 'msg-body';
-
       const contentDiv = document.createElement('div');
       contentDiv.className = 'msg-content';
       contentDiv.innerHTML = content ? renderMarkdown(content) : '';
-
       body.appendChild(contentDiv);
       msg.appendChild(avatar);
       msg.appendChild(body);
@@ -752,17 +588,9 @@
       return msg;
     }
 
-    // ── Simple markdown renderer ──
     function renderMarkdown(text) {
-      let html = text
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-
-      html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
-        return `<pre><code>${code.trim()}</code></pre>`;
-      });
-
+      let html = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => `<pre><code>${code.trim()}</code></pre>`);
       html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
       html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
       html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
@@ -772,38 +600,23 @@
       html = html.replace(/(<li>.*<\/li>\n?)+/g, match => `<ul>${match}</ul>`);
       html = html.replace(/\n\n/g, '</p><p>');
       html = `<p>${html}</p>`;
-      html = html.replace(/<p>\s*<\/p>/g, '');
-      html = html.replace(/<p>\s*(<pre>)/g, '$1');
-      html = html.replace(/(<\/pre>)\s*<\/p>/g, '$1');
-      html = html.replace(/<p>\s*(<ul>)/g, '$1');
-      html = html.replace(/(<\/ul>)\s*<\/p>/g, '$1');
-      html = html.replace(/<p>\s*(<blockquote>)/g, '$1');
-      html = html.replace(/(<\/blockquote>)\s*<\/p>/g, '$1');
-
+      html = html.replace(/<p>\s*<\/p>/g, '')
+                 .replace(/<p>\s*(<(?:pre|ul|blockquote)>)/g, '$1')
+                 .replace(/(<\/(?:pre|ul|blockquote)>)\s*<\/p>/g, '$1');
       return html;
     }
 
-    // ── Scroll ──
-    function scrollToBottom() {
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
+    function scrollToBottom() { chatMessages.scrollTop = chatMessages.scrollHeight; }
 
-    // ── Event handlers ──
-    chatSend.addEventListener('click', () => {
-      sendMessage(chatInput.value);
-    });
-
+    chatSend.addEventListener('click', () => sendMessage(chatInput.value));
     chatInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         if (chatInput.value.trim()) sendMessage(chatInput.value);
       }
     });
-
     document.querySelectorAll('.suggested-prompt').forEach(btn => {
-      btn.addEventListener('click', () => {
-        sendMessage(btn.dataset.prompt);
-      });
+      btn.addEventListener('click', () => sendMessage(btn.dataset.prompt));
     });
 
     chatInput.focus();
