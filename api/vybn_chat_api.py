@@ -314,19 +314,41 @@ def extract_legal_concepts(query: str, history: List[Dict] = None) -> List[str]:
                 and bigram not in concepts):
             concepts.append(bigram)
 
-    # 4. Scan recent conversation for concepts Vybn discussed
-    #    (catches "try endorsement" after a long fiduciary discussion)
+    # 4. Scan conversation history for concepts to search
     if history:
+        # 4a. If the visitor's message is short (agreement/continuation),
+        # extract quoted concepts from Vybn's most recent message.
+        # This catches: Vybn says 'search for "legitimacy" or "accountability"'
+        # and visitor says 'go for it' or 'let's try' or 'yes'
+        is_short_agreement = len(q.split()) <= 6 and any(
+            w in q for w in ["go", "try", "yes", "sure", "do it", "let's",
+                             "please", "sounds", "like minds", "agreed"]
+        )
+        if is_short_agreement:
+            # Find the last assistant message
+            for msg in reversed(history[-6:]):
+                if msg.get("role") == "assistant":
+                    assistant_text = msg.get("content", "")
+                    # Extract quoted terms: "legitimacy", "accountability", etc.
+                    import re as _re
+                    quoted = _re.findall(r'["\u201c]([^"\u201d]{2,40})["\u201d]', assistant_text)
+                    for term in quoted:
+                        term = term.strip().lower()
+                        if (len(term) >= 3
+                                and term not in concepts
+                                and not all(w in _FOLIO_STOPWORDS for w in term.split())):
+                            concepts.insert(0, term)
+                    break  # only check the most recent assistant message
+
+        # 4b. Look for explicit search triggers in any recent message
         for msg in history[-4:]:
             content = msg.get("content", "").lower()
-            # Look for explicit FOLIO search requests
             for trigger in ["search folio for", "try ", "search for", "look up",
                             "what does folio say about", "run through folio",
                             "check folio"]:
                 idx = content.find(trigger)
                 if idx >= 0:
                     after = content[idx + len(trigger):].strip()
-                    # Take the next 1-3 words as the concept
                     concept_words = []
                     for w in after.split():
                         w = w.strip(".,?!;:\"'()-")
@@ -338,7 +360,7 @@ def extract_legal_concepts(query: str, history: List[Dict] = None) -> List[str]:
                     if concept_words:
                         concept = " ".join(concept_words)
                         if concept not in concepts:
-                            concepts.insert(0, concept)  # priority
+                            concepts.insert(0, concept)
 
     # No deduplication — FOLIO prefix search means "endorsement" and
     # "try endorsement" can return different results. Let both through.
@@ -917,7 +939,7 @@ async def chat(request: Request):
                     "model": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8",
                     "messages": messages,
                     "stream": True,
-                    "max_tokens": 2048,
+                    "max_tokens": 4096,
                     "temperature": 0.7,
                     "top_p": 0.9,
                     "chat_template_kwargs": {"enable_thinking": False},
