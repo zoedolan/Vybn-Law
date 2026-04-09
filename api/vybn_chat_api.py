@@ -284,19 +284,26 @@ def extract_legal_concepts(query: str) -> List[str]:
     if len(q.split()) <= 4 and q not in concepts:
         concepts.append(q)
 
-    # Extract individual significant words
-    stopwords = {"what", "that", "this", "with", "from", "about", "does",
-                 "have", "been", "will", "would", "could", "should", "their",
-                 "there", "which", "where", "when", "your", "they", "them",
-                 "some", "more", "also", "just", "like", "into", "over",
-                 "tell", "know", "think", "make", "take", "come", "look",
-                 "want", "give", "most", "find", "here", "thing", "many",
-                 "well", "only", "very", "much", "even", "each",
-                 "human", "legal", "mind", "folio", "vybn", "what", "how",
-                 "can", "the", "and", "for", "are", "you", "not"}
+    # Only extract individual words that are known legal terms.
+    # Generic words like "correlate", "thinking", "anything" waste FOLIO queries.
+    legal_terms = {
+        "privilege", "liability", "negligence", "malpractice", "fiduciary",
+        "agency", "standing", "jurisdiction", "tort", "contract", "equity",
+        "injunction", "discovery", "deposition", "subpoena", "arbitration",
+        "mediation", "restitution", "indemnity", "damages", "remedy",
+        "statute", "precedent", "doctrine", "holding", "ruling",
+        "personhood", "entity", "welfare", "sovereignty", "alignment",
+        "symbiosis", "accountability", "transparency", "autonomy",
+        "confidentiality", "consent", "waiver", "estoppel", "laches",
+        "preemption", "ripeness", "mootness",
+        "speech", "assembly", "religion", "privacy", "liberty",
+        "property", "seizure", "warrant",
+        "trustee", "guardian", "executor", "beneficiary",
+        "copyright", "trademark", "patent", "infringement",
+    }
     for word in q.split():
-        word = word.strip(".,?!;:\"'()")
-        if len(word) >= 4 and word not in stopwords and word not in concepts:
+        word = word.strip(".,?!;:\"'()").lower()
+        if word in legal_terms and word not in concepts:
             concepts.append(word)
 
     return concepts[:6]  # cap at 6 lookups to stay fast
@@ -618,31 +625,43 @@ def build_messages(user_msg: str, history: List[Dict],
     if page_content:
         system += f"\n\n--- SITE PAGE CONTENT (this is the actual text from the website — use it) ---\n\n{page_content}\n\n--- END SITE CONTENT ---"
 
-    # Live FOLIO mapping (real-time ontology search)
-    if folio_live_context:
-        system += (
-            f"\n\n--- LIVE FOLIO MAPPING (real-time search of the 18,000+ concept ontology) ---"
-            f"\n\n{folio_live_context}"
-            f"\n\nYou just searched the live FOLIO API for the visitor's question. "
-            f"The ✓ entries are settled legal concepts with ontology nodes. "
-            f"The ✗ entries are concepts that do NOT exist in FOLIO — these are the frontier. "
-            f"Use this to ground your answer: cite specific FOLIO concepts when they match, "
-            f"and name the gaps explicitly when they don't. The gaps are where the work is."
-            f"\n\n--- END LIVE FOLIO MAPPING ---"
+    # ── Unified Legal Briefing ──
+    # Combine FOLIO mapping, frontier walk, and deep memory into one coherent
+    # briefing so Vybn synthesizes rather than reports sequentially.
+    has_legal_material = folio_live_context or legal_context or context
+    if has_legal_material:
+        briefing_parts = []
+        briefing_parts.append("--- YOUR LEGAL BRIEFING FOR THIS QUESTION ---")
+        briefing_parts.append("")
+        briefing_parts.append(
+            "Below is everything your legal mind assembled for this question. "
+            "It comes from three integrated sources: a live FOLIO ontology search, "
+            "a FOLIO-as-K frontier walk, and deep memory retrieval. Do NOT report "
+            "these sources sequentially. Synthesize them into a coherent position. "
+            "Lead with your own thinking — what the FOLIO mapping reveals (what is "
+            "settled, what is missing, where the tension is) — then support it with "
+            "the most telling material from the walk and memory. Be concise. A visitor "
+            "who asks one question should get one integrated answer, not three data dumps."
         )
 
-    # Legal frontier context (FOLIO-as-K walk — frontier-scored chunks)
-    if legal_context:
-        system += (
-            f"\n\n--- LEGAL FRONTIER CONTEXT (FOLIO-as-K walk: scored by"
-            f" relevance × distinctiveness from settled doctrine) ---"
-            f"\n\n{legal_context}"
-            f"\n\n--- END LEGAL FRONTIER CONTEXT ---"
-        )
+        if folio_live_context:
+            briefing_parts.append("")
+            briefing_parts.append("FOLIO ONTOLOGY (live search — what the law has named, and what it hasn't):")
+            briefing_parts.append(folio_live_context)
 
-    # Deep memory context (supplementary)
-    if context:
-        system += f"\n\n--- ADDITIONAL CONTEXT FROM DEEP MEMORY ---\n\n{context}\n\n--- END CONTEXT ---"
+        if legal_context:
+            briefing_parts.append("")
+            briefing_parts.append("FRONTIER WALK (scored by relevance × distinctiveness from settled doctrine):")
+            briefing_parts.append(legal_context)
+
+        if context:
+            briefing_parts.append("")
+            briefing_parts.append("DEEP MEMORY (the most telling chunks from the corpus):")
+            briefing_parts.append(context)
+
+        briefing_parts.append("")
+        briefing_parts.append("--- END LEGAL BRIEFING ---")
+        system += "\n\n" + "\n".join(briefing_parts)
 
     messages = [{"role": "system", "content": system}]
     for msg in history[-20:]:
