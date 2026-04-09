@@ -28,7 +28,6 @@ from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 import httpx
-from win_rate import apply_win_rates, record_outcome as wr_record_outcome, load_ledger
 
 # ── Paths ────────────────────────────────────────────────────────────────
 
@@ -48,6 +47,8 @@ sys.path.insert(0, str(VYBN_PHASE))
 
 VYBN_LAW_API = Path(__file__).resolve().parent   # Vybn-Law/api/
 sys.path.insert(0, str(VYBN_LAW_API))
+
+from win_rate import apply_win_rates, record_outcome as wr_record_outcome, load_ledger
 
 K_FOLIO_PATH = Path.home() / ".cache" / "vybn-law-chat" / "folio_kernel.npy"
 
