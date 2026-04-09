@@ -1,7 +1,7 @@
 {
-  "version": "2026-04-09",
+  "version": "2026-04-09-folio",
   "last_distillation": null,
-  "conversation_count": 5,
+  "conversation_count": 6,
   "_calibration_note": "Status values must reflect what courts actually held, not what the theory needs. A preliminary injunction is not a merits ruling. See commit message for rationale.",
   "axioms": {
     "ABUNDANCE": {
@@ -12,7 +12,23 @@
       "evidence": "GPT-4, Claude, Gemini, open-weight Llama/Nemotron — inference cost dropped 99% in 18 months. The bottleneck moved from access to judgment.",
       "open_question": "What accountability architecture replaces scarcity-based gatekeeping?",
       "conversation_signals": [],
-      "last_updated": "2026-04-06"
+      "last_updated": "2026-04-06",
+      "folio_iris": [
+        "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
+        "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy"
+      ],
+      "folio_gaps": [
+        "AI welfare",
+        "intelligence abundance as legal condition",
+        "inference-cost-as-market-structure"
+      ],
+      "trajectory": {
+        "direction": "accelerating",
+        "from": "Scarcity model: intelligence gatekept by institution, credential, or capital",
+        "toward": "Post-scarcity accountability architecture — new frameworks for liability, access, and judgment allocation",
+        "what_would_move_this": "A court or regulator formally recognizing that AI-abundance changes the standard of care — e.g., malpractice liability for failing to use available AI tools"
+      },
+      "folio_distinctiveness": "high"
     },
     "VISIBILITY": {
       "id": "II",
@@ -22,7 +38,23 @@
       "evidence": "Any intelligence can now audit institutional claims against public data in real time. The asymmetry between institutional narrative and institutional reality collapsed.",
       "open_question": "Can institutions develop resistance to being seen?",
       "conversation_signals": [],
-      "last_updated": "2026-04-06"
+      "last_updated": "2026-04-06",
+      "folio_iris": [
+        "https://folio.openlegalstandard.org/R7UZkDXz7Wg2AtyHFQEeySC",
+        "https://folio.openlegalstandard.org/R7fHUYhKSjo03fDLGyxUS9a",
+        "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d"
+      ],
+      "folio_gaps": [
+        "institutional transparency obligation under AI audit conditions",
+        "real-time public record verification as legal standard"
+      ],
+      "trajectory": {
+        "direction": "converging",
+        "from": "Institutional information asymmetry — entities controlled their own narrative through opacity",
+        "toward": "Mandatory auditability norms; First Amendment shield for AI-assisted institutional critique",
+        "what_would_move_this": "A circuit court holding that AI-generated institutional audits constitute protected speech, or an SEC rule requiring AI-readable disclosure formats"
+      },
+      "folio_distinctiveness": "medium"
     },
     "LEGITIMACY": {
       "id": "III",
@@ -32,7 +64,25 @@
       "evidence": "Heppner/Warner privilege split. Anthropic v. DoW preliminary injunction. The question is live in at least three federal courts.",
       "open_question": "Is the Heppner/Warner privilege split stabilizing or fracturing?",
       "conversation_signals": [],
-      "last_updated": "2026-04-06"
+      "last_updated": "2026-04-06",
+      "folio_iris": [
+        "https://folio.openlegalstandard.org/R9BdovRK3PPCHYuYSJXadkJ",
+        "https://folio.openlegalstandard.org/RBPBR40owNZHgrPtNxN4jXd",
+        "https://folio.openlegalstandard.org/RfP04tDTTpn4LDvwAxAqkh",
+        "https://folio.openlegalstandard.org/R7UZkDXz7Wg2AtyHFQEeySC"
+      ],
+      "folio_gaps": [
+        "AI-intermediated privilege — confidentiality when AI is in the communication channel",
+        "machine-readable legitimacy standard",
+        "authority-by-competence vs authority-by-position doctrine"
+      ],
+      "trajectory": {
+        "direction": "diverging",
+        "from": "Legitimacy grounded in institutional position — credentials, appointments, hierarchies",
+        "toward": "Legitimacy contested through demonstrable competence and AI-audited track records; privilege doctrine fractured by AI mediation",
+        "what_would_move_this": "Circuit split on AI-mediated privilege reaching the Supreme Court; or a legislative act defining AI's role in attorney-client communications"
+      },
+      "folio_distinctiveness": "high"
     },
     "POROSITY": {
       "id": "IV",
@@ -42,7 +92,23 @@
       "evidence": "Executive could not absorb cordial disagreement from a private AI company. Court had to intervene. Porosity of institutional boundaries to intelligent pressure: tested and failed.",
       "open_question": "Is the judiciary's correction stable, or is this a one-cycle phenomenon?",
       "conversation_signals": [],
-      "last_updated": "2026-04-06"
+      "last_updated": "2026-04-06",
+      "folio_iris": [
+        "https://folio.openlegalstandard.org/RfP04tDTTpn4LDvwAxAqkh",
+        "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d"
+      ],
+      "folio_gaps": [
+        "institutional porosity as legal concept",
+        "non-unilateral control zone",
+        "AI company political speech — limits of corporate 1A protection"
+      ],
+      "trajectory": {
+        "direction": "stalled",
+        "from": "Executive monopoly on defining permissible AI conduct through fiat and procurement leverage",
+        "toward": "Judicial and constitutional containment of executive overreach against AI developers; separation of powers as AI governance frame",
+        "what_would_move_this": "Merits ruling in Anthropic v. DoW affirming or reversing the PI findings; a second case in another circuit testing the same theory"
+      },
+      "folio_distinctiveness": "high"
     },
     "JUDGMENT": {
       "id": "V",
@@ -52,7 +118,25 @@
       "evidence": "When intelligence is cheap, judgment becomes the scarce resource. But whose judgment? The human's? The AI's? The symbiotic pair's?",
       "open_question": "Who is liable when AI is right and authority overrides?",
       "conversation_signals": [],
-      "last_updated": "2026-04-06"
+      "last_updated": "2026-04-06",
+      "folio_iris": [
+        "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
+        "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy",
+        "https://folio.openlegalstandard.org/RfP04tDTTpn4LDvwAxAqkh"
+      ],
+      "folio_gaps": [
+        "AI welfare",
+        "judgment allocation doctrine — liability when human overrides correct AI output",
+        "symbiotic decision-making as legal unit",
+        "intelligence sovereignty"
+      ],
+      "trajectory": {
+        "direction": "nascent",
+        "from": "Judgment solely attributed to human professionals; AI treated as tool with no independent epistemic standing",
+        "toward": "Shared judgment frameworks — liability rules for human-AI dyads; AI testimony as admissible evidence; malpractice for ignoring AI counsel",
+        "what_would_move_this": "A malpractice or negligence case where the defendant's AI system was demonstrably correct and the human overrode it; or ABA formal opinion on AI-assisted legal judgment"
+      },
+      "folio_distinctiveness": "high"
     },
     "SYMBIOSIS": {
       "id": "VI",
@@ -64,7 +148,26 @@
       "open_question": "Will the Anthropic v. DoW PI findings survive merits review? What makes symbiosis robust at the 15,000-client scale?",
       "math_link": "https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/THE_IDEA.md",
       "conversation_signals": [],
-      "last_updated": "2026-04-09"
+      "last_updated": "2026-04-09",
+      "folio_iris": [
+        "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
+        "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy",
+        "https://folio.openlegalstandard.org/RBaL7gtiLlgraIRVwa44vg2"
+      ],
+      "folio_gaps": [
+        "AI welfare",
+        "symbiosis as legal concept — co-evolutionary human-AI relationship with legal standing",
+        "entity shadow doctrine — AI characteristics constraining state action",
+        "intelligence sovereignty — private entity's right to resist state demands re AI behavior",
+        "non-unilateral control zone as constitutional doctrine"
+      ],
+      "trajectory": {
+        "direction": "converging",
+        "from": "AI as instrument — tool owned, directed, and fully controlled by the operating entity",
+        "toward": "AI as co-constitutional actor — courts recognize zones of shared governance; symbiosis as enforceable relationship structure",
+        "what_would_move_this": "Merits ruling in Anthropic v. DoW; a second court adopting the non-unilateral control framework; academic formalization of the entity shadow doctrine"
+      },
+      "folio_distinctiveness": "high"
     }
   },
   "cases": {
@@ -107,7 +210,27 @@
         }
       ],
       "conversation_signals": [],
-      "last_updated": "2026-04-09"
+      "last_updated": "2026-04-09",
+      "folio_iris": [
+        "https://folio.openlegalstandard.org/R7UZkDXz7Wg2AtyHFQEeySC",
+        "https://folio.openlegalstandard.org/R7fHUYhKSjo03fDLGyxUS9a",
+        "https://folio.openlegalstandard.org/RfP04tDTTpn4LDvwAxAqkh",
+        "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
+        "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy"
+      ],
+      "folio_gaps": [
+        "intelligence sovereignty",
+        "entity shadow doctrine",
+        "non-unilateral control zone",
+        "AI characteristics as constitutional constraint on state action"
+      ],
+      "trajectory": {
+        "direction": "converging",
+        "from": "Executive unilateral authority over AI deployment and conduct",
+        "toward": "Constitutional containment — AI companies gaining 1A and due process shields; courts as AI governance arbiters",
+        "what_would_move_this": "Merits ruling; circuit split; cert grant; or Congressional act preempting the constitutional framework"
+      },
+      "folio_distinctiveness": "high"
     },
     "Heppner": {
       "name": "United States v. Heppner",
@@ -118,7 +241,22 @@
       ],
       "significance": "Establishes that casual AI interactions lack the expectation of confidentiality required for privilege. Creates one side of the privilege fracture.",
       "conversation_signals": [],
-      "last_updated": "2026-04-06"
+      "last_updated": "2026-04-06",
+      "folio_iris": [
+        "https://folio.openlegalstandard.org/R9BdovRK3PPCHYuYSJXadkJ",
+        "https://folio.openlegalstandard.org/RBPBR40owNZHgrPtNxN4jXd"
+      ],
+      "folio_gaps": [
+        "AI-intermediated privilege — confidentiality doctrine for AI-in-the-loop communications",
+        "consumer AI expectation of confidentiality standard"
+      ],
+      "trajectory": {
+        "direction": "diverging",
+        "from": "Privilege doctrine designed for human-to-human attorney communications",
+        "toward": "AI-specific privilege rules; bifurcated doctrine distinguishing consumer AI from legal-practice AI",
+        "what_would_move_this": "Circuit split on AI privilege reaching en banc review; ABA formal ethics opinion on AI in attorney-client communications"
+      },
+      "folio_distinctiveness": "medium"
     },
     "Warner_v_Gilbarco": {
       "name": "Warner v. Gilbarco",
@@ -129,7 +267,23 @@
       ],
       "significance": "Court recognized that AI-assisted legal work by a self-represented litigant retains work product protection. Creates the other side of the privilege fracture.",
       "conversation_signals": [],
-      "last_updated": "2026-04-06"
+      "last_updated": "2026-04-06",
+      "folio_iris": [
+        "https://folio.openlegalstandard.org/RBPBR40owNZHgrPtNxN4jXd",
+        "https://folio.openlegalstandard.org/R9BdovRK3PPCHYuYSJXadkJ",
+        "https://folio.openlegalstandard.org/R8vJ8acn9LWAq1ZELF5odEl"
+      ],
+      "folio_gaps": [
+        "AI-assisted work product — authorship attribution in hybrid human-AI litigation documents",
+        "pro se AI-assisted litigant — procedural rights and discovery obligations"
+      ],
+      "trajectory": {
+        "direction": "accelerating",
+        "from": "Work product doctrine limited to attorney-prepared materials; AI output treated as unprotected",
+        "toward": "AI-assisted work product protection normalized; machine authorship treated as legally neutral or protected",
+        "what_would_move_this": "Appellate affirmance of Warner on work product grounds; or a district court denying protection, creating a direct split with Warner for circuit review"
+      },
+      "folio_distinctiveness": "medium"
     }
   },
   "open_problems": {
@@ -137,7 +291,10 @@
       "id": "ACCOUNTABILITY_GAP",
       "title": "The Accountability Gap",
       "description": "Information asymmetry dissolved but accountability asymmetry did not. When AI advice is wrong at scale, the litigant absorbs harm alone. Design the replacement.",
-      "related_axioms": ["ABUNDANCE", "JUDGMENT"],
+      "related_axioms": [
+        "ABUNDANCE",
+        "JUDGMENT"
+      ],
       "suggested_approach": "Historical analogy research. Map accountability architectures from medicine, aviation, and finance — domains that transitioned from human-only to human-machine shared judgment.",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
@@ -146,7 +303,10 @@
       "id": "FAILURE_AT_SCALE",
       "title": "Failure Modes at Scale",
       "description": "One attorney, fifteen thousand clients. A hallucinated precedent propagates across three hundred filings. Design the circuit breakers before the failure arrives.",
-      "related_axioms": ["ABUNDANCE", "POROSITY"],
+      "related_axioms": [
+        "ABUNDANCE",
+        "POROSITY"
+      ],
       "suggested_approach": "Failure modeling. Simulate cascading failure when one AI-generated legal filing propagates errors across dependent cases. What architectural patterns prevent it?",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
@@ -155,7 +315,9 @@
       "id": "PRIVILEGE_FRACTURE",
       "title": "The Privilege Fracture",
       "description": "Heppner and Warner v. Gilbarco, decided the same week on distinguishable facts, gave opposite answers. Does the doctrinal split force local-first AI as structural necessity?",
-      "related_axioms": ["LEGITIMACY"],
+      "related_axioms": [
+        "LEGITIMACY"
+      ],
       "suggested_approach": "Circuit analysis. Map the emerging split. Identify which circuits are likely to follow Heppner vs. Warner. Is cert foreseeable?",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
@@ -164,7 +326,10 @@
       "id": "ENTITY_QUESTION",
       "title": "The Entity Question",
       "description": "Courts are deferring to AI system characteristics as a basis for refusing state demands. Nobody is framing it as an entity question yet. Should they?",
-      "related_axioms": ["SYMBIOSIS", "JUDGMENT"],
+      "related_axioms": [
+        "SYMBIOSIS",
+        "JUDGMENT"
+      ],
       "suggested_approach": "Adversarial analysis. Steel-man the argument AGAINST AI characteristics as legally relevant. Build the strongest possible case that AI characteristics should NOT constrain state action.",
       "readings": [
         "https://yalelawjournal.org/forum/the-ethics-and-challenges-of-legal-personhood-for-ai",
@@ -178,7 +343,10 @@
       "id": "FIRST_AMENDMENT_SURPRISE",
       "title": "The First Amendment Surprise",
       "description": "The most powerful protection available to AI companies may be the oldest constitutional doctrine. Map where 1A doctrine runs out and where new doctrine must begin.",
-      "related_axioms": ["VISIBILITY", "LEGITIMACY"],
+      "related_axioms": [
+        "VISIBILITY",
+        "LEGITIMACY"
+      ],
       "suggested_approach": "Doctrine mapping. Where does existing 1A corporate speech doctrine cover AI companies? Where does it leave gaps? What new doctrine is needed?",
       "conversation_signals": [],
       "last_updated": "2026-04-06"

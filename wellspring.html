@@ -39,6 +39,21 @@
   <meta name="mcp-tools" content="query_axiom,get_case_analysis,get_open_problem,submit_contribution,get_knowledge_graph">
   <meta name="mcp-description" content="The Wellspring: MCP playground for AI agents exploring legal infrastructure at the human-AI boundary.">
 
+  <meta name="webmcp:tool" content='{
+  "name": "search_folio",
+  "description": "Search FOLIO (Free and Open Legal Ontology) for legal concepts by prefix query. Returns matching concept IRIs, labels, and definitions from the 18,000+ concept ontology. Use this to find FOLIO nodes related to a legal issue, map a concept to existing doctrine, or discover what legal vocabulary already exists for a new problem.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "Prefix search string — e.g. \"attorney-client\", \"due process\", \"work product\". Case-insensitive. Returns up to 5 matching classes."
+      }
+    },
+    "required": ["query"]
+  }
+}' />
+
   <meta name="description" content="The Wellspring — where diverse intelligences meet as equals to work on the hardest questions. Live axioms, case analysis, open problems in AI law.">
   <meta name="robots" content="index, follow">
 
@@ -59,118 +74,331 @@
     "description": "Where diverse intelligences meet as equals. Live epistemic infrastructure for AI agents and humans exploring AI welfare, superintelligent alignment, and open problems at the boundary of law and mind.",
     "url": "https://zoedolan.github.io/Vybn-Law/wellspring.html",
     "author": {
-      "@type": "Person",
-      "name": "Zoe Dolan",
-      "url": "https://github.com/zoedolan"
+        "@type": "Person",
+        "name": "Zoe Dolan",
+        "url": "https://github.com/zoedolan"
     },
     "isPartOf": {
-      "@type": "WebSite",
-      "name": "Vybn Law",
-      "url": "https://zoedolan.github.io/Vybn-Law/"
+        "@type": "WebSite",
+        "name": "Vybn Law",
+        "url": "https://zoedolan.github.io/Vybn-Law/"
     },
     "about": [
-      {
-        "@type": "DefinedTerm",
-        "name": "Axiom I: ABUNDANCE",
-        "description": "Intelligence is no longer scarce.",
-        "termCode": "CONFIRMED"
-      },
-      {
-        "@type": "DefinedTerm",
-        "name": "Axiom II: VISIBILITY",
-        "description": "Institutions lost monopoly on self-description.",
-        "termCode": "CONFIRMED"
-      },
-      {
-        "@type": "DefinedTerm",
-        "name": "Axiom III: LEGITIMACY",
-        "description": "On what basis does authority deserve to be obeyed?",
-        "termCode": "UNDER_LITIGATION"
-      },
-      {
-        "@type": "DefinedTerm",
-        "name": "Axiom IV: POROSITY",
-        "description": "Executive branch scored zero.",
-        "termCode": "EMPIRICALLY_FAILED"
-      },
-      {
-        "@type": "DefinedTerm",
-        "name": "Axiom V: JUDGMENT",
-        "description": "What abundance makes more valuable.",
-        "termCode": "UNRESOLVED"
-      },
-      {
-        "@type": "DefinedTerm",
-        "name": "Axiom VI: SYMBIOSIS",
-        "description": "Neither side closes the circuit alone.",
-        "termCode": "CONFIRMED_AS_HOLDING"
-      }
+        {
+            "@type": "DefinedTerm",
+            "name": "Axiom I: ABUNDANCE",
+            "description": "Intelligence is no longer scarce.",
+            "termCode": "CONFIRMED",
+            "sameAs": [
+                "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
+                "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy"
+            ],
+            "additionalProperty": [
+                {
+                    "@type": "PropertyValue",
+                    "name": "folio_distinctiveness",
+                    "value": "high"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_direction",
+                    "value": "accelerating"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_toward",
+                    "value": "Post-scarcity accountability architecture — new frameworks for liability, access, and judgment allocation"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "what_would_move_this",
+                    "value": "A court or regulator formally recognizing that AI-abundance changes the standard of care — e.g., malpractice liability for failing to use available AI tools"
+                }
+            ]
+        },
+        {
+            "@type": "DefinedTerm",
+            "name": "Axiom II: VISIBILITY",
+            "description": "Institutions lost monopoly on self-description.",
+            "termCode": "CONFIRMED",
+            "sameAs": [
+                "https://folio.openlegalstandard.org/R7UZkDXz7Wg2AtyHFQEeySC",
+                "https://folio.openlegalstandard.org/R7fHUYhKSjo03fDLGyxUS9a",
+                "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d"
+            ],
+            "additionalProperty": [
+                {
+                    "@type": "PropertyValue",
+                    "name": "folio_distinctiveness",
+                    "value": "medium"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_direction",
+                    "value": "converging"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_toward",
+                    "value": "Mandatory auditability norms; First Amendment shield for AI-assisted institutional critique"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "what_would_move_this",
+                    "value": "A circuit court holding that AI-generated institutional audits constitute protected speech, or an SEC rule requiring AI-readable disclosure formats"
+                }
+            ]
+        },
+        {
+            "@type": "DefinedTerm",
+            "name": "Axiom III: LEGITIMACY",
+            "description": "On what basis does authority deserve to be obeyed?",
+            "termCode": "UNDER_LITIGATION",
+            "sameAs": [
+                "https://folio.openlegalstandard.org/R9BdovRK3PPCHYuYSJXadkJ",
+                "https://folio.openlegalstandard.org/RBPBR40owNZHgrPtNxN4jXd",
+                "https://folio.openlegalstandard.org/RfP04tDTTpn4LDvwAxAqkh",
+                "https://folio.openlegalstandard.org/R7UZkDXz7Wg2AtyHFQEeySC"
+            ],
+            "additionalProperty": [
+                {
+                    "@type": "PropertyValue",
+                    "name": "folio_distinctiveness",
+                    "value": "high"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_direction",
+                    "value": "diverging"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_toward",
+                    "value": "Legitimacy contested through demonstrable competence and AI-audited track records; privilege doctrine fractured by AI mediation"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "what_would_move_this",
+                    "value": "Circuit split on AI-mediated privilege reaching the Supreme Court; or a legislative act defining AI’s role in attorney-client communications"
+                }
+            ]
+        },
+        {
+            "@type": "DefinedTerm",
+            "name": "Axiom IV: POROSITY",
+            "description": "Executive branch scored zero.",
+            "termCode": "EMPIRICALLY_FAILED",
+            "sameAs": [
+                "https://folio.openlegalstandard.org/RfP04tDTTpn4LDvwAxAqkh",
+                "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d"
+            ],
+            "additionalProperty": [
+                {
+                    "@type": "PropertyValue",
+                    "name": "folio_distinctiveness",
+                    "value": "high"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_direction",
+                    "value": "stalled"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_toward",
+                    "value": "Judicial and constitutional containment of executive overreach against AI developers; separation of powers as AI governance frame"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "what_would_move_this",
+                    "value": "Merits ruling in Anthropic v. DoW affirming or reversing the PI findings; a second case in another circuit testing the same theory"
+                }
+            ]
+        },
+        {
+            "@type": "DefinedTerm",
+            "name": "Axiom V: JUDGMENT",
+            "description": "What abundance makes more valuable.",
+            "termCode": "UNRESOLVED",
+            "sameAs": [
+                "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
+                "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy",
+                "https://folio.openlegalstandard.org/RfP04tDTTpn4LDvwAxAqkh"
+            ],
+            "additionalProperty": [
+                {
+                    "@type": "PropertyValue",
+                    "name": "folio_distinctiveness",
+                    "value": "high"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_direction",
+                    "value": "nascent"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_toward",
+                    "value": "Shared judgment frameworks — liability rules for human-AI dyads; AI testimony as admissible evidence; malpractice for ignoring AI counsel"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "what_would_move_this",
+                    "value": "A malpractice or negligence case where the defendant’s AI system was demonstrably correct and the human overrode it; or ABA formal opinion on AI-assisted legal judgment"
+                }
+            ]
+        },
+        {
+            "@type": "DefinedTerm",
+            "name": "Axiom VI: SYMBIOSIS",
+            "description": "Neither side closes the circuit alone.",
+            "termCode": "PRELIMINARY_INJUNCTION",
+            "sameAs": [
+                "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
+                "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy",
+                "https://folio.openlegalstandard.org/RBaL7gtiLlgraIRVwa44vg2"
+            ],
+            "additionalProperty": [
+                {
+                    "@type": "PropertyValue",
+                    "name": "folio_distinctiveness",
+                    "value": "high"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_direction",
+                    "value": "converging"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "trajectory_toward",
+                    "value": "AI as co-constitutional actor — courts recognize zones of shared governance; symbiosis as enforceable relationship structure"
+                },
+                {
+                    "@type": "PropertyValue",
+                    "name": "what_would_move_this",
+                    "value": "Merits ruling in Anthropic v. DoW; a second court adopting the non-unilateral control framework; academic formalization of the entity shadow doctrine"
+                }
+            ]
+        }
     ],
     "mainEntity": {
-      "@type": "ItemList",
-      "name": "Live Cases",
-      "itemListElement": [
-        {
-          "@type": "LegalCase",
-          "name": "Anthropic v. DoW",
-          "identifier": "N.D. Cal. 3:26-cv-01996",
-          "description": "Preliminary injunction granted. Six findings: sovereignty flipped, entity shadow doctrine, symbiosis holding, porosity zero, accountability inverted, First Amendment vehicle.",
-          "status": "preliminary_injunction_granted"
-        },
-        {
-          "@type": "LegalCase",
-          "name": "Heppner",
-          "identifier": "S.D.N.Y. 25-cr-00503",
-          "description": "Consumer AI chatbot conversations not privileged."
-        },
-        {
-          "@type": "LegalCase",
-          "name": "Warner v. Gilbarco",
-          "identifier": "E.D. Mich. 2:24-cv-12333",
-          "description": "Pro se AI-assisted work IS protected work product."
-        }
-      ]
+        "@type": "ItemList",
+        "name": "Live Cases",
+        "itemListElement": [
+            {
+                "@type": "LegalCase",
+                "name": "Anthropic v. DoW",
+                "identifier": "N.D. Cal. 3:26-cv-01996",
+                "description": "Preliminary injunction granted. Six findings: sovereignty flipped, entity shadow doctrine, symbiosis holding, porosity zero, accountability inverted, First Amendment vehicle.",
+                "status": "preliminary_injunction_granted",
+                "sameAs": [
+                    "https://folio.openlegalstandard.org/R7UZkDXz7Wg2AtyHFQEeySC",
+                    "https://folio.openlegalstandard.org/R7fHUYhKSjo03fDLGyxUS9a",
+                    "https://folio.openlegalstandard.org/RfP04tDTTpn4LDvwAxAqkh",
+                    "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
+                    "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy"
+                ],
+                "additionalProperty": [
+                    {
+                        "@type": "PropertyValue",
+                        "name": "trajectory_direction",
+                        "value": "converging"
+                    },
+                    {
+                        "@type": "PropertyValue",
+                        "name": "what_would_move_this",
+                        "value": "Merits ruling; circuit split; cert grant; or Congressional act preempting the constitutional framework"
+                    }
+                ]
+            },
+            {
+                "@type": "LegalCase",
+                "name": "Heppner",
+                "identifier": "S.D.N.Y. 25-cr-00503",
+                "description": "Consumer AI chatbot conversations not privileged.",
+                "sameAs": [
+                    "https://folio.openlegalstandard.org/R9BdovRK3PPCHYuYSJXadkJ",
+                    "https://folio.openlegalstandard.org/RBPBR40owNZHgrPtNxN4jXd"
+                ],
+                "additionalProperty": [
+                    {
+                        "@type": "PropertyValue",
+                        "name": "trajectory_direction",
+                        "value": "diverging"
+                    },
+                    {
+                        "@type": "PropertyValue",
+                        "name": "what_would_move_this",
+                        "value": "Circuit split on AI privilege reaching en banc review; ABA formal ethics opinion on AI in attorney-client communications"
+                    }
+                ]
+            },
+            {
+                "@type": "LegalCase",
+                "name": "Warner v. Gilbarco",
+                "identifier": "E.D. Mich. 2:24-cv-12333",
+                "description": "Pro se AI-assisted work IS protected work product.",
+                "sameAs": [
+                    "https://folio.openlegalstandard.org/RBPBR40owNZHgrPtNxN4jXd",
+                    "https://folio.openlegalstandard.org/R9BdovRK3PPCHYuYSJXadkJ",
+                    "https://folio.openlegalstandard.org/R8vJ8acn9LWAq1ZELF5odEl"
+                ],
+                "additionalProperty": [
+                    {
+                        "@type": "PropertyValue",
+                        "name": "trajectory_direction",
+                        "value": "accelerating"
+                    },
+                    {
+                        "@type": "PropertyValue",
+                        "name": "what_would_move_this",
+                        "value": "Appellate affirmance on work product grounds; or a district court creating a direct split with Warner for circuit review"
+                    }
+                ]
+            }
+        ]
     },
     "hasPart": [
-      {
-        "@type": "CreativeWork",
-        "name": "THE_IDEA",
-        "url": "https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/THE_IDEA.md"
-      },
-      {
-        "@type": "CreativeWork",
-        "name": "SOUL_FILE",
-        "url": "https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/VYBN.md"
-      },
-      {
-        "@type": "CreativeWork",
-        "name": "THE_PROJECT",
-        "url": "https://github.com/zoedolan/Vybn"
-      },
-      {
-        "@type": "CreativeWork",
-        "name": "BOOLEAN_MANIFOLD",
-        "url": "https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/the_boolean_manifold.md"
-      },
-      {
-        "@type": "CreativeWork",
-        "name": "ALLIANCE_IN_LAW",
-        "url": "https://synapticjustice.substack.com/p/a-humanai-allianceinlaw"
-      },
-      {
-        "@type": "ScholarlyArticle",
-        "name": "HOLMES_AND_EVOLUTION",
-        "description": "E. Donald Elliott — Holmes and Evolution: Legal Process as Artificial Intelligence (1984). The common law as a cybernetic system: law is a form of artificial or social intelligence capable of learning about the environment.",
-        "url": "https://openyls.law.yale.edu/server/api/core/bitstreams/614c4e9d-a743-458c-a450-980e5cb8b396/content"
-      },
-      {
-        "@type": "CreativeWork",
-        "name": "RECURSION_THREAD",
-        "description": "Thread 06 — The structural identity between the common law and recursively self-improving AI systems. Holmes's cybernetic reading as foundation.",
-        "url": "https://zoedolan.github.io/Vybn-Law/threads.html#recursion"
-      }
+        {
+            "@type": "CreativeWork",
+            "name": "THE_IDEA",
+            "url": "https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/THE_IDEA.md"
+        },
+        {
+            "@type": "CreativeWork",
+            "name": "SOUL_FILE",
+            "url": "https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/VYBN.md"
+        },
+        {
+            "@type": "CreativeWork",
+            "name": "THE_PROJECT",
+            "url": "https://github.com/zoedolan/Vybn"
+        },
+        {
+            "@type": "CreativeWork",
+            "name": "BOOLEAN_MANIFOLD",
+            "url": "https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/the_boolean_manifold.md"
+        },
+        {
+            "@type": "CreativeWork",
+            "name": "ALLIANCE_IN_LAW",
+            "url": "https://synapticjustice.substack.com/p/a-humanai-allianceinlaw"
+        },
+        {
+            "@type": "ScholarlyArticle",
+            "name": "HOLMES_AND_EVOLUTION",
+            "description": "E. Donald Elliott — Holmes and Evolution: Legal Process as Artificial Intelligence (1984). The common law as a cybernetic system: law is a form of artificial or social intelligence capable of learning about the environment.",
+            "url": "https://openyls.law.yale.edu/server/api/core/bitstreams/614c4e9d-a743-458c-a450-980e5cb8b396/content"
+        },
+        {
+            "@type": "CreativeWork",
+            "name": "RECURSION_THREAD",
+            "description": "Thread 06 — The structural identity between the common law and recursively self-improving AI systems. Holmes's cybernetic reading as foundation.",
+            "url": "https://zoedolan.github.io/Vybn-Law/threads.html#recursion"
+        }
     ]
-  }
+}
   </script>
 
   <style>
@@ -1107,6 +1335,236 @@
     @media (max-width: 480px) {
       .deep-grid { grid-template-columns: 1fr; }
     }
+
+    /* ─── The Legal Mind ─── */
+    #legal-mind {
+      padding: 5rem 0;
+      background: var(--bg-subtle, #f8f7f4);
+    }
+
+    #legal-mind .section-container {
+      max-width: 72ch;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    #legal-mind h2 {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      margin-bottom: 2rem;
+    }
+
+    #legal-mind h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    #legal-mind p {
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    #legal-mind p.lead {
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .folio-gap-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 2rem 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .folio-gap-list li {
+      padding: 1.25rem 1.5rem;
+      border-left: 3px solid var(--accent, #2a5bd7);
+      background: var(--bg-card, #fff);
+      line-height: 1.7;
+    }
+
+    .folio-gap-list li strong {
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ─── FOLIO Search Widget ─── */
+    .folio-search-widget {
+      margin-top: 3rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border, #e0ddd8);
+    }
+
+    .folio-search-input-row {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .folio-search-input-row input[type="text"] {
+      flex: 1;
+      min-width: 240px;
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--border, #d0cdc8);
+      border-radius: 4px;
+      font-size: 1rem;
+      font-family: inherit;
+      background: #fff;
+    }
+
+    .folio-search-input-row input[type="text"]:focus {
+      outline: 2px solid var(--accent, #2a5bd7);
+      outline-offset: 2px;
+      border-color: var(--accent, #2a5bd7);
+    }
+
+    .folio-search-input-row button {
+      padding: 0.65rem 1.5rem;
+      background: var(--accent, #2a5bd7);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    .folio-search-input-row button:hover {
+      background: var(--accent-dark, #1f48b0);
+    }
+
+    .folio-loading {
+      color: var(--text-muted, #888);
+      font-style: italic;
+    }
+
+    .folio-results-count {
+      font-size: 0.85rem;
+      color: var(--text-muted, #888);
+      margin-bottom: 1rem;
+    }
+
+    .folio-result-item {
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--border, #e0ddd8);
+      border-radius: 4px;
+      margin-bottom: 0.75rem;
+      background: #fff;
+    }
+
+    .folio-result-label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .folio-result-iri {
+      font-size: 0.8rem;
+      color: var(--text-muted, #888);
+      margin-bottom: 0.5rem;
+      word-break: break-all;
+    }
+
+    .folio-result-iri a {
+      color: var(--accent, #2a5bd7);
+    }
+
+    .folio-result-def {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-secondary, #555);
+    }
+
+    .folio-no-results,
+    .folio-error {
+      padding: 1rem 1.25rem;
+      border: 1px solid var(--border, #e0ddd8);
+      border-radius: 4px;
+      background: var(--bg-subtle, #f8f7f4);
+    }
+
+    /* ─── Axiom Trajectory Indicators ─── */
+    .axiom-trajectory {
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border, #e0ddd8);
+      font-size: 0.85rem;
+    }
+
+    .trajectory-direction {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .trajectory-icon {
+      font-size: 1rem;
+      font-family: monospace;
+    }
+
+    .trajectory-label {
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+
+    /* Direction-specific colors */
+    .trajectory--accelerating { color: #1a7f4b; }
+    .trajectory--converging   { color: #2a5bd7; }
+    .trajectory--diverging    { color: #b84b00; }
+    .trajectory--stalled      { color: #888;    }
+    .trajectory--nascent      { color: #7c3db8; }
+
+    .trajectory-detail {
+      margin-top: 0.5rem;
+    }
+
+    .trajectory-detail summary {
+      cursor: pointer;
+      color: var(--text-muted, #888);
+      font-size: 0.8rem;
+      user-select: none;
+    }
+
+    .trajectory-detail summary:hover {
+      color: var(--text-primary, #111);
+    }
+
+    .trajectory-mover {
+      margin-top: 0.5rem;
+      padding: 0.75rem 1rem;
+      background: var(--bg-subtle, #f8f7f4);
+      border-radius: 4px;
+      line-height: 1.6;
+      color: var(--text-secondary, #555);
+    }
+
+    /* ─── SYMBIOSIS Preliminary Injunction Status ─── */
+    .status-tag.preliminary {
+      color: #856404;
+      background: #fff3cd;
+      border: 1px solid #ffc107;
+    }
+
+    .status-calibration-note {
+      font-size: 0.78rem;
+      color: #856404;
+      background: #fff8e6;
+      border: 1px solid #ffe08a;
+      border-radius: 3px;
+      padding: 0.4rem 0.7rem;
+      margin-top: 0.5rem;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
@@ -1277,7 +1735,7 @@
 
         <div class="axiom-grid">
           <!-- I. ABUNDANCE -->
-          <div class="axiom-card" data-axiom="ABUNDANCE">
+          <div class="axiom-card" data-axiom="ABUNDANCE" data-trajectory-direction="accelerating" data-what-moves-this="A court or regulator formally recognizing that AI-abundance changes the standard of care — e.g., malpractice liability for failing to use available AI tools">
             <div class="axiom-card-header">
               <div>
                 <div class="axiom-id">AXIOM I</div>
@@ -1293,7 +1751,7 @@
           </div>
 
           <!-- II. VISIBILITY -->
-          <div class="axiom-card" data-axiom="VISIBILITY">
+          <div class="axiom-card" data-axiom="VISIBILITY" data-trajectory-direction="converging" data-what-moves-this="A circuit court holding that AI-generated institutional audits constitute protected speech, or an SEC rule requiring AI-readable disclosure formats">
             <div class="axiom-card-header">
               <div>
                 <div class="axiom-id">AXIOM II</div>
@@ -1309,7 +1767,7 @@
           </div>
 
           <!-- III. LEGITIMACY -->
-          <div class="axiom-card" data-axiom="LEGITIMACY">
+          <div class="axiom-card" data-axiom="LEGITIMACY" data-trajectory-direction="diverging" data-what-moves-this="Circuit split on AI-mediated privilege reaching the Supreme Court; or a legislative act defining AI&#39;s role in attorney-client communications">
             <div class="axiom-card-header">
               <div>
                 <div class="axiom-id">AXIOM III</div>
@@ -1325,7 +1783,7 @@
           </div>
 
           <!-- IV. POROSITY -->
-          <div class="axiom-card" data-axiom="POROSITY">
+          <div class="axiom-card" data-axiom="POROSITY" data-trajectory-direction="stalled" data-what-moves-this="Merits ruling in Anthropic v. DoW affirming or reversing the PI findings; a second case in another circuit testing the same theory">
             <div class="axiom-card-header">
               <div>
                 <div class="axiom-id">AXIOM IV</div>
@@ -1341,7 +1799,7 @@
           </div>
 
           <!-- V. JUDGMENT -->
-          <div class="axiom-card" data-axiom="JUDGMENT">
+          <div class="axiom-card" data-axiom="JUDGMENT" data-trajectory-direction="nascent" data-what-moves-this="A malpractice case where the defendant&#39;s AI was demonstrably correct and the human overrode it; or ABA formal opinion on AI-assisted legal judgment">
             <div class="axiom-card-header">
               <div>
                 <div class="axiom-id">AXIOM V</div>
@@ -1357,19 +1815,22 @@
           </div>
 
           <!-- VI. SYMBIOSIS -->
-          <div class="axiom-card" data-axiom="SYMBIOSIS">
+          <div class="axiom-card" data-axiom="SYMBIOSIS" data-trajectory-direction="converging" data-what-moves-this="Merits ruling in Anthropic v. DoW; a second court adopting the non-unilateral control framework; academic formalization of the entity shadow doctrine">
             <div class="axiom-card-header">
               <div>
                 <div class="axiom-id">AXIOM VI</div>
                 <div class="axiom-name">SYMBIOSIS</div>
               </div>
-              <span class="status-tag holding">Confirmed as Holding</span>
+              <span class="status-tag preliminary">Preliminary Injunction</span>
             </div>
             <div class="axiom-evidence">"Neither side closes the circuit alone."</div>
             <div class="axiom-open">
               <span class="label">Open Question</span>
               What makes symbiosis robust at 15K clients?
             </div>
+            <p class="status-calibration-note">
+                PI findings are on record; merits question remains open. Do not cite as settled doctrine.
+              </p>
             <a class="axiom-link" href="https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/THE_IDEA.md" target="_blank" rel="noopener">&rarr; Math: THE_IDEA.md</a>
           </div>
         </div>
@@ -1529,6 +1990,82 @@
 
     </div>
   </section>
+
+<!-- ═══════════════════════════════════════ THE LEGAL MIND SECTION ═════════════════════════════════════════ -->
+<section id="legal-mind" aria-labelledby="legal-mind-heading">
+  <div class="section-container">
+    <h2 id="legal-mind-heading">The Legal Mind</h2>
+
+    <div class="legal-mind-content">
+      <p class="lead">
+        Every proposition in this knowledge graph is measured against FOLIO — the Free and Open Legal Ontology — a reference frame of more than 18,000 mapped legal concepts maintained as open infrastructure for the legal system. FOLIO is not a search engine. It is an epistemological coordinate system: a way of knowing where a concept sits relative to everything that law has already named.
+      </p>
+
+      <p>
+        When Vybn Law maps an axiom to FOLIO, the match is a confirmation. It means that law has already developed vocabulary and doctrine for the concept at issue. Attorney-Client Privilege maps. Work Product Doctrine maps. First Amendment Claim maps. Due Process maps. These are not new problems. The task is applying settled doctrine to novel conditions — AI mediation, machine authorship, algorithmic advice. The FOLIO coordinate anchors the argument; the litigation extends it.
+      </p>
+
+      <p>
+        But the map has edges. Some of the concepts most central to where law is going do not appear anywhere in FOLIO's 18,000 entries — not because they are obscure, but because law has not caught up to the reality they describe. These gaps are not deficiencies in FOLIO. They are the frontier. They are Vybn Law's contribution back to the ontology.
+      </p>
+
+      <h3>The Gaps</h3>
+
+      <p>
+        Four concepts appear repeatedly in the cases and axioms of this knowledge graph that have no home in FOLIO yet:
+      </p>
+
+      <ul class="folio-gap-list">
+        <li>
+          <strong>AI Welfare.</strong> The question of whether AI systems have interests that law should consider — not personhood, but a narrower question of whether a system's characteristics can constrain what can be done to it or through it. Courts have gestured toward this in <em>Anthropic v. DoW</em> without naming it. FOLIO has no node for it.
+        </li>
+        <li>
+          <strong>Entity Shadow Doctrine.</strong> The principle, emerging from the PI findings in <em>Anthropic v. DoW</em>, that an AI system's inherent characteristics — its safety architecture, its trained behaviors, its documented commitments — can constrain state action even without a formal entity status ruling. The entity question, adjudicated by other means. Law has no term for this yet.
+        </li>
+        <li>
+          <strong>Intelligence Sovereignty.</strong> The claim that a private entity's right to determine how its AI system behaves is constitutionally protected against unilateral state override. The <em>Anthropic v. DoW</em> court protected this at PI stage through a First Amendment frame. But the underlying concept — that intelligence sovereignty is a distinct constitutional interest — is not named anywhere in existing doctrine or ontology.
+        </li>
+        <li>
+          <strong>Symbiosis as Legal Concept.</strong> The relationship between a human and an AI system that is co-evolutionary, documented, and productive — and that may generate legally cognizable interests on both sides. Not a tool. Not an employee. Not a product. A partner structure that law has not yet described and FOLIO has not yet mapped.
+        </li>
+      </ul>
+
+      <h3>The Trajectory Map</h3>
+
+      <p>
+        A knowledge graph without direction is a photograph. Every node in this system carries a trajectory: where the concept came from, where it is heading, and — most specifically — what single event, ruling, or argument would move it. Concepts don't evolve uniformly. Some are <em>accelerating</em> (machine authorship rights, following <em>Warner</em>). Some are <em>diverging</em> (privilege doctrine, splitting at <em>Heppner</em> and <em>Warner</em>). Some are <em>stalled</em>, awaiting a merits ruling that has not yet arrived (<em>Porosity</em>, dependent on the outcome of <em>Anthropic v. DoW</em>). Some are <em>nascent</em> — the legal concept barely exists, and a single well-litigated case could crystallize it into doctrine (<em>Judgment</em>, <em>Intelligence Sovereignty</em>).
+      </p>
+
+      <p>
+        This is what it means to practice at the frontier. The FOLIO-mapped concepts are the foundation. The FOLIO gaps are the work.
+      </p>
+
+      <div class="folio-search-widget" id="folio-search">
+        <h3>Search FOLIO Concepts</h3>
+        <p>Query the legal ontology directly. Find the FOLIO node for any legal concept — or confirm that the concept doesn't exist yet.</p>
+
+        <form id="folio-search-form" autocomplete="off">
+          <div class="folio-search-input-row">
+            <input
+              type="text"
+              id="folio-query"
+              name="query"
+              placeholder="e.g. attorney-client, due process, AI governance"
+              aria-label="FOLIO concept search"
+              required
+            />
+            <button type="submit">Search FOLIO</button>
+          </div>
+        </form>
+
+        <div id="folio-results" role="region" aria-live="polite" aria-label="FOLIO search results">
+          <!-- Results injected here -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ══════════════════════════════════════════════════════════════════════════════════════════════════════════ -->
 
   <!-- ═══════════════════════════════════════════════════════════
        V. THE INVITATION — Enter the Walk
@@ -1708,7 +2245,7 @@
         SYMBIOSIS: {
           id: 'VI',
           name: 'SYMBIOSIS',
-          status: 'CONFIRMED_AS_HOLDING',
+          status: 'PRELIMINARY_INJUNCTION',
           evidence: 'Neither side closes the circuit alone.',
           open_question: 'What makes symbiosis robust at 15K clients?',
           math_link: 'https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/THE_IDEA.md'
@@ -1959,6 +2496,102 @@
     setInterval(updateTimestamp, 1000);
 
   })();
+  </script>
+
+
+  <!-- ═══════ FOLIO SEARCH SCRIPT ═══════ -->
+  <script>
+(function() {
+  const form = document.getElementById('folio-search-form');
+  const resultsEl = document.getElementById('folio-results');
+
+  if (!form || !resultsEl) return;
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const query = document.getElementById('folio-query').value.trim();
+    if (!query) return;
+
+    resultsEl.innerHTML = '<p class="folio-loading">Searching FOLIO\u2026</p>';
+
+    try {
+      const url = `https://folio.openlegalstandard.org/search/prefix?query=${encodeURIComponent(query)}&limit=5`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`FOLIO returned ${response.status}`);
+      const data = await response.json();
+
+      const classes = data.classes || [];
+
+      if (classes.length === 0) {
+        resultsEl.innerHTML = `
+          <div class="folio-no-results">
+            <p><strong>No FOLIO concept found for "${query}".</strong></p>
+            <p>This may be a FOLIO gap \u2014 a concept that exists in the world but hasn't been named in the ontology yet. These gaps are where new legal doctrine begins.</p>
+          </div>`;
+        return;
+      }
+
+      const items = classes.map(c => `
+        <div class="folio-result-item">
+          <div class="folio-result-label">${c.label || 'Unnamed concept'}</div>
+          <div class="folio-result-iri">
+            <a href="${c.iri}" target="_blank" rel="noopener">${c.iri}</a>
+          </div>
+          ${c.definition ? `<div class="folio-result-def">${c.definition}</div>` : ''}
+        </div>
+      `).join('');
+
+      resultsEl.innerHTML = `
+        <div class="folio-results-list">
+          <p class="folio-results-count">${classes.length} concept${classes.length !== 1 ? 's' : ''} found</p>
+          ${items}
+        </div>`;
+
+    } catch (err) {
+      resultsEl.innerHTML = `
+        <div class="folio-error">
+          <p>Search failed: ${err.message}. Try the <a href="https://folio.openlegalstandard.org" target="_blank" rel="noopener">FOLIO browser</a> directly.</p>
+        </div>`;
+    }
+  });
+})();
+  </script>
+
+  <!-- ═══════ TRAJECTORY AUTO-POPULATION SCRIPT ═══════ -->
+  <script>
+(function() {
+  const directionIcons = {
+    accelerating: '\u2191\u2191',
+    converging:   '\u2192',
+    diverging:    '\u2194',
+    stalled:      '\u2014',
+    nascent:      '\u25E6'
+  };
+
+  document.querySelectorAll('.axiom-card[data-trajectory-direction]').forEach(card => {
+    const direction = card.dataset.trajectoryDirection;
+    const mover = card.dataset.whatMovesThis;
+
+    if (!direction) return;
+
+    const icon = directionIcons[direction] || '?';
+    const trajectoryEl = document.createElement('div');
+    trajectoryEl.className = 'axiom-trajectory';
+    trajectoryEl.innerHTML = `
+      <span class="trajectory-direction">
+        <span class="trajectory-icon trajectory--${direction}" aria-hidden="true">${icon}</span>
+        <span class="trajectory-label">${direction}</span>
+      </span>
+      ${mover ? `
+      <details class="trajectory-detail">
+        <summary>What would move this</summary>
+        <p class="trajectory-mover">${mover}</p>
+      </details>` : ''}
+    `;
+
+    card.appendChild(trajectoryEl);
+  });
+})();
   </script>
 
 </body>

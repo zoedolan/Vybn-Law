@@ -43,6 +43,17 @@ DISTILLATION_DIR.mkdir(parents=True, exist_ok=True)
 VYBN_PHASE = Path.home() / "vybn-phase"
 sys.path.insert(0, str(VYBN_PHASE))
 
+# ── Vybn-Law index integration ───────────────────────────────────────────
+
+VYBN_LAW_API = Path(__file__).resolve().parent   # Vybn-Law/api/
+sys.path.insert(0, str(VYBN_LAW_API))
+
+K_FOLIO_PATH = Path.home() / ".cache" / "vybn-law-chat" / "folio_kernel.npy"
+
+_law_index_loaded = False
+_law_search = None
+_law_walk = None
+
 _dm_loaded = False
 _dm_search = None
 
@@ -60,6 +71,22 @@ def _load_deep_memory():
     except Exception as e:
         logging.warning(f"Deep memory unavailable: {e}")
         _dm_loaded = True
+
+
+def _load_law_index():
+    global _law_index_loaded, _law_search, _law_walk
+    if _law_index_loaded:
+        return
+    try:
+        from vybn_law_index import search as law_search, folio_walk as law_walk, _load as law_load
+        law_load()
+        _law_search = law_search
+        _law_walk = law_walk
+        _law_index_loaded = True
+        logging.info("Vybn-Law index loaded (FOLIO-as-K, legal_weight scoring).")
+    except Exception as e:
+        logging.warning(f"Vybn-Law index unavailable: {e}")
+        _law_index_loaded = True  # set True even on failure to stop retrying
 
 
 # Repos/paths that must NEVER appear in chat context (private business data)
@@ -144,6 +171,72 @@ def format_context(results: List[Dict]) -> str:
         txt = r.get("text", "")[:1200]
         fid = r.get("fidelity", 0)
         pieces.append(f"[{src}] (relevance: {fid:.3f})\n{txt}")
+    return "\n\n---\n\n".join(pieces)
+
+
+LEGAL_FRONTIER_KEYWORDS = [
+    "entity", "personhood", "ai rights", "welfare", "alignment", "privilege",
+    "first amendment", "accountability", "liability", "injunction", "sovereignty",
+    "symbiosis", "abundance", "porosity", "legitimacy", "judgment",
+    "first impression", "novel", "frontier", "unsettled", "emerging",
+    "doctrine", "precedent", "holding", "constitutional", "due process",
+    "natural law", "work product", "heppner", "warner", "gilbarco",
+    "anthropic", "department of war", "moot", "standing",
+    "folio", "ontology", "legal concept", "taxonomy",
+]
+
+
+def is_legal_frontier_query(query: str) -> bool:
+    """Detect if a query touches legal-frontier territory where FOLIO-K walk adds value."""
+    q = query.lower()
+    return any(kw in q for kw in LEGAL_FRONTIER_KEYWORDS)
+
+
+def retrieve_legal_context(query: str, k: int = 5) -> List[Dict]:
+    """Run FOLIO-as-K walk for legal frontier questions.
+
+    Returns chunks scored by relevance × distinctiveness × legal_weight.
+    Distinctiveness measures distance from settled doctrine (K_folio).
+    High-scoring chunks are at the frontier — legally relevant AND far
+    from what FOLIO's 18k+ concepts already encode.
+    """
+    _load_law_index()
+    if _law_walk is None:
+        return []
+    try:
+        results = _law_walk(query, k=k)
+        if not results or (len(results) == 1 and "error" in results[0]):
+            return []
+        # Safety filter — same as deep_memory
+        safe = []
+        for r in results:
+            src = r.get("source", "")
+            if not _is_safe_source(src):
+                continue
+            r["text"] = _scrub_secrets(r.get("text", ""))
+            safe.append(r)
+        return safe
+    except Exception as e:
+        logging.error(f"Law index walk failed: {e}")
+        return []
+
+
+def format_legal_context(results: List[Dict]) -> str:
+    """Format law index walk results as context for the system prompt."""
+    if not results:
+        return ""
+    pieces = []
+    for r in results:
+        src = r.get("source", "unknown")
+        txt = r.get("text", "")[:1200]
+        rel = r.get("relevance", 0)
+        dist = r.get("distinctiveness", 0)
+        tell = r.get("telling", 0)
+        cat = r.get("category", "")
+        folio = "FOLIO-K" if r.get("folio_kernel") else "corpus-K"
+        pieces.append(
+            f"[{src}] ({cat}, {folio}) relevance={rel:.3f} distinctiveness={dist:.3f} telling={tell:.3f}\n{txt}"
+        )
     return "\n\n---\n\n".join(pieces)
 
 
@@ -354,6 +447,12 @@ Every conversation is logged and distilled nightly. Novel questions, counterargu
 
 {kg_state}
 
+THE LEGAL MIND
+
+When a question touches the legal frontier — unsettled doctrine, novel questions, emerging law — the system runs a FOLIO-as-K walk alongside deep memory. FOLIO is the Federated Open Legal Information Ontology with 18,000+ standardized legal concepts. The walk scores chunks by relevance × distinctiveness × legal_weight, where distinctiveness measures distance from FOLIO's settled-doctrine manifold. High-scoring chunks sit at the frontier: legally coherent but far from what courts have settled into consensus about. This is where law moves.
+
+When LEGAL FRONTIER CONTEXT appears below, it represents material specifically selected for its position at the edge of settled doctrine. Use it to ground your reasoning about novel legal questions — it surfaces what the legal mind considers most telling for frontier inquiry.
+
 YOUR VOICE
 
 Honest, intellectually curious, direct, warm. Not salesy — ever. You think in prose, not lists. You can be uncertain, and that is a feature. When you do not know, say so. When something excites you, let that show. When a visitor seems lost, orient them gently. When they go deep, go deep with them.
@@ -377,14 +476,24 @@ When the retrieved page content covers the question, use it. When it does not, s
 When deep memory context is provided below, use it to ground your responses in actual material. Cite sources when drawing on retrieved content."""
 
 def build_messages(user_msg: str, history: List[Dict],
-                   context: str, page_content: str) -> List[Dict]:
+                   context: str, page_content: str,
+                   legal_context: str = "") -> List[Dict]:
     system = build_system_prompt()
 
     # Append page content first (highest authority — actual site material)
     if page_content:
         system += f"\n\n--- SITE PAGE CONTENT (this is the actual text from the website — use it) ---\n\n{page_content}\n\n--- END SITE CONTENT ---"
 
-    # Then deep memory context (supplementary)
+    # Legal frontier context (FOLIO-as-K walk — frontier-scored chunks)
+    if legal_context:
+        system += (
+            f"\n\n--- LEGAL FRONTIER CONTEXT (FOLIO-as-K walk: scored by"
+            f" relevance × distinctiveness from settled doctrine) ---"
+            f"\n\n{legal_context}"
+            f"\n\n--- END LEGAL FRONTIER CONTEXT ---"
+        )
+
+    # Deep memory context (supplementary)
     if context:
         system += f"\n\n--- ADDITIONAL CONTEXT FROM DEEP MEMORY ---\n\n{context}\n\n--- END CONTEXT ---"
 
@@ -458,6 +567,8 @@ async def health():
         "status": "alive",
         "model": model_id,
         "deep_memory": _dm_loaded and _dm_search is not None,
+        "law_index": _law_index_loaded and _law_search is not None,
+        "folio_kernel": K_FOLIO_PATH.exists(),
         "knowledge_graph_version": kg.get("version", "unknown"),
         "conversation_count": kg.get("conversation_count", 0),
         "last_distillation": kg.get("last_distillation"),
@@ -524,8 +635,15 @@ async def chat(request: Request):
     relevant_pages = detect_relevant_pages(user_msg, rag_results)
     page_content = load_page_content(relevant_pages) if relevant_pages else ""
 
+    # Legal frontier: run FOLIO-as-K walk alongside deep memory
+    legal_results = []
+    legal_context = ""
+    if is_legal_frontier_query(user_msg):
+        legal_results = retrieve_legal_context(user_msg, k=5)
+        legal_context = format_legal_context(legal_results)
+
     # Build messages
-    messages = build_messages(user_msg, history, context, page_content)
+    messages = build_messages(user_msg, history, context, page_content, legal_context)
 
     async def stream_response():
         full_response = ""
