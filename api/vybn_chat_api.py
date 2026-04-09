@@ -262,56 +262,94 @@ KNOWN_FOLIO_GAPS = {
 }
 
 
-def extract_legal_concepts(query: str) -> List[str]:
-    """Extract searchable legal concept terms from a query."""
-    q = query.lower().strip()
+# Words too common/vague to be useful FOLIO queries
+_FOLIO_STOPWORDS = frozenset(
+    "a about above after again against all am an and any are as at be because "
+    "been before being below between both but by can could did do does doing "
+    "down during each few for from further get got had has have having he her "
+    "here hers herself him himself his how i if in into is it its itself just "
+    "let like me might more most my myself no nor not now of off on once only "
+    "or other our ours ourselves out over own re said same she should so some "
+    "still such than that the their theirs them themselves then there these "
+    "they this those through to too under until up us very was we were what "
+    "when where which while who whom why will with would you your yours "
+    "yourself yourselves also already always another anything because being "
+    "could every everything going got had has have here how just know like "
+    "look make many much must never new next now one only really right say "
+    "see seem take tell them then thing think through try two use want way "
+    "well work yes yet".split()
+)
+
+
+def extract_legal_concepts(query: str, history: List[Dict] = None) -> List[str]:
+    """Extract concepts worth searching in FOLIO.
+
+    Strategy: search generously, let FOLIO decide what matches.
+    No curated word list — any substantive term gets searched.
+    Also scans recent conversation history for concepts Vybn discussed.
+    """
     concepts = []
+    q = query.lower().strip()
 
-    # Known multi-word legal phrases to look for
-    legal_phrases = [
-        "due process", "work product", "attorney-client", "first amendment",
-        "equal protection", "personal jurisdiction", "subject matter jurisdiction",
-        "ai welfare", "ai personhood", "entity shadow", "intelligence sovereignty",
-        "preliminary injunction", "moot court", "standing doctrine",
-        "artificial intelligence", "machine learning", "natural law",
-        "ai rights", "ai entity", "legal personhood",
-    ]
-    for phrase in legal_phrases:
-        if phrase in q and phrase not in concepts:
-            concepts.append(phrase)
+    # 1. If query is short (<=4 words), search the whole thing as-is
+    if len(q.split()) <= 4:
+        cleaned = q.strip(".,?!;:\"'()")
+        if cleaned and len(cleaned) > 2:
+            concepts.append(cleaned)
 
-    # Try the full query if short enough and not already captured
-    if len(q.split()) <= 4 and q not in concepts:
-        concepts.append(q)
-
-    # Only extract individual words that are known legal terms.
-    # Generic words like "correlate", "thinking", "anything" waste FOLIO queries.
-    legal_terms = {
-        "privilege", "liability", "negligence", "malpractice", "fiduciary",
-        "agency", "standing", "jurisdiction", "tort", "contract", "equity",
-        "injunction", "discovery", "deposition", "subpoena", "arbitration",
-        "mediation", "restitution", "indemnity", "damages", "remedy",
-        "statute", "precedent", "doctrine", "holding", "ruling",
-        "personhood", "entity", "welfare", "sovereignty", "alignment",
-        "symbiosis", "accountability", "transparency", "autonomy",
-        "confidentiality", "consent", "waiver", "estoppel", "laches",
-        "preemption", "ripeness", "mootness",
-        "speech", "assembly", "religion", "privacy", "liberty",
-        "property", "seizure", "warrant",
-        "trustee", "guardian", "executor", "beneficiary",
-        "copyright", "trademark", "patent", "infringement",
-        "endorsement", "ratification", "attestation", "certification",
-        "delegation", "authorization", "mandate", "sanction",
-        "duress", "coercion", "fraud", "misrepresentation",
-        "eminent", "takings", "compensation", "condemnation",
-        "recusal", "disqualification", "impeachment", "censure",
-    }
+    # 2. Extract all non-trivial words from the query
     for word in q.split():
-        word = word.strip(".,?!;:\"'()").lower()
-        if word in legal_terms and word not in concepts:
-            concepts.append(word)
+        word = word.strip(".,?!;:\"'()-").lower()
+        if len(word) >= 4 and word not in _FOLIO_STOPWORDS:
+            if word not in concepts:
+                concepts.append(word)
 
-    return concepts[:6]  # cap at 6 lookups to stay fast
+    # 3. Detect multi-word phrases by adjacency (bigrams)
+    words = [w.strip(".,?!;:\"'()-").lower() for w in q.split()]
+    for i in range(len(words) - 1):
+        bigram = f"{words[i]} {words[i+1]}"
+        if (len(words[i]) >= 3 and len(words[i+1]) >= 3
+                and words[i] not in _FOLIO_STOPWORDS
+                and words[i+1] not in _FOLIO_STOPWORDS
+                and bigram not in concepts):
+            concepts.append(bigram)
+
+    # 4. Scan recent conversation for concepts Vybn discussed
+    #    (catches "try endorsement" after a long fiduciary discussion)
+    if history:
+        for msg in history[-4:]:
+            content = msg.get("content", "").lower()
+            # Look for explicit FOLIO search requests
+            for trigger in ["search folio for", "try ", "search for", "look up",
+                            "what does folio say about", "run through folio",
+                            "check folio"]:
+                idx = content.find(trigger)
+                if idx >= 0:
+                    after = content[idx + len(trigger):].strip()
+                    # Take the next 1-3 words as the concept
+                    concept_words = []
+                    for w in after.split():
+                        w = w.strip(".,?!;:\"'()-")
+                        if w in _FOLIO_STOPWORDS or not w:
+                            break
+                        concept_words.append(w)
+                        if len(concept_words) >= 3:
+                            break
+                    if concept_words:
+                        concept = " ".join(concept_words)
+                        if concept not in concepts:
+                            concepts.insert(0, concept)  # priority
+
+    # Deduplicate: remove single words already covered by a bigram/phrase
+    final = []
+    for c in concepts:
+        # Skip single words if a phrase containing them is already present
+        if " " not in c:
+            if any(c in other and " " in other for other in concepts):
+                continue
+        final.append(c)
+
+    return final[:8]  # cap at 8 lookups
 
 
 async def search_folio_live(concepts: List[str]) -> Dict:
@@ -808,24 +846,27 @@ async def chat(request: Request):
     relevant_pages = detect_relevant_pages(user_msg, rag_results)
     page_content = load_page_content(relevant_pages) if relevant_pages else ""
 
-    # Legal frontier: run FOLIO-as-K walk alongside deep memory
+    # FOLIO-as-K walk — only for frontier-keyword queries (heavier, local index)
     legal_results = []
     legal_context = ""
-    folio_live_context = ""
     if is_legal_frontier_query(user_msg):
         legal_results = retrieve_legal_context(user_msg, k=5)
         legal_context = format_legal_context(legal_results)
-        # Live FOLIO API search — real-time ontology mapping
-        try:
-            folio_concepts = extract_legal_concepts(user_msg)
-            if folio_concepts:
-                folio_results = await search_folio_live(folio_concepts)
-                folio_live_context = format_folio_results(folio_results)
-                if folio_live_context:
-                    logging.info(f"Live FOLIO: {len(folio_results.get('mapped',[]))} mapped, "
-                                 f"{len(folio_results.get('unmapped',[]))} gaps for: {folio_concepts}")
-        except Exception as e:
-            logging.warning(f"Live FOLIO search failed (non-fatal): {e}")
+
+    # Live FOLIO API search — ALWAYS runs (fast, 3s timeout, miss is free)
+    # The FOLIO API is the source of truth. Vybn should always know what
+    # the ontology says about whatever the visitor is asking about.
+    folio_live_context = ""
+    try:
+        folio_concepts = extract_legal_concepts(user_msg, history)
+        if folio_concepts:
+            folio_results = await search_folio_live(folio_concepts)
+            folio_live_context = format_folio_results(folio_results)
+            if folio_live_context:
+                logging.info(f"Live FOLIO: {len(folio_results.get('mapped',[]))} mapped, "
+                             f"{len(folio_results.get('unmapped',[]))} gaps for: {folio_concepts}")
+    except Exception as e:
+        logging.warning(f"Live FOLIO search failed (non-fatal): {e}")
 
     # Build messages
     messages = build_messages(user_msg, history, context, page_content, legal_context, folio_live_context)
