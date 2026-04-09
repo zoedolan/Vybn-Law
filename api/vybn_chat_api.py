@@ -340,14 +340,15 @@ def extract_legal_concepts(query: str, history: List[Dict] = None) -> List[str]:
                         if concept not in concepts:
                             concepts.insert(0, concept)  # priority
 
-    # Deduplicate: remove single words already covered by a bigram/phrase
+    # No deduplication — FOLIO prefix search means "endorsement" and
+    # "try endorsement" can return different results. Let both through.
+    # Just remove exact duplicates.
+    seen = set()
     final = []
     for c in concepts:
-        # Skip single words if a phrase containing them is already present
-        if " " not in c:
-            if any(c in other and " " in other for other in concepts):
-                continue
-        final.append(c)
+        if c not in seen:
+            seen.add(c)
+            final.append(c)
 
     return final[:8]  # cap at 8 lookups
 
