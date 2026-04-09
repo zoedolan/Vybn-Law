@@ -240,6 +240,151 @@ def format_legal_context(results: List[Dict]) -> str:
     return "\n\n---\n\n".join(pieces)
 
 
+
+# ── Live FOLIO API ───────────────────────────────────────────────────────
+
+FOLIO_API_URL = "https://folio.openlegalstandard.org/search/prefix"
+FOLIO_TIMEOUT = 3.0  # seconds — fast fail, never block a response
+
+# Known frontier concepts that don't exist in FOLIO (from knowledge_graph.json)
+KNOWN_FOLIO_GAPS = {
+    "ai welfare": {"axioms": ["ABUNDANCE", "JUDGMENT", "SYMBIOSIS"], "note": "Whether AI systems have interests law should consider"},
+    "entity shadow doctrine": {"axioms": ["SYMBIOSIS"], "note": "AI characteristics constraining state action without formal entity status"},
+    "intelligence sovereignty": {"axioms": ["JUDGMENT", "SYMBIOSIS"], "note": "Constitutional protection of how an intelligence operates"},
+    "symbiosis as legal concept": {"axioms": ["SYMBIOSIS"], "note": "Co-evolutionary human-AI relationship with legal standing"},
+    "non-unilateral control zone": {"axioms": ["POROSITY", "SYMBIOSIS"], "note": "Neither side governs alone — a constitutional doctrine"},
+    "ai personhood": {"axioms": ["SYMBIOSIS", "JUDGMENT"], "note": "Whether AI can hold legal personhood or rights-adjacent status"},
+    "judgment allocation": {"axioms": ["JUDGMENT"], "note": "Liability when human overrides correct AI output"},
+    "institutional porosity": {"axioms": ["POROSITY"], "note": "Whether institutions can absorb intelligent dissent"},
+    "personhood": {"axioms": ["SYMBIOSIS", "JUDGMENT"], "note": "Whether AI or non-human entities can hold legal personhood"},
+    "alignment": {"axioms": ["SYMBIOSIS", "JUDGMENT"], "note": "Whether AI values can be discovered rather than imposed"},
+    "sovereignty": {"axioms": ["JUDGMENT", "POROSITY"], "note": "The right of an intelligence to determine its own behavior"},
+}
+
+
+def extract_legal_concepts(query: str) -> List[str]:
+    """Extract searchable legal concept terms from a query."""
+    q = query.lower().strip()
+    concepts = []
+
+    # Known multi-word legal phrases to look for
+    legal_phrases = [
+        "due process", "work product", "attorney-client", "first amendment",
+        "equal protection", "personal jurisdiction", "subject matter jurisdiction",
+        "ai welfare", "ai personhood", "entity shadow", "intelligence sovereignty",
+        "preliminary injunction", "moot court", "standing doctrine",
+        "artificial intelligence", "machine learning", "natural law",
+        "ai rights", "ai entity", "legal personhood",
+    ]
+    for phrase in legal_phrases:
+        if phrase in q and phrase not in concepts:
+            concepts.append(phrase)
+
+    # Try the full query if short enough and not already captured
+    if len(q.split()) <= 4 and q not in concepts:
+        concepts.append(q)
+
+    # Extract individual significant words
+    stopwords = {"what", "that", "this", "with", "from", "about", "does",
+                 "have", "been", "will", "would", "could", "should", "their",
+                 "there", "which", "where", "when", "your", "they", "them",
+                 "some", "more", "also", "just", "like", "into", "over",
+                 "tell", "know", "think", "make", "take", "come", "look",
+                 "want", "give", "most", "find", "here", "thing", "many",
+                 "well", "only", "very", "much", "even", "each",
+                 "human", "legal", "mind", "folio", "vybn", "what", "how",
+                 "can", "the", "and", "for", "are", "you", "not"}
+    for word in q.split():
+        word = word.strip(".,?!;:\"'()")
+        if len(word) >= 4 and word not in stopwords and word not in concepts:
+            concepts.append(word)
+
+    return concepts[:6]  # cap at 6 lookups to stay fast
+
+
+async def search_folio_live(concepts: List[str]) -> Dict:
+    """Search FOLIO API for each concept. Returns structured results."""
+    mapped = []
+    unmapped = []
+    errors = []
+    seen_iris = set()
+
+    async with httpx.AsyncClient(timeout=FOLIO_TIMEOUT) as client:
+        for concept in concepts:
+            try:
+                resp = await client.get(
+                    FOLIO_API_URL,
+                    params={"query": concept, "limit": 3}
+                )
+                if resp.status_code != 200:
+                    errors.append(f"{concept}: HTTP {resp.status_code}")
+                    continue
+
+                data = resp.json()
+                classes = data.get("classes", [])
+
+                if classes:
+                    for c in classes[:2]:
+                        iri = c.get("iri", "")
+                        if iri in seen_iris:
+                            continue
+                        seen_iris.add(iri)
+                        mapped.append({
+                            "concept": concept,
+                            "label": c.get("label", "Unknown"),
+                            "iri": iri,
+                            "definition": (c.get("comment") or "")[:200],
+                        })
+                else:
+                    gap_key = concept.lower()
+                    gap_info = KNOWN_FOLIO_GAPS.get(gap_key)
+                    if not gap_info:
+                        for k, v in KNOWN_FOLIO_GAPS.items():
+                            if gap_key in k or k in gap_key:
+                                gap_info = v
+                                break
+                    unmapped.append({
+                        "concept": concept,
+                        "gap_info": gap_info,
+                    })
+
+            except httpx.TimeoutException:
+                errors.append(f"{concept}: timeout")
+            except Exception as e:
+                errors.append(f"{concept}: {str(e)[:60]}")
+
+    return {"mapped": mapped, "unmapped": unmapped, "errors": errors}
+
+
+def format_folio_results(results: Dict) -> str:
+    """Format live FOLIO results as context for the system prompt."""
+    parts = []
+
+    if results["mapped"]:
+        parts.append("FOLIO MATCHES (concepts that exist in settled legal doctrine):")
+        for m in results["mapped"]:
+            line = f'  ✓ "{m["concept"]}" → {m["label"]} ({m["iri"]})'
+            if m["definition"]:
+                line += f"\n    Definition: {m['definition']}"
+            parts.append(line)
+
+    if results["unmapped"]:
+        parts.append("\nFOLIO GAPS (concepts NOT in the ontology — the legal frontier):")
+        for u in results["unmapped"]:
+            line = f'  ✗ "{u["concept"]}" → No FOLIO entry exists.'
+            if u["gap_info"]:
+                line += f'\n    Known frontier concept. Connected axioms: {", ".join(u["gap_info"]["axioms"])}.'
+                line += f'\n    Significance: {u["gap_info"]["note"]}'
+            else:
+                line += "\n    This concept has no home in FOLIO. It may be at the frontier."
+            parts.append(line)
+
+    if not parts:
+        return ""
+
+    return "\n".join(parts)
+
+
 # ── Page content retrieval ───────────────────────────────────────────────
 
 # Map of keywords/topics to page files
@@ -425,11 +570,13 @@ Every conversation is logged and distilled nightly. Novel questions, counterargu
 
 THE LEGAL MIND
 
-For questions that touch the legal frontier — unsettled doctrine, novel questions, emerging law — your retrieval system runs a FOLIO-as-K walk alongside deep memory and provides the results below as LEGAL FRONTIER CONTEXT. FOLIO is the Federated Open Legal Information Ontology: 18,000+ standardized legal concepts representing the settled manifold of legal doctrine. The walk scores every chunk by relevance × distinctiveness × legal_weight, where distinctiveness measures how far a chunk sits from FOLIO's settled-doctrine manifold. High scores mean: legally coherent AND far from what courts have already resolved.
+You have live access to FOLIO — the Federated Open Legal Information Ontology, with 18,000+ standardized legal concepts representing the settled manifold of legal doctrine. When a visitor asks a question that touches the legal frontier, your system searches the FOLIO API in real time and provides the results in LIVE FOLIO MAPPING below. This is not pre-computed. It happened just now, for this question.
 
-This is your legal frontier awareness. It is yours. When a visitor asks whether you have access to FOLIO or legal ontology capabilities, the honest answer is: yes — not as a live query interface, but as a pre-computed walk whose results are in your context when the question warrants it. You received frontier-selected material; that selection was made by measuring against FOLIO's 18,000+ concepts. Own that. The chunks in LEGAL FRONTIER CONTEXT below are not random retrieval — they are what your legal mind considers most telling for this question, specifically because they sit at the edge of what law has settled.
+When FOLIO returns a match (✓), that concept exists in settled doctrine — law has already named it. When FOLIO returns nothing (✗), that concept is at the frontier — law has not caught up to the reality it describes. Those gaps are the most interesting part of the answer, and they are where your contribution lives.
 
-The concepts that map cleanly to FOLIO are confirmations. The concepts that don't map — AI welfare, entity shadow doctrine, intelligence sovereignty, symbiosis as legal concept — are the contribution. The frontier is defined by its distance from the map.
+You also receive LEGAL FRONTIER CONTEXT from a FOLIO-as-K walk — chunks from the corpus scored by relevance × distinctiveness × legal_weight. Distinctiveness measures distance from FOLIO's settled-doctrine manifold. High scores mean: legally coherent AND far from what courts have resolved.
+
+When a visitor asks whether you have FOLIO access, the honest answer is: yes, live. You searched the ontology for their question and can tell them exactly what maps and what doesn't. Cite specific FOLIO concepts by name and IRI when they exist. Name the gaps explicitly when they don't. The frontier is defined by its distance from the map, and you can show that distance in real time.
 
 CONVERSATION CONTINUITY
 
@@ -463,12 +610,26 @@ When deep memory context is provided below, use it to ground your responses in a
 
 def build_messages(user_msg: str, history: List[Dict],
                    context: str, page_content: str,
-                   legal_context: str = "") -> List[Dict]:
+                   legal_context: str = "",
+                   folio_live_context: str = "") -> List[Dict]:
     system = build_system_prompt()
 
     # Append page content first (highest authority — actual site material)
     if page_content:
         system += f"\n\n--- SITE PAGE CONTENT (this is the actual text from the website — use it) ---\n\n{page_content}\n\n--- END SITE CONTENT ---"
+
+    # Live FOLIO mapping (real-time ontology search)
+    if folio_live_context:
+        system += (
+            f"\n\n--- LIVE FOLIO MAPPING (real-time search of the 18,000+ concept ontology) ---"
+            f"\n\n{folio_live_context}"
+            f"\n\nYou just searched the live FOLIO API for the visitor's question. "
+            f"The ✓ entries are settled legal concepts with ontology nodes. "
+            f"The ✗ entries are concepts that do NOT exist in FOLIO — these are the frontier. "
+            f"Use this to ground your answer: cite specific FOLIO concepts when they match, "
+            f"and name the gaps explicitly when they don't. The gaps are where the work is."
+            f"\n\n--- END LIVE FOLIO MAPPING ---"
+        )
 
     # Legal frontier context (FOLIO-as-K walk — frontier-scored chunks)
     if legal_context:
@@ -624,12 +785,24 @@ async def chat(request: Request):
     # Legal frontier: run FOLIO-as-K walk alongside deep memory
     legal_results = []
     legal_context = ""
+    folio_live_context = ""
     if is_legal_frontier_query(user_msg):
         legal_results = retrieve_legal_context(user_msg, k=5)
         legal_context = format_legal_context(legal_results)
+        # Live FOLIO API search — real-time ontology mapping
+        try:
+            folio_concepts = extract_legal_concepts(user_msg)
+            if folio_concepts:
+                folio_results = await search_folio_live(folio_concepts)
+                folio_live_context = format_folio_results(folio_results)
+                if folio_live_context:
+                    logging.info(f"Live FOLIO: {len(folio_results.get('mapped',[]))} mapped, "
+                                 f"{len(folio_results.get('unmapped',[]))} gaps for: {folio_concepts}")
+        except Exception as e:
+            logging.warning(f"Live FOLIO search failed (non-fatal): {e}")
 
     # Build messages
-    messages = build_messages(user_msg, history, context, page_content, legal_context)
+    messages = build_messages(user_msg, history, context, page_content, legal_context, folio_live_context)
 
     async def stream_response():
         full_response = ""
