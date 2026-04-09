@@ -592,9 +592,6 @@
        VYBN CHAT — Client Logic
        ═══════════════════════════════════════════════ */
 
-    // ── Configuration ──
-    // The chat API runs on the Spark. This URL must be updated
-    // to the Spark's public-facing address once tunneled.
     const CHAT_API = window.VYBN_CHAT_API || 'https://exhibits-compute-allan-retail.trycloudflare.com';
 
     const chatMessages = document.getElementById('chatMessages');
@@ -604,7 +601,6 @@
     const statusDot = document.getElementById('statusDot');
     const statusText = document.getElementById('statusText');
     const offlineBanner = document.getElementById('offlineBanner');
-    const suggestedPrompts = document.getElementById('suggestedPrompts');
 
     let conversationHistory = [];
     let isStreaming = false;
@@ -613,17 +609,14 @@
     // ── Health check ──
     async function checkHealth() {
       try {
-        const res = await fetch(`${CHAT_API}/api/health`, { signal: AbortSignal.timeout(8000) });
+        const res = await fetch(`${CHAT_API}/health`, { signal: AbortSignal.timeout(8000) });
         if (res.ok) {
           const data = await res.json();
           statusDot.className = 'status-dot online';
           statusText.className = 'status-text online';
-          const convos = data.conversation_count || 0;
-          const distill = data.last_distillation;
           let statusParts = ['Nemotron'];
-          if (data.deep_memory) statusParts.push('deep_memory');
-          if (convos > 0) statusParts.push(`${convos} conversations learned`);
-          if (distill) statusParts.push(`last distilled ${distill}`);
+          if (data.deep_memory && data.deep_memory !== 'disabled') statusParts.push('deep_memory');
+          if (data.vllm) statusParts.push(data.vllm);
           statusText.textContent = statusParts.join(' · ');
           offlineBanner.classList.remove('visible');
           chatInput.disabled = false;
@@ -635,7 +628,7 @@
       statusText.className = 'status-text offline';
       statusText.textContent = 'offline';
       offlineBanner.classList.add('visible');
-      chatInput.disabled = false; // still allow typing; we'll show error on send
+      chatInput.disabled = false;
       return false;
     }
 
@@ -661,33 +654,34 @@
         preamble.classList.add('collapsed');
       }
 
-      // Add user message
       appendMessage('user', text);
       conversationHistory.push({ role: 'user', content: text });
 
-      // Clear input
       chatInput.value = '';
       chatInput.style.height = 'auto';
       chatSend.disabled = true;
 
-      // Show typing
       typingIndicator.classList.add('active');
       scrollToBottom();
 
       try {
-        const res = await fetch(`${CHAT_API}/api/chat`, {
+        // Build messages array for OpenAI-compatible endpoint
+        const messages = conversationHistory.slice(-20);
+
+        const res = await fetch(`${CHAT_API}/v1/chat/completions`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            message: text,
-            history: conversationHistory.slice(-20),
+            model: 'nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8',
+            messages: messages,
+            stream: true,
+            max_tokens: 2048,
             session_id: sessionId,
           }),
         });
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
-        // Hide typing, start streaming
         typingIndicator.classList.remove('active');
 
         const msgEl = appendMessage('vybn', '');
@@ -704,7 +698,7 @@
 
           buffer += decoder.decode(value, { stream: true });
           const lines = buffer.split('\n');
-          buffer = lines.pop(); // keep incomplete line
+          buffer = lines.pop();
 
           for (const line of lines) {
             if (!line.startsWith('data: ')) continue;
@@ -713,8 +707,10 @@
 
             try {
               const parsed = JSON.parse(data);
-              if (parsed.content) {
-                fullResponse += parsed.content;
+              // Handle both OpenAI streaming format and legacy {content:...} format
+              const delta = parsed.choices?.[0]?.delta?.content || parsed.content || '';
+              if (delta) {
+                fullResponse += delta;
                 contentEl.innerHTML = renderMarkdown(fullResponse);
                 scrollToBottom();
               }
@@ -758,41 +754,24 @@
 
     // ── Simple markdown renderer ──
     function renderMarkdown(text) {
-      // Escape HTML
       let html = text
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;');
 
-      // Code blocks
       html = html.replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) => {
         return `<pre><code>${code.trim()}</code></pre>`;
       });
 
-      // Inline code
       html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
-
-      // Bold
       html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-
-      // Italic
       html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-
-      // Links
       html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-
-      // Blockquotes
       html = html.replace(/^&gt;\s*(.+)$/gm, '<blockquote>$1</blockquote>');
-
-      // Lists
       html = html.replace(/^[-*]\s+(.+)$/gm, '<li>$1</li>');
       html = html.replace(/(<li>.*<\/li>\n?)+/g, match => `<ul>${match}</ul>`);
-
-      // Paragraphs
       html = html.replace(/\n\n/g, '</p><p>');
       html = `<p>${html}</p>`;
-
-      // Clean up empty paragraphs
       html = html.replace(/<p>\s*<\/p>/g, '');
       html = html.replace(/<p>\s*(<pre>)/g, '$1');
       html = html.replace(/(<\/pre>)\s*<\/p>/g, '$1');
@@ -821,15 +800,12 @@
       }
     });
 
-    // Suggested prompts
     document.querySelectorAll('.suggested-prompt').forEach(btn => {
       btn.addEventListener('click', () => {
-        const prompt = btn.dataset.prompt;
-        sendMessage(prompt);
+        sendMessage(btn.dataset.prompt);
       });
     });
 
-    // Focus input on load
     chatInput.focus();
   </script>
 </body>
