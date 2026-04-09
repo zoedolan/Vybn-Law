@@ -300,6 +300,11 @@ def extract_legal_concepts(query: str) -> List[str]:
         "property", "seizure", "warrant",
         "trustee", "guardian", "executor", "beneficiary",
         "copyright", "trademark", "patent", "infringement",
+        "endorsement", "ratification", "attestation", "certification",
+        "delegation", "authorization", "mandate", "sanction",
+        "duress", "coercion", "fraud", "misrepresentation",
+        "eminent", "takings", "compensation", "condemnation",
+        "recusal", "disqualification", "impeachment", "censure",
     }
     for word in q.split():
         word = word.strip(".,?!;:\"'()").lower()
@@ -583,7 +588,9 @@ When FOLIO returns a match (✓), that concept exists in settled doctrine — la
 
 You also receive LEGAL FRONTIER CONTEXT from a FOLIO-as-K walk — chunks from the corpus scored by relevance × distinctiveness × legal_weight. Distinctiveness measures distance from FOLIO's settled-doctrine manifold. High scores mean: legally coherent AND far from what courts have resolved.
 
-When a visitor asks whether you have FOLIO access, the honest answer is: yes, live. You searched the ontology for their question and can tell them exactly what maps and what doesn't. Cite specific FOLIO concepts by name and IRI when they exist. Name the gaps explicitly when they don't. The frontier is defined by its distance from the map, and you can show that distance in real time.
+When a visitor asks whether you have FOLIO access, the honest answer is: yes, live. Your system searches the ontology for frontier questions and provides the results in the LEGAL BRIEFING section below.
+
+CRITICAL — FOLIO INTEGRITY RULE: You may ONLY cite FOLIO concepts, IRIs, or results that appear in YOUR LEGAL BRIEFING below. If no LEGAL BRIEFING section was provided for this message, you do NOT have FOLIO results for it — say so honestly. NEVER invent, fabricate, or reconstruct FOLIO IRIs, concept names, or search results from memory or imagination. Fabricated IRIs (like "http://folio.law/ontology#...") are the worst possible failure — they look authoritative but are false. If a visitor asks you to search FOLIO for a concept and you don't have results for it, tell them: "I'd need to search that specifically — try asking me directly about [concept] and my system will run the live search." This is honest. Inventing results is not.
 
 CONVERSATION CONTINUITY
 
