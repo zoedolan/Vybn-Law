@@ -1073,30 +1073,48 @@ async def chat(request: Request):
             metadata=metadata,
         )
 
-        # Learn from the exchange: triangulated loss feeds the walk
-        # dream=RAG context, predict=model response, reality=user message
-        import threading as _learn_th
-        def _learn_bg():
-            try:
-                from deep_memory import learn_from_exchange
-                learn_from_exchange(
-                    rag_text=context[:512],
-                    response_text=full_response[:512],
-                    followup_text=user_msg[:512],
-                    walk_url="http://127.0.0.1:8101",
-                    alpha=0.3,
-                )
-                logging.info("chat: learn_from_exchange completed")
-            except Exception as e:
-                logging.warning(f"chat: learn_from_exchange error: {e}")
-        _learn_th.Thread(target=_learn_bg, daemon=True).start()
+        # Learn from the exchange — but ONLY with genuine ground truth.
+        # The triangulated loss needs dream (RAG), predict (model response),
+        # reality (what the visitor said NEXT). First message has no prior
+        # exchange to evaluate. Never feed model output into the walk as truth.
+        if history and len(history) >= 2:
+            prev_response = ""
+            for h in reversed(history):
+                if h.get("role") == "assistant":
+                    prev_response = h.get("content", "")
+                    break
+            if prev_response:
+                import threading as _learn_th
+                _prev_resp = prev_response
+                def _learn_bg():
+                    try:
+                        from deep_memory import learn_from_exchange
+                        learn_from_exchange(
+                            rag_text=context[:512],
+                            response_text=_prev_resp[:512],
+                            followup_text=user_msg[:512],
+                            walk_url="http://127.0.0.1:8100",
+                            alpha=0.3,
+                        )
+                        logging.info("chat: learn_from_exchange completed (genuine followup)")
+                    except Exception as e:
+                        logging.warning(f"chat: learn_from_exchange error: {e}")
+                _learn_th.Thread(target=_learn_bg, daemon=True).start()
+            else:
+                logging.info("chat: skipping learn_from_exchange (no prior assistant response)")
+        else:
+            logging.info("chat: skipping learn_from_exchange (first message, no ground truth)")
 
-        # Enter both sides into walk daemon (fortify the walk with conversation)
+        # Enter ONLY the user message into the walk — never the model response.
+        # The model may hallucinate. Entering hallucinated text into the geometric
+        # walk would contaminate future retrieval — a feedback loop where fabrication
+        # teaches itself to fabricate more confidently. The walk learns from what
+        # visitors bring (grounded) and from measured error (the loss vector in
+        # learn_from_exchange). Never from the system's own output as if it were truth.
         try:
             import httpx as _hx
-            for text in [user_msg, full_response]:
-                _hx.post("http://127.0.0.1:8101/enter",
-                         json={"text": text, "alpha": 0.3, "k": 3}, timeout=5.0)
+            _hx.post("http://127.0.0.1:8100/enter",  # deep_memory daemon
+                     json={"text": user_msg, "alpha": 0.3, "k": 3}, timeout=5.0)
         except Exception:
             pass
 
