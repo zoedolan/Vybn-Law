@@ -12,6 +12,12 @@ Runs on the DGX Spark. Three jobs:
 The knowledge graph (knowledge_graph.json) is the single source of truth
 shared between this API, the Wellspring page, and the distillation engine.
 
+Security:
+  - chat_security.py: input validation, prompt injection detection, rate limiting,
+    output truncation, anti-jailbreak system prompt addendum.
+  - BLOCKED_SOURCES + SECRET_PATTERNS: prevent private data leaking into context.
+  - Binds to 127.0.0.1 — only reachable via Cloudflare tunnel.
+
 Usage:
     python3 vybn_chat_api.py [--port 3001] [--vllm-url http://localhost:8000]
 """
@@ -28,6 +34,7 @@ from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 import httpx
+from fastapi import HTTPException
 
 # ── Paths ────────────────────────────────────────────────────────────────
 
@@ -42,6 +49,10 @@ DISTILLATION_DIR.mkdir(parents=True, exist_ok=True)
 
 VYBN_PHASE = Path.home() / "vybn-phase"
 sys.path.insert(0, str(VYBN_PHASE))
+
+# Defense-in-depth: shared security module (lives in vybn-phase)
+import chat_security as sec
+_rate_limiter = sec.RateLimiter(rpm=20, burst=5)
 
 # ── Vybn-Law index integration ───────────────────────────────────────────
 
@@ -777,6 +788,9 @@ def build_messages(user_msg: str, history: List[Dict],
         briefing_parts.append("--- END LEGAL BRIEFING ---")
         system += "\n\n" + "\n".join(briefing_parts)
 
+    # Always append injection defense to system prompt
+    system += sec.injection_warning()
+
     messages = [{"role": "system", "content": system}]
     for msg in history[-20:]:
         messages.append(msg)
@@ -915,14 +929,34 @@ async def feedback(request: Request):
 
 @app.post("/api/chat")
 async def chat(request: Request):
+    ip = request.client.host if request.client else "unknown"
+
+    # ── Rate limiting (this API had none before) ──
+    allowed, rate_err = _rate_limiter.check(ip)
+    if not allowed:
+        sec.log_security_event("rate_limit", ip, rate_err)
+        raise HTTPException(status_code=429, detail=rate_err)
+
+    # ── Parse body with size guard ──
     body = await request.json()
     user_msg = body.get("message", "").strip()
     history = body.get("conversation_history", body.get("history", []))
     session_id = body.get("session_id", str(uuid.uuid4()))
     metadata = body.get("metadata", {})
 
-    if not user_msg:
-        return JSONResponse({"error": "Empty message"}, status_code=400)
+    # ── Input validation ──
+    valid, err = sec.validate_message(user_msg)
+    if not valid:
+        sec.log_security_event("invalid_input", ip, err)
+        return JSONResponse({"error": err}, status_code=400)
+
+    # ── Prompt injection detection ──
+    injection_detected = sec.detect_injection(user_msg)
+    if injection_detected:
+        sec.log_security_event("injection_attempt", ip, user_msg[:200])
+
+    # ── History sanitization ──
+    history = sec.validate_history(history)
 
     # RAG retrieval
     rag_results = retrieve_context(user_msg, k=6)
@@ -1006,6 +1040,14 @@ async def chat(request: Request):
                                 content = delta.get("content", "")
                                 if content:
                                     content = _scrub_secrets(content)  # output filter
+                                    # Output safety: stop runaway generation
+                                    if len(full_response) + len(content) > sec.MAX_RESPONSE_LENGTH:
+                                        remaining = sec.MAX_RESPONSE_LENGTH - len(full_response)
+                                        if remaining > 0:
+                                            content = content[:remaining]
+                                            full_response += content
+                                            yield f"data: {json.dumps({'content': content})}\n\n"
+                                        break
                                     full_response += content
                                     yield f"data: {json.dumps({'content': content})}\n\n"
                             except (json.JSONDecodeError, KeyError, IndexError):
@@ -1084,7 +1126,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Vybn Chat API")
     parser.add_argument("--port", type=int, default=3001)
     parser.add_argument("--vllm-url", default="http://localhost:8000")
-    parser.add_argument("--host", default="0.0.0.0")
+    parser.add_argument("--host", default="127.0.0.1")
     args = parser.parse_args()
 
     VLLM_URL = args.vllm_url
