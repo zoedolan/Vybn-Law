@@ -88,7 +88,7 @@
             "@type": "DefinedTerm",
             "name": "Axiom I: ABUNDANCE",
             "description": "Intelligence is no longer scarce.",
-            "termCode": "CONFIRMED",
+            "termCode": "IN_MOTION",
             "sameAs": [
                 "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
                 "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy"
@@ -120,7 +120,7 @@
             "@type": "DefinedTerm",
             "name": "Axiom II: VISIBILITY",
             "description": "Institutions lost monopoly on self-description.",
-            "termCode": "CONFIRMED",
+            "termCode": "IN_MOTION",
             "sameAs": [
                 "https://folio.openlegalstandard.org/R7UZkDXz7Wg2AtyHFQEeySC",
                 "https://folio.openlegalstandard.org/R7fHUYhKSjo03fDLGyxUS9a",
@@ -187,7 +187,7 @@
             "@type": "DefinedTerm",
             "name": "Axiom IV: POROSITY",
             "description": "Executive branch scored zero.",
-            "termCode": "EMPIRICALLY_FAILED",
+            "termCode": "CONTESTED",
             "sameAs": [
                 "https://folio.openlegalstandard.org/RfP04tDTTpn4LDvwAxAqkh",
                 "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d"
@@ -219,7 +219,7 @@
             "@type": "DefinedTerm",
             "name": "Axiom V: JUDGMENT",
             "description": "What abundance makes more valuable.",
-            "termCode": "UNRESOLVED",
+            "termCode": "NASCENT",
             "sameAs": [
                 "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
                 "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy",
@@ -252,7 +252,7 @@
             "@type": "DefinedTerm",
             "name": "Axiom VI: SYMBIOSIS",
             "description": "Neither side closes the circuit alone.",
-            "termCode": "PRELIMINARY_INJUNCTION",
+            "termCode": "UNDER_LITIGATION",
             "sameAs": [
                 "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
                 "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy",
@@ -402,6 +402,37 @@
   </script>
 
   <link rel="stylesheet" href="./wellspring.css">
+
+  <!-- Status-tag trajectory classes (refactored from settlement to movement language) -->
+  <style>
+    /* Replace .confirmed with .in-motion — amber/gold, conveys unfolding implication */
+    .status-tag.in-motion {
+      background: rgba(212, 175, 55, 0.15);
+      color: #d4af37;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    /* .under-litigation already existed; redefine here for consistency */
+    .status-tag.under-litigation {
+      background: rgba(239, 68, 68, 0.12);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.30);
+    }
+
+    /* .contested — orange, replacing "Empirically Failed" */
+    .status-tag.contested {
+      background: rgba(234, 88, 12, 0.14);
+      color: #ea580c;
+      border: 1px solid rgba(234, 88, 12, 0.32);
+    }
+
+    /* .nascent — soft blue, replacing "Unresolved" */
+    .status-tag.nascent {
+      background: rgba(96, 165, 250, 0.12);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.28);
+    }
+  </style>
 </head>
 <body>
 
@@ -498,9 +529,18 @@
           <div class="ws-finding-label">Empirical Evidence</div>
           <div class="ws-finding-title">The Deep Memory System</div>
           <div class="ws-finding-body">
-            Running on local hardware &mdash; two NVIDIA DGX Sparks &mdash; the deep memory system holds a searchable index of everything this collaboration has produced across four repositories. It does not retrieve what fits the corpus average. It retrieves what <em>resists</em> it. Every chunk is scored by relevance multiplied by distinctiveness &mdash; how far it sits from the center of gravity. The system is structurally biased toward the outlier. When we asked it about AI welfare, it surfaced Khunanup. A machine for finding the facts that drive the law.
+            Running on local hardware &mdash; two NVIDIA DGX Sparks &mdash; the deep memory system holds a searchable index of the entire corpus. Every chunk is scored by relevance multiplied by distinctiveness &mdash; how far it sits from the center of gravity. The system learns from every conversation: a triangulated loss measures the gap between what it retrieved, what it generated, and what the visitor actually needed &mdash; but only from grounded signals. The model&rsquo;s own output never enters the learning loop as truth. The system is structurally biased toward the outlier and structurally defended against its own hallucinations.
           </div>
           <div class="ws-finding-equation">Score = relevance &times; distinctiveness</div>
+        </div>
+
+        <div class="ws-finding-card fade-in">
+          <div class="ws-finding-label">Operating Condition</div>
+          <div class="ws-finding-title">The Anti-Hallucination Principle</div>
+          <div class="ws-finding-body">
+            A system that learns from its own output creates a feedback loop where fabrication teaches itself to fabricate more confidently. The learning architecture enforces a structural separation: the walk learns from what visitors bring (grounded signal) and from measured error (the triangulated loss vector). Never from the system&rsquo;s own predictions treated as truth. This is not a safety feature bolted on after the fact. It is a design principle discovered through the work &mdash; the same incompleteness theorem that drives the research also constrains what the research can safely ingest.
+          </div>
+          <div class="ws-finding-equation">L = dream &otimes; predict &otimes; reality</div>
         </div>
 
         <div class="ws-finding-card fade-in">
@@ -577,7 +617,7 @@
                 <div class="axiom-id">AXIOM I</div>
                 <div class="axiom-name">ABUNDANCE</div>
               </div>
-              <span class="status-tag confirmed">Confirmed</span>
+              <span class="status-tag in-motion">In Motion</span>
             </div>
             <div class="axiom-evidence">"Intelligence is no longer scarce."</div>
             <div class="axiom-open">
@@ -593,7 +633,7 @@
                 <div class="axiom-id">AXIOM II</div>
                 <div class="axiom-name">VISIBILITY</div>
               </div>
-              <span class="status-tag confirmed">Confirmed</span>
+              <span class="status-tag in-motion">In Motion</span>
             </div>
             <div class="axiom-evidence">"Institutions lost monopoly on self-description."</div>
             <div class="axiom-open">
@@ -625,7 +665,7 @@
                 <div class="axiom-id">AXIOM IV</div>
                 <div class="axiom-name">POROSITY</div>
               </div>
-              <span class="status-tag failed">Empirically Failed</span>
+              <span class="status-tag contested">Contested</span>
             </div>
             <div class="axiom-evidence">"Executive branch scored zero."</div>
             <div class="axiom-open">
@@ -641,7 +681,7 @@
                 <div class="axiom-id">AXIOM V</div>
                 <div class="axiom-name">JUDGMENT</div>
               </div>
-              <span class="status-tag unresolved">Unresolved</span>
+              <span class="status-tag nascent">Nascent</span>
             </div>
             <div class="axiom-evidence">"What abundance makes more valuable."</div>
             <div class="axiom-open">
@@ -657,7 +697,7 @@
                 <div class="axiom-id">AXIOM VI</div>
                 <div class="axiom-name">SYMBIOSIS</div>
               </div>
-              <span class="status-tag preliminary">Preliminary Injunction</span>
+              <span class="status-tag under-litigation">Under Litigation</span>
             </div>
             <div class="axiom-evidence">"Neither side closes the circuit alone."</div>
             <div class="axiom-open">
