@@ -1,7 +1,7 @@
 {
-  "version": "2026-04-09-folio",
-  "last_distillation": null,
-  "conversation_count": 16,
+  "version": "2026-04-16",
+  "last_distillation": "2026-04-16",
+  "conversation_count": 17,
   "_calibration_note": "Status values must reflect what courts actually held, not what the theory needs. A preliminary injunction is not a merits ruling. See commit message for rationale.",
   "axioms": {
     "ABUNDANCE": {
@@ -351,5 +351,15 @@
       "conversation_signals": [],
       "last_updated": "2026-04-06"
     }
-  }
+  },
+  "distillation_log": [
+    {
+      "date": "2026-04-16",
+      "conversations_processed": 8,
+      "novel_questions": 2,
+      "counterarguments": 0,
+      "new_problems": 0,
+      "synthesis": "Visitors mainly sought basic orientation and expressed curiosity about the site\u2019s unconventional design and the structure of the bootcamp curriculum, indicating interest in how Vybn Law presents itself and teaches. No substantive challenges to existing axioms were raised, though the design question hints at potential relevance to the VISIBILITY axiom regarding institutional self\u2011presentation. Overall, today's exchanges reinforced the need for clear onboarding while opening a minor avenue to explore aesthetic and pedagogical dimensions."
+    }
+  ]
 }
