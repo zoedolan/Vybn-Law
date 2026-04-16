@@ -1031,6 +1031,33 @@ async def chat(request: Request):
             metadata=metadata,
         )
 
+        # Learn from the exchange: triangulated loss feeds the walk
+        # dream=RAG context, predict=model response, reality=user message
+        import threading as _learn_th
+        def _learn_bg():
+            try:
+                from deep_memory import learn_from_exchange
+                learn_from_exchange(
+                    rag_text=context[:512],
+                    response_text=full_response[:512],
+                    followup_text=user_msg[:512],
+                    walk_url="http://127.0.0.1:8101",
+                    alpha=0.3,
+                )
+                logging.info("chat: learn_from_exchange completed")
+            except Exception as e:
+                logging.warning(f"chat: learn_from_exchange error: {e}")
+        _learn_th.Thread(target=_learn_bg, daemon=True).start()
+
+        # Enter both sides into walk daemon (fortify the walk with conversation)
+        try:
+            import httpx as _hx
+            for text in [user_msg, full_response]:
+                _hx.post("http://127.0.0.1:8101/enter",
+                         json={"text": text, "alpha": 0.3, "k": 3}, timeout=5.0)
+        except Exception:
+            pass
+
         # Increment conversation count in KG
         try:
             kg = load_knowledge_graph()
