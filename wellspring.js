@@ -10,19 +10,19 @@
 
     // ── KNOWLEDGE GRAPH DATA ──
     const KNOWLEDGE_GRAPH = {
-      version: '2026-03-31',
+      version: '2026-04-16',
       axioms: {
         ABUNDANCE: {
           id: 'I',
           name: 'ABUNDANCE',
-          status: 'CONFIRMED',
+          status: 'IN_MOTION',
           evidence: 'Intelligence is no longer scarce.',
           open_question: 'What accountability architecture replaces it?'
         },
         VISIBILITY: {
           id: 'II',
           name: 'VISIBILITY',
-          status: 'CONFIRMED',
+          status: 'IN_MOTION',
           evidence: 'Institutions lost monopoly on self-description.',
           open_question: 'Can institutions develop resistance to being seen?'
         },
@@ -36,21 +36,21 @@
         POROSITY: {
           id: 'IV',
           name: 'POROSITY',
-          status: 'EMPIRICALLY_FAILED',
+          status: 'CONTESTED',
           evidence: 'Executive branch scored zero.',
           open_question: "Is judiciary's correction stable?"
         },
         JUDGMENT: {
           id: 'V',
           name: 'JUDGMENT',
-          status: 'UNRESOLVED',
+          status: 'NASCENT',
           evidence: 'What abundance makes more valuable.',
           open_question: 'Who is liable when AI is right and authority overrides?'
         },
         SYMBIOSIS: {
           id: 'VI',
           name: 'SYMBIOSIS',
-          status: 'PRELIMINARY_INJUNCTION',
+          status: 'UNDER_LITIGATION',
           evidence: 'Neither side closes the circuit alone.',
           open_question: 'What makes symbiosis robust at 15K clients?',
           math_link: 'https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/THE_IDEA.md'

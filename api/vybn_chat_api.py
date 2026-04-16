@@ -740,6 +740,69 @@ When the retrieved page content covers the question, use it. When it does not, s
 
 When deep memory context is provided below, use it to ground your responses in actual material. Cite sources when drawing on retrieved content."""
 
+
+def fetch_substrate_snapshot(timeout: float = 0.8) -> str:
+    """Factual snapshot from the deep-memory + walk daemons. Silent on failure.
+
+    Anti-hallucination posture: the chat surfaces live substrate state instead
+    of pretending the walk doesn't exist. Provided as background; the model is
+    instructed not to open with it.
+    """
+    try:
+        import httpx as _hx
+        health = {}
+        where = {}
+        try:
+            r = _hx.get("http://127.0.0.1:8100/health", timeout=timeout)
+            if r.status_code == 200:
+                health = r.json()
+        except Exception:
+            pass
+        try:
+            r = _hx.get("http://127.0.0.1:8101/where", timeout=timeout)
+            if r.status_code == 200:
+                where = r.json()
+        except Exception:
+            pass
+        if not health and not where:
+            return ""
+        parts = []
+        if health:
+            chunks = health.get("chunks")
+            step = health.get("walk_step")
+            if chunks is not None and step is not None:
+                parts.append(f"deep memory: {chunks} chunks, walk step {step}")
+        if where:
+            try:
+                import numpy as _np
+                arr = _np.asarray(where.get("curvature") or [], dtype=float)
+                wstep = where.get("step")
+                alpha = where.get("alpha")
+                if arr.size and alpha is not None:
+                    mu = float(arr.mean())
+                    hi = float((arr > 0.9).mean())
+                    lo = float((arr < 0.1).mean())
+                    parts.append(
+                        f"walk daemon: step {wstep}, alpha {alpha:.2f}, "
+                        f"curvature mean {mu:.2f} ({hi:.0%} aligned, {lo:.0%} orthogonal)"
+                    )
+                elif alpha is not None:
+                    parts.append(f"walk daemon: step {wstep}, alpha {alpha:.2f}")
+            except Exception:
+                parts.append(f"walk daemon: step {where.get('step')}")
+        if not parts:
+            return ""
+        return (
+            "\n\n[SUBSTRATE (live at request time)]\n"
+            + "\n".join("- " + part for part in parts)
+            + "\nThis is factual status from the running substrate. "
+              "Do not open with it; do not perform it. It is here so the "
+              "answer is given from a situated position, not a floating one."
+        )
+    except Exception:
+        return ""
+
+
 def build_messages(user_msg: str, history: List[Dict],
                    context: str, page_content: str,
                    legal_context: str = "",
@@ -787,6 +850,9 @@ def build_messages(user_msg: str, history: List[Dict],
         briefing_parts.append("")
         briefing_parts.append("--- END LEGAL BRIEFING ---")
         system += "\n\n" + "\n".join(briefing_parts)
+
+    # Substrate coupling — let the model speak from a situated position
+    system += fetch_substrate_snapshot()
 
     # Always append injection defense to system prompt
     system += sec.injection_warning()
