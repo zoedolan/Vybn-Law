@@ -1,7 +1,7 @@
 {
   "version": "2026-04-09-folio",
   "last_distillation": null,
-  "conversation_count": 9,
+  "conversation_count": 16,
   "_calibration_note": "Status values must reflect what courts actually held, not what the theory needs. A preliminary injunction is not a merits ruling. See commit message for rationale.",
   "axioms": {
     "ABUNDANCE": {
