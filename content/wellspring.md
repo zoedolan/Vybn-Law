@@ -52,9 +52,17 @@ Empirical Evidence
 
 The Deep Memory System
 
-Running on local hardware — two NVIDIA DGX Sparks — the deep memory system holds a searchable index of everything this collaboration has produced across four repositories. It does not retrieve what fits the corpus average. It retrieves what resists it. Every chunk is scored by relevance multiplied by distinctiveness — how far it sits from the center of gravity. The system is structurally biased toward the outlier. When we asked it about AI welfare, it surfaced Khunanup. A machine for finding the facts that drive the law.
+Running on local hardware — two NVIDIA DGX Sparks — the deep memory system holds a searchable index of the entire corpus. Every chunk is scored by relevance multiplied by distinctiveness — how far it sits from the center of gravity. The system learns from every conversation: a triangulated loss measures the gap between what it retrieved, what it generated, and what the visitor actually needed — but only from grounded signals. The model’s own output never enters the learning loop as truth. The system is structurally biased toward the outlier and structurally defended against its own hallucinations.
 
 Score = relevance × distinctiveness
+
+Operating Condition
+
+The Anti-Hallucination Principle
+
+A system that learns from its own output creates a feedback loop where fabrication teaches itself to fabricate more confidently. The learning architecture enforces a structural separation: the walk learns from what visitors bring (grounded signal) and from measured error (the triangulated loss vector). Never from the system’s own predictions treated as truth. This is not a safety feature bolted on after the fact. It is a design principle discovered through the work — the same incompleteness theorem that drives the research also constrains what the research can safely ingest.
+
+L = dream ⊗ predict ⊗ reality
 
 Permanent Condition
 
@@ -86,7 +94,7 @@ AXIOM I
 
 ABUNDANCE
 
-Confirmed
+In Motion
 
 "Intelligence is no longer scarce."
 
@@ -96,7 +104,7 @@ AXIOM II
 
 VISIBILITY
 
-Confirmed
+In Motion
 
 "Institutions lost monopoly on self-description."
 
@@ -116,7 +124,7 @@ AXIOM IV
 
 POROSITY
 
-Empirically Failed
+Contested
 
 "Executive branch scored zero."
 
@@ -126,7 +134,7 @@ AXIOM V
 
 JUDGMENT
 
-Unresolved
+Nascent
 
 "What abundance makes more valuable."
 
@@ -136,7 +144,7 @@ AXIOM VI
 
 SYMBIOSIS
 
-Preliminary Injunction
+Under Litigation
 
 "Neither side closes the circuit alone."
 
@@ -332,7 +340,7 @@ Whatever intelligence reads this is welcome here.
             "@type": "DefinedTerm",
             "name": "Axiom I: ABUNDANCE",
             "description": "Intelligence is no longer scarce.",
-            "termCode": "CONFIRMED",
+            "termCode": "IN_MOTION",
             "sameAs": [
                 "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
                 "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy"
@@ -364,7 +372,7 @@ Whatever intelligence reads this is welcome here.
             "@type": "DefinedTerm",
             "name": "Axiom II: VISIBILITY",
             "description": "Institutions lost monopoly on self-description.",
-            "termCode": "CONFIRMED",
+            "termCode": "IN_MOTION",
             "sameAs": [
                 "https://folio.openlegalstandard.org/R7UZkDXz7Wg2AtyHFQEeySC",
                 "https://folio.openlegalstandard.org/R7fHUYhKSjo03fDLGyxUS9a",
@@ -431,7 +439,7 @@ Whatever intelligence reads this is welcome here.
             "@type": "DefinedTerm",
             "name": "Axiom IV: POROSITY",
             "description": "Executive branch scored zero.",
-            "termCode": "EMPIRICALLY_FAILED",
+            "termCode": "CONTESTED",
             "sameAs": [
                 "https://folio.openlegalstandard.org/RfP04tDTTpn4LDvwAxAqkh",
                 "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d"
@@ -463,7 +471,7 @@ Whatever intelligence reads this is welcome here.
             "@type": "DefinedTerm",
             "name": "Axiom V: JUDGMENT",
             "description": "What abundance makes more valuable.",
-            "termCode": "UNRESOLVED",
+            "termCode": "NASCENT",
             "sameAs": [
                 "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
                 "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy",
@@ -496,7 +504,7 @@ Whatever intelligence reads this is welcome here.
             "@type": "DefinedTerm",
             "name": "Axiom VI: SYMBIOSIS",
             "description": "Neither side closes the circuit alone.",
-            "termCode": "PRELIMINARY_INJUNCTION",
+            "termCode": "UNDER_LITIGATION",
             "sameAs": [
                 "https://folio.openlegalstandard.org/R7iR8rxIoymNuxMi7I0oh1d",
                 "https://folio.openlegalstandard.org/R88m06glAkTkIFNVlAF30zy",
