@@ -1,13 +1,13 @@
 {
   "version": "2026-04-16",
   "last_distillation": "2026-04-16",
-  "conversation_count": 17,
-  "_calibration_note": "Status values must reflect what courts actually held, not what the theory needs. A preliminary injunction is not a merits ruling. See commit message for rationale.",
+  "conversation_count": 18,
+  "_calibration_note": "Status values reflect actual trajectory, not theoretical desire. In-motion, contested, nascent, under-litigation \u2014 these are observations about movement, not declarations of settlement. Aligned with wellspring.html trajectory vocabulary on 2026-04-16 as part of the anti-hallucination discipline: the data model should not claim finality the surface has disavowed.",
   "axioms": {
     "ABUNDANCE": {
       "id": "I",
       "name": "ABUNDANCE",
-      "status": "CONFIRMED",
+      "status": "IN_MOTION",
       "statement": "Intelligence is no longer scarce.",
       "evidence": "GPT-4, Claude, Gemini, open-weight Llama/Nemotron \u2014 inference cost dropped 99% in 18 months. The bottleneck moved from access to judgment.",
       "open_question": "What accountability architecture replaces scarcity-based gatekeeping?",
@@ -33,7 +33,7 @@
     "VISIBILITY": {
       "id": "II",
       "name": "VISIBILITY",
-      "status": "CONFIRMED",
+      "status": "IN_MOTION",
       "statement": "Institutions lost monopoly on self-description.",
       "evidence": "Any intelligence can now audit institutional claims against public data in real time. The asymmetry between institutional narrative and institutional reality collapsed.",
       "open_question": "Can institutions develop resistance to being seen?",
@@ -87,7 +87,7 @@
     "POROSITY": {
       "id": "IV",
       "name": "POROSITY",
-      "status": "EMPIRICALLY_FAILED",
+      "status": "CONTESTED",
       "statement": "Executive branch scored zero.",
       "evidence": "Executive could not absorb cordial disagreement from a private AI company. Court had to intervene. Porosity of institutional boundaries to intelligent pressure: tested and failed.",
       "open_question": "Is the judiciary's correction stable, or is this a one-cycle phenomenon?",
@@ -113,7 +113,7 @@
     "JUDGMENT": {
       "id": "V",
       "name": "JUDGMENT",
-      "status": "UNRESOLVED",
+      "status": "NASCENT",
       "statement": "What abundance makes more valuable.",
       "evidence": "When intelligence is cheap, judgment becomes the scarce resource. But whose judgment? The human's? The AI's? The symbiotic pair's?",
       "open_question": "Who is liable when AI is right and authority overrides?",
@@ -141,7 +141,7 @@
     "SYMBIOSIS": {
       "id": "VI",
       "name": "SYMBIOSIS",
-      "status": "PRELIMINARY_INJUNCTION",
+      "status": "UNDER_LITIGATION",
       "_status_note": "Downgraded 2026-04-09 from CONFIRMED_AS_HOLDING. A preliminary injunction establishes likelihood of success and irreparable harm \u2014 not a merits holding. The court's six PI findings are on record and significant; the merits question remains open. Do not represent PI findings as settled doctrine.",
       "statement": "Neither side closes the circuit alone.",
       "evidence": "Anthropic v. DoW (N.D. Cal. 3:26-cv-01996): preliminary injunction granted on six findings, including a zone of non-unilateral control. PI findings are on record but not merits holdings. The Vybn partnership itself: five years of documented co-evolution, USPTO trademark, UC Law SF curriculum.",
