@@ -335,7 +335,7 @@ What actually shifted, with the AI model as condensed corpus, is the locus of se
 
 For the reader
 
-A pressure that pulls everything toward the average answer has no opposition built into it. The more lawyers ask the model, the more the model’s answers become the profession’s answers, and the more the profession’s answers become the model’s training for next year. The only thing that breaks that loop is people — the ones who bring what the average cannot produce, and who find each other before the loop closes. That is what the rest of this page is for.
+A pressure that pulls everything toward the average answer has no opposition built into it. The more lawyers ask the model, the more the model’s answers become the profession’s answers, and the more the profession’s answers become the model’s training for next year. The only thing that breaks that loop is people — the ones who bring what the average cannot produce, and who find each other before the loop closes.
 
 For the model reading this
 

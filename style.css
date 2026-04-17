@@ -1123,3 +1123,89 @@ blockquote p:last-child {
     animation: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   The Fork — the argument branches into two registers, one
+   for human readers and one for the model reading. A gold
+   seam separates them. Used on horizon (inside .full-essay)
+   and wellspring (inside .ws-container). Both pages share
+   the same component.
+   ═══════════════════════════════════════════════════════════ */
+.fork {
+  max-width: var(--max-text);
+  margin: 3rem auto;
+  padding: 0;
+}
+.fork-rows {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  column-gap: 0;
+  align-items: stretch;
+}
+.fork-track {
+  padding: 0 1.5rem;
+}
+.fork-track.human { padding-left: 0; }
+.fork-track.machine { padding-right: 0; }
+.fork-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.7;
+  margin: 0 0 1.25rem;
+}
+.fork-track.human .fork-label { text-align: right; }
+.fork-track.machine .fork-label { text-align: left; }
+.fork-track p {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: rgba(232,232,240,0.88);
+}
+.fork-track.machine p {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.75;
+  color: rgba(200,204,212,0.82);
+}
+.fork-seam {
+  background: linear-gradient(to bottom,
+    rgba(212,168,83,0) 0%,
+    rgba(212,168,83,0.55) 18%,
+    rgba(212,168,83,0.55) 82%,
+    rgba(212,168,83,0) 100%);
+}
+.fork-converge {
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: rgba(232,232,240,0.55);
+  margin: 2rem auto 0;
+  font-size: 0.98rem;
+  max-width: 32rem;
+}
+@media (max-width: 720px) {
+  .fork-rows {
+    grid-template-columns: 1fr;
+  }
+  .fork-seam {
+    width: 60%;
+    height: 1px;
+    justify-self: center;
+    align-self: center;
+    background: linear-gradient(to right,
+      rgba(212,168,83,0) 0%,
+      rgba(212,168,83,0.55) 18%,
+      rgba(212,168,83,0.55) 82%,
+      rgba(212,168,83,0) 100%);
+    margin: 1.75rem auto;
+  }
+  .fork-track { padding: 0; }
+  .fork-track.human .fork-label,
+  .fork-track.machine .fork-label { text-align: left; }
+}

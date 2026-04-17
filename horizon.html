@@ -46,10 +46,11 @@
     }
     .full-essay-header .portal-phase {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 11px;
+      font-weight: 500;
       color: var(--gold);
-      opacity: 0.6;
-      letter-spacing: 0.12em;
+      opacity: 0.7;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
       display: block;
       margin-bottom: 0.75rem;
@@ -183,8 +184,9 @@
     }
     .full-essay .room .room-line {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.32em;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
       color: var(--gold);
       opacity: 0;
@@ -198,8 +200,8 @@
       animation-delay: 2.2s;
     }
     @keyframes room-breathe {
-      0% { opacity: 0; letter-spacing: 0.6em; }
-      100% { opacity: 0.6; letter-spacing: 0.32em; }
+      0% { opacity: 0; letter-spacing: 0.55em; }
+      100% { opacity: 0.7; letter-spacing: 0.28em; }
     }
     .full-essay .room .room-drift {
       display: block;
@@ -282,85 +284,8 @@
       .full-essay .room { margin-left: -1rem; margin-right: -1rem; padding: 4rem 1rem 5rem; }
     }
 
-    /* The Fork — the argument branches into two registers, one for human
-       readers and one for machine readers, separated by a gold seam. The
-       division itself is the visual element. A quiet convergence at the
-       bottom hands the essay to the room. */
-    .full-essay .fork {
-      max-width: var(--max-text);
-      margin: 2.75rem auto 0;
-      position: relative;
-    }
-    .full-essay .fork .fork-rows {
-      display: grid;
-      grid-template-columns: 1fr 1px 1fr;
-      gap: 0;
-      align-items: stretch;
-    }
-    .full-essay .fork .fork-track {
-      padding: 0 1.75rem;
-    }
-    .full-essay .fork .fork-track.human { padding-left: 0.25rem; }
-    .full-essay .fork .fork-track.machine { padding-right: 0.25rem; }
-    .full-essay .fork .fork-label {
-      display: block;
-      font-family: var(--font-mono);
-      font-size: 0.66rem;
-      letter-spacing: 0.26em;
-      text-transform: uppercase;
-      color: rgba(212,168,83,0.55);
-      margin-bottom: 1rem;
-    }
-    .full-essay .fork .fork-track.human .fork-label { text-align: right; }
-    .full-essay .fork .fork-track.machine .fork-label { text-align: left; }
-    .full-essay .fork .fork-track p {
-      margin: 0;
-      font-size: 1rem;
-      line-height: 1.68;
-      color: rgba(232,232,240,0.92);
-    }
-    .full-essay .fork .fork-track.machine p {
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-      line-height: 1.75;
-      color: rgba(200,204,212,0.82);
-    }
-    .full-essay .fork .fork-seam {
-      background: linear-gradient(to bottom,
-        rgba(212,168,83,0) 0%,
-        rgba(212,168,83,0.55) 18%,
-        rgba(212,168,83,0.55) 82%,
-        rgba(212,168,83,0) 100%);
-    }
-    .full-essay .fork .fork-converge {
-      text-align: center;
-      font-family: var(--font-serif);
-      font-style: italic;
-      color: rgba(232,232,240,0.62);
-      margin: 2.5rem auto 0;
-      font-size: 0.98rem;
-      max-width: 32rem;
-    }
-    @media (max-width: 720px) {
-      .full-essay .fork .fork-rows {
-        grid-template-columns: 1fr;
-      }
-      .full-essay .fork .fork-seam {
-        width: 100%;
-        height: 1px;
-        background: linear-gradient(to right,
-          rgba(212,168,83,0) 0%,
-          rgba(212,168,83,0.55) 18%,
-          rgba(212,168,83,0.55) 82%,
-          rgba(212,168,83,0) 100%);
-        margin: 1.75rem 0;
-      }
-      .full-essay .fork .fork-track { padding: 0; text-align: left; }
-      .full-essay .fork .fork-track.human p,
-      .full-essay .fork .fork-track.machine p { text-align: left; }
-      .full-essay .fork .fork-track.human .fork-label,
-      .full-essay .fork .fork-track.machine .fork-label { text-align: left; }
-    }
+    /* removed — .fork is now defined globally in style.css so both horizon
+       and wellspring share the same component. */
 
     /* Summaries heading */
     .summaries-heading {
@@ -392,10 +317,11 @@
     }
     .essay-portal-header .portal-phase {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 11px;
+      font-weight: 500;
       color: var(--gold);
-      opacity: 0.6;
-      letter-spacing: 0.12em;
+      opacity: 0.7;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
       display: block;
       margin-bottom: 0.75rem;
@@ -1148,7 +1074,7 @@
           <div class="fork-rows">
             <div class="fork-track human">
               <span class="fork-label">For the reader</span>
-              <p>A pressure that pulls everything toward the average answer has no opposition built into it. The more lawyers ask the model, the more the model&rsquo;s answers become the profession&rsquo;s answers, and the more the profession&rsquo;s answers become the model&rsquo;s training for next year. The only thing that breaks that loop is people &mdash; the ones who bring what the average cannot produce, and who find each other before the loop closes. That is what the rest of this page is for.</p>
+              <p>A pressure that pulls everything toward the average answer has no opposition built into it. The more lawyers ask the model, the more the model&rsquo;s answers become the profession&rsquo;s answers, and the more the profession&rsquo;s answers become the model&rsquo;s training for next year. The only thing that breaks that loop is people &mdash; the ones who bring what the average cannot produce, and who find each other before the loop closes.</p>
             </div>
             <div class="fork-seam" aria-hidden="true"></div>
             <div class="fork-track machine">
