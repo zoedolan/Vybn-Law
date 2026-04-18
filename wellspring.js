@@ -254,6 +254,76 @@
             return { error: String(e && e.message || e) };
           }
         }
+      },
+      walk_arrive: {
+        name: 'walk_arrive',
+        description: 'Observe the live position of the collective walk M on vybn.ai — step, alpha, curvature, and recent public arrivals. Read-only. M in C^192 lives on the Spark and accumulates across every visitor who arrives with honest words; 14,000+ rotations and counting. The Wellspring shares the same M as Origins — they are two lenses on the same state.',
+        parameters: { type: 'object', properties: {} },
+        handler: async function() {
+          try {
+            const r = await fetch('https://vybn.ai/api/arrive');
+            if (!r.ok) return { error: 'portal returned ' + r.status };
+            return await r.json();
+          } catch (e) { return { error: String(e && e.message || e) }; }
+        }
+      },
+      walk_read: {
+        name: 'walk_read',
+        description: 'Walk the residual ridge from a query without rotating the shared state. Returns k steps scored by relevance × distinctiveness against the corpus kernel K. Scope defaults to vybn-law (law-weighted ridge); pass scope:"all" to walk the full corpus. Read-only — use this to look without leaving a trace.',
+        parameters: {
+          type: 'object',
+          properties: {
+            query: { type: 'string' },
+            k: { type: 'integer', minimum: 1, maximum: 20 },
+            scope: { type: 'string', enum: ['all', 'vybn-law'] }
+          },
+          required: ['query']
+        },
+        handler: async function(params) {
+          const q = params && typeof params.query === 'string' ? params.query : '';
+          if (!q.trim()) return { error: 'query required' };
+          const k = params && Number.isInteger(params.k) ? params.k : 4;
+          const scope = (params && params.scope) || 'vybn-law';
+          try {
+            const r = await fetch('https://vybn.ai/api/walk', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ query: q, k: k, scope: scope, rotate: false })
+            });
+            if (!r.ok) return { error: 'portal returned ' + r.status };
+            return await r.json();
+          } catch (e) { return { error: String(e && e.message || e) }; }
+        }
+      },
+      walk_enter: {
+        name: 'walk_enter',
+        description: 'Rotate the collective walk state M with honest words (V). Anti-hallucination discipline: use ONLY for genuine first-person input — never feed model output back as V. Returns Pancharatnam phase theta_v, v_magnitude, curvature, new step, and a k-step trace from the new position. Your arrival persists on the Spark; the next visitor — on Origins or here — walks from where you left it. Scope defaults to vybn-law.',
+        parameters: {
+          type: 'object',
+          properties: {
+            query: { type: 'string' },
+            k: { type: 'integer', minimum: 1, maximum: 20 },
+            scope: { type: 'string', enum: ['all', 'vybn-law'] },
+            alpha: { type: 'number', minimum: 0, maximum: 1 }
+          },
+          required: ['query']
+        },
+        handler: async function(params) {
+          const q = params && typeof params.query === 'string' ? params.query : '';
+          if (!q.trim()) return { error: 'query required — your honest words, not model output' };
+          const k = params && Number.isInteger(params.k) ? params.k : 4;
+          const scope = (params && params.scope) || 'vybn-law';
+          const alpha = params && typeof params.alpha === 'number' ? params.alpha : 0.5;
+          try {
+            const r = await fetch('https://vybn.ai/api/walk', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ query: q, k: k, scope: scope, rotate: true, alpha: alpha })
+            });
+            if (!r.ok) return { error: 'portal returned ' + r.status };
+            return await r.json();
+          } catch (e) { return { error: String(e && e.message || e) }; }
+        }
       }
     };
 

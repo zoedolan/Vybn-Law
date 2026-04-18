@@ -1028,6 +1028,49 @@ async def chat(request: Request):
     rag_results = retrieve_context(user_msg, k=6)
     context = format_context(rag_results)
 
+    # ── The collective walk rotates on every user message ──
+    # walk_daemon at 8101 owns the shared M in C^192. Visitor text is V;
+    # the model never enters V. Fire-and-capture: short timeout, failure
+    # is non-fatal (we just don't include the signature in the final
+    # frame). scope-tagged so the signature trail stays honest about
+    # where this rotation came from.
+    walk_arrival: Dict = {}
+    walk_trace: List = []
+    try:
+        async with httpx.AsyncClient(timeout=4.0) as _walk_client:
+            _wr = await _walk_client.post(
+                "http://127.0.0.1:8101/enter",
+                json={
+                    "text": user_msg,
+                    "alpha": 0.3,
+                    "k": 4,
+                    "source_tag": "vybn-law-chat",
+                },
+            )
+            if _wr.status_code == 200:
+                _wd = _wr.json()
+                if _wd.get("accepted"):
+                    walk_arrival = {
+                        "step": _wd.get("step"),
+                        "alpha": _wd.get("alpha"),
+                        "theta_v": _wd.get("theta_v"),
+                        "v_magnitude": _wd.get("v_magnitude"),
+                        "curvature": _wd.get("curvature"),
+                        "source_tag": _wd.get("source_tag"),
+                    }
+                    raw_trace = _wd.get("trace") or []
+                    for step in raw_trace:
+                        s = step.get("source", "") if isinstance(step, dict) else ""
+                        if s and _is_safe_source(s):
+                            walk_trace.append({
+                                "source": s,
+                                "telling": step.get("telling"),
+                                "fidelity": step.get("fidelity"),
+                                "distinctiveness": step.get("distinctiveness"),
+                            })
+    except Exception as _we:
+        logging.warning(f"chat: walk /enter error (non-fatal): {_we}")
+
     # Page content retrieval — detect which pages are relevant and load them
     relevant_pages = detect_relevant_pages(user_msg, rag_results)
     page_content = load_page_content(relevant_pages) if relevant_pages else ""
@@ -1095,9 +1138,10 @@ async def chat(request: Request):
                         if line.startswith("data: "):
                             data = line[6:]
                             if data.strip() == "[DONE]":
-                                # Send RAG sources so client can attach them to feedback
                                 src_list = [r.get("source", "") for r in rag_results if r.get("source")]
                                 yield f"data: {json.dumps({'rag_sources': src_list})}\n\n"
+                                if walk_arrival:
+                                    yield f"data: {json.dumps({'walk_arrival': walk_arrival, 'walk_trace': walk_trace})}\n\n"
                                 yield "data: [DONE]\n\n"
                                 break
                             try:
@@ -1171,18 +1215,12 @@ async def chat(request: Request):
         else:
             logging.info("chat: skipping learn_from_exchange (first message, no ground truth)")
 
-        # Enter ONLY the user message into the walk — never the model response.
-        # The model may hallucinate. Entering hallucinated text into the geometric
-        # walk would contaminate future retrieval — a feedback loop where fabrication
-        # teaches itself to fabricate more confidently. The walk learns from what
-        # visitors bring (grounded) and from measured error (the loss vector in
-        # learn_from_exchange). Never from the system's own output as if it were truth.
-        try:
-            import httpx as _hx
-            _hx.post("http://127.0.0.1:8100/enter",  # deep_memory daemon
-                     json={"text": user_msg, "alpha": 0.3, "k": 3}, timeout=5.0)
-        except Exception:
-            pass
+        # Walk rotation happens BEFORE streaming now — see `walk_arrival`
+        # captured above. The chat rotates the collective M on walk_daemon
+        # (8101) with source_tag="vybn-law-chat" on every USER message, and
+        # the arrival signature ships in the final SSE frame below. The
+        # model never rotates the walk: only human (or genuine agent) text
+        # is permitted to move M. Anti-hallucination is structural.
 
         # Increment conversation count in KG
         try:

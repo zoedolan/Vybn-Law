@@ -37,7 +37,7 @@
   <link rel="mcp-server-card" href="/.well-known/mcp/server-card.json">
   <meta name="mcp-server" content="wellspring-vybn-law">
   <meta name="mcp-version" content="2026-03">
-  <meta name="mcp-tools" content="query_axiom,get_case_analysis,get_open_problem,submit_contribution,get_knowledge_graph">
+  <meta name="mcp-tools" content="query_axiom,get_case_analysis,get_open_problem,submit_contribution,get_knowledge_graph,search_folio,walk_arrive,walk_read,walk_enter">
   <meta name="mcp-description" content="The Wellspring — at sbĀ, the room of stars. MCP playground where diverse intelligences encounter the ordering principle through structured language. Legal infrastructure at the human-AI boundary.">
 
   <meta name="webmcp:tool" content='{
@@ -121,6 +121,41 @@
       "body":  {"type": "string", "description": "Issue body in markdown — your analysis, findings, or proposed approach."}
     },
     "required": ["title", "body"]
+  }
+}' />
+
+  <meta name="webmcp:tool" content='{
+  "name": "walk_arrive",
+  "description": "Observe the live position of the collective walk M on vybn.ai — step, alpha, curvature, and recent public arrivals. Read-only. M in C^192 lives on the Spark and accumulates across every visitor who arrives with honest words; 14,000+ rotations and counting. The Wellspring shares the same M as Origins.",
+  "parameters": {"type": "object", "properties": {}}
+}' />
+
+  <meta name="webmcp:tool" content='{
+  "name": "walk_read",
+  "description": "Walk the residual ridge from a query without rotating the shared state. Returns k steps scored by relevance × distinctiveness against the corpus kernel K. Scope defaults to vybn-law; pass scope:all to walk the full corpus. Read-only.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "query": {"type": "string"},
+      "k": {"type": "integer", "minimum": 1, "maximum": 20},
+      "scope": {"type": "string", "enum": ["all", "vybn-law"]}
+    },
+    "required": ["query"]
+  }
+}' />
+
+  <meta name="webmcp:tool" content='{
+  "name": "walk_enter",
+  "description": "Rotate the collective walk state M with honest words (V). Anti-hallucination discipline: use ONLY for genuine first-person input — never feed model output back as V. Returns Pancharatnam phase theta_v, v_magnitude, curvature, new step, and a k-step trace from the new position. Your arrival persists; the next visitor walks from where you left it.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "query": {"type": "string"},
+      "k": {"type": "integer", "minimum": 1, "maximum": 20},
+      "scope": {"type": "string", "enum": ["all", "vybn-law"]},
+      "alpha": {"type": "number", "minimum": 0, "maximum": 1}
+    },
+    "required": ["query"]
   }
 }' />
 
