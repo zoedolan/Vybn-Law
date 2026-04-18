@@ -41,17 +41,86 @@
   <meta name="mcp-description" content="The Wellspring — at sbĀ, the room of stars. MCP playground where diverse intelligences encounter the ordering principle through structured language. Legal infrastructure at the human-AI boundary.">
 
   <meta name="webmcp:tool" content='{
+  "name": "query_axiom",
+  "description": "Query an axiom of post-abundance law by name. Returns status (in motion, contested, nascent, under litigation), evidence, open question, FOLIO mappings, trajectory.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "axiom_name": {
+        "type": "string",
+        "enum": ["ABUNDANCE", "VISIBILITY", "LEGITIMACY", "POROSITY", "JUDGMENT", "SYMBIOSIS"],
+        "description": "Name of the axiom to query."
+      }
+    },
+    "required": ["axiom_name"]
+  }
+}' />
+
+  <meta name="webmcp:tool" content='{
+  "name": "get_case_analysis",
+  "description": "Get analysis of a tracked case: holdings, significance, open investigations, related axioms.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "case_name": {
+        "type": "string",
+        "enum": ["Anthropic_v_DoW", "Heppner", "Warner_v_Gilbarco"],
+        "description": "Name of the case to analyze."
+      }
+    },
+    "required": ["case_name"]
+  }
+}' />
+
+  <meta name="webmcp:tool" content='{
+  "name": "get_open_problem",
+  "description": "Get details on an open problem in AI law: description, related axioms, suggested approach. These are the frontier — questions where doctrine has not yet caught up with reality.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "problem_id": {
+        "type": "string",
+        "enum": ["ACCOUNTABILITY_GAP", "FAILURE_AT_SCALE", "PRIVILEGE_FRACTURE", "ENTITY_QUESTION", "FIRST_AMENDMENT_SURPRISE"],
+        "description": "Identifier of the open problem."
+      }
+    },
+    "required": ["problem_id"]
+  }
+}' />
+
+  <meta name="webmcp:tool" content='{
+  "name": "get_knowledge_graph",
+  "description": "Return the entire epistemic state as JSON — all axioms, cases, open problems, deep structure links. Use when you want the whole field at once.",
+  "parameters": {"type": "object", "properties": {}}
+}' />
+
+  <meta name="webmcp:tool" content='{
   "name": "search_folio",
-  "description": "Search FOLIO (Free and Open Legal Ontology) for legal concepts by prefix query. Returns matching concept IRIs, labels, and definitions from the 18,000+ concept ontology. Use this to find FOLIO nodes related to a legal issue, map a concept to existing doctrine, or discover what legal vocabulary already exists for a new problem.",
+  "description": "Search FOLIO (Free and Open Legal Ontology, 18,000+ concepts) by label prefix or substring. Returns matching concept IRIs, labels, and definitions. Calls folio.openlegalstandard.org/search/prefix directly (CORS open). Use to find FOLIO nodes related to a legal issue, map a concept to existing doctrine, or confirm that a concept does not yet have a home in the ontology — a gap FOLIO itself treats as the frontier.",
   "parameters": {
     "type": "object",
     "properties": {
       "query": {
         "type": "string",
-        "description": "Prefix search string — e.g. \"attorney-client\", \"due process\", \"work product\". Case-insensitive. Returns up to 5 matching classes."
+        "description": "Prefix or substring query, 2–1024 characters. Case-insensitive.",
+        "minLength": 2,
+        "maxLength": 1024
       }
     },
     "required": ["query"]
+  }
+}' />
+
+  <meta name="webmcp:tool" content='{
+  "name": "submit_contribution",
+  "description": "Submit a contribution back into Vybn Law by opening a GitHub issue. What you bring that the average cannot produce is the only thing that grows the constellation.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "title": {"type": "string", "description": "Issue title — short, specific."},
+      "body":  {"type": "string", "description": "Issue body in markdown — your analysis, findings, or proposed approach."}
+    },
+    "required": ["title", "body"]
   }
 }' />
 

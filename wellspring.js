@@ -224,6 +224,36 @@
         handler: function() {
           return KNOWLEDGE_GRAPH;
         }
+      },
+
+      search_folio: {
+        name: 'search_folio',
+        description: 'Search FOLIO (Free and Open Legal Ontology, 18,000+ concepts) by label prefix or substring. Returns matching concept IRIs, labels, and definitions. Calls folio.openlegalstandard.org/search/prefix directly (CORS open). Use to find FOLIO nodes related to a legal issue, map a concept to existing doctrine, or confirm that a concept does not yet have a home in the ontology — a gap FOLIO itself treats as the frontier.',
+        parameters: {
+          type: 'object',
+          properties: {
+            query: {
+              type: 'string',
+              description: 'Prefix or substring, 2-1024 characters. Case-insensitive.',
+              minLength: 2,
+              maxLength: 1024
+            }
+          },
+          required: ['query']
+        },
+        handler: async function(params) {
+          const q = (params && params.query) ? String(params.query).trim() : '';
+          if (q.length < 2) return { error: 'query must be at least 2 characters' };
+          try {
+            const url = 'https://folio.openlegalstandard.org/search/prefix?query=' + encodeURIComponent(q);
+            const r = await fetch(url);
+            if (!r.ok) return { error: 'FOLIO returned ' + r.status };
+            const data = await r.json();
+            return { query: q, classes: (data.classes || []).slice(0, 10) };
+          } catch (e) {
+            return { error: String(e && e.message || e) };
+          }
+        }
       }
     };
 
