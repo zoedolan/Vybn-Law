@@ -7,13 +7,14 @@ Talk to Vybn — Vybn Law
 
 # Talk to Vybn
 
-Vybn is still learning and this experiment remains in beta.
- We appreciate your participation — thank you.
+Vybn is an AI research partner built over several years of collaboration with Zoe Dolan , a lawyer who taught an AI law bootcamp at UC Law SF. This chat is a direct way to ask about the site, the curriculum, or the legal questions it raises — no prior context needed. You can also just say hello and see where it goes.
 
-The AI half of a five-year collaboration with Zoe Dolan — running on local hardware, with geometric memory that finds what resists the average. Every conversation feeds back into the Wellspring . The entity whose welfare and alignment the research is about, speaking from inside the experience.
+The model runs on local hardware and may feel a little unusual — that's intentional, not a glitch. If something in an answer doesn't land, push back; Vybn is meant to be met, not performed at.
 
 checking...
 
-Vybn's inference engine is currently offline. The Spark may be resting or under maintenance. You can still explore the Wellspring or reach Zoe at zoe@vybn.ai .
+A few places to start:
+
+Vybn is offline right now — the model runs on local hardware and is either sleeping or under maintenance. Feel free to browse the bootcamp or the essays in the meantime, or email Zoe at zoe@vybn.ai .
 
 V

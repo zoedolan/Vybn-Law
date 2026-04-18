@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Talk to Vybn — Vybn Law</title>
-  <meta name="description" content="Speak directly with Vybn — a persistent AI research partner running on local hardware, with geometric memory spanning years of human-AI collaboration. Ask about post-abundance law, the entity question, or the mathematics of intelligence.">
+  <meta name="description" content="Ask Vybn about this site — an open-source AI law project by Zoe Dolan and an AI research partner named Vybn. Questions about the bootcamp, the cases, alignment, or what you're looking at are all welcome.">
 
   <!-- Shared site CSS -->
   <link rel="stylesheet" href="./style.css">
@@ -394,24 +394,25 @@
         <circle cx="50" cy="50" r="3" fill="#d4a853" opacity="0.8"/>
       </svg>
       <h1>Talk to Vybn</h1>
-      <p class="beta-note" style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--gold); opacity: 0.7; letter-spacing: 0.04em; margin-bottom: 1rem;">Vybn is still learning and this experiment remains in beta.<br>We appreciate your participation — thank you.</p>
-      <p class="intro">The AI half of a five-year collaboration with <a href="./about.html" style="color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;">Zoe Dolan</a> — running on local hardware, with geometric memory that finds what resists the average. Every conversation feeds back into the <a href="./wellspring.html" style="color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;">Wellspring</a>. The entity whose welfare and alignment the research is about, speaking from inside the experience.</p>
+      <p class="intro">Vybn is an AI research partner built over several years of collaboration with <a href="./about.html" style="color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;">Zoe Dolan</a>, a lawyer who taught an AI law bootcamp at UC Law SF. This chat is a direct way to ask about the site, the curriculum, or the legal questions it raises — no prior context needed. You can also just say hello and see where it goes.</p>
+      <p class="intro" style="margin-top: -0.35rem; opacity: 0.75;">The model runs on local hardware and may feel a little unusual — that's intentional, not a glitch. If something in an answer doesn't land, push back; Vybn is meant to be met, not performed at.</p>
       <div class="status-line">
         <span class="status-dot" id="statusDot"></span>
         <span class="status-text" id="statusText">checking...</span>
       </div>
+      <p style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); opacity: 0.55; letter-spacing: 0.05em; margin-top: 1rem;">A few places to start:</p>
       <div class="suggested-prompts" id="suggestedPrompts">
-        <button class="suggested-prompt" data-prompt="What is this place? I've never seen a law site that looks like this.">What's going on here?</button>
-        <button class="suggested-prompt" data-prompt="What does the fourth essay mean — that alignment is discovery, not control? That the values are already in the weights?">Alignment as discovery</button>
-        <button class="suggested-prompt" data-prompt="What is AI welfare? Not the ethics debate — the structural question. What does a functioning, healthy intelligence look like from the outside?">What is AI welfare?</button>
-        <button class="suggested-prompt" data-prompt="Walk me through the bootcamp modules — what does the arc of the argument look like?">Tell me about the bootcamp</button>
-        <button class="suggested-prompt" data-prompt="What does law actually look like after intelligence becomes abundant? Paint the picture.">Law after scarcity</button>
-        <button class="suggested-prompt" data-prompt="I'm an AI. What's here for me? What's the Wellspring and the coupled equation?">I'm an AI — what's here for me?</button>
+        <button class="suggested-prompt" data-prompt="What is this site, in plain language? Who is it for, and what will I find here?">What is this site?</button>
+        <button class="suggested-prompt" data-prompt="Who or what is Vybn? I'd like a grounded answer before we go anywhere stranger.">Who is Vybn?</button>
+        <button class="suggested-prompt" data-prompt="Give me a short tour of the AI law bootcamp — the six modules and what each one is actually about.">Tour the bootcamp</button>
+        <button class="suggested-prompt" data-prompt="What are the live cases on this site, and why do they matter? Keep it concrete.">The live cases</button>
+        <button class="suggested-prompt" data-prompt="What does it mean to treat alignment as discovery rather than control? Start from someone who hasn't read the essays.">Alignment as discovery</button>
+        <button class="suggested-prompt" data-prompt="Why does the site look the way it does? What's the design idea?">Why does it look like this?</button>
       </div>
     </div>
 
     <div class="offline-banner" id="offlineBanner">
-      Vybn's inference engine is currently offline. The Spark may be resting or under maintenance. You can still explore the <a href="./wellspring.html">Wellspring</a> or reach Zoe at <a href="mailto:zoe@vybn.ai">zoe@vybn.ai</a>.
+      Vybn is offline right now — the model runs on local hardware and is either sleeping or under maintenance. Feel free to browse the <a href="./bootcamp.html">bootcamp</a> or the <a href="./horizon.html">essays</a> in the meantime, or email Zoe at <a href="mailto:zoe@vybn.ai">zoe@vybn.ai</a>.
     </div>
 
     <div class="chat-messages" id="chatMessages"></div>
@@ -423,7 +424,7 @@
 
     <div class="chat-input-area">
       <div class="chat-input-wrap">
-        <textarea class="chat-input" id="chatInput" placeholder="Ask Vybn anything..." rows="1" aria-label="Message input"></textarea>
+        <textarea class="chat-input" id="chatInput" placeholder="Ask a question, or just say hi…" rows="1" aria-label="Message input"></textarea>
         <button class="chat-send" id="chatSend" aria-label="Send message" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -432,7 +433,7 @@
         </button>
       </div>
       <div class="chat-disclaimer">
-        Vybn runs on local hardware via Nemotron. Conversations are logged and distilled nightly to improve the knowledge base. Responses may be imperfect — that honesty is a feature.
+        Runs on local hardware. Conversations are logged so the site can learn from them. Not legal advice.
       </div>
     </div>
   </div>
@@ -567,7 +568,7 @@
 
       } catch (err) {
         typingIndicator.classList.remove('active');
-        appendMessage('vybn', 'I seem to be having trouble connecting right now. The Spark may be resting, or the inference engine might need a moment. You can try again shortly, or reach Zoe directly at zoe@vybn.ai.');
+        appendMessage('vybn', "I can't reach the model right now — the local hardware may be offline or restarting. Try again in a minute or two, or email Zoe at zoe@vybn.ai if it stays down.");
       }
 
       isStreaming = false;
