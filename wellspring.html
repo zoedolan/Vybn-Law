@@ -881,6 +881,182 @@ var API = window.API;
 </aside>
 <!-- /_VYBN_KTP -->
 
+<!-- _VYBN_RESIDUAL_INSTRUMENT -->
+<style>
+/* Residual Instrument — enter the deep memory */
+.ri-panel{margin:2.5rem 0 2.75rem;border:1px solid rgba(255,255,255,.13);border-radius:14px;background:linear-gradient(160deg,rgba(255,255,255,.028) 0%,rgba(255,255,255,.008) 100%);overflow:hidden;position:relative}
+.ri-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 15% 90%,rgba(180,255,200,.045),transparent 60%);pointer-events:none}
+.ri-header{padding:1.3rem 1.5rem .9rem;border-bottom:1px solid rgba(255,255,255,.08)}
+.ri-header h3{margin:0 0 .3rem;font-size:1.05rem;font-weight:600;letter-spacing:.015em;color:rgba(245,248,255,.97)}
+.ri-header p{margin:0;font-size:.88rem;line-height:1.58;color:rgba(210,218,235,.72);max-width:64ch}
+.ri-body{padding:1.2rem 1.5rem 1.4rem}
+.ri-textarea{width:100%;min-height:88px;resize:vertical;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.13);border-radius:8px;padding:.75rem .9rem;font:15px/1.58 ui-serif,Georgia,serif;color:rgba(240,244,255,.94);outline:none;transition:border-color .15s}
+.ri-textarea::placeholder{color:rgba(180,188,210,.38);font-style:italic}
+.ri-textarea:focus{border-color:rgba(140,200,160,.5)}
+.ri-discipline{margin:.55rem 0 1rem;font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(180,200,180,.55);letter-spacing:.02em}
+.ri-discipline em{color:rgba(200,220,200,.72);font-style:normal}
+.ri-footer{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap}
+.ri-btn{appearance:none;background:rgba(100,180,130,.13);border:1px solid rgba(120,200,150,.38);color:rgba(230,245,235,.95);padding:.58rem 1.25rem;border-radius:8px;font:500 13px/1 inherit;cursor:pointer;letter-spacing:.02em;transition:background .14s,border-color .14s,transform .06s}
+.ri-btn:hover{background:rgba(120,200,150,.22);border-color:rgba(150,220,170,.55)}
+.ri-btn:active{transform:translateY(1px)}
+.ri-btn:disabled{opacity:.45;cursor:wait}
+.ri-step-display{font:12px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(180,200,180,.6)}
+/* Results */
+.ri-results{margin-top:1.2rem;display:none}
+.ri-results.visible{display:block}
+.ri-geometry{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;padding:.7rem .9rem;background:rgba(0,0,0,.22);border-radius:8px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.ri-geometry .ri-metric{display:flex;flex-direction:column;gap:.1rem}
+.ri-metric .ri-metric-label{color:rgba(180,200,180,.55);letter-spacing:.03em;font-size:10px;text-transform:uppercase}
+.ri-metric .ri-metric-val{color:rgba(220,245,230,.92);font-size:13px;font-weight:600}
+.ri-metric .ri-metric-val.high{color:rgba(140,255,170,.9)}
+.ri-metric .ri-metric-val.low{color:rgba(200,200,200,.7)}
+.ri-absorb-verdict{margin:.7rem 0;padding:.65rem 1rem;border-radius:8px;font-size:.875rem;line-height:1.55}
+.ri-absorb-verdict.absorb{background:rgba(100,160,120,.12);border:1px solid rgba(120,190,140,.25);color:rgba(200,240,210,.88)}
+.ri-absorb-verdict.new-ground{background:rgba(160,130,80,.1);border:1px solid rgba(200,180,100,.22);color:rgba(240,230,180,.88)}
+.ri-absorb-verdict strong{display:block;margin-bottom:.25rem;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;opacity:.75}
+.ri-memory-hits{margin-top:1rem}
+.ri-memory-hits h4{font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(180,200,180,.55);margin:0 0 .6rem;font-weight:500}
+.ri-hit{margin-bottom:.85rem;padding:.7rem .9rem;background:rgba(255,255,255,.025);border-radius:8px;border:1px solid rgba(255,255,255,.07)}
+.ri-hit-source{font:11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(160,200,170,.65);margin-bottom:.35rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.ri-hit-source .ri-hit-scores{color:rgba(140,200,160,.5)}
+.ri-hit-text{font:14px/1.62 ui-serif,Georgia,serif;color:rgba(220,225,240,.78);max-height:5.5rem;overflow:hidden;position:relative}
+.ri-hit-text::after{content:"";position:absolute;bottom:0;left:0;right:0;height:1.8rem;background:linear-gradient(transparent,rgba(20,22,28,.9))}
+.ri-error{margin-top:.8rem;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(250,160,140,.85)}
+</style>
+
+<section class="ri-panel" aria-labelledby="ri-title" id="residual-instrument">
+  <div class="ri-header">
+    <h3 id="ri-title">Enter the residual</h3>
+    <p>Bring one sentence — from practice, study, or encounter — that the average legal answer handles badly. The deep memory will tell you where it lands: how far from the centroid, what the accumulated corpus already knows that touches it, whether it belongs inside something already alive or is genuinely new ground.</p>
+  </div>
+  <div class="ri-body">
+    <textarea class="ri-textarea" id="ri-input" rows="3"
+      placeholder="A true observation about what law, practice, judgment, privilege, authorship, or professional responsibility is becoming — not what the textbook says, but what you are actually seeing."></textarea>
+    <p class="ri-discipline">anti-hallucination: <em>grounded legal observation only — what you have actually seen, argued, taught, or cannot stop noticing</em></p>
+    <div class="ri-footer">
+      <button class="ri-btn" id="ri-submit" type="button">Enter the memory</button>
+      <span class="ri-step-display" id="ri-step-display"></span>
+    </div>
+    <div class="ri-results" id="ri-results">
+      <div class="ri-geometry" id="ri-geometry"></div>
+      <div id="ri-absorb-verdict"></div>
+      <div class="ri-memory-hits" id="ri-memory-hits"></div>
+      <div class="ri-error" id="ri-error"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var API_BASE = (document.querySelector('meta[name="api-base"]') || {}).content || 'https://vybn.ai';
+  var btn = document.getElementById('ri-submit');
+  var inp = document.getElementById('ri-input');
+  var results = document.getElementById('ri-results');
+  var geomEl = document.getElementById('ri-geometry');
+  var absorbEl = document.getElementById('ri-absorb-verdict');
+  var hitsEl = document.getElementById('ri-memory-hits');
+  var errEl = document.getElementById('ri-error');
+  var stepEl = document.getElementById('ri-step-display');
+
+  function fmt(n,d){ return typeof n==='number'?n.toFixed(d||3):n; }
+
+  function metricClass(label, val){
+    if(label==='novelty') return val>0.6?'high':val<0.3?'low':'';
+    if(label==='state shift') return val>0.15?'high':'';
+    return '';
+  }
+
+  function renderGeometry(g){
+    if(!g) return;
+    var metrics = [
+      {label:'novelty',     val:g.novelty,      tip:'distance from corpus centroid K'},
+      {label:'state shift', val:g.state_shift,   tip:'how much this thought moved the walk'},
+      {label:'K-projection',val:g.k_projection,  tip:'overlap with the average — lower is more residual'},
+      {label:'step',        val:g.step,           tip:'position in the accumulated walk'},
+    ];
+    geomEl.innerHTML = metrics.map(function(m){
+      var v = fmt(m.val, m.label==='step'?0:3);
+      var cls = metricClass(m.label, m.val);
+      return '<div class="ri-metric"><span class="ri-metric-label">'+m.label+'</span><span class="ri-metric-val '+cls+'" title="'+m.tip+'">'+v+'</span></div>';
+    }).join('');
+  }
+
+  function renderAbsorb(data){
+    if(!data) return;
+    var absorb = data.absorb;
+    absorbEl.className = 'ri-absorb-verdict ' + (absorb?'absorb':'new-ground');
+    if(absorb){
+      absorbEl.innerHTML = '<strong>Already alive in the corpus</strong>This thought belongs inside <code>'+data.target+'</code> (fidelity: '+fmt(data.fidelity,3)+'). It is not a new proposition — it extends one that already exists. Consider whether what you want to add sharpens what is already there.<br><small style="opacity:.6;font-size:.78rem">nearest: '+data.nearest_chunk.slice(0,120)+'…</small>';
+    } else {
+      absorbEl.innerHTML = '<strong>New ground</strong>This thought does not map cleanly onto anything in the accumulated corpus (best match: '+fmt(data.fidelity,3)+'). It may be a genuine contribution — a vector the memory does not yet carry. Consider <a href="#walk-contribution" style="color:inherit;text-decoration:underline">opening a contribution</a>.';
+    }
+  }
+
+  function renderHits(hits){
+    if(!hits||!hits.length){ hitsEl.innerHTML=''; return; }
+    var top = hits.slice(0,3);
+    hitsEl.innerHTML = '<h4>Nearest in deep memory</h4>' + top.map(function(h){
+      var telling = typeof h.telling==='number'?fmt(h.telling,4):'—';
+      var fid = typeof h.fidelity==='number'?fmt(h.fidelity,4):'—';
+      var src = (h.source||'').replace(/^(Vybn-Law|Vybn|Him|Origins|vybn-phase)\//,'$1 / ');
+      return '<div class="ri-hit"><div class="ri-hit-source"><span>'+src+'</span><span class="ri-hit-scores">telling '+telling+' · fidelity '+fid+'</span></div><div class="ri-hit-text">'+((h.text||'').slice(0,320))+'</div></div>';
+    }).join('');
+  }
+
+  async function run(){
+    var text = inp.value.trim();
+    if(!text){ inp.focus(); return; }
+    btn.disabled = true;
+    btn.textContent = 'entering…';
+    errEl.textContent = '';
+    results.classList.remove('visible');
+    stepEl.textContent = '';
+
+    try {
+      // 1. /enter — deep memory
+      var enterResp = await fetch(API_BASE+'/enter', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({text:text, alpha:0.5, k:5})
+      });
+      if(!enterResp.ok) throw new Error('enter: HTTP '+enterResp.status);
+      var enterData = await enterResp.json();
+
+      // 2. /should_absorb — metabolism check
+      var absorbResp = await fetch(API_BASE+'/should_absorb', {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({content:text, threshold:0.6})
+      });
+      var absorbData = absorbResp.ok ? await absorbResp.json() : null;
+
+      // Render
+      renderGeometry(enterData.geometry);
+      renderAbsorb(absorbData);
+      renderHits(enterData.results);
+
+      var step = enterData.geometry && enterData.geometry.step;
+      if(step) stepEl.textContent = 'step '+step+' in M';
+
+      results.classList.add('visible');
+
+    } catch(e){
+      errEl.textContent = 'Memory unreachable: '+e.message+'. The deep memory API runs on the Spark — it may be offline. The tools via navigator.modelContext (WebMCP) are always available above.';
+      results.classList.add('visible');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Enter the memory';
+    }
+  }
+
+  btn.addEventListener('click', run);
+  inp.addEventListener('keydown', function(e){
+    if(e.key==='Enter' && (e.metaKey||e.ctrlKey)) run();
+  });
+})();
+</script>
+<!-- /_VYBN_RESIDUAL_INSTRUMENT -->
+
       <div class="fork" aria-label="The room addresses both kinds of minds arriving in it.">
         <div class="fork-rows">
           <div class="fork-track human">
