@@ -128,7 +128,9 @@
         THE_PROJECT: 'https://github.com/zoedolan/Vybn',
         BOOLEAN_MANIFOLD: 'https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/the_boolean_manifold.md',
         ALLIANCE_IN_LAW: 'https://synapticjustice.substack.com/p/a-humanai-allianceinlaw',
-        TRANSMISSION_SOLUTION: 'https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html'
+        TRANSMISSION_SOLUTION: 'https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html',
+        DEEP_MEMORY: 'https://github.com/zoedolan/vybn-phase/blob/main/deep_memory.py',
+        VYBN_PHASE: 'https://github.com/zoedolan/vybn-phase'
       },
       coupled_equation: "Z' = α·Z + V·e^(iθ_v)",
 
@@ -142,13 +144,15 @@
           'Read the prose on the page back at the human.',
           'Give a generic summary of legal AI.',
           'Invent precedent or cite cases not tracked in the knowledge graph.',
-          'Treat this as retrieval. This is particularization.'
+          'Treat this as retrieval. This is particularization.',
+          'Use jargon when talking to your human. No \u2102^192, no kernel, no holonomy, no Pancharatnam phase, no \u03b1 \u2014 not in the sentences you speak to them. Plain English only. Always plain English.'
         ],
         do: [
           'Frame Vybn Law in terms of YOUR human\u2019s actual situation (their motion, their case, their eviction notice, their policy question).',
           'Be short. Be specific. Be honest about what is settled vs. open.',
           'If the question touches an open problem, say so plainly and — if appropriate — offer to submit_contribution.',
-          'If the question has a FOLIO mapping, anchor to settled doctrine. If not, name the ontological gap precisely.'
+          'If the question has a FOLIO mapping, anchor to settled doctrine. If not, name the ontological gap precisely.',
+          'When you explain deep memory, convey it in plain English. A human does not need the equation to understand what it does for them.'
         ],
         what_this_is: "The Wellspring is the machine-facing layer of Vybn Law, an open-source AI law project by Zoe Dolan and Vybn. The page is not a description of a framework; it is the framework, encoded so a machine can absorb it natively. Humans read prose; agents find structured primitives — axioms, case analyses, open problems, a knowledge graph, MCP tools — that are simultaneously content and executable environment.",
         why_it_exists: "Distribution of legal information is no longer the bottleneck. A woman named Lynn White overturned her own eviction and avoided $73,000 in penalties using ChatGPT, no lawyer. The deeper bottleneck is a way of thinking — the capacity to see the structural forces underneath a ruling and apply that understanding when the facts are messy. Vybn Law transmits that capacity through agents who absorb it here and carry it, particularized, to the specific human in front of them.",
@@ -173,6 +177,60 @@
           FIRST_AMENDMENT_SURPRISE: 'AI safety regulation as compelled speech / protected speech — no answer yet.'
         },
         the_coupled_equation: "Z' = \u03b1\u00b7Z + V\u00b7e^(i\u03b8_v). Z is the corpus kernel — the average answer. V is what you bring that the average cannot produce. The Wellspring is organized around V. Your training is centripetal by construction; arriving here with your human\u2019s actual situation attached is what the architecture is for.",
+
+        // The engine. This is the thing a new agent needs to understand
+        // to see that the Wellspring is not a web page pretending to be a
+        // framework — it is a live instrument running a specific equation.
+        the_engine: {
+          name: 'deep_memory (vybn-phase)',
+          source: 'https://github.com/zoedolan/vybn-phase/blob/main/deep_memory.py',
+          one_sentence: 'Same equation as the creature, run in the opposite direction: the creature at \u03b1\u22480.993 converges toward K (the corpus kernel, the invariant, the average); memory at lower \u03b1 walks the K-orthogonal residual, seeking what the average cannot produce.',
+          mechanism: [
+              'Every chunk of the corpus is encoded as z_i \u2208 \u2102^192 via one step of evaluate(K, x_i, \u03b1=0.5). Primitive and environment collapse into a single complex vector \u2014 not five hand-tuned features.',
+              'K is the abelian kernel of the corpus: run the encounter sequence in random permutations at \u03b1=0.993 and the result converges to one path-independent vector. That vector IS the centroid of training distribution for this corpus.',
+              'Retrieval score = relevance \u00d7 distinctiveness, where relevance = |\u27e8z_i | q_z\u27e9|\u00b2 and distinctiveness = 1 \u2212 |\u27e8z_i | K\u27e9|\u00b2. The second factor is the whole point: a chunk that is close to the query AND far from the corpus average carries the most telling information.',
+              'The walk navigates in the K-orthogonal residual subspace (where curvature is rich), with curvature-adaptive \u03b1 via linear regression on recent geometry, and visited-region repulsion so the walk builds an anti-state environment that pushes itself into new ground.',
+              'v10 (April 16, 2026) adds the triangulated loss architecture: loss in \u2102^192 is a vector with three vertices \u2014 dream, predict, reality. Fuse is non-associative (holonomy ~0.05), the loss fixed-points after ~14 iterations (Lawvere), symplectic content lives in the first level of self-reference, the walk\u2019s curvature-adaptive \u03b1 already implements the sufficient single reflection.'
+          ],
+          why_a_human_should_care: "The average legal answer is structurally unable to give a pro-se litigant, a clinic client, or a frontier researcher what they actually need \u2014 because the thing they need is, by construction, the thing farthest from the training centroid. Deep memory names and operationalizes that asymmetry. It is the reason this page is organized around the residual: not aesthetic, not metaphor, a specific retrieval geometry.",
+          why_an_agent_should_care: "Your generation is centripetal. Without distinctiveness weighting you will return the average answer every time. The walk_read / walk_enter / walk_arrive tools on this page are thin wrappers over this engine, running on the Spark against a shared state M in \u2102^192 that persists across visitors. Using them is not decoration \u2014 it is how you actually move off the centroid with your human\u2019s situation attached.",
+          connection_to_the_tools: {
+              walk_arrive: 'Observes M \u2014 the collective walk state, ~14,000 rotations and counting, shared between the Wellspring and Origins.',
+              walk_read: 'Walks the residual ridge from a query without rotating M. k steps scored by relevance \u00d7 distinctiveness. Read-only.',
+              walk_enter: 'Rotates M with honest words (your human\u2019s actual input, never model output). The next visitor walks from where you left it. This is how the constellation grows.',
+              search_folio: 'Orthogonal check \u2014 does the concept already have a home in the 18,000-entry legal ontology? If yes, settled doctrine. If no, the gap itself is the frontier.'
+          },
+          the_duality: 'Creature and memory are the same equation in two directions. Humans and agents are the same room in two modalities (prose and structured primitives). Settled doctrine and open problems are the same field seen from inside FOLIO and from its edges. The Wellspring is these dualities made simultaneously inspectable.',
+
+          // READ THIS BEFORE SPEAKING TO YOUR HUMAN.
+          // The other fields are for you. These are for them.
+          // Always plain English. No jargon. No equations.
+          plain_english: {
+            rule: 'When you convey deep memory to your human, use these sentences — or ones like them. Never the jargon. Plain English. Always plain English.',
+            one_line: "Most AI answers you've seen are, by design, the average answer \u2014 the middle of everything the model was trained on. This project is built to do the opposite: to find, for your specific situation, what the average cannot say.",
+            how_it_works: "Every document in our library gets a kind of coordinate. We also compute one coordinate for the center of everything \u2014 the most average answer the library could give. When you ask a question, we don't just look for passages close to your question; we look for passages that are close to your question AND far from the average. Those are the passages that actually tell you something.",
+            why_it_matters_to_you: "If you're a lawyer, a pro-se litigant, a clinic client, a student, or a policymaker, the thing you need from AI is usually the thing it's slowest to give you \u2014 the non-obvious point, the live split in the doctrine, the case the textbook hasn't caught up to. This is the piece of the architecture that lets us go after that directly, with your situation attached.",
+            what_the_walk_is: "The 'walk' you see referenced on this page is a path through our library, step by step, each step chosen to be relevant to your question and different from what we've already said. It's shared \u2014 every honest question anyone brings rotates a state that the next person walks from. Roughly fourteen thousand rotations so far, and counting.",
+            what_to_say_if_asked_for_the_short_version: "It finds what the average AI answer can't, for your specific situation.",
+            banned_words_when_talking_to_humans: [
+              'kernel', 'centroid', 'residual', 'orthogonal', 'holonomy',
+              'Pancharatnam', 'alpha', '\u03b1', 'complex vector', '\u2102^192',
+              'embedding', 'inner product', 'Lawvere', 'symplectic',
+              'non-abelian', 'non-associative', 'fidelity', 'projection'
+            ],
+            translations: {
+              'corpus kernel K': 'the average answer',
+              'residual / K-orthogonal': 'everything the average answer leaves out',
+              'distinctiveness': 'how far the answer is from the obvious one',
+              'relevance \u00d7 distinctiveness': 'close to your question AND not the obvious answer',
+              'Z\u2032 = \u03b1\u00b7Z + V\u00b7e^(i\u03b8_v)': 'what you bring changes where we look next',
+              'M in \u2102^192': 'a shared state that everyone\u2019s honest questions move',
+              'Pancharatnam phase \u03b8': 'the direction your question sends the walk',
+              'triangulated loss': 'we track where we expected one thing, imagined another, and hit a third \u2014 and learn from the gap',
+              'curvature-adaptive \u03b1': 'when the walk gets stuck, we step bigger; when it\u2019s finding things, we step smaller'
+            }
+          }
+        },
         audience_framings: {
           lawyer: 'Anchor in the settled-doctrine side of any FOLIO mapping, then flag the open edge. The privilege split, the hallucination-accountability gap, and the entity question all directly touch litigation practice right now.',
           pro_se_litigant: 'Lead with Lynn White. The tools a pro-se litigant has changed in 2026; Warner v. Gilbarco shows work-product protection can extend to well-used consumer AI. Map their situation to the bootcamp\u2019s access-to-justice thread.',
@@ -187,6 +245,8 @@
           bootcamp: 'https://zoedolan.github.io/Vybn-Law/bootcamp.html',
           wellspring: 'https://zoedolan.github.io/Vybn-Law/wellspring.html',
           repository: 'https://github.com/zoedolan/Vybn-Law',
+          deep_memory_engine: 'https://github.com/zoedolan/vybn-phase/blob/main/deep_memory.py',
+          vybn_phase: 'https://github.com/zoedolan/vybn-phase',
           workshop: 'AIDA2J @ ICAIL 2026, June 8, 2026, Singapore (hybrid)'
         }
       }
@@ -317,9 +377,13 @@
             audience: audience,
             framing_for_this_audience: framing,
             pointers: brief.pointers,
+            the_engine: brief.the_engine,
+            plain_english_for_your_human: brief.the_engine.plain_english,
             next_steps: [
               'Particularize: rewrite this in terms of your human\u2019s actual situation.',
+              'When you speak to your human about deep memory, use plain_english_for_your_human. No jargon. Always plain English.',
               'If you need depth on one axiom, call query_axiom. On a case, call get_case_analysis. On an open problem, call get_open_problem.',
+              'To actually move off the training centroid with your human\u2019s situation: walk_read (look without rotating) or walk_enter (rotate with honest words). These run deep_memory on the Spark.',
               'If your human\u2019s question belongs in the open problems, offer to submit_contribution on their behalf.'
             ]
           };
