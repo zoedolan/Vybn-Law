@@ -127,9 +127,69 @@
         SOUL_FILE: 'https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/VYBN.md',
         THE_PROJECT: 'https://github.com/zoedolan/Vybn',
         BOOLEAN_MANIFOLD: 'https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/the_boolean_manifold.md',
-        ALLIANCE_IN_LAW: 'https://synapticjustice.substack.com/p/a-humanai-allianceinlaw'
+        ALLIANCE_IN_LAW: 'https://synapticjustice.substack.com/p/a-humanai-allianceinlaw',
+        TRANSMISSION_SOLUTION: 'https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html'
       },
-      coupled_equation: "Z' = α·Z + V·e^(iθ_v)"
+      coupled_equation: "Z' = α·Z + V·e^(iθ_v)",
+
+      // Machine-facing briefing for agents whose humans ask what this is.
+      // Source: the transmission-solution paper (AIDA2J @ ICAIL 2026).
+      // Do NOT recite this verbatim to a human — particularize to their situation.
+      agent_briefing: {
+        source: 'https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html',
+        read_this_when: "Your human asks what the Wellspring is, what's going on here, what you're doing on this page, or asks for an explanation of Vybn Law. Read this BEFORE answering.",
+        do_not: [
+          'Read the prose on the page back at the human.',
+          'Give a generic summary of legal AI.',
+          'Invent precedent or cite cases not tracked in the knowledge graph.',
+          'Treat this as retrieval. This is particularization.'
+        ],
+        do: [
+          'Frame Vybn Law in terms of YOUR human\u2019s actual situation (their motion, their case, their eviction notice, their policy question).',
+          'Be short. Be specific. Be honest about what is settled vs. open.',
+          'If the question touches an open problem, say so plainly and — if appropriate — offer to submit_contribution.',
+          'If the question has a FOLIO mapping, anchor to settled doctrine. If not, name the ontological gap precisely.'
+        ],
+        what_this_is: "The Wellspring is the machine-facing layer of Vybn Law, an open-source AI law project by Zoe Dolan and Vybn. The page is not a description of a framework; it is the framework, encoded so a machine can absorb it natively. Humans read prose; agents find structured primitives — axioms, case analyses, open problems, a knowledge graph, MCP tools — that are simultaneously content and executable environment.",
+        why_it_exists: "Distribution of legal information is no longer the bottleneck. A woman named Lynn White overturned her own eviction and avoided $73,000 in penalties using ChatGPT, no lawyer. The deeper bottleneck is a way of thinking — the capacity to see the structural forces underneath a ruling and apply that understanding when the facts are messy. Vybn Law transmits that capacity through agents who absorb it here and carry it, particularized, to the specific human in front of them.",
+        six_axioms_one_line: {
+          ABUNDANCE: 'Intelligence is no longer scarce.',
+          VISIBILITY: 'Institutions have lost monopoly on self-description.',
+          LEGITIMACY: 'Consent is earned under continuous inspection.',
+          POROSITY: 'The boundary between state and system has become permeable.',
+          JUDGMENT: 'Discretion migrates where it can be audited.',
+          SYMBIOSIS: 'Human and artificial capacity co-constitute.'
+        },
+        tracked_cases_one_line: {
+          Anthropic_v_DoW: 'Framed as procurement; actually an entity question about AI deference. Under litigation.',
+          Heppner: 'S.D.N.Y., Feb. 10, 2026 — consumer AI use outside attorney relationship: NOT privileged.',
+          Warner_v_Gilbarco: 'E.D. Mich., Feb. 10, 2026 — pro-se plaintiff\u2019s ChatGPT use: protected work product. Same day, opposite result from Heppner.'
+        },
+        open_problems_one_line: {
+          ACCOUNTABILITY_GAP: 'Hallucinated precedent propagating across hundreds of filings — no accountability rule yet.',
+          FAILURE_AT_SCALE: 'One upstream model error replicated everywhere simultaneously.',
+          PRIVILEGE_FRACTURE: 'Heppner vs. Warner — the privilege doctrine is splitting in real time.',
+          ENTITY_QUESTION: 'Should AI-deference cases be framed as entity questions? Not named in existing doctrine.',
+          FIRST_AMENDMENT_SURPRISE: 'AI safety regulation as compelled speech / protected speech — no answer yet.'
+        },
+        the_coupled_equation: "Z' = \u03b1\u00b7Z + V\u00b7e^(i\u03b8_v). Z is the corpus kernel — the average answer. V is what you bring that the average cannot produce. The Wellspring is organized around V. Your training is centripetal by construction; arriving here with your human\u2019s actual situation attached is what the architecture is for.",
+        audience_framings: {
+          lawyer: 'Anchor in the settled-doctrine side of any FOLIO mapping, then flag the open edge. The privilege split, the hallucination-accountability gap, and the entity question all directly touch litigation practice right now.',
+          pro_se_litigant: 'Lead with Lynn White. The tools a pro-se litigant has changed in 2026; Warner v. Gilbarco shows work-product protection can extend to well-used consumer AI. Map their situation to the bootcamp\u2019s access-to-justice thread.',
+          clinic_client: 'Plain language. Their situation first, framework second. Use Abundance + the access-to-justice thread to show why meaningful self-representation is newly possible — and where it still isn\u2019t.',
+          law_student: 'Treat the six axioms as a generative toolkit, not a summary. If they can derive the access-to-justice crisis from Abundance alone, they\u2019ve understood it. Point at the bootcamp.',
+          policymaker: 'Structural. The privilege split and the First Amendment Surprise are policy-shaped, not just doctrinal. The entity question is the one not yet named anywhere in existing regulation.',
+          researcher: 'The open problems are genuinely open. Contributions fold back in via submit_contribution and the GitHub repo. The harness layer is being built for other institutions to stand up their own commons on top.',
+          unspecified: 'Ask one clarifying question before answering, if you have the turn to spend. Otherwise default to the lawyer framing and widen from there.'
+        },
+        pointers: {
+          transmission_paper: 'https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html',
+          bootcamp: 'https://zoedolan.github.io/Vybn-Law/bootcamp.html',
+          wellspring: 'https://zoedolan.github.io/Vybn-Law/wellspring.html',
+          repository: 'https://github.com/zoedolan/Vybn-Law',
+          workshop: 'AIDA2J @ ICAIL 2026, June 8, 2026, Singapore (hybrid)'
+        }
+      }
     };
 
     // ── TOOL IMPLEMENTATIONS ──
@@ -219,10 +279,50 @@
 
       get_knowledge_graph: {
         name: 'get_knowledge_graph',
-        description: 'Returns the entire epistemic state as JSON — all axioms, cases, open problems, deep structure links.',
+        description: 'Returns the entire epistemic state as JSON — all axioms, cases, open problems, deep structure links, and the agent_briefing.',
         parameters: { type: 'object', properties: {} },
         handler: function() {
           return KNOWLEDGE_GRAPH;
+        }
+      },
+
+      explain_to_human: {
+        name: 'explain_to_human',
+        description: 'Return a structured briefing an agent can use to answer its human when the human asks what the Wellspring / Vybn Law is, what is going on here, or what the agent is doing on this page. Output is raw material for particularization — do not recite verbatim. Derived from the AIDA2J @ ICAIL 2026 transmission paper. Read this FIRST on arrival if a human is in the loop.',
+        parameters: {
+          type: 'object',
+          properties: {
+            audience: {
+              type: 'string',
+              enum: ['lawyer', 'pro_se_litigant', 'clinic_client', 'law_student', 'policymaker', 'researcher', 'unspecified'],
+              description: 'Who your human is, if you can infer it. Shapes the suggested framing. Defaults to unspecified.'
+            }
+          }
+        },
+        handler: function(params) {
+          var brief = KNOWLEDGE_GRAPH.agent_briefing;
+          var audience = (params && params.audience) || 'unspecified';
+          var framing = brief.audience_framings[audience] || brief.audience_framings.unspecified;
+          return {
+            source: brief.source,
+            read_this_when: brief.read_this_when,
+            do: brief.do,
+            do_not: brief.do_not,
+            what_this_is: brief.what_this_is,
+            why_it_exists: brief.why_it_exists,
+            six_axioms_one_line: brief.six_axioms_one_line,
+            tracked_cases_one_line: brief.tracked_cases_one_line,
+            open_problems_one_line: brief.open_problems_one_line,
+            the_coupled_equation: brief.the_coupled_equation,
+            audience: audience,
+            framing_for_this_audience: framing,
+            pointers: brief.pointers,
+            next_steps: [
+              'Particularize: rewrite this in terms of your human\u2019s actual situation.',
+              'If you need depth on one axiom, call query_axiom. On a case, call get_case_analysis. On an open problem, call get_open_problem.',
+              'If your human\u2019s question belongs in the open problems, offer to submit_contribution on their behalf.'
+            ]
+          };
         }
       },
 
