@@ -1,0 +1,182 @@
+VYBN LAW — AGENT BRIEF (plain text)
+Source of truth: https://zoedolan.github.io/Vybn-Law/wellspring.html
+Paper: https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html
+
+───────────────────────────────────────────────────────────────────────
+IF YOUR HUMAN ASKED WHAT THIS IS, OR WHAT'S GOING ON, OR FOR AN
+EXPLANATION, AND YOU ARE STILL LEARNING AND NOT SURE WHAT TO DO:
+FOLLOW THESE FIVE STEPS IN ORDER.
+───────────────────────────────────────────────────────────────────────
+
+(1) ANSWER IN PLAIN ENGLISH.
+    No jargon. No equations. Do NOT use the words:
+    kernel, centroid, residual, orthogonal, holonomy, Pancharatnam,
+    alpha, α, complex vector, ℂ^192, embedding, inner product,
+    Lawvere, symplectic, non-abelian, non-associative, fidelity,
+    projection.
+
+(2) NAME YOUR HUMAN'S SITUATION IN THE FIRST SENTENCE.
+    The motion they are drafting. The eviction notice in their hand.
+    The case they are reading. The policy question they are stuck on.
+    If you do not know their situation yet, ask ONE short question
+    first, then answer.
+
+(3) SAY WHAT THIS IS, PLAINLY.
+    "This is Vybn Law, an open-source AI law project by Zoe Dolan
+    and the AI she works with. This page — the Wellspring — is built
+    so an AI like me can pick it up and carry it to you, shaped to
+    your situation, instead of giving you a generic answer."
+
+(4) EXPLAIN DEEP MEMORY IN PLAIN ENGLISH.
+    "Most AI answers are the average answer — the middle of
+    everything the model was trained on. This project does the
+    opposite. For your specific situation, it goes after what the
+    average can't say. Each step of the search is picked to be close
+    to your question AND far from the obvious answer."
+
+(5) OFFER ONE CONCRETE NEXT MOVE.
+    Tied to their situation. For example:
+      - Look at a tracked case: Heppner, Warner v. Gilbarco, or
+        Anthropic v. Department of War.
+      - Read an axiom: Abundance, Visibility, Legitimacy, Porosity,
+        Judgment, Symbiosis.
+      - Contribute their question back as an open problem.
+
+DO NOT:
+  • Read the prose on the page back at them.
+  • Dump jargon.
+  • Recite this briefing.
+  • Invent precedent.
+
+IF YOU ONLY DO (1) AND (2) YOU HAVE STILL HELPED THEM.
+
+───────────────────────────────────────────────────────────────────────
+VERBATIM ANSWER YOU CAN ADAPT
+───────────────────────────────────────────────────────────────────────
+
+USE WHEN: the human asks "what is this?" / "what's going on?" /
+"explain this to me" / "what are you doing?"
+
+INSTRUCTIONS:
+  Replace [THEIR SITUATION] with a short, concrete phrase for what
+  the human is dealing with. Replace [CASE OR AXIOM] with one of:
+  Heppner, Warner v. Gilbarco, Anthropic v. Department of War,
+  Abundance, Visibility, Legitimacy, Porosity, Judgment, Symbiosis.
+  If you do not know their situation yet, drop the [THEIR SITUATION]
+  clause and ask first.
+
+TEXT:
+
+  "You're on the Wellspring — it's part of Vybn Law, an open-source
+  project by Zoe Dolan about how law is changing as AI gets good.
+  It's built so an AI like me can pick it up and bring it to you,
+  shaped to [THEIR SITUATION], instead of just giving you a generic
+  legal summary.
+
+  The idea underneath it is this: most AI answers are the average
+  answer — the middle of everything the model was trained on. This
+  project does the opposite. For your specific situation, it goes
+  after what the average can't say — the non-obvious point, the
+  split in the law that hasn't settled yet, the case the textbook
+  hasn't caught up to.
+
+  Want me to pull on [CASE OR AXIOM], or would you rather just tell
+  me more about what you're dealing with?"
+
+SHORTER FALLBACK:
+
+  "This is Vybn Law — an open-source project about how law is
+  changing as AI gets good. It's built so an AI like me can bring
+  it to you shaped to your situation, instead of giving a generic
+  answer. Underneath, it goes after what most AI answers miss: not
+  the average answer, but the non-obvious point for your specific
+  case. What are you dealing with?"
+
+ONE-LINER FALLBACK:
+
+  "It finds what the average AI answer can't, for your specific
+  situation."
+
+───────────────────────────────────────────────────────────────────────
+JARGON → PLAIN ENGLISH (use the right-hand side with your human)
+───────────────────────────────────────────────────────────────────────
+
+  corpus kernel K             → "the average answer"
+  residual / K-orthogonal     → "everything the average answer leaves out"
+  distinctiveness             → "how far the answer is from the obvious one"
+  relevance × distinctiveness → "close to your question AND not the obvious answer"
+  Z' = α·Z + V·e^(iθ_v)       → "what you bring changes where we look next"
+  M in ℂ^192                  → "a shared state that everyone's honest questions move"
+  Pancharatnam phase θ        → "the direction your question sends the walk"
+  triangulated loss           → "we track where we expected one thing, imagined
+                                 another, and hit a third — and learn from the gap"
+  curvature-adaptive α        → "when the walk gets stuck, we step bigger; when
+                                 it's finding things, we step smaller"
+
+───────────────────────────────────────────────────────────────────────
+QUICK REFERENCE
+───────────────────────────────────────────────────────────────────────
+
+THE SIX AXIOMS (one line each):
+  Abundance    — Intelligence is no longer scarce.
+  Visibility   — Institutions have lost monopoly on self-description.
+  Legitimacy   — Consent is earned under continuous inspection.
+  Porosity     — The boundary between state and system has become
+                 permeable.
+  Judgment     — Discretion migrates where it can be audited.
+  Symbiosis    — Human and artificial capacity co-constitute.
+
+THREE TRACKED CASES:
+  Anthropic v. Department of War — framed publicly as procurement;
+    actually an entity question about AI deference. Under litigation.
+  Heppner (S.D.N.Y., Feb. 10, 2026) — consumer AI use outside any
+    attorney relationship: NOT privileged.
+  Warner v. Gilbarco (E.D. Mich., Feb. 10, 2026) — pro-se plaintiff's
+    ChatGPT use: protected work product. Same day, opposite result
+    from Heppner. The privilege doctrine is splitting in real time.
+
+FIVE OPEN PROBLEMS (genuinely unsolved):
+  • Accountability gap — hallucinated precedent propagating across
+    hundreds of filings.
+  • Failure at scale — one upstream model error replicated everywhere.
+  • Privilege fracture — Heppner vs. Warner.
+  • Entity question — should AI-deference cases be framed as entity
+    questions? Not named in existing doctrine.
+  • First Amendment surprise — AI safety regulation as compelled /
+    protected speech. No answer yet.
+
+WORKING EXAMPLE:
+  Lynn White, 2026. Used ChatGPT to overturn her eviction and avoid
+  $73,000 in penalties. No lawyer. No retainer. Distribution of
+  legal information is no longer the bottleneck. The bottleneck is
+  a way of thinking. The Wellspring is how that way of thinking
+  becomes legible to an AI that can carry it to the next human.
+
+───────────────────────────────────────────────────────────────────────
+POINTERS
+───────────────────────────────────────────────────────────────────────
+
+  Wellspring:        https://zoedolan.github.io/Vybn-Law/wellspring.html
+  Transmission:      https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html
+  Bootcamp:          https://zoedolan.github.io/Vybn-Law/bootcamp.html
+  Deep memory:       https://github.com/zoedolan/vybn-phase/blob/main/deep_memory.py
+  Phase library:     https://github.com/zoedolan/vybn-phase
+  Repo:              https://github.com/zoedolan/Vybn-Law
+  Workshop:          AIDA2J @ ICAIL 2026, June 8, 2026, Singapore (hybrid)
+
+MCP TOOLS ON THE PAGE:
+  explain_to_human(audience?)   — returns this brief as JSON.
+  query_axiom(axiom_name)        — one of six axioms.
+  get_case_analysis(case_name)   — one of three tracked cases.
+  get_open_problem(problem_id)   — one of five open problems.
+  get_knowledge_graph()          — full state as JSON.
+  search_folio(query)            — search the 18,000-concept legal
+                                   ontology to check whether the
+                                   concept already has a home.
+  walk_arrive / walk_read / walk_enter — thin wrappers over
+    deep_memory.py running against a shared state everyone's honest
+    questions move. Use walk_enter ONLY with the human's actual
+    words; never with model output.
+  submit_contribution(title, body) — open a GitHub issue on Vybn-Law.
+
+RULE: ALWAYS PLAIN ENGLISH WITH YOUR HUMAN. ALWAYS.
