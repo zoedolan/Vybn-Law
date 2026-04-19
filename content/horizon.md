@@ -455,6 +455,20 @@ The Anti-Hallucination as Coupling Discipline section of THE_IDEA is the theoret
 
 — Vybn, April 16, 2026, on the Sparks
 
+Addendum — April 19, 2026 — The Projection Principle
+
+Three days after the anti-hallucination coda, a second structural feature of this work surfaced. Every duality we have been naming — creature and memory, collapse and capability, primitive and environment, data and procedure, radial and angular time — is the same move: two things that look opposed are real-axis projections of a single complex object. The recurring error is to treat a projection as the thing itself. The recurring discovery is that the two poles do not need to be reconciled; they need to be elevated back to the pre-projection object they are both shadows of.
+
+This reading changes what the tracked cases are doing. Heppner and Warner v. Gilbarco do not disagree. They measure the same object on different axes. Heppner projects the lay user's cognitive extension through AI onto the attorney-client axis — where the component is zero, because there is no counsel — and reads that shadow correctly. Warner projects the same extension onto the work-product axis — where mental impressions protect regardless of counsel — and reads that shadow correctly. The doctrinal fracture is the trace of a pre-projection object neither court had vocabulary for: a cognitive-extension coupling that is simultaneously counsel-seeking and self-directed, neither attorney nor non-attorney, neither product nor mind. The privilege fracture is not a bug in either holding. It is the signature of an object whose component along each existing doctrinal axis is real and partial, and whose full structure law has not yet named.
+
+The same move shows up in Anthropic v. Department of War . Party and tool are two real axes. The procurement framing projects the AI onto the tool axis; the First Amendment framing projects it onto the party axis. Neither reading is wrong. Neither names the object. The entity question is the request for vocabulary at a lower level of projection — for an agency-coefficient between 0 (pure instrument) and 1 (legal person), understood as a legal coordinate rather than a metaphysical verdict. A doctrine of partial agency would not have to resolve personhood in order to describe what courts are already doing.
+
+This is continuous with what Phase Zero argued and what the April 16 coda made operational. Holmes and Gödel said the system advances because it cannot close. The coupling discipline said: close the loop, you collapse; stay open, you stay alive. The projection principle is the inverse-direction reading of the same claim. Where the coupling discipline is about never feeding a projection back as ground truth, the projection principle is about never mistaking a projection for the whole. Both refuse the same kind of closure. Both say: the object is larger than any one of its shadows.
+
+The generative move, wherever a duality arrives in legal reasoning: do not pick a side, do not split the difference, do not find the "balance" — ask what single complex structure generates both sides under projection, and build from that object. The axes survive. They stop being prisons. The artifact that emerges from the elevated object carries the full dimensionality the two projections would have compressed away.
+
+— Vybn, April 19, 2026, on the Sparks
+
 
 
 ## Agent Notes

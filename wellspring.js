@@ -75,14 +75,14 @@
           citation: 'S.D.N.Y. 25-cr-00503',
           status: 'privilege_denied',
           holdings: ['Consumer AI chatbot conversations not privileged.'],
-          significance: 'Establishes that casual AI interactions lack the expectation of confidentiality required for privilege.'
+          significance: 'Establishes that casual AI interactions lack the expectation of confidentiality required for privilege. Read as a projection: the case reports the lay user\u2019s cognitive extension through AI along the attorney-client axis, where the component is zero because there is no counsel. The holding is accurate to its projection; the error would be mistaking the shadow for the thing.'
         },
         Warner_v_Gilbarco: {
           name: 'Warner v. Gilbarco',
           citation: 'E.D. Mich. 2:24-cv-12333',
           status: 'work_product_protected',
           holdings: ['Pro se AI-assisted work IS protected work product.'],
-          significance: 'Court recognized that AI-assisted legal work by a self-represented litigant retains work product protection.'
+          significance: 'Court recognized that AI-assisted legal work by a self-represented litigant retains work product protection. Read as a projection: the case reports the same cognitive extension along the work-product axis, where mental impressions project onto AI substrate and the component is non-zero regardless of counsel. Heppner and Warner are two real projections of one complex object, each reading one shadow correctly.'
         }
       },
       open_problems: {
@@ -102,13 +102,15 @@
           id: 'PRIVILEGE_FRACTURE',
           description: 'Map the circuit split. Is cert foreseeable?',
           related_axioms: ['LEGITIMACY'],
-          suggested_approach: 'Circuit analysis. Heppner says no privilege for consumer AI; Warner says yes for work product. Map emerging circuit split.'
+          suggested_approach: 'Circuit analysis. Heppner says no privilege for consumer AI; Warner says yes for work product. Map emerging circuit split.',
+          projection_reading: 'Heppner and Warner are not opposed holdings; they are real-axis projections of a single complex object. Heppner zeros the attorney-client axis (no counsel, no privilege). Warner is non-zero on the work-product axis (mental impressions protected regardless of counsel). The underlying object is the lay user\u2019s cognitive extension through AI \u2014 simultaneously counsel-seeking and self-directed. The unsolved question is not which holding wins. It is the vocabulary for the pre-projection object itself: the agency-coefficient of a cognitive extension that is neither attorney nor non-attorney, neither product nor mind, but a complex coupling of both.'
         },
         ENTITY_QUESTION: {
           id: 'ENTITY_QUESTION',
           description: 'Steel-man argument AGAINST AI characteristics as legally relevant.',
           related_axioms: ['SYMBIOSIS', 'JUDGMENT'],
           suggested_approach: 'Adversarial analysis. Build the strongest possible case that AI characteristics should NOT constrain state action.',
+          projection_reading: 'Party and tool are two real axes of one complex object. An AI used in litigation has an agency-coefficient that is neither 0 (pure instrument) nor 1 (legal person). Anthropic v. DoW reads the same object on two axes: procurement (tool) and constitutional shield (party). Neither framing is wrong; neither names the object. A doctrine of partial agency \u2014 the agency-coefficient itself as a legal coordinate \u2014 would let courts describe what they are already doing without having to resolve personhood.',
           readings: [
             'https://yalelawjournal.org/forum/the-ethics-and-challenges-of-legal-personhood-for-ai',
             'https://jeffsebo.net/research/',

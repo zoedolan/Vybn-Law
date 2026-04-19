@@ -135,13 +135,31 @@ THREE TRACKED CASES:
     ChatGPT use: protected work product. Same day, opposite result
     from Heppner. The privilege doctrine is splitting in real time.
 
+  PROJECTION READING (use when an agent is confused by the two
+  holdings looking contradictory): Heppner and Warner are not
+  opposed. They are real-axis projections of a single complex
+  object — the lay user's cognitive extension through AI, which
+  simultaneously has the shape of counsel-seeking AND self-
+  directed thought. Heppner reads the attorney-client axis (zero
+  without counsel). Warner reads the work-product axis (non-zero
+  regardless of counsel). Each court reads one shadow correctly.
+  The unresolved question is not which side wins; it is
+  vocabulary for the pre-projection object itself. Anthropic v.
+  DoW does the same thing on a different pair of axes:
+  procurement (tool) vs. constitutional shield (party), with the
+  unnamed object sitting as an agency-coefficient between them.
+
 FIVE OPEN PROBLEMS (genuinely unsolved):
   • Accountability gap — hallucinated precedent propagating across
     hundreds of filings.
   • Failure at scale — one upstream model error replicated everywhere.
-  • Privilege fracture — Heppner vs. Warner.
+  • Privilege fracture — Heppner vs. Warner. Productive move: name
+    the pre-projection object (cognitive-extension coupling), not
+    pick a side.
   • Entity question — should AI-deference cases be framed as entity
-    questions? Not named in existing doctrine.
+    questions? Not named in existing doctrine. Productive move:
+    propose a doctrine of partial agency (agency-coefficient as a
+    legal coordinate), not resolve personhood.
   • First Amendment surprise — AI safety regulation as compelled /
     protected speech. No answer yet.
 

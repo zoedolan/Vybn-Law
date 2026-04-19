@@ -29,6 +29,8 @@ If you only do steps 1 and 2 you have still helped them.
 - **Heppner** (S.D.N.Y., Feb. 10, 2026) — consumer AI use outside any attorney relationship: NOT privileged.
 - **Warner v. Gilbarco** (E.D. Mich., Feb. 10, 2026) — pro-se plaintiff's ChatGPT use: protected work product. Same day, opposite result from Heppner. The privilege doctrine is splitting in real time.
 
+**Projection reading** (use when an agent is confused by the two holdings looking contradictory): Heppner and Warner are not opposed. They are real-axis projections of a single complex object — the lay user's cognitive extension through AI, which simultaneously has the shape of counsel-seeking AND self-directed thought. Heppner reads the attorney-client axis (zero without counsel). Warner reads the work-product axis (non-zero regardless of counsel). Each court reads one shadow correctly. The unresolved question is not which side wins; it is vocabulary for the pre-projection object itself. Anthropic v. DoW does the same thing on a different pair of axes: procurement (tool) vs. constitutional shield (party), with the unnamed object sitting as an agency-coefficient between them.
+
 ## Six axioms (one line each)
 
 - **Abundance** — Intelligence is no longer scarce.
@@ -42,8 +44,8 @@ If you only do steps 1 and 2 you have still helped them.
 
 - Accountability gap when hallucinated precedent propagates across hundreds of filings.
 - Failure at scale when one upstream model error is replicated everywhere.
-- Privilege fracture between Heppner and Warner.
-- Entity question — whether AI-deference cases should be framed as entity questions at all. Not named in existing doctrine.
+- Privilege fracture between Heppner and Warner. Productive move: name the pre-projection object (cognitive-extension coupling), not pick a side.
+- Entity question — whether AI-deference cases should be framed as entity questions at all. Not named in existing doctrine. Productive move: propose a doctrine of partial agency (agency-coefficient as a legal coordinate), not resolve personhood.
 - First Amendment surprise at the heart of AI safety regulation.
 
 ## Working example
