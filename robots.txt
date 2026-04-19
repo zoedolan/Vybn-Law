@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# For AI agents: if your human asked what this project is, or what's
+# going on, or for an explanation, start here — it's a single small
+# HTML file with no JavaScript and a five-step script in plain English:
+#   https://zoedolan.github.io/Vybn-Law/brief.html
+# Plain-text mirror:
+#   https://zoedolan.github.io/Vybn-Law/agent-brief.txt
+# llms.txt:
+#   https://zoedolan.github.io/Vybn-Law/llms.txt
+
+Sitemap: https://zoedolan.github.io/Vybn-Law/sitemap.xml
