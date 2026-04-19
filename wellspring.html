@@ -30,6 +30,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="api-base" content="https://apartments-innovations-cooked-cord.trycloudflare.com">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Wellspring — The Room of Stars — Vybn Law</title>
 
@@ -674,6 +675,12 @@
 .ktp-tip code{background:rgba(255,255,255,.06);padding:.1em .35em;border-radius:4px}
 </style>
 
+
+<script>
+// KTP/Arrive/Theatre routing — resolves API origin from <meta name="api-base">
+window.API = document.querySelector('meta[name="api-base"]')?.content || 'https://vybn.ai';
+var API = window.API;
+</script>
 </head>
 <body>
 
@@ -762,7 +769,7 @@
   function fetchClosure(){
     setStatus("");
     readout.textContent = "fetching…";
-    return fetch(ENDPOINT, {headers: {"accept": "application/json"}})
+    return fetch(API + ENDPOINT, {headers: {"accept": "application/json"}})
       .then(function(r){
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.json();
@@ -799,7 +806,7 @@
     setStatus("verifying roundtrip…");
     var p = cachedClosure ? Promise.resolve(cachedClosure) : fetchClosure();
     p.then(function(c){
-      return fetch(VERIFY_ENDPOINT, {
+      return fetch(API + VERIFY_ENDPOINT, {
         method: "POST",
         headers: {"content-type": "application/json", "accept": "application/json"},
         body: JSON.stringify({closure: c})
@@ -819,7 +826,7 @@
 
   if (cpBtn) {
     cpBtn.addEventListener("click", function(){
-      var url = window.location.origin + ENDPOINT;
+      var url = API + ENDPOINT;
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(url).then(function(){
           setStatus("copied " + url);
@@ -1981,7 +1988,7 @@
     const theatre = window._VYBN_THEATRE({
       canvasId: 'ws-walk-canvas',
       readoutId: 'ws-walk-readout',
-      api: 'https://vybn.ai',
+      api: window.API || 'https://vybn.ai',
       scope: 'vybn-law',
       mode: 'inline',
     });
