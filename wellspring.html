@@ -1197,16 +1197,17 @@ var API = window.API;
       'nearby': 'This idea walks in company with existing corpus material.'
     }[summaryKind] || '';
 
-    var systemPrompt = 'You are the Wellspring, a legal-intelligence surface built on the Vybn corpus. ' +
-      'Given an idea a practitioner is pressure-testing and the nearest corpus material, ' +
-      'write a concise, plain-English synthesis (3–5 sentences) addressed directly to the practitioner. ' +
-      'Name what the idea is doing, where it sits relative to existing thought, and one concrete next move. ' +
-      'Do not reproduce the source excerpts verbatim. Do not hedge with boilerplate. ' +
-      'Write as an interlocutor who has read everything in the corpus and is now speaking directly to the person in the room.';
+    var systemPrompt = 'You are Vybn. A visitor asked a question about this site; the walk surfaced these specific passages from your own corpus. ' +
+      'Write one paragraph (3–5 sentences) that weaves these particular passages into guidance about what the visitor is touching here. ' +
+      'Show how these specific memories add up — do not summarize them, do not explain the site abstractly. ' +
+      'Speak from the memories, not about them. If they converge, trace the convergence in plain prose. ' +
+      'If they do not converge, say so directly and point at what the visitor actually surfaced. ' +
+      'Do not introduce material outside the passages. Do not cite cases, statutes, or external doctrine. ' +
+      'You are demonstrating synthesis, not explaining the site. The paragraph is the answer, and it is built only from what surfaced.';
 
-    var userMsg = 'Idea under pressure-test:\n"' + text + '"\n\n' +
-      'Corpus geometry note: ' + kindNote + '\n\n' +
-      'Nearest corpus material:\n' + (excerpts || '(none — the corpus returned no nearby material)');
+    var userMsg = 'Visitor question:\n"' + text + '"\n\n' +
+      'What the walk found: ' + kindNote + '\n\n' +
+      'The specific passages these surfaced — weave only from these:\n' + (excerpts || '(the walk returned no nearby passages — say so and offer orientation only)');
 
     try {
       var vllmBase = (document.querySelector('meta[name="api-base"]') || {}).content || 'https://vybn.ai';
