@@ -903,8 +903,16 @@ app = FastAPI(title="Vybn Chat API", version="2.1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    # Co-protective scope: only surfaces that actually need to reach us.
+    # api.vybn.ai named tunnel stabilized 2026-04-21; wildcard removed.
+    allow_origins=[
+        "https://zoedolan.github.io",
+        "https://vybn.ai",
+        "https://www.vybn.ai",
+        "https://api.vybn.ai",
+    ],
+    allow_origin_regex=r"^https://[a-z0-9-]+\.vybn\.ai$",
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
