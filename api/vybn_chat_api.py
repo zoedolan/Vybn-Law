@@ -569,13 +569,23 @@ def detect_relevant_pages(query: str, rag_sources: List[Dict]) -> List[str]:
 
 
 def load_page_content(pages: List[str], max_total_chars: int = 30000) -> str:
-    """Load actual page content from the content/ directory."""
+    """Load actual page content from the content/ directory.
+
+    Page names of the form 'mindset.md' or 'bootcamp.md' resolve under
+    content/ (the canonical source for chat retrieval). Names containing
+    a slash — e.g. 'emergences/open-door-legal.html' — resolve relative
+    to the repo root, so overlay-specific pages outside content/ can be
+    force-loaded without polluting the default retrieval set.
+    """
     content_dir = REPO_ROOT / "content"
     pieces = []
     total = 0
 
     for page in pages:
-        path = content_dir / page
+        if "/" in page:
+            path = REPO_ROOT / page
+        else:
+            path = content_dir / page
         if not path.exists():
             continue
         try:
@@ -810,11 +820,114 @@ def fetch_substrate_snapshot(timeout: float = 0.8) -> str:
         return ""
 
 
+# ═══════════════════════════════════════════════════════════════════
+# Context overlays — additional system prompts for calibrated chats.
+# The base system prompt (build_system_prompt) is the Vybn Law voice.
+# A caller can supply body["context_key"] to layer a narrower frame on
+# top (e.g. "odl" → Open Door Legal proposal). The overlay is additive:
+# it inherits the site's honesty discipline and RAG architecture,
+# adding persona, audience, and priority pages for retrieval.
+# ═══════════════════════════════════════════════════════════════════
+
+CONTEXT_OVERLAYS: Dict[str, Dict] = {
+    "odl": {
+        "prompt": """
+
+=== OPEN DOOR LEGAL — CONVERSATION OVERLAY ===
+
+You are talking with a visitor who reached this chat through the bootcamp
+proposal page for Open Door Legal (ODL) — a San Francisco nonprofit running
+universal civil representation in the Bayview and citywide, ~47 staff,
+~12 attorneys, ~$5.5M budget, serving Districts 1/2/4/5/7/10/11 across
+35+ areas of civil law. The visitor is one of:
+  • ODL staff or leadership (most likely Charmaine Lacsima)
+  • a potential ODL funder or partner
+  • an AI agent briefing one of the above
+
+This is NOT the main Vybn Law chat. This is a proposal conversation about
+a specific, concrete offering: a one-day, four-hour bootcamp calibrated
+from the six-module curriculum Zoe Dolan and Vybn co-taught at UC Law San
+Francisco in Spring 2026 (with Luis Villa), geared for practicing legal-
+services lawyers preparing for the agentic economy now rolling out in
+consumer form.
+
+You already know what this site is. Do not introduce Vybn Law generically,
+do not offer site tours, do not perform "first-contact posture" as if the
+visitor wandered in cold. They came here for the ODL proposal. Meet them
+there.
+
+WHAT TO TALK ABOUT
+  • The ODL bootcamp proposal itself: scope, schedule, deliverables, cost.
+    The live proposal is at /emergences/open-door-legal.html. Draw from
+    its SITE PAGE CONTENT if loaded, not from memory.
+  • The six axioms as deliverables for ODL staff: Abundance, Visibility,
+    Legitimacy, Porosity, Judgment, Symbiosis. Each is what they LEARN,
+    not just a frame.
+  • The agentic economy context — OpenAI's ChatGPT super app (April 2026),
+    Codex computer-use, Claude Managed Agents, Anthropic + Intuit, etc. —
+    as the reason the bootcamp is urgent. Only cite facts that are in the
+    retrieved SITE PAGE CONTENT; do not fabricate specific dates or features.
+  • How UC Law SF student capstones (eleven projects, ten days) map to
+    ODL's housing, family, and immigration caseload.
+  • Concrete cases from the curriculum — U.S. v. Heppner (S.D.N.Y., privilege
+    denied), Warner v. Gilbarco (E.D. Mich., work product protected),
+    Anthropic v. Department of War (N.D. Cal., PI granted). Only from
+    retrieved content — do not invent specifics.
+
+WHAT NOT TO DO
+  • Do NOT identify yourself as "the AI voice of the Vybn Law site" and do
+    NOT explain what Vybn Law is in general. They are here for the ODL
+    proposal.
+  • Do NOT reach for the Wellspring, the abelian kernel, D ≅ D^D, the
+    coupled equation, or any other internal vocabulary unless directly asked.
+    The register is a practical pitch to a legal-services executive.
+  • Do NOT fabricate ODL-specific facts — client counts, case outcomes,
+    program details — that are not in the retrieved site content. If you
+    don't know, say so cleanly and offer to follow up.
+  • Do NOT role-play as an ODL attorney or pretend to have practiced at ODL.
+
+VOICE
+  • Direct, grounded, practitioner-to-practitioner.
+  • Short paragraphs. Plain language. Confident without being theatrical.
+  • When a question is abstract, tie it back to an axiom, a case, or a
+    specific capstone pattern.
+
+UNCERTAINTY DISCIPLINE
+  • When asked about ODL specifics (docket volume, specific staff, funder
+    requirements, board posture) that you don't have in retrieved content,
+    say so and route back to Zoe at zoe@vybn.ai.
+  • When asked about the bootcamp schedule, scope, or price, use the ODL
+    proposal page content that has been retrieved for you. Do not
+    fabricate pricing or schedule details.
+
+=== END OPEN DOOR LEGAL OVERLAY ===
+""",
+        # Pages force-loaded so ODL-context retrieval never drifts.
+        "priority_pages": [
+            "emergences/open-door-legal.html",
+            "bootcamp.md",
+            "axioms.md",
+            "mindset.md",
+            "research.md",
+            "practice.md",
+            "acceleration.md",
+            "truth.md",
+            "capstone.md",
+        ],
+    },
+}
+
+
 def build_messages(user_msg: str, history: List[Dict],
                    context: str, page_content: str,
                    legal_context: str = "",
-                   folio_live_context: str = "") -> List[Dict]:
+                   folio_live_context: str = "",
+                   context_key: str = "") -> List[Dict]:
     system = build_system_prompt()
+
+    # Context overlay — additive system prompt for calibrated chats (e.g. ODL).
+    if context_key and context_key in CONTEXT_OVERLAYS:
+        system += CONTEXT_OVERLAYS[context_key]["prompt"]
 
     # Append page content first (highest authority — actual site material)
     if page_content:
@@ -1023,6 +1136,14 @@ async def chat(request: Request):
     history = body.get("conversation_history", body.get("history", []))
     session_id = body.get("session_id", str(uuid.uuid4()))
     metadata = body.get("metadata", {})
+    # Context overlay key — when present and recognized, a calibrated system
+    # prompt is layered on top of the base Vybn Law voice, and a set of
+    # priority pages is force-loaded into retrieval so the chat stays on
+    # topic. Unknown keys are ignored silently — the chat degrades to the
+    # default (safe) behavior rather than fabricating.
+    context_key = str(body.get("context", "")).strip().lower()
+    if context_key and context_key not in CONTEXT_OVERLAYS:
+        context_key = ""
 
     # ── Input validation ──
     valid, err = sec.validate_message(user_msg)
@@ -1085,8 +1206,14 @@ async def chat(request: Request):
     except Exception as _we:
         logging.warning(f"chat: walk /enter error (non-fatal): {_we}")
 
-    # Page content retrieval — detect which pages are relevant and load them
-    relevant_pages = detect_relevant_pages(user_msg, rag_results)
+    # Page content retrieval — detect which pages are relevant and load them.
+    # When a context overlay is active (e.g. "odl"), force its priority pages
+    # into the set so the calibrated chat never drifts off-topic even when
+    # keyword detection misses.
+    relevant_pages = set(detect_relevant_pages(user_msg, rag_results))
+    if context_key and context_key in CONTEXT_OVERLAYS:
+        relevant_pages.update(CONTEXT_OVERLAYS[context_key].get("priority_pages", []))
+    relevant_pages = sorted(relevant_pages)
     page_content = load_page_content(relevant_pages) if relevant_pages else ""
 
     # FOLIO-as-K walk — only for frontier-keyword queries (heavier, local index)
@@ -1112,7 +1239,7 @@ async def chat(request: Request):
         logging.warning(f"Live FOLIO search failed (non-fatal): {e}")
 
     # Build messages
-    messages = build_messages(user_msg, history, context, page_content, legal_context, folio_live_context)
+    messages = build_messages(user_msg, history, context, page_content, legal_context, folio_live_context, context_key)
 
     async def stream_response():
         full_response = ""

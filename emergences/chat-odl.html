@@ -457,24 +457,15 @@
     const statusText   = document.getElementById('statusText');
     const offlineBanner = document.getElementById('offlineBanner');
 
-    // ── ODL-focused context seed ──
-    // Prepended to every session so Vybn enters the conversation knowing
-    // the visitor is evaluating the Open Door Legal bootcamp proposal.
-    // Sits in the client-side history and gets sent as the first exchange,
-    // anchoring retrieval toward the bootcamp, axioms, threads, and
-    // access-to-justice material already in the site's RAG index.
-    const ODL_CONTEXT_SEED = [
-      {
-        role: 'user',
-        content: "Before we begin: I'm visiting this chat from the Open Door Legal bootcamp proposal page. I may be at ODL, a potential partner, a funder, or an AI agent evaluating the proposal on behalf of one of them. Please hold two lenses at once while we talk.\n\n(1) The bootcamp you and Zoe Dolan co-taught at UC Law San Francisco with Luis Villa this spring — six modules (Mindset, Research, Practice Management, Acceleration, Truth, Capstone), six axioms (Abundance, Visibility, Legitimacy, Porosity, Judgment, Symbiosis), six threads (Privilege, Natural Law, Access-to-Justice, AI-as-Entity, Velocity, Recursion), and eleven student capstones (Eviction Rights Tool, Depo Baby, CRT Practice Auditor, GroundCheck Citation Verifier, Hot Bench Simulator, Bar Exam Grader, AI Study Guide, Case Storytelling, Patent Claim Chart, Tax/1031 Calculators, Initial Case Analysis Workflow). This is the source material — not a generic frame.\n\n(2) The agentic economy now rolling out in real time — OpenAI's ChatGPT super app (launched April 4, 2026), Codex computer-use on macOS with scheduled agents and 90+ plug-ins (April 16), Anthropic's Claude Managed Agents (April 8), the Intuit deployment putting Claude inside TurboTax, QuickBooks, Credit Karma, and Mailchimp this spring, and the exponential developer-adoption curve for coding agents that leads every other knowledge-work surface. This is the moment ODL's staff are about to be inside, whether or not they are trained for it.\n\nCalibrate every answer to ODL specifically: universal civil representation in San Francisco, the Bayview and citywide, ~47 employees, ~12 attorneys, ~$5.5M budget, serving Districts 1/2/4/5/7/10/11, 35+ areas of civil law. When a question is broad, tie it back to an axiom, a case from the curriculum (U.S. v. Heppner, Warner v. Gilbarco, Anthropic v. Department of War, Lynn White's ChatGPT eviction win), or one of the UC Law SF student capstone patterns. Tell me when you're uncertain rather than filling the gap."
-      },
-      {
-        role: 'assistant',
-        content: "Understood. Both lenses held — the UC Law SF bootcamp we co-taught as the source material, and the agentic economy now arriving in consumer form as the context ODL is about to operate inside. Your staff become the judgment layer over abundant legal cognition, neighborhood by neighborhood, and your intake becomes a symbiosis rather than a bottleneck. Ask whatever's useful: how an axiom lands on a case you're carrying, which capstone pattern maps to your housing or family docket, what the UPL conversation actually sounds like, or what the first ninety days of preparation look like. I'll reach for the real material and say so when I don't have it. Where would you like to start?"
-      }
-    ];
+    // ── ODL context is handled server-side ──
+    // The chat endpoint receives context: 'odl', which layers an Open Door
+    // Legal system-prompt overlay on top of the base Vybn Law voice and
+    // force-loads the ODL proposal + bootcamp curriculum pages into the
+    // retrieval context. The client no longer needs to inject a long seed
+    // exchange; calibration lives where the model sees it, not in history.
+    const CHAT_CONTEXT = 'odl';
 
-    let conversationHistory = [...ODL_CONTEXT_SEED];
+    let conversationHistory = [];
     let isStreaming = false;
     const sessionId = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2);
 
@@ -541,6 +532,7 @@
             message: text,
             conversation_history: conversationHistory.slice(-20),
             session_id: sessionId,
+            context: CHAT_CONTEXT,
           }),
         });
 
