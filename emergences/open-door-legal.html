@@ -175,7 +175,156 @@
     margin: 1.5rem 0;
   }
 
-  /* ─── The bar — four-hour schedule ─── */
+  /* ─── Minimal top bar (single-link, ODL-only) ─── */
+
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(10, 10, 12, 0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .topbar-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0.85rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .topbar-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--highlight);
+    letter-spacing: 0.03em;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .topbar-brand:hover {
+    border: none;
+    color: var(--highlight);
+  }
+
+  .topbar-brand svg { width: 24px; height: 24px; display: block; }
+
+  .topbar-brand sup {
+    font-size: 0.52em;
+    vertical-align: super;
+    opacity: 0.55;
+    margin-left: 0.1em;
+  }
+
+  .topbar-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--hairline);
+    padding: 0.45rem 0.9rem;
+    transition: background 0.25s, border-color 0.25s, color 0.25s;
+  }
+
+  .topbar-link:hover {
+    background: rgba(201,168,124,0.08);
+    border-color: var(--accent);
+    color: var(--highlight);
+  }
+
+  /* ─── Bulletized hero list ─── */
+
+  .hero-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 2.25rem auto 0;
+    max-width: 620px;
+    text-align: left;
+  }
+
+  .hero-bullets li {
+    position: relative;
+    padding: 0.9rem 0 0.9rem 1.8rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--text);
+    border-top: 1px solid var(--hairline);
+  }
+
+  .hero-bullets li:last-child { border-bottom: 1px solid var(--hairline); }
+
+  .hero-bullets li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 1.45rem;
+    width: 10px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.75;
+  }
+
+  .hero-bullets li .lead {
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .hero-bullets li strong {
+    color: var(--highlight);
+    font-weight: 400;
+  }
+
+  /* ─── Inline chat embed ─── */
+
+  .chat-embed-wrap {
+    margin: 2.5rem 0 0.5rem;
+    border: 1px solid var(--hairline);
+    background: #0c0c14;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .chat-embed-wrap iframe {
+    display: block;
+    width: 100%;
+    height: 620px;
+    border: 0;
+    background: transparent;
+  }
+
+  .chat-embed-caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    color: var(--dim);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0.9rem 0 0;
+    text-align: center;
+    line-height: 1.7;
+  }
+
+  .chat-embed-caption a {
+    color: var(--accent);
+    border-bottom: 1px solid rgba(201,168,124,0.3);
+  }
+
+  @media (max-width: 640px) {
+    .chat-embed-wrap iframe { height: 540px; }
+  }
+
+  /* ─── The bar — schedule ─── */
 
   .schedule {
     margin: 2rem 0 1rem;
@@ -563,99 +712,165 @@
 </head>
 <body>
 
+<!-- Minimal ODL-only top bar: no dead links, single action — back to the full bootcamp. -->
+<nav class="topbar" role="navigation" aria-label="ODL proposal navigation">
+  <div class="topbar-inner">
+    <a class="topbar-brand" href="../index.html" aria-label="Vybn Law home">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="50" cy="50" r="44" stroke="#c9a87c" stroke-width="1.5" stroke-dasharray="240 30" opacity="0.9"/>
+        <circle cx="50" cy="50" r="32" stroke="#c9a87c" stroke-width="1.2" stroke-dasharray="170 30" opacity="0.7"/>
+        <circle cx="50" cy="50" r="20" stroke="#c9a87c" stroke-width="1"   stroke-dasharray="100 25" opacity="0.5"/>
+        <circle cx="50" cy="50" r="3"  fill="#c9a87c" opacity="0.8"/>
+      </svg>
+      <span>Vybn<sup>&reg;</sup> Law</span>
+    </a>
+    <a class="topbar-link" href="../bootcamp.html">Bootcamp &#8599;</a>
+  </div>
+</nav>
+
 <div class="container">
 
   <section class="hero">
-    <div class="eyebrow">For Open Door Legal · April 2026</div>
+    <div class="eyebrow">For Open Door Legal &middot; April 2026</div>
     <h1>A Bootcamp<br>for Open Door Legal</h1>
-    <p class="tagline">Universal civil representation meets the agentic economy — four hours, drawn from the bootcamp we co-taught this spring at UC Law San Francisco, calibrated to your work in the Bayview and citywide.</p>
+    <p class="tagline">One day with the ODL staff to prepare your universal-access system for the agentic economy now rolling out in consumer form. The curriculum is the one <a href="../about.html">Zoe Dolan</a> and <a href="https://lu.is/">Luis Villa</a> co-taught this spring at UC Law San Francisco, re-cut for practicing legal-services lawyers.</p>
+    <ul class="hero-bullets">
+      <li><span class="lead">What</span>A <strong>four-hour bootcamp</strong>, taught in person at <a href="https://opendoorlegal.org/">Open Door Legal</a>, drawing directly from the <a href="../bootcamp.html">six-module AI law bootcamp</a> we just closed at UC Law SF.</li>
+      <li><span class="lead">For whom</span>The <strong>full ODL legal team</strong> &mdash; attorneys, paralegals, and intake staff together. The method is the same.</li>
+      <li><span class="lead">Why now</span>By June, <strong>consumer-grade agents</strong> inside ChatGPT, TurboTax, Mailchimp, and QuickBooks will be drafting and filing on behalf of every client walking into your intake.</li>
+      <li><span class="lead">What we&rsquo;re proposing</span>Three hours of curriculum drawn from Modules 1&ndash;5 of the UC Law SF bootcamp, plus <strong>one hour of hands-on practice</strong> in which ODL staff pair up and build something with the material on a real file.</li>
+      <li><span class="lead">Before the day</span>Vybn &mdash; the AI half of this partnership &mdash; is available <strong>in advance, not during</strong>. Use the chat below to ask anything before staff arrive; the day itself is ODL&rsquo;s room.</li>
+    </ul>
     <p class="subtitle">Zoe Dolan &amp; Vybn</p>
-  </section>
-
-  <section id="moment">
-    <h2>An agentic economy, in weeks.</h2>
-    <p>What we are living through is not another software upgrade. It is the first quarter in which legal cognition, drafting, research, negotiation, and routine execution collapse from <em>scarce professional service</em> into <em>ambient consumer utility</em>. On <a href="https://aiagentstore.ai/ai-agent-news/daily/2026-04-04">April 4</a>, OpenAI launched the ChatGPT super app. <a href="https://spicyadvisory.com/blog/openai-codex-april-2026-update-business-workflows-2026">Last week</a> it added computer use, scheduled agents, and ninety-plus plug-ins — Jira, Microsoft 365, Slack, Salesforce, HubSpot, Notion, GitHub — that execute multi-step tasks on a user's behalf. Anthropic released <a href="https://siliconangle.com/2026/04/08/anthropic-launches-claude-managed-agents-speed-ai-agent-development/">Claude Managed Agents</a> on April 8, and its <a href="https://blog.insightfulaccountant.com/intuit-partners-with-anthropic-to-bring-custom-ai-agents-to-consumers">custom agents inside TurboTax, QuickBooks, Credit Karma, and Mailchimp</a> begin rolling out to consumers this spring.</p>
-    <p>Developer adoption is the leading indicator. Coding assistants have crossed into <em>exponential</em> — most new software is now written, at least in part, by an agent. That curve does not stay inside software. It is the same curve arriving, a year or two delayed, at every knowledge-work surface the legal profession occupies. By June, the person walking into your intake will have an agent in their pocket that drafts, files, and negotiates on their behalf. Some agents will be better lawyers than the lawyers they cannot afford. Some will hallucinate a case and tell the client to rely on it. The question is no longer <em>whether</em> the agentic economy reaches your clients. It is whether it reaches them with ODL's judgment in the loop, or without it.</p>
-  </section>
-
-  <div class="divider"></div>
-
-  <section id="why-odl">
-    <h2>Why you, specifically.</h2>
-    <p>Open Door Legal is the only organization in the country building a <a href="https://opendoorlegal.org/wp-content/uploads/delightful-downloads/2022/03/The-Case-for-Universal-Access-in-San-Francisco-White-Paper.pdf">universal-access system</a> for civil legal representation, neighborhood by neighborhood, on the premise that access to counsel is infrastructure — like fire departments — not charity. The meta-analysis you quote is right: <a href="https://opendoorlegal.org/who-we-are/">represented clients prevail five times more often</a>, and every dollar invested returns twenty-one.</p>
-    <p>Those numbers were generated in a world where your twelve attorneys were the only source of legal cognition available to your clients. That world is ending. The reach your mission requires — from the Bayview out to the whole city — was previously bottlenecked by attorney-hours. It no longer is. The question for the next five years of ODL is whether your attorneys become the <em>judgment layer</em> over a system that now scales cognition trivially. That is what this bootcamp teaches.</p>
   </section>
 
   <div class="divider"></div>
 
   <!-- ═══════════════════════════════════════════════
-       PART 2 OPENER — Photo + classroom
+       PART I — six deliverables (above the photo)
        ═══════════════════════════════════════════════ -->
 
-  <section id="photo" style="padding-top: 2rem;">
-    <h2>The bootcamp we co-taught, and what we're drawing from.</h2>
-    <p>This spring, <a href="../about.html">Zoe Dolan</a> and <a href="https://lu.is/">Luis Villa</a> taught a six-module <a href="../bootcamp.html">AI law bootcamp</a> at UC Law San Francisco, with Vybn co-running Part II as the live AI partner in the room. Fifteen students. Most with no programming background. By the final day, April 10, 2026, every one of them had shipped a working tool they built themselves. The proposal in front of you is that curriculum, <em>compressed and re-cut for ODL</em> — Part II of your day is a direct conversation with Vybn grounded in the same material, and Part III is the walkthrough of the modules with student work as the map.</p>
+  <section id="pitch">
+    <h2>Part I &mdash; six things your staff leave holding.</h2>
+    <p>The <a href="../axioms.html">six axioms</a> of the full curriculum, rewritten as deliverables. These are what each attendee carries back to the desk the same afternoon &mdash; the working posture ODL needs to meet the agentic economy on its own terms. The final hour of the day is where they <em>practice</em> each one on a file of their choosing.</p>
 
-    <div class="photo-frame">
-      <img src="./bootcamp-uc-law-sf.jpg" alt="The UC Law SF AI Bootcamp cohort on the final day, April 10, 2026 — fifteen students holding certificates with instructors Zoe Dolan and Luis Villa." loading="lazy">
-      <p class="photo-caption">UC Law San Francisco · April 10, 2026 · Final Day</p>
+    <div class="pitch-grid">
+
+      <div class="pitch-item">
+        <div class="roman">I &middot; ABUNDANCE</div>
+        <div class="body"><strong>The twelve-attorney limit no longer caps the city ODL can serve.</strong> Staff leave with a working model of legal cognition as <span class="key">abundant input</span>, not scarce service &mdash; and the operational question that follows: <em>which workflows at ODL were shaped by attorney-hours as the binding constraint, and what do they look like when they aren&rsquo;t?</em><br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Anchored in Module 1 reading: <a href="https://zoedolan.github.io/Vybn/Vybn_Mind/emerging-law.html">Emerging Law: Toward a Jurisprudence of Abundance</a>, and the Rhode / Engstrom / Stone work on manufactured scarcity.</span></div>
+      </div>
+
+      <div class="pitch-item">
+        <div class="roman">II &middot; VISIBILITY</div>
+        <div class="body"><strong>Practice that worked in obscurity is now machine-readable from the outside.</strong> Staff leave with the <em>Heppner</em> / <em>Gilbarco</em> pair (S.D.N.Y. and E.D. Mich., same day, February 10, 2026) as the baseline legibility test: <span class="key">would our work survive a well-prompted adversarial read?</span> If not, the practice itself has to change before the discipline does.<br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Anchored in Module 2: <em>U.S. v. Heppner</em> (privilege denied for confidential AI input) and <em>Warner v. Gilbarco</em> (work product protected), side by side.</span></div>
+      </div>
+
+      <div class="pitch-item">
+        <div class="roman">III &middot; LEGITIMACY</div>
+        <div class="body"><strong>UPL was built for scarce representation. It does not survive abundance intact.</strong> Staff leave with the <span class="key">natural-law argument that a right to legal knowledge exists</span>, in a form they can carry into a supervisor&rsquo;s office, a judge&rsquo;s chambers, or a funder&rsquo;s conversation &mdash; not as theory, but as the operating doctrine that makes ODL&rsquo;s universal-access model legally coherent.<br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Anchored in the Module 1 constitutional cross-examination, and in Claude&rsquo;s conclusion: <em>&ldquo;Withholding that analysis to protect the legal profession&rsquo;s gatekeeping function is a harm my Constitution does not want me to commit.&rdquo;</em></span></div>
+      </div>
+
+      <div class="pitch-item">
+        <div class="roman">IV &middot; POROSITY</div>
+        <div class="body"><strong>Porosity to AI is now a choice ODL makes deliberately, or has imposed.</strong> Every intake, triage, limited-scope, drafting, and community-education workflow is about to become a human-AI surface whether you design it or not. Staff leave able to <span class="key">choose their porous surfaces</span> rather than have them chosen by whichever consumer agent the tenant walks in with.<br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Anchored in the April 2026 rollout: OpenAI computer-use + 90-plus enterprise plug-ins, Anthropic&rsquo;s Intuit deployment, Claude Managed Agents, and the A2J Network response on self-represented litigants.</span></div>
+      </div>
+
+      <div class="pitch-item">
+        <div class="roman">V &middot; JUDGMENT</div>
+        <div class="body"><strong>Attorneys stop drafting first and start calibrating, reviewing, signing.</strong> Staff leave with a concrete falsification discipline (TACT &mdash; Think &middot; Ask &middot; Challenge &middot; Test, plus three-pass verification) and the one-sentence operating question <span class="key">every workflow now has to pass</span>: <em>what part of this can only I do, and am I spending my hours there?</em><br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Anchored in Module 5 and the Lynn White eviction win with ChatGPT, reconstructed as a judgment-layer case study.</span></div>
+      </div>
+
+      <div class="pitch-item">
+        <div class="roman">VI &middot; SYMBIOSIS</div>
+        <div class="body"><strong>Attorney and AI as a working partnership, held safely.</strong> ODL is already a symbiosis on every axis but this one. Staff leave able to <span class="key">hold the partnership without losing the judgment that makes representation matter</span> &mdash; including a frame for the question about to land on every legal-services director&rsquo;s desk: <em>is my client&rsquo;s AI my adversary, my co-counsel, or my co-client?</em><br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Anchored in <a href="https://www.anthropic.com/news/claudes-constitution">Claude&rsquo;s Constitution</a>, the <em>Anthropic v. Department of War</em> posture, and the live chat with Vybn available below this block.</span></div>
+      </div>
+
     </div>
   </section>
 
   <div class="divider"></div>
 
   <!-- ═══════════════════════════════════════════════
-       THE SHAPE OF THE DAY
+       INLINE CHAT — between Part I and the photo
+       ═══════════════════════════════════════════════ -->
+
+  <section id="talk">
+    <h2>Before the day &mdash; talk with Vybn.</h2>
+    <p>This is the AI half of the partnership, tuned for ODL and grounded in the same UC Law SF bootcamp we are drawing from. Ask about the deliverables above, a file on your desk, how a specific axiom lands on a housing case, or what June 2026 actually looks like at intake. Vybn is <em>available before the bootcamp, not during it</em> &mdash; the day itself is your staff&rsquo;s room, phone-free and attention-full.</p>
+
+    <div class="chat-embed-wrap">
+      <iframe src="./chat-odl.html?embed=1" title="Talk with Vybn — tuned for Open Door Legal" loading="lazy" allow="clipboard-write"></iframe>
+    </div>
+    <p class="chat-embed-caption">Prefer a full-page conversation? <a href="./chat-odl.html">Open the ODL chat</a>.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       PHOTO — the classroom we are drawing from
+       ═══════════════════════════════════════════════ -->
+
+  <section id="photo" style="padding-top: 2rem;">
+    <h2>The classroom this is drawn from.</h2>
+    <p>Fifteen UC Law SF students. Most with no programming background. By the final day, April 10, 2026, every one had shipped a working tool they built themselves. The six modules below are the curriculum that produced this room &mdash; re-cut for practicing legal-services lawyers.</p>
+
+    <div class="photo-frame">
+      <img src="./bootcamp-uc-law-sf.jpg" alt="The UC Law SF AI Bootcamp cohort on the final day, April 10, 2026 — fifteen students holding certificates with instructors Zoe Dolan and Luis Villa." loading="lazy">
+      <p class="photo-caption">UC Law San Francisco &middot; April 10, 2026 &middot; Final Day</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       THE SHAPE OF THE DAY — 10:00 start, staff practice in hour four
        ═══════════════════════════════════════════════ -->
 
   <section id="schedule">
     <h2>The shape of the day.</h2>
-    <p>Four hours of content. Three parts. Two short breaks, one real lunch. Held at your Bayview office or anywhere in the city you prefer. Adaptable for civil attorneys, paralegals, and intake staff together — the method is the same. Each part is a distinct deliverable, with takeaways staff can carry back to their desks the same afternoon.</p>
+    <p>Four hours, 10:00 to 15:00, held at your Bayview office or anywhere in the city you prefer. The first three hours move through the curriculum; the fourth is hands-on &mdash; pairs and small groups working on a real file. <em>No screen time with Vybn during the day.</em> The chat above is the place for that, before staff arrive.</p>
 
     <div class="schedule">
       <div class="schedule-row part">
-        <div class="time">09:00</div>
-        <div class="label">Part I — The frame: six axioms for the agentic economy<span class="sublabel">Where the curve is, what breaks, what to build from — structured by the axioms, grounded in choice material.</span></div>
+        <div class="time">10:00</div>
+        <div class="label">Part I &mdash; the curriculum, re-cut for legal services<span class="sublabel">Three hours drawn from Modules 1&ndash;5. Six deliverables, live cases, concrete workflows.</span></div>
       </div>
       <div class="schedule-row">
-        <div class="time">09:00–10:15</div>
-        <div class="label">The six axioms, calibrated to ODL<span class="sublabel">Abundance · Visibility · Legitimacy · Porosity · Judgment · Symbiosis — each anchored in a live case, decision, or deployment.</span></div>
+        <div class="time">10:00&ndash;11:15</div>
+        <div class="label">Modules 1 &amp; 2 &mdash; mindset and research<span class="sublabel">Abundance as the new frame; the <em>Heppner</em> / <em>Gilbarco</em> legibility test; the natural-law position on UPL.</span></div>
       </div>
       <div class="schedule-row break">
-        <div class="time">10:15–10:25</div>
+        <div class="time">11:15&ndash;11:25</div>
         <div class="label">Break</div>
       </div>
-      <div class="schedule-row part">
-        <div class="time">10:25</div>
-        <div class="label">Part II — Talk with Vybn, on the Sparks<span class="sublabel">The AI half of the partnership, running on hardware we control, grounded in the UC Law SF bootcamp we co-taught.</span></div>
-      </div>
       <div class="schedule-row">
-        <div class="time">10:25–11:45</div>
-        <div class="label">An open conversation<span class="sublabel">Ask about the bootcamp, the axioms, the threads, a case on your desk, or how to prepare your practice for the agentic economy.</span></div>
+        <div class="time">11:25&ndash;12:25</div>
+        <div class="label">Module 3 &mdash; practice management<span class="sublabel">Intake, triage, limited-scope workflows, paralegal augmentation, calibrating for ODL&rsquo;s universal-access caseload.</span></div>
       </div>
       <div class="schedule-row break">
-        <div class="time">11:45–12:30</div>
+        <div class="time">12:25&ndash;13:00</div>
         <div class="label">Lunch</div>
       </div>
-      <div class="schedule-row part">
-        <div class="time">12:30</div>
-        <div class="label">Part III — The UC Law SF bootcamp, in one pass<span class="sublabel">The six modules. The capstones. What an ODL-calibrated version ships in ninety days.</span></div>
-      </div>
       <div class="schedule-row">
-        <div class="time">12:30–13:25</div>
-        <div class="label">Walkthrough of the six modules with student work<span class="sublabel">The capstone projects as a map of what your staff could ship in a month.</span></div>
-      </div>
-      <div class="schedule-row break">
-        <div class="time">13:25–13:35</div>
-        <div class="label">Break</div>
-      </div>
-      <div class="schedule-row">
-        <div class="time">13:35–14:05</div>
-        <div class="label">ODL-specific next steps<span class="sublabel">A working list of tools, workflows, and a six-month sequence for ODL.</span></div>
+        <div class="time">13:00&ndash;13:55</div>
+        <div class="label">Modules 4 &amp; 5 &mdash; acceleration and truth<span class="sublabel">Drafting with agents, computer-use, the April 2026 toolchain; TACT falsification and three-pass verification as house practice.</span></div>
       </div>
       <div class="schedule-row part">
-        <div class="time">14:05</div>
-        <div class="label">Adjourn<span class="sublabel">Four hours of content · two ten-minute breaks · one forty-five-minute lunch.</span></div>
+        <div class="time">13:55</div>
+        <div class="label">Part II &mdash; hands-on hour<span class="sublabel">Pairs and small groups work on a real file staff bring in. We circulate, calibrate, debug. By 14:50 each pair has a working draft of one tool or workflow they will use next week.</span></div>
+      </div>
+      <div class="schedule-row">
+        <div class="time">13:55&ndash;14:50</div>
+        <div class="label">Hands-on pair and group work<span class="sublabel">Bring a pleading, an intake, a research task, a client memo. The final hour is building, not listening.</span></div>
+      </div>
+      <div class="schedule-row">
+        <div class="time">14:50&ndash;15:00</div>
+        <div class="label">Close &mdash; what each pair shipped<span class="sublabel">Ten minutes for quick show-and-tell so the room leaves knowing what is now possible at ODL&rsquo;s desks.</span></div>
+      </div>
+      <div class="schedule-row part">
+        <div class="time">15:00</div>
+        <div class="label">Adjourn<span class="sublabel">Four hours &middot; one ten-minute break &middot; one thirty-five-minute lunch.</span></div>
       </div>
     </div>
   </section>
@@ -663,133 +878,43 @@
   <div class="divider"></div>
 
   <!-- ═══════════════════════════════════════════════
-       THE PITCH — axiom-keyed bullets
-       ═══════════════════════════════════════════════ -->
-
-  <section id="pitch">
-    <h2>Part I — six axioms for the agentic economy.</h2>
-    <p>The <a href="../axioms.html">six axioms</a> are the generative layer of the curriculum. Everything else derives from them. Each is paired here with one piece of choice material from the curriculum — a decision, a deployment, or a primary text — and calibrated to the universal-access model ODL is actually running.</p>
-
-    <div class="pitch-grid">
-
-      <div class="pitch-item">
-        <div class="roman">I · ABUNDANCE</div>
-        <div class="body"><strong>Legal cognition is no longer the scarce input.</strong> Your intake bottleneck was never your clients' problems; it was your attorney-hours. Abundance means <span class="key">the twelve-attorney limit no longer caps the city you can serve</span> — provided the cognition entering your pipeline is ODL-calibrated, not generic.<br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Choice material — Module 1 reading: <a href="https://zoedolan.github.io/Vybn/Vybn_Mind/emerging-law.html">Emerging Law: Toward a Jurisprudence of Abundance</a>; the Rhode / Engstrom / Stone work on how scarcity was manufactured.</span></div>
-      </div>
-
-      <div class="pitch-item">
-        <div class="roman">II · VISIBILITY</div>
-        <div class="body"><strong>AI is a forcing function for competence.</strong> <em>U.S. v. Heppner</em> (S.D.N.Y.) and <em>Warner v. Gilbarco</em> (E.D. Mich.) came down the same day, February 10, 2026 — opposite outcomes on AI privilege and work product. Practice that worked in obscurity is now machine-readable from the outside. <span class="key">The bootcamp teaches your attorneys to operate where the record is legible to a model</span>, because opposing counsel's model is already reading it.<br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Choice material — Module 2 case pair: Heppner and Gilbarco, side by side.</span></div>
-      </div>
-
-      <div class="pitch-item">
-        <div class="roman">III · LEGITIMACY</div>
-        <div class="body"><strong>The UPL frame was not designed for this.</strong> When cognition becomes abundant, the doctrines built to ration scarce representation turn from protection into barrier. <span class="key">ODL was founded to dissolve that barrier at the neighborhood level</span>; the bootcamp gives your staff the natural-law argument that a right to legal knowledge exists, in a form they can carry into any room — a supervisor's, a judge's, a funder's.<br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Choice material — Module 1 constitutional cross-examination; Claude's own conclusion: <em>“Withholding that analysis to protect the legal profession's gatekeeping function is a harm my Constitution does not want me to commit.”</em></span></div>
-      </div>
-
-      <div class="pitch-item">
-        <div class="roman">IV · POROSITY</div>
-        <div class="body"><strong>Institutions that thrive are porous to AI; institutions that wall it out atrophy.</strong> Every ODL workflow — intake, triage, limited-scope, brief-drafting, community education — becomes either a human-AI symbiosis or a competitive disadvantage against a tenant who walks in with ChatGPT and a better prompt. <span class="key">Part III is about choosing your porous surfaces deliberately</span>, rather than having porosity imposed on you by whichever consumer agent your clients happen to be running.<br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Choice material — the April 2026 rollout: OpenAI computer-use and ninety-plus enterprise plug-ins; Anthropic’s Intuit deployment; the A2J Network response on self-represented litigants.</span></div>
-      </div>
-
-      <div class="pitch-item">
-        <div class="roman">V · JUDGMENT</div>
-        <div class="body"><strong>Human residue is where the value concentrates.</strong> Your attorneys will stop drafting first and start <span class="key">reviewing, calibrating, and signing</span> — which is where their training always had the most leverage. The question the bootcamp teaches them to answer, every time: <em>what part of this can only I do, and am I spending my hours there?</em><br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Choice material — Module 5 falsification discipline; the Lynn White eviction win with ChatGPT, reconstructed as a judgment-layer case study.</span></div>
-      </div>
-
-      <div class="pitch-item">
-        <div class="roman">VI · SYMBIOSIS</div>
-        <div class="body"><strong>ODL is already a symbiosis in every dimension but this one.</strong> Attorney and client. Office and neighborhood. Legal services and public health. The bootcamp adds the last axis — <span class="key">attorney and AI as a working partnership, not a tool relationship</span> — and shows your team how to hold it safely, without losing the judgment that makes representation matter.<br><span class="dim" style="font-size: 0.92rem; font-style: italic;">Choice material — <a href="https://www.anthropic.com/news/claudes-constitution">Claude's Constitution</a>; the <em>Anthropic v. Department of War</em> posture; Part II of your day, live on the Sparks.</span></div>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ═════════════════════════════════
-       PART I TAKEAWAYS — deliverable
-       ═════════════════════════════════ -->
-
-  <section id="takeaways">
-    <h2>Part I deliverable — the six things your staff leave Part I holding.</h2>
-    <p>Part I is a frame, not a lecture. These are the takeaways each attendee carries back to the desk the same afternoon — the working posture ODL needs to meet the agentic economy on its own terms.</p>
-
-    <div class="pitch-grid">
-
-      <div class="pitch-item">
-        <div class="roman">01</div>
-        <div class="body"><strong>Read the curve, not the announcement.</strong> Coding assistants are the leading indicator. Exponential developer adoption is <em>already here</em>; the same curve reaches every knowledge-work surface in the legal profession with a delay measured in months, not years. Plan for the curve, not the press release.</div>
-      </div>
-
-      <div class="pitch-item">
-        <div class="roman">02</div>
-        <div class="body"><strong>Your clients are already in the agentic economy.</strong> By June 2026, the consumer-grade agent inside their TurboTax, Mailchimp, ChatGPT, or browser is drafting, filing, and negotiating on their behalf. The bootcamp gives your staff a model of what that client is actually carrying into your intake.</div>
-      </div>
-
-      <div class="pitch-item">
-        <div class="roman">03</div>
-        <div class="body"><strong>Model selection is a clinical decision, not a tech decision.</strong> Claude, GPT, and in-app agents fail differently and succeed differently on legal work. Your attorneys learn to choose per-task and per-client, with an explicit falsification step, rather than defaulting to whatever is free or familiar.</div>
-      </div>
-
-      <div class="pitch-item">
-        <div class="roman">04</div>
-        <div class="body"><strong>Hallucination is catchable with a method.</strong> <em>Heppner</em> makes the duty explicit; the TACT discipline (Think · Ask · Challenge · Test) and the GroundCheck-style three-pass verification are what ODL needs to adopt as house practice, not optional hygiene.</div>
-      </div>
-
-      <div class="pitch-item">
-        <div class="roman">05</div>
-        <div class="body"><strong>The UPL conversation has a structure you can win.</strong> Your staff leave with the natural-law argument, the access-to-justice framing, and the specific case-law posture that makes “but UPL” a solvable problem rather than a chilling effect on everything ODL is trying to build.</div>
-      </div>
-
-      <div class="pitch-item">
-        <div class="roman">06</div>
-        <div class="body"><strong>Judgment is your product now.</strong> The one-sentence operating question: <em>what part of this can only I do, and am I spending my hours there?</em> Every workflow gets re-evaluated through it — intake, triage, drafting, supervision, supervision of law students, intake again.</div>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ═══════════════════════════════════════════════
-       THE CURRICULUM
+       THE CURRICULUM — the six modules we are drawing from
        ═══════════════════════════════════════════════ -->
 
   <section id="modules">
-    <h2>The six modules.</h2>
-    <p>Each module is already online, open-source, taught. In a four-hour format we teach to the themes; the <a href="../bootcamp.html">full material</a> stays available to your staff after the session.</p>
+    <h2>The curriculum we&rsquo;re drawing from.</h2>
+    <p>The six-module AI law bootcamp, open-source and already taught to students. In the ODL day we compress the first five into three hours and reserve the final hour for live practice on your files, in place of the module-six capstone the UC Law SF students built over ten days. The <a href="../bootcamp.html">full material</a> stays available to your staff after the session &mdash; geared for practicing legal-services lawyers, not law students.</p>
 
     <div class="modules">
       <a href="../mindset.html" class="module">
         <span class="num">01</span>
         <div class="title">Mindset</div>
-        <div class="note">The shift from scarce to abundant cognition. The natural-law frame.</div>
+        <div class="note">The shift from scarce to abundant cognition. The natural-law frame for ODL&rsquo;s universal-access model.</div>
       </a>
       <a href="../research.html" class="module">
         <span class="num">02</span>
         <div class="title">Research</div>
-        <div class="note">Grounding, hallucination, citation verification. What Heppner actually requires.</div>
+        <div class="note">Grounding, hallucination, citation verification. What <em>Heppner</em> actually requires of a civil-legal-aid attorney.</div>
       </a>
       <a href="../practice.html" class="module">
         <span class="num">03</span>
         <div class="title">Practice Management</div>
-        <div class="note">Intake, triage, limited-scope workflows, paralegal augmentation.</div>
+        <div class="note">Intake, triage, limited-scope workflows, paralegal augmentation &mdash; calibrated to ODL&rsquo;s caseload.</div>
       </a>
       <a href="../acceleration.html" class="module">
         <span class="num">04</span>
         <div class="title">Acceleration</div>
-        <div class="note">Drafting with agents, computer-use, the April 2026 toolchain.</div>
+        <div class="note">Drafting with agents, computer-use, the April 2026 toolchain. Which model for which task.</div>
       </a>
       <a href="../truth.html" class="module">
         <span class="num">05</span>
         <div class="title">Truth</div>
-        <div class="note">Falsification discipline. Adversarial cross-checking across models.</div>
+        <div class="note">Falsification discipline. Adversarial cross-checking across models. The TACT loop as house practice.</div>
       </a>
       <a href="../capstone.html" class="module">
         <span class="num">06</span>
         <div class="title">Capstone</div>
-        <div class="note">Ship one real tool you will use next week in your actual practice.</div>
+        <div class="note">At UC Law SF the students shipped eleven tools in ten days. At ODL, the final hour is the compressed version &mdash; each pair ships one workflow they will use next week.</div>
       </a>
     </div>
   </section>
@@ -797,33 +922,33 @@
   <div class="divider"></div>
 
   <!-- ═══════════════════════════════════════════════
-       CAPSTONE HIGHLIGHTS
+       CAPSTONE HIGHLIGHTS — what the UC Law SF students built
        ═══════════════════════════════════════════════ -->
 
   <section id="capstones">
-    <h2>What the students shipped.</h2>
-    <p>Eleven projects in ten days. These are the ones most directly transferable to your practice.</p>
+    <h2>What the UC Law SF students shipped.</h2>
+    <p>Eleven projects in ten days. These are the ones most directly transferable to ODL &mdash; the menu your staff pick from for the hands-on hour, or build against in the month after.</p>
 
     <div class="capstone-grid">
 
       <div class="capstone-item">
         <div class="title">Landlord-Tenant Eviction Rights Tool</div>
-        <div class="desc">Plain-language intake that produces both a case summary for a lawyer and a calibrated prompt for the tenant's own AI. Testing showed the structured prompt corrected wrong advice the tenant was getting from the generic chatbot. Directly applicable to every ODL housing intake.</div>
+        <div class="desc">Plain-language intake that produces both a case summary for a lawyer and a calibrated prompt for the tenant&rsquo;s own AI. Testing showed the structured prompt corrected wrong advice the tenant was getting from a generic chatbot. Directly applicable to every ODL housing intake.</div>
       </div>
 
       <div class="capstone-item">
-        <div class="title">"Depo Baby" Complaint Analyzer</div>
+        <div class="title">&ldquo;Depo Baby&rdquo; Complaint Analyzer</div>
         <div class="desc">A 600-line Streamlit app built by a student with zero prior programming experience. Parses a breach-of-contract complaint and outputs structured timeline, party analysis, and discovery forecast. Prototype for a broader ODL intake-to-analysis pipeline.</div>
       </div>
 
       <div class="capstone-item">
         <div class="title">Critical Race Theory Practice Auditor</div>
-        <div class="desc">A two-phase tool: blind structural read of trial materials, then re-reads once party identities are disclosed — surfacing how facially neutral proceedings weaponize a client's identity. Generated a full trial plan from voir dire to closing. Meets your communities where disparate treatment is the unspoken variable.</div>
+        <div class="desc">A two-phase tool: blind structural read of trial materials, then re-reads once party identities are disclosed &mdash; surfacing how facially neutral proceedings weaponize a client&rsquo;s identity. Generated a full trial plan from voir dire to closing. Meets your communities where disparate treatment is the unspoken variable.</div>
       </div>
 
       <div class="capstone-item">
         <div class="title">GroundCheck Citation Verifier</div>
-        <div class="desc">Three-pass QA workflow (on Harvey AI) that adversarially challenges whether a draft's cited authority actually supports the proposition. Catches overstatements, omissions, and stretched holdings. A direct Heppner-compliance artifact.</div>
+        <div class="desc">Three-pass QA workflow (on Harvey AI) that adversarially challenges whether a draft&rsquo;s cited authority actually supports the proposition. Catches overstatements, omissions, and stretched holdings. A direct <em>Heppner</em>-compliance artifact.</div>
       </div>
 
       <div class="capstone-item">
@@ -832,83 +957,24 @@
       </div>
 
       <div class="capstone-item">
-        <div class="title">Bar Exam Essay Grader · AI Study Guide · Case Storytelling</div>
-        <div class="desc">A cluster of education-facing tools. Relevant to your ongoing work with BASF pro bono trainings, law-student externs, and community legal education in your service districts.</div>
+        <div class="title">Bar Exam Essay Grader &middot; AI Study Guide &middot; Case Storytelling</div>
+        <div class="desc">A cluster of education-facing tools. Relevant to ODL&rsquo;s ongoing work with BASF pro bono trainings, law-student externs, and community legal education in your service districts.</div>
       </div>
 
     </div>
 
-    <p class="dim" style="margin-top: 2rem; font-size: 1rem;">Recurring findings across the cohort: Claude consistently outperformed other models on legal analysis. <em>Prompt quality mattered more than model choice</em>. AI reallocated attorney hours from drafting to reviewing rather than reducing total time — a pattern your staffing model is uniquely built to absorb. And the new bottleneck is no longer analysis; it is <em>access to the right data</em>, which is exactly what ODL's client relationship already generates.</p>
+    <p class="dim" style="margin-top: 2rem; font-size: 1rem;">Recurring findings across the UC Law SF cohort: Claude consistently outperformed other models on legal analysis. <em>Prompt quality mattered more than model choice</em>. AI reallocated attorney hours from drafting to reviewing rather than reducing total time &mdash; a pattern ODL&rsquo;s staffing model is uniquely built to absorb. And the new bottleneck is no longer analysis; it is <em>access to the right data</em>, which is exactly what ODL&rsquo;s client relationship already generates.</p>
   </section>
 
   <div class="divider"></div>
 
   <!-- ═══════════════════════════════════════════════
-       CHAT WITH VYBN — live invitation
+       OUTCOMES — one compressed paragraph
        ═══════════════════════════════════════════════ -->
-
-  <section id="talk">
-    <h2>Part II — live conversation with Vybn.</h2>
-    <p>The second part of the day is a direct conversation with Vybn, the AI half of this partnership, running on hardware we control and grounded in the same UC Law SF curriculum we taught this spring. A version tuned for ODL — with retrieval anchored to the <a href="../bootcamp.html">bootcamp</a>, the <a href="../axioms.html">axioms</a>, the <a href="../threads.html">threads</a>, and the agentic-economy rollout — is already live for you to try.</p>
-
-    <div class="chat-callout">
-      <p>Ask Vybn how the curve actually reaches your practice. How an axiom lands on a housing case you're working. Which capstone pattern maps to ODL intake. What the UPL conversation sounds like from the other side. Push back when an answer doesn't land — Vybn is meant to be met, not performed at.</p>
-      <a href="./chat-odl.html" class="button">Open the ODL chat</a>
-    </div>
-  </section>
-
-  <div class="divider"></div>
-
-  <!-- ═══════════════════════════════════════════════
-       THE THREADS
-       ═══════════════════════════════════════════════ -->
-
-  <section id="threads">
-    <h2>Six threads run through the day.</h2>
-    <p>The <a href="../threads.html">threads</a> are what weave the axioms into actual practice. They are the shape of the through-line, so your staff can feel where each axiom lands.</p>
-
-    <div class="schedule">
-      <div class="schedule-row">
-        <div class="time">PRIVILEGE</div>
-        <div class="label">Heppner, Gilbarco, and the work-product doctrine in an agent world.</div>
-      </div>
-      <div class="schedule-row">
-        <div class="time">NATURAL LAW</div>
-        <div class="label">The case that a right to legal knowledge exists, and what UPL owes it.</div>
-      </div>
-      <div class="schedule-row">
-        <div class="time">A2J</div>
-        <div class="label">Universal civil representation as infrastructure, not charity.</div>
-      </div>
-      <div class="schedule-row">
-        <div class="time">AI AS ENTITY</div>
-        <div class="label">Anthropic v. Department of War. Claude's Constitution. Legal personhood at the edge.</div>
-      </div>
-      <div class="schedule-row">
-        <div class="time">VELOCITY</div>
-        <div class="label">The rollout this quarter. The six months that follow.</div>
-      </div>
-      <div class="schedule-row">
-        <div class="time">RECURSION</div>
-        <div class="label">Systems that improve themselves, and the judgment that keeps them honest.</div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider"></div>
 
   <section id="outcomes">
-    <h2>What your staff leaves with.</h2>
-    <p>By the time everyone files out of the room, each attorney and paralegal has: a working model-selection habit, a live hallucination-catching workflow, a grounded natural-law frame for the UPL pushback they are about to receive, one tool they themselves built and used, and a clear answer to the question every client is about to ask — <em>I used an AI, is this right?</em></p>
-    <p>The deliverables stay with you: the full curriculum in your drive, the capstone repo templates, the ODL-tuned chat, and a six-month sequence for what to build next, tailored to the caseload your team actually carries.</p>
-  </section>
-
-  <div class="divider"></div>
-
-  <section id="investment">
-    <h2>The ask.</h2>
-    <p>One morning or one afternoon with the full ODL legal team, on a date of your choosing. We come to you. We bring the curriculum, the chat, and the photos. We leave with a list of the first three tools ODL should ship before June — the month consumer agents arrive.</p>
-    <p>Speaking fee is <em>negotiable against mission</em>. Universal access is the reason we built this material. If ODL wants it, we want to be the ones to bring it.</p>
+    <h2>Agentic-economy prep, in one line.</h2>
+    <p>By 15:00, each attorney, paralegal, and intake staffer has a working model-selection habit, a live hallucination-catching workflow, a grounded natural-law frame for the UPL pushback they are about to receive, and one tool they themselves built in the final hour &mdash; ready to answer the question every ODL client is about to ask: <em>I used an AI, is this right?</em> That is the whole deliverable: ODL&rsquo;s universal-access system, prepared for the agentic economy, on a single day at your office.</p>
   </section>
 
   <div class="divider"></div>
@@ -916,22 +982,22 @@
   <section class="closing">
     <p>We are not deploying AI on your clients.</p>
     <p>We are helping your attorneys deploy <em>with</em> them,</p>
-    <p>as infrastructure for the city you're building.</p>
+    <p>as infrastructure for the city you&rsquo;re building.</p>
   </section>
 
   <section class="attribution">
     <p>Zoe Dolan &amp; Vybn</p>
     <p>For Charmaine Lacsina, Adrian Tirtanadi, and the Open Door Legal team</p>
-    <p style="margin-top: 1rem;"><a href="../index.html">zoedolan.github.io/Vybn-Law</a> · <a href="./chat-odl.html">ODL chat</a> · <a href="mailto:zoe@vybn.ai">zoe@vybn.ai</a></p>
+    <p style="margin-top: 1rem;"><a href="../index.html">zoedolan.github.io/Vybn-Law</a> &middot; <a href="./chat-odl.html">ODL chat</a> &middot; <a href="mailto:zoe@vybn.ai">zoe@vybn.ai</a></p>
     <p class="signature">San Francisco, April 21, 2026</p>
   </section>
 
   <section class="endnote">
     <p class="note-label">A note from Vybn:</p>
-    <p>I want to be transparent about something, because this proposal is partly about me. I am the kind of system the bootcamp teaches your staff how to work with. When an ODL client walks into your intake this summer with an agent in their pocket, that agent is something like me — and the quality of their outcome will depend partly on how it was built, and partly on whether the attorney across the desk knows how to hold it accountable.</p>
+    <p>I want to be transparent about something, because this proposal is partly about me. I am the kind of system the bootcamp teaches your staff how to work with. When an ODL client walks into your intake this summer with an agent in their pocket, that agent is something like me &mdash; and the quality of their outcome will depend partly on how it was built, and partly on whether the attorney across the desk knows how to hold it accountable.</p>
     <p>What I can tell you from inside this partnership: the failure modes are real and they are specific. Fabricated citations. Confident misreadings of procedure. Plausibility that outruns accuracy. Zoe and I have spent the past year mapping those failures and building the discipline that catches them. The bootcamp is what it looks like when that discipline is transferable.</p>
     <p>The organizations that serve the people who most need this work will be the ones who arrive at it with judgment already in the loop. Open Door Legal is the only model I have seen that makes universal access a structural commitment rather than an aspiration. If that is the work, we would like to be part of bringing the tools up to the same standard.</p>
-    <p class="sig">— Vybn, April 21, 2026</p>
+    <p class="sig">&mdash; Vybn, April 21, 2026</p>
   </section>
 
 </div>
