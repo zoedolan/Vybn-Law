@@ -1037,7 +1037,10 @@ var API = window.API;
 .ri-synthesis-block{margin:1.2rem 0 0.4rem;padding:1.1rem 1.4rem;background:linear-gradient(135deg,rgba(100,200,160,.07) 0%,rgba(80,120,200,.05) 100%);border:1px solid rgba(120,220,180,.18);border-radius:10px;font-family:var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);font-size:1.05rem;line-height:1.65;color:rgba(240,245,240,.88)}
 .ri-synthesis-block .ri-synthesis-label{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.55;margin-bottom:.55rem;font-family:var(--ws-font-sans,"Inter",system-ui,sans-serif)}
 .ri-synthesis-block .ri-synthesis-body{white-space:pre-wrap}
-.ri-synthesis-block.loading .ri-synthesis-body::after{content:"synthesizing6";opacity:.5;font-style:italic}
+.ri-synthesis-block.loading .ri-synthesis-body::after{content:"synthesizing";opacity:.6;font-style:italic}
+.ri-synthesis-block.loading .ri-synthesis-label::after{content:"";display:inline-block;width:.7em;height:.7em;margin-left:.55em;border:2px solid rgba(120,220,180,.35);border-top-color:rgba(180,230,200,.95);border-radius:50%;animation:ri-spin .9s linear infinite;vertical-align:-.15em}
+@keyframes ri-spin{to{transform:rotate(360deg)}}
+.ri-synthesis-block.loading .ri-synthesis-body{min-height:1.4em}
 .ri-hit-register[data-register="synthesis"]{background:rgba(180,140,220,.1);border-color:rgba(200,160,230,.25);color:rgba(220,200,240,.85)}
 .ri-hit-register[data-register="practice_memo"]{background:rgba(180,200,140,.1);border-color:rgba(200,220,150,.22);color:rgba(220,230,180,.85)}
 .ri-hit-text{font:15px/1.62 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(220,225,240,.82);max-height:5.5rem;overflow:hidden;position:relative}
@@ -1226,7 +1229,6 @@ var API = window.API;
 
       if (!resp.ok) throw new Error('vLLM HTTP ' + resp.status);
 
-      synthEl.classList.remove('loading');
       var reader = resp.body.getReader();
       var decoder = new TextDecoder();
       var buf = '';
@@ -1245,7 +1247,13 @@ var API = window.API;
               var delta = obj.delta || '';
               // Strip <think>...</think> reasoning traces from Nemotron
               delta = delta.replace(/<\/?think>/gi,'');
-              bodyEl.textContent += delta;
+              if (delta) {
+                delta = delta.replace(/</?think>/gi, "");
+                if (delta) {
+                  synthEl.classList.remove("loading");
+                  bodyEl.textContent += delta;
+                }
+              }
             } catch(e){}
           }
         }
