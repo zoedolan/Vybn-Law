@@ -1212,21 +1212,15 @@ var API = window.API;
 
     try {
       var vllmBase = (document.querySelector('meta[name="api-base"]') || {}).content || 'https://vybn.ai';
-      // vLLM openai-compat endpoint — the Spark serves it at the same tunnel host on /v1
-      var vllmUrl = vllmBase.replace(/\/$/, '') + '/v1/chat/completions';
+      var vllmUrl = vllmBase.replace(/\/$/, '') + '/api/pressure/synthesize';
 
       var resp = await fetch(vllmUrl, {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-          model: 'nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8',
-          messages: [
-            {role:'system', content: systemPrompt},
-            {role:'user',   content: userMsg}
-          ],
-          max_tokens: 320,
-          temperature: 0.4,
-          stream: true
+          idea: text,
+          hits: (hits||[]).slice(0,4).map(function(h){ return {source: h.source, register: (registerFor(h.source).human)||'general', text: (h.text||'').slice(0,450)}; }),
+          summary_kind: summaryKind||''
         })
       });
 
@@ -1248,7 +1242,7 @@ var API = window.API;
           if (line.startsWith('data: ')){
             try {
               var obj = JSON.parse(line.slice(6));
-              var delta = (obj.choices && obj.choices[0] && obj.choices[0].delta && obj.choices[0].delta.content) || '';
+              var delta = obj.delta || '';
               // Strip <think>...</think> reasoning traces from Nemotron
               delta = delta.replace(/<\/?think>/gi,'');
               bodyEl.textContent += delta;
