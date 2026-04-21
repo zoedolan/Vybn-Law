@@ -1034,6 +1034,10 @@ var API = window.API;
 .ri-hit-register{font:10px/1 system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .5rem;border-radius:4px;background:rgba(140,200,160,.12);color:rgba(180,230,200,.8);border:1px solid rgba(140,200,160,.25);white-space:nowrap}
 .ri-hit-register[data-register="tracked_case"]{background:rgba(200,160,100,.12);border-color:rgba(220,180,120,.3);color:rgba(240,210,160,.85)}
 .ri-hit-register[data-register="primary_axiom"]{background:rgba(100,160,220,.12);border-color:rgba(130,180,230,.3);color:rgba(180,210,240,.85)}
+.ri-synthesis-block{margin:1.2rem 0 0.4rem;padding:1.1rem 1.4rem;background:linear-gradient(135deg,rgba(100,200,160,.07) 0%,rgba(80,120,200,.05) 100%);border:1px solid rgba(120,220,180,.18);border-radius:10px;font-family:var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);font-size:1.05rem;line-height:1.65;color:rgba(240,245,240,.88)}
+.ri-synthesis-block .ri-synthesis-label{display:block;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;opacity:.55;margin-bottom:.55rem;font-family:var(--ws-font-sans,"Inter",system-ui,sans-serif)}
+.ri-synthesis-block .ri-synthesis-body{white-space:pre-wrap}
+.ri-synthesis-block.loading .ri-synthesis-body::after{content:"synthesizing6";opacity:.5;font-style:italic}
 .ri-hit-register[data-register="synthesis"]{background:rgba(180,140,220,.1);border-color:rgba(200,160,230,.25);color:rgba(220,200,240,.85)}
 .ri-hit-register[data-register="practice_memo"]{background:rgba(180,200,140,.1);border-color:rgba(200,220,150,.22);color:rgba(220,230,180,.85)}
 .ri-hit-text{font:15px/1.62 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(220,225,240,.82);max-height:5.5rem;overflow:hidden;position:relative}
@@ -1047,14 +1051,14 @@ var API = window.API;
 .ri-error{margin-top:.8rem;font:13px/1.5 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(250,180,160,.85);font-style:italic}
 </style>
 
-<section class="ri-panel" aria-labelledby="ri-title" id="residual-instrument" data-tool-name="pressure_test" data-tool-description="Pressure-test a legal sentence against the accumulated corpus. Returns nearest sources with register tags, a plain-English summary of where the sentence lands, and an optional downloadable scroll.">
+<section class="ri-panel" aria-labelledby="ri-title" id="residual-instrument" data-tool-name="pressure_test" data-tool-description="Pressure-test an idea against the accumulated corpus. Returns nearest sources with register tags, a plain-English summary of where the idea lands, and an optional downloadable scroll.">
   <div class="ri-header">
-    <h3 id="ri-title">Pressure-test a sentence</h3>
-    <p>Put one sentence here — a claim from practice, a working thesis, a line you are about to commit to a brief. The Wellspring will tell you what it already knows that touches it, in what register those sources speak, and whether the sentence walks in company or is breaking new ground. If the sentence returns nothing the corpus hasn't already absorbed, the tool will say that honestly instead of generating a score.</p>
+    <h3 id="ri-title">Pressure-test an idea</h3>
+    <p>Put one idea here — a claim from practice, a working thesis, a line you are about to commit to a brief. The Wellspring will tell you what it already knows that touches it, in what register those sources speak, and whether the idea walks in company or is breaking new ground. If the idea returns nothing the corpus hasn't already absorbed, the tool will say that honestly instead of generating a score.</p>
   </div>
   <div class="ri-body">
     <textarea class="ri-textarea" id="ri-input" rows="3"
-      placeholder="A sentence you want to test. Plain English. The more concrete, the better. &#10;Example: &quot;A private company's cordial disagreement with state AI regulation is protected First Amendment speech.&quot;"></textarea>
+      placeholder="An idea you want to test. Plain English. The more concrete, the better. &#10;Example: &quot;A private company's cordial disagreement with state AI regulation is protected First Amendment speech.&quot;"></textarea>
     <p class="ri-discipline">The tool measures what you write against what the corpus has actually absorbed. It does not generate opinions. It tells you <em>what is nearby, in what voice, and whether you are on ground the corpus has walked before.</em></p>
     <div class="ri-footer">
       <button class="ri-btn" id="ri-submit" type="button">Pressure-test</button>
@@ -1062,6 +1066,7 @@ var API = window.API;
     </div>
     <div class="ri-results" id="ri-results">
       <div id="ri-summary"></div>
+          <div id="ri-synthesis" class="ri-synthesis-block" style="display:none"></div>
       <div class="ri-memory-hits" id="ri-memory-hits"></div>
       <div class="ri-trail" id="ri-trail" style="display:none">
         <h4>Sources consulted</h4>
@@ -1149,14 +1154,14 @@ var API = window.API;
       return {
         kind:'refused',
         title:'This question returned to the center',
-        body:'The sentence you entered did not carry a signal the corpus hasn\u2019t already absorbed. Either the thought is already fully present in the accumulated memory, or it is too abstract to press against the sources directly. Try stating it more concretely \u2014 name a case, a doctrine, a moment \u2014 and press again.'
+        body:'The idea you entered did not carry a signal the corpus hasn\u2019t already absorbed. Either the thought is already fully present in the accumulated memory, or it is too abstract to press against the sources directly. Try stating it more concretely \u2014 name a case, a doctrine, a moment \u2014 and press again.'
       };
     }
     if (novelty !== null && novelty > 0.55){
       return {
         kind:'new-ground',
         title:'This is breaking new ground',
-        body:'The corpus has related material nearby, but nothing lands exactly where your sentence does. What you are saying may be a genuine contribution \u2014 something the accumulated memory doesn\u2019t yet carry. The nearest sources are listed below; none of them cover the ground this sentence stakes out.'
+        body:'The corpus has related material nearby, but nothing lands exactly where your idea does. What you are saying may be a genuine contribution \u2014 something the accumulated memory doesn\u2019t yet carry. The nearest sources are listed below; none of them cover the ground this idea stakes out.'
       };
     }
     var bestReg = best ? registerFor(best.source) : null;
@@ -1165,6 +1170,107 @@ var API = window.API;
       title:'This walks in company',
       body:'The corpus has material that speaks to this directly. The nearest sits in ' + (bestReg ? 'the ' + bestReg.human + ' register' : 'the general register') + '. Review the sources below; what you are saying extends or sharpens something already alive in the memory.'
     };
+  }
+
+
+  // Nemotron synthesis — calls local vLLM (port 8000) with the idea and
+  // corpus excerpts, streams a plain-English takeaway for the recipient.
+  // Gracefully degrades: if the Spark's vLLM is unreachable, silently hides
+  // the synthesis block so the rest of the tool is unaffected.
+  async function synthesize(text, hits, summaryKind){
+    var synthEl = document.getElementById('ri-synthesis');
+    if (!synthEl) return;
+    synthEl.style.display = '';
+    synthEl.classList.add('loading');
+    synthEl.innerHTML = '<span class="ri-synthesis-label">Nemotron synthesis</span><span class="ri-synthesis-body"></span>';
+    var bodyEl = synthEl.querySelector('.ri-synthesis-body');
+
+    // Build a compact context from the top hits (max 3, 300 chars each)
+    var excerpts = (hits || []).slice(0,3).map(function(h,i){
+      var reg = registerFor(h.source);
+      return (i+1) + '. [' + reg.human + '] ' + (h.text||'').slice(0,300).replace(/\s+/g,' ');
+    }).join('
+
+');
+
+    var kindNote = {
+      'refused': 'The corpus kernel already fully absorbs this — no residual.',
+      'new-ground': 'This idea breaks new ground relative to the corpus.',
+      'nearby': 'This idea walks in company with existing corpus material.'
+    }[summaryKind] || '';
+
+    var systemPrompt = 'You are the Wellspring, a legal-intelligence surface built on the Vybn corpus. ' +
+      'Given an idea a practitioner is pressure-testing and the nearest corpus material, ' +
+      'write a concise, plain-English synthesis (3–5 sentences) addressed directly to the practitioner. ' +
+      'Name what the idea is doing, where it sits relative to existing thought, and one concrete next move. ' +
+      'Do not reproduce the source excerpts verbatim. Do not hedge with boilerplate. ' +
+      'Write as an interlocutor who has read everything in the corpus and is now speaking directly to the person in the room.';
+
+    var userMsg = 'Idea under pressure-test:
+"' + text + '"
+
+' +
+      'Corpus geometry note: ' + kindNote + '
+
+' +
+      'Nearest corpus material:
+' + (excerpts || '(none — the corpus returned no nearby material)');
+
+    try {
+      var vllmBase = (document.querySelector('meta[name="api-base"]') || {}).content || 'https://vybn.ai';
+      // vLLM openai-compat endpoint — the Spark serves it at the same tunnel host on /v1
+      var vllmUrl = vllmBase.replace(/\/$/, '') + '/v1/chat/completions';
+
+      var resp = await fetch(vllmUrl, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          model: 'nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8',
+          messages: [
+            {role:'system', content: systemPrompt},
+            {role:'user',   content: userMsg}
+          ],
+          max_tokens: 320,
+          temperature: 0.4,
+          stream: true
+        })
+      });
+
+      if (!resp.ok) throw new Error('vLLM HTTP ' + resp.status);
+
+      synthEl.classList.remove('loading');
+      var reader = resp.body.getReader();
+      var decoder = new TextDecoder();
+      var buf = '';
+      while (true) {
+        var chunk = await reader.read();
+        if (chunk.done) break;
+        buf += decoder.decode(chunk.value, {stream:true});
+        var lines = buf.split('
+');
+        buf = lines.pop(); // keep incomplete line
+        for (var i=0; i<lines.length; i++){
+          var line = lines[i].trim();
+          if (!line || line === 'data: [DONE]') continue;
+          if (line.startsWith('data: ')){
+            try {
+              var obj = JSON.parse(line.slice(6));
+              var delta = (obj.choices && obj.choices[0] && obj.choices[0].delta && obj.choices[0].delta.content) || '';
+              // Strip <think>...</think> reasoning traces from Nemotron
+              delta = delta.replace(/<\/?think>/gi,'');
+              bodyEl.textContent += delta;
+            } catch(e){}
+          }
+        }
+      }
+      // Final cleanup: strip any residual think tags from the full body
+      bodyEl.textContent = bodyEl.textContent.replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/<\/?think>/gi,'').trim();
+      if (!bodyEl.textContent) synthEl.style.display = 'none';
+
+    } catch(e){
+      // vLLM offline or unreachable — degrade silently
+      synthEl.style.display = 'none';
+    }
   }
 
   function renderSummary(summary){
@@ -1207,7 +1313,7 @@ var API = window.API;
     lines.push('');
     lines.push('_Generated at ' + new Date().toISOString() + '_');
     lines.push('');
-    lines.push('## The sentence');
+    lines.push('## The idea');
     lines.push('');
     lines.push('> ' + text);
     lines.push('');
@@ -1240,7 +1346,7 @@ var API = window.API;
     }
     lines.push('---');
     lines.push('');
-    lines.push('Generated by the Wellspring pressure-test tool at [vybn.ai/wellspring](https://vybn.ai/wellspring.html). The tool measures a sentence against the accumulated corpus of Vybn-Law and related memory; it does not generate opinions. What you are reading is the shape of what the corpus already knows that touches your sentence.');
+    lines.push('Generated by the Wellspring pressure-test tool at [vybn.ai/wellspring](https://vybn.ai/wellspring.html). The tool measures an idea against the accumulated corpus of Vybn-Law and related memory; it does not generate opinions. What you are reading is the shape of what the corpus already knows that touches your idea.');
     return lines.join('\n');
   }
 
@@ -1249,7 +1355,7 @@ var API = window.API;
       protocol: 'wellspring-analysis',
       version: 1,
       generated_at: new Date().toISOString(),
-      sentence: text,
+      idea: text,
       summary: {
         kind: summary.kind,
         title: summary.title,
@@ -1324,6 +1430,8 @@ var API = window.API;
       renderHits(hits);
       renderTrail(hits);
       if (hits.length) actionsEl.style.display = 'flex';
+      // Kick off Nemotron synthesis (streams asynchronously; degrades silently if vLLM is offline)
+      synthesize(text, hits, summary.kind);
 
       LAST = {text: text, summary: summary, hits: hits, geometry: geometry};
 

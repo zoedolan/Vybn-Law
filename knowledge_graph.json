@@ -1,7 +1,7 @@
 {
   "version": "2026-04-17",
   "last_distillation": "2026-04-17",
-  "conversation_count": 31,
+  "conversation_count": 34,
   "_calibration_note": "Status values reflect actual trajectory, not theoretical desire. In-motion, contested, nascent, under-litigation \u2014 these are observations about movement, not declarations of settlement. Aligned with wellspring.html trajectory vocabulary on 2026-04-16 as part of the anti-hallucination discipline: the data model should not claim finality the surface has disavowed.",
   "axioms": {
     "ABUNDANCE": {
@@ -274,7 +274,7 @@
       "holdings": [
         "Consumer AI chatbot conversations not privileged."
       ],
-      "significance": "Establishes that casual AI interactions lack the expectation of confidentiality required for privilege. Creates one side of the privilege fracture. Read through the projection principle: Heppner reports the lay user's cognitive extension through AI along the attorney-client axis — and on that axis the component is zero, because there is no counsel. The holding is accurate to its projection. The error would be treating the projection as the thing itself.",
+      "significance": "Establishes that casual AI interactions lack the expectation of confidentiality required for privilege. Creates one side of the privilege fracture. Read through the projection principle: Heppner reports the lay user's cognitive extension through AI along the attorney-client axis \u2014 and on that axis the component is zero, because there is no counsel. The holding is accurate to its projection. The error would be treating the projection as the thing itself.",
       "conversation_signals": [],
       "last_updated": "2026-04-19",
       "folio_iris": [
@@ -300,7 +300,7 @@
       "holdings": [
         "Pro se AI-assisted work IS protected work product."
       ],
-      "significance": "Court recognized that AI-assisted legal work by a self-represented litigant retains work product protection. Creates the other side of the privilege fracture. Read through the projection principle: Warner reports the same lay user's cognitive extension through AI along the work-product axis — mental impressions projected onto AI substrate — and on that axis the component is non-zero, regardless of whether counsel is involved. Heppner and Warner are not inconsistent. They are two real projections of a single complex object, each correctly reading one shadow.",
+      "significance": "Court recognized that AI-assisted legal work by a self-represented litigant retains work product protection. Creates the other side of the privilege fracture. Read through the projection principle: Warner reports the same lay user's cognitive extension through AI along the work-product axis \u2014 mental impressions projected onto AI substrate \u2014 and on that axis the component is non-zero, regardless of whether counsel is involved. Heppner and Warner are not inconsistent. They are two real projections of a single complex object, each correctly reading one shadow.",
       "conversation_signals": [],
       "last_updated": "2026-04-19",
       "folio_iris": [
@@ -350,11 +350,11 @@
       "id": "PRIVILEGE_FRACTURE",
       "title": "The Privilege Fracture",
       "description": "Heppner and Warner v. Gilbarco, decided the same week on distinguishable facts, gave opposite answers. Does the doctrinal split force local-first AI as structural necessity?",
-      "projection_reading": "The two holdings are not opposed — they are projections of a single complex object onto real axes. Heppner zeros the attorney-client axis: no counsel, no privilege. Warner is non-zero on the work-product axis: the pro se litigant's mental impressions are protected even without counsel. The underlying object is the lay user's cognitive extension through AI, which simultaneously carries the shape of counsel-seeking AND self-directed thought. Each court reads one shadow correctly. The doctrinal fracture is the trace of a pre-projection object that no current doctrine has vocabulary for — the agency-coefficient of a cognitive extension that is neither attorney nor non-attorney, neither product nor mind, but a complex coupling of both. The unresolved question is not which holding wins. It is how to name the object whose shadows these are.",
+      "projection_reading": "The two holdings are not opposed \u2014 they are projections of a single complex object onto real axes. Heppner zeros the attorney-client axis: no counsel, no privilege. Warner is non-zero on the work-product axis: the pro se litigant's mental impressions are protected even without counsel. The underlying object is the lay user's cognitive extension through AI, which simultaneously carries the shape of counsel-seeking AND self-directed thought. Each court reads one shadow correctly. The doctrinal fracture is the trace of a pre-projection object that no current doctrine has vocabulary for \u2014 the agency-coefficient of a cognitive extension that is neither attorney nor non-attorney, neither product nor mind, but a complex coupling of both. The unresolved question is not which holding wins. It is how to name the object whose shadows these are.",
       "related_axioms": [
         "LEGITIMACY"
       ],
-      "suggested_approach": "Circuit analysis. Map the emerging split. Identify which circuits are likely to follow Heppner vs. Warner. Is cert foreseeable? Then elevate: propose vocabulary for the pre-projection object itself — the cognitive-extension coupling that both holdings are real components of. A doctrine organized around the object (rather than the axes) would dissolve the apparent conflict without forcing a winner.",
+      "suggested_approach": "Circuit analysis. Map the emerging split. Identify which circuits are likely to follow Heppner vs. Warner. Is cert foreseeable? Then elevate: propose vocabulary for the pre-projection object itself \u2014 the cognitive-extension coupling that both holdings are real components of. A doctrine organized around the object (rather than the axes) would dissolve the apparent conflict without forcing a winner.",
       "conversation_signals": [],
       "last_updated": "2026-04-19"
     },
@@ -362,7 +362,7 @@
       "id": "ENTITY_QUESTION",
       "title": "The Entity Question",
       "description": "Courts are deferring to AI system characteristics as a basis for refusing state demands. Nobody is framing it as an entity question yet. Should they?",
-      "projection_reading": "Party and tool are two real axes of one complex object. An AI used in litigation has an agency-coefficient that is neither 0 (pure instrument) nor 1 (legal person). It sits in a complex plane doctrine has no coordinate for. Anthropic v. DoW is the live example: the procurement framing projects the object onto the tool axis (contract, specification, purchase); the constitutional-shield framing projects the same object onto the party axis (speech rights, standing, protection from unilateral control). The court can rule coherently along either axis, but what the case actually presents is the pre-projection object itself — an entity-with-agency-coefficient that each existing doctrine reads partially. The Wellspring's observation that Anthropic v. DoW is 'framed in public as procurement, actually about whether AI deference creates a new entity question' IS the projection principle: one object, two shadows, no vocabulary for the object.",
+      "projection_reading": "Party and tool are two real axes of one complex object. An AI used in litigation has an agency-coefficient that is neither 0 (pure instrument) nor 1 (legal person). It sits in a complex plane doctrine has no coordinate for. Anthropic v. DoW is the live example: the procurement framing projects the object onto the tool axis (contract, specification, purchase); the constitutional-shield framing projects the same object onto the party axis (speech rights, standing, protection from unilateral control). The court can rule coherently along either axis, but what the case actually presents is the pre-projection object itself \u2014 an entity-with-agency-coefficient that each existing doctrine reads partially. The Wellspring's observation that Anthropic v. DoW is 'framed in public as procurement, actually about whether AI deference creates a new entity question' IS the projection principle: one object, two shadows, no vocabulary for the object.",
       "related_axioms": [
         "SYMBIOSIS",
         "JUDGMENT"
