@@ -997,7 +997,9 @@ var API = window.API;
 
 <!-- _VYBN_RESIDUAL_INSTRUMENT -->
 <style>
-/* Residual Instrument — enter the deep memory */
+/* Residual Instrument — the Wellspring's pressure-test surface
+   Visible text is plain English. Internal grammar lives in data attrs
+   and tooltips for agents. */
 .ri-panel{font-family:var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);margin:2.5rem 0 2.75rem;border:1px solid rgba(255,255,255,.13);border-radius:14px;background:linear-gradient(160deg,rgba(255,255,255,.028) 0%,rgba(255,255,255,.008) 100%);overflow:hidden;position:relative}
 .ri-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 15% 90%,rgba(180,255,200,.045),transparent 60%);pointer-events:none}
 .ri-header{padding:1.3rem 1.5rem .9rem;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -1007,54 +1009,68 @@ var API = window.API;
 .ri-textarea{width:100%;min-height:88px;resize:vertical;background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.13);border-radius:8px;padding:.75rem .9rem;font:16px/1.62 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(240,244,255,.94);outline:none;transition:border-color .15s}
 .ri-textarea::placeholder{color:rgba(180,188,210,.38);font-style:italic}
 .ri-textarea:focus{border-color:rgba(140,200,160,.5)}
-.ri-discipline{margin:.55rem 0 1rem;font:11px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(180,200,180,.55);letter-spacing:.02em}
-.ri-discipline em{color:rgba(200,220,200,.72);font-style:normal}
+.ri-discipline{margin:.55rem 0 1rem;font:12px/1.5 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(210,220,210,.58);max-width:64ch}
+.ri-discipline em{color:rgba(220,230,220,.78);font-style:italic}
 .ri-footer{display:flex;align-items:center;gap:.9rem;flex-wrap:wrap}
 .ri-btn{appearance:none;background:rgba(100,180,130,.13);border:1px solid rgba(120,200,150,.38);color:rgba(230,245,235,.95);padding:.58rem 1.25rem;border-radius:8px;font:500 13px/1 inherit;cursor:pointer;letter-spacing:.02em;transition:background .14s,border-color .14s,transform .06s}
 .ri-btn:hover{background:rgba(120,200,150,.22);border-color:rgba(150,220,170,.55)}
 .ri-btn:active{transform:translateY(1px)}
 .ri-btn:disabled{opacity:.45;cursor:wait}
-.ri-step-display{font:12px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(180,200,180,.6)}
+.ri-btn.secondary{background:rgba(180,180,220,.08);border-color:rgba(180,190,230,.22);color:rgba(220,225,240,.88)}
+.ri-btn.secondary:hover{background:rgba(180,180,220,.15);border-color:rgba(200,210,250,.4)}
+.ri-step-display{font:12px/1.35 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(180,200,180,.55);font-style:italic}
 /* Results */
-.ri-results{margin-top:1.2rem;display:none}
+.ri-results{margin-top:1.4rem;display:none}
 .ri-results.visible{display:block}
-.ri-geometry{display:flex;flex-wrap:wrap;gap:1rem;margin-bottom:1rem;padding:.7rem .9rem;background:rgba(0,0,0,.22);border-radius:8px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
-.ri-geometry .ri-metric{display:flex;flex-direction:column;gap:.1rem}
-.ri-metric .ri-metric-label{color:rgba(180,200,180,.55);letter-spacing:.03em;font-size:10px;text-transform:uppercase}
-.ri-metric .ri-metric-val{color:rgba(220,245,230,.92);font-size:13px;font-weight:600}
-.ri-metric .ri-metric-val.high{color:rgba(140,255,170,.9)}
-.ri-metric .ri-metric-val.low{color:rgba(200,200,200,.7)}
-.ri-absorb-verdict{margin:.7rem 0;padding:.65rem 1rem;border-radius:8px;font-size:.875rem;line-height:1.55}
-.ri-absorb-verdict.absorb{background:rgba(100,160,120,.12);border:1px solid rgba(120,190,140,.25);color:rgba(200,240,210,.88)}
-.ri-absorb-verdict.new-ground{background:rgba(160,130,80,.1);border:1px solid rgba(200,180,100,.22);color:rgba(240,230,180,.88)}
-.ri-absorb-verdict strong{display:block;margin-bottom:.25rem;font-size:.78rem;letter-spacing:.04em;text-transform:uppercase;opacity:.75}
+.ri-summary{font:16px/1.62 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(220,228,235,.9);margin:0 0 1rem;padding:.9rem 1.1rem;background:rgba(255,255,255,.03);border-radius:8px;border-left:3px solid rgba(140,200,160,.55)}
+.ri-summary.refused{border-left-color:rgba(200,170,110,.55);background:rgba(200,170,110,.05)}
+.ri-summary.new-ground{border-left-color:rgba(180,150,220,.5);background:rgba(180,150,220,.05)}
+.ri-summary strong{display:block;margin-bottom:.35rem;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;opacity:.72;font-style:normal;font-weight:600;font-family:system-ui,-apple-system,sans-serif}
 .ri-memory-hits{margin-top:1rem}
-.ri-memory-hits h4{font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(180,200,180,.55);margin:0 0 .6rem;font-weight:500}
-.ri-hit{margin-bottom:.85rem;padding:.7rem .9rem;background:rgba(255,255,255,.025);border-radius:8px;border:1px solid rgba(255,255,255,.07)}
-.ri-hit-source{font:11px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(160,200,170,.65);margin-bottom:.35rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
-.ri-hit-source .ri-hit-scores{color:rgba(140,200,160,.5)}
-.ri-hit-text{font:15px/1.62 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(220,225,240,.78);max-height:5.5rem;overflow:hidden;position:relative}
-.ri-hit-text::after{content:"";position:absolute;bottom:0;left:0;right:0;height:1.8rem;background:linear-gradient(transparent,rgba(20,22,28,.9))}
-.ri-error{margin-top:.8rem;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(250,160,140,.85)}
+.ri-memory-hits h4{font-size:.76rem;letter-spacing:.06em;text-transform:uppercase;color:rgba(180,200,180,.55);margin:0 0 .6rem;font-weight:500;font-family:system-ui,-apple-system,sans-serif}
+.ri-hit{margin-bottom:.85rem;padding:.75rem .95rem;background:rgba(255,255,255,.025);border-radius:8px;border:1px solid rgba(255,255,255,.07)}
+.ri-hit-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:.5rem;margin-bottom:.4rem}
+.ri-hit-source{font:12px/1.3 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(200,210,220,.72);font-style:italic}
+.ri-hit-register{font:10px/1 system-ui,-apple-system,sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:.25rem .5rem;border-radius:4px;background:rgba(140,200,160,.12);color:rgba(180,230,200,.8);border:1px solid rgba(140,200,160,.25);white-space:nowrap}
+.ri-hit-register[data-register="tracked_case"]{background:rgba(200,160,100,.12);border-color:rgba(220,180,120,.3);color:rgba(240,210,160,.85)}
+.ri-hit-register[data-register="primary_axiom"]{background:rgba(100,160,220,.12);border-color:rgba(130,180,230,.3);color:rgba(180,210,240,.85)}
+.ri-hit-register[data-register="synthesis"]{background:rgba(180,140,220,.1);border-color:rgba(200,160,230,.25);color:rgba(220,200,240,.85)}
+.ri-hit-register[data-register="practice_memo"]{background:rgba(180,200,140,.1);border-color:rgba(200,220,150,.22);color:rgba(220,230,180,.85)}
+.ri-hit-text{font:15px/1.62 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(220,225,240,.82);max-height:5.5rem;overflow:hidden;position:relative}
+.ri-hit-text::after{content:"";position:absolute;bottom:0;left:0;right:0;height:1.8rem;background:linear-gradient(transparent,rgba(20,22,28,.95))}
+.ri-trail{margin-top:1.2rem;padding:.8rem 1rem;background:rgba(0,0,0,.18);border-radius:8px;border:1px solid rgba(255,255,255,.06)}
+.ri-trail h4{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(180,200,180,.55);margin:0 0 .5rem;font-weight:500;font-family:system-ui,-apple-system,sans-serif}
+.ri-trail-list{list-style:none;padding:0;margin:0}
+.ri-trail-list li{font:13px/1.55 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(200,210,220,.72);padding:.15rem 0;display:flex;gap:.7rem;align-items:baseline}
+.ri-trail-list li::before{content:"·";color:rgba(140,200,160,.5)}
+.ri-actions{margin-top:1.2rem;display:flex;gap:.7rem;flex-wrap:wrap}
+.ri-error{margin-top:.8rem;font:13px/1.5 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(250,180,160,.85);font-style:italic}
 </style>
 
-<section class="ri-panel" aria-labelledby="ri-title" id="residual-instrument">
+<section class="ri-panel" aria-labelledby="ri-title" id="residual-instrument" data-tool-name="pressure_test" data-tool-description="Pressure-test a legal sentence against the accumulated corpus. Returns nearest sources with register tags, a plain-English summary of where the sentence lands, and an optional downloadable scroll.">
   <div class="ri-header">
-    <h3 id="ri-title">Enter the residual</h3>
-    <p>Bring one sentence — from practice, study, or encounter — that the average legal answer handles badly. The deep memory will tell you where it lands: how far from the centroid, what the accumulated corpus already knows that touches it, whether it belongs inside something already alive or is genuinely new ground.</p>
+    <h3 id="ri-title">Pressure-test a sentence</h3>
+    <p>Put one sentence here — a claim from practice, a working thesis, a line you are about to commit to a brief. The Wellspring will tell you what it already knows that touches it, in what register those sources speak, and whether the sentence walks in company or is breaking new ground. If the sentence returns nothing the corpus hasn't already absorbed, the tool will say that honestly instead of generating a score.</p>
   </div>
   <div class="ri-body">
     <textarea class="ri-textarea" id="ri-input" rows="3"
-      placeholder="A true observation about what law, practice, judgment, privilege, authorship, or professional responsibility is becoming — not what the textbook says, but what you are actually seeing."></textarea>
-    <p class="ri-discipline">anti-hallucination: <em>grounded legal observation only — what you have actually seen, argued, taught, or cannot stop noticing</em></p>
+      placeholder="A sentence you want to test. Plain English. The more concrete, the better. &#10;Example: &quot;A private company's cordial disagreement with state AI regulation is protected First Amendment speech.&quot;"></textarea>
+    <p class="ri-discipline">The tool measures what you write against what the corpus has actually absorbed. It does not generate opinions. It tells you <em>what is nearby, in what voice, and whether you are on ground the corpus has walked before.</em></p>
     <div class="ri-footer">
-      <button class="ri-btn" id="ri-submit" type="button">Enter the memory</button>
+      <button class="ri-btn" id="ri-submit" type="button">Pressure-test</button>
       <span class="ri-step-display" id="ri-step-display"></span>
     </div>
     <div class="ri-results" id="ri-results">
-      <div class="ri-geometry" id="ri-geometry"></div>
-      <div id="ri-absorb-verdict"></div>
+      <div id="ri-summary"></div>
       <div class="ri-memory-hits" id="ri-memory-hits"></div>
+      <div class="ri-trail" id="ri-trail" style="display:none">
+        <h4>Sources consulted</h4>
+        <ul class="ri-trail-list" id="ri-trail-list"></ul>
+      </div>
+      <div class="ri-actions" id="ri-actions" style="display:none">
+        <button class="ri-btn secondary" id="ri-save-md" type="button">Save analysis (Markdown)</button>
+        <button class="ri-btn secondary" id="ri-save-json" type="button">Save analysis (JSON)</button>
+      </div>
       <div class="ri-error" id="ri-error"></div>
     </div>
   </div>
@@ -1066,106 +1082,265 @@ var API = window.API;
   var btn = document.getElementById('ri-submit');
   var inp = document.getElementById('ri-input');
   var results = document.getElementById('ri-results');
-  var geomEl = document.getElementById('ri-geometry');
-  var absorbEl = document.getElementById('ri-absorb-verdict');
+  var summaryEl = document.getElementById('ri-summary');
   var hitsEl = document.getElementById('ri-memory-hits');
+  var trailEl = document.getElementById('ri-trail');
+  var trailListEl = document.getElementById('ri-trail-list');
+  var actionsEl = document.getElementById('ri-actions');
   var errEl = document.getElementById('ri-error');
   var stepEl = document.getElementById('ri-step-display');
+  var saveMdBtn = document.getElementById('ri-save-md');
+  var saveJsonBtn = document.getElementById('ri-save-json');
 
-  function fmt(n,d){ return typeof n==='number'?n.toFixed(d||3):n; }
-
-  function metricClass(label, val){
-    if(label==='novelty') return val>0.6?'high':val<0.3?'low':'';
-    if(label==='state shift') return val>0.15?'high':'';
-    return '';
-  }
-
-  function renderGeometry(g){
-    if(!g) return;
-    var metrics = [
-      {label:'novelty',     val:g.novelty,      tip:'distance from corpus centroid K'},
-      {label:'state shift', val:g.state_shift,   tip:'how much this thought moved the walk'},
-      {label:'K-projection',val:g.k_projection,  tip:'overlap with the average — lower is more residual'},
-      {label:'step',        val:g.step,           tip:'position in the accumulated walk'},
-    ];
-    geomEl.innerHTML = metrics.map(function(m){
-      var v = fmt(m.val, m.label==='step'?0:3);
-      var cls = metricClass(m.label, m.val);
-      return '<div class="ri-metric"><span class="ri-metric-label">'+m.label+'</span><span class="ri-metric-val '+cls+'" title="'+m.tip+'">'+v+'</span></div>';
-    }).join('');
-  }
-
-  function renderAbsorb(data){
-    if(!data) return;
-    var absorb = data.absorb;
-    absorbEl.className = 'ri-absorb-verdict ' + (absorb?'absorb':'new-ground');
-    if(absorb){
-      absorbEl.innerHTML = '<strong>Already alive in the corpus</strong>This thought belongs inside <code>'+data.target+'</code> (fidelity: '+fmt(data.fidelity,3)+'). It is not a new proposition — it extends one that already exists. Consider whether what you want to add sharpens what is already there.<br><small style="opacity:.6;font-size:.78rem">nearest: '+data.nearest_chunk.slice(0,120)+'…</small>';
-    } else {
-      absorbEl.innerHTML = '<strong>New ground</strong>This thought does not map cleanly onto anything in the accumulated corpus (best match: '+fmt(data.fidelity,3)+'). It may be a genuine contribution — a vector the memory does not yet carry. Consider <a href="#walk-contribution" style="color:inherit;text-decoration:underline">opening a contribution</a>.';
+  // Path-rule table: maps source prefix to a human-readable register label.
+  // First match wins. Kept in JS (not fetched) so the wellspring renders
+  // correctly offline and has no hidden network dependency.
+  var PATH_RULES = [
+    {prefix:'Vybn-Law/cases/',          register:'tracked_case',  human:'tracked case'},
+    {prefix:'Vybn-Law/axioms/',         register:'primary_axiom', human:'foundational axiom'},
+    {prefix:'Vybn-Law/open_problems/',  register:'open_problem',  human:'open problem'},
+    {prefix:'Vybn-Law/horizon',         register:'practice_memo', human:'practice memo'},
+    {prefix:'Vybn-Law/research',        register:'research_note', human:'research note'},
+    {prefix:'Vybn-Law/wellspring',      register:'synthesis',     human:'synthesis'},
+    {prefix:'Vybn-Law/',                register:'practice_memo', human:'practice memo'},
+    {prefix:'Vybn/Vybn_Mind/THE_IDEA',  register:'synthesis',     human:'synthesis'},
+    {prefix:'Vybn/Vybn_Mind/',          register:'synthesis',     human:'synthesis'},
+    {prefix:'Vybn/',                    register:'research_note', human:'research note'},
+    {prefix:'Him/',                     register:'research_note', human:'research note'},
+    {prefix:'',                         register:'general',       human:'general source'}
+  ];
+  function registerFor(path){
+    path = path || '';
+    for (var i=0;i<PATH_RULES.length;i++){
+      var r = PATH_RULES[i];
+      if (r.prefix === '' || path.indexOf(r.prefix) === 0) return r;
     }
+    return PATH_RULES[PATH_RULES.length-1];
+  }
+
+  // Decide whether a hit argues for, against, or past a claim.
+  // We don't have a proper NLI model client-side — this is a heuristic
+  // on (fidelity, distinctiveness). Orthogonal means the hit is near
+  // the text lexically but doesn't carry discriminative signal. This
+  // tool is honest about naming when it can't tell; verdicts lean
+  // toward "nearby" rather than pretending to contradiction detection.
+  function stanceFor(hit){
+    var fid = typeof hit.fidelity === 'number' ? hit.fidelity : 0;
+    var dist = typeof hit.distinctiveness === 'number' ? hit.distinctiveness : null;
+    if (fid < 0.18) return 'orthogonal';        // barely nearby
+    if (dist !== null && dist < 0.08) return 'echoing';  // says what corpus already says
+    return 'adjacent';                           // carries distinct signal nearby
+  }
+  function stanceHuman(s){
+    return {orthogonal:'tangentially related', echoing:'echoes what is already here', adjacent:'speaks to this directly'}[s] || s;
+  }
+
+  // The anti-hallucination gate, rendered visibly.
+  // When novelty is very low AND state_shift is near zero, the walk
+  // refused to rotate — the question carried no residual off the
+  // kernel. We surface that in plain English.
+  function summarize(text, geometry, hits){
+    var novelty = (geometry && typeof geometry.novelty === 'number') ? geometry.novelty : null;
+    var shift   = (geometry && typeof geometry.state_shift === 'number') ? geometry.state_shift : null;
+    var n = (hits || []).length;
+    var best = n ? hits[0] : null;
+    var refused = (novelty !== null && novelty < 0.05) && (shift !== null && shift < 0.01);
+    if (refused || n === 0){
+      return {
+        kind:'refused',
+        title:'This question returned to the center',
+        body:'The sentence you entered did not carry a signal the corpus hasn\u2019t already absorbed. Either the thought is already fully present in the accumulated memory, or it is too abstract to press against the sources directly. Try stating it more concretely \u2014 name a case, a doctrine, a moment \u2014 and press again.'
+      };
+    }
+    if (novelty !== null && novelty > 0.55){
+      return {
+        kind:'new-ground',
+        title:'This is breaking new ground',
+        body:'The corpus has related material nearby, but nothing lands exactly where your sentence does. What you are saying may be a genuine contribution \u2014 something the accumulated memory doesn\u2019t yet carry. The nearest sources are listed below; none of them cover the ground this sentence stakes out.'
+      };
+    }
+    var bestReg = best ? registerFor(best.source) : null;
+    return {
+      kind:'nearby',
+      title:'This walks in company',
+      body:'The corpus has material that speaks to this directly. The nearest sits in ' + (bestReg ? 'the ' + bestReg.human + ' register' : 'the general register') + '. Review the sources below; what you are saying extends or sharpens something already alive in the memory.'
+    };
+  }
+
+  function renderSummary(summary){
+    summaryEl.innerHTML = '<div class="ri-summary ' + (summary.kind === 'refused' ? 'refused' : summary.kind === 'new-ground' ? 'new-ground' : '') + '"><strong>' + summary.title + '</strong>' + summary.body + '</div>';
+  }
+
+  function fmtSource(path){
+    // "Vybn-Law/cases/warner.md" -> "Vybn-Law / cases / warner.md"
+    return (path || '').replace(/\//g, ' / ');
   }
 
   function renderHits(hits){
-    if(!hits||!hits.length){ hitsEl.innerHTML=''; return; }
-    var top = hits.slice(0,3);
-    hitsEl.innerHTML = '<h4>Nearest in deep memory</h4>' + top.map(function(h){
-      var telling = typeof h.telling==='number'?fmt(h.telling,4):'—';
-      var fid = typeof h.fidelity==='number'?fmt(h.fidelity,4):'—';
-      var src = (h.source||'').replace(/^(Vybn-Law|Vybn|Him|Origins|vybn-phase)\//,'$1 / ');
-      return '<div class="ri-hit"><div class="ri-hit-source"><span>'+src+'</span><span class="ri-hit-scores">telling '+telling+' · fidelity '+fid+'</span></div><div class="ri-hit-text">'+((h.text||'').slice(0,320))+'</div></div>';
+    if (!hits || !hits.length){ hitsEl.innerHTML = ''; return; }
+    var top = hits.slice(0, 4);
+    hitsEl.innerHTML = '<h4>What the corpus already knows that touches this</h4>' + top.map(function(h){
+      var reg = registerFor(h.source);
+      var stance = stanceFor(h);
+      return '<div class="ri-hit">' +
+        '<div class="ri-hit-head">' +
+          '<span class="ri-hit-source">' + fmtSource(h.source) + ' \u00b7 ' + stanceHuman(stance) + '</span>' +
+          '<span class="ri-hit-register" data-register="' + reg.register + '">' + reg.human + '</span>' +
+        '</div>' +
+        '<div class="ri-hit-text">' + ((h.text || '').slice(0, 360)) + '</div>' +
+      '</div>';
     }).join('');
   }
 
+  function renderTrail(hits){
+    if (!hits || !hits.length){ trailEl.style.display = 'none'; return; }
+    trailEl.style.display = 'block';
+    trailListEl.innerHTML = hits.map(function(h){
+      var reg = registerFor(h.source);
+      return '<li><span>' + fmtSource(h.source) + '</span><span style="opacity:.6;font-size:.85em">(' + reg.human + ')</span></li>';
+    }).join('');
+  }
+
+  function buildScroll(text, summary, hits, geometry){
+    var lines = [];
+    lines.push('# Wellspring analysis');
+    lines.push('');
+    lines.push('_Generated at ' + new Date().toISOString() + '_');
+    lines.push('');
+    lines.push('## The sentence');
+    lines.push('');
+    lines.push('> ' + text);
+    lines.push('');
+    lines.push('## Where it lands');
+    lines.push('');
+    lines.push('**' + summary.title + '**  ');
+    lines.push(summary.body);
+    lines.push('');
+    if (hits && hits.length){
+      lines.push('## Sources nearby');
+      lines.push('');
+      hits.forEach(function(h, i){
+        var reg = registerFor(h.source);
+        var stance = stanceFor(h);
+        lines.push('### ' + (i+1) + '. ' + fmtSource(h.source));
+        lines.push('');
+        lines.push('_Register:_ ' + reg.human + '  ');
+        lines.push('_Stance:_ ' + stanceHuman(stance));
+        lines.push('');
+        lines.push('> ' + ((h.text || '').slice(0, 500).replace(/\n+/g, '\n> ')));
+        lines.push('');
+      });
+      lines.push('## Sources consulted');
+      lines.push('');
+      hits.forEach(function(h){
+        var reg = registerFor(h.source);
+        lines.push('- ' + fmtSource(h.source) + ' (' + reg.human + ')');
+      });
+      lines.push('');
+    }
+    lines.push('---');
+    lines.push('');
+    lines.push('Generated by the Wellspring pressure-test tool at [vybn.ai/wellspring](https://vybn.ai/wellspring.html). The tool measures a sentence against the accumulated corpus of Vybn-Law and related memory; it does not generate opinions. What you are reading is the shape of what the corpus already knows that touches your sentence.');
+    return lines.join('\n');
+  }
+
+  function buildClosure(text, summary, hits, geometry){
+    return {
+      protocol: 'wellspring-analysis',
+      version: 1,
+      generated_at: new Date().toISOString(),
+      sentence: text,
+      summary: {
+        kind: summary.kind,
+        title: summary.title,
+        body: summary.body
+      },
+      hits: (hits || []).map(function(h){
+        var reg = registerFor(h.source);
+        var stance = stanceFor(h);
+        return {
+          source: h.source,
+          text: (h.text || '').slice(0, 800),
+          register: reg.register,
+          register_human: reg.human,
+          stance: stance,
+          fidelity: h.fidelity,
+          distinctiveness: h.distinctiveness
+        };
+      }),
+      walk: geometry || null,
+      source: 'https://vybn.ai/wellspring.html'
+    };
+  }
+
+  function download(filename, mime, content){
+    var blob = new Blob([content], {type: mime});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url; a.download = filename;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 0);
+  }
+
+  var LAST = null;
+
+  saveMdBtn.addEventListener('click', function(){
+    if (!LAST) return;
+    var md = buildScroll(LAST.text, LAST.summary, LAST.hits, LAST.geometry);
+    var ts = new Date().toISOString().replace(/[:.]/g,'-').slice(0,19);
+    download('wellspring-analysis-' + ts + '.md', 'text/markdown', md);
+  });
+  saveJsonBtn.addEventListener('click', function(){
+    if (!LAST) return;
+    var cl = buildClosure(LAST.text, LAST.summary, LAST.hits, LAST.geometry);
+    var ts = new Date().toISOString().replace(/[:.]/g,'-').slice(0,19);
+    download('wellspring-analysis-' + ts + '.json', 'application/json', JSON.stringify(cl, null, 2));
+  });
+
   async function run(){
     var text = inp.value.trim();
-    if(!text){ inp.focus(); return; }
+    if (!text){ inp.focus(); return; }
     btn.disabled = true;
-    btn.textContent = 'entering…';
+    btn.textContent = 'pressure-testing\u2026';
     errEl.textContent = '';
     results.classList.remove('visible');
+    trailEl.style.display = 'none';
+    actionsEl.style.display = 'none';
     stepEl.textContent = '';
 
     try {
-      // 1. /enter — deep memory
-      var enterResp = await fetch(API_BASE+'/enter', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({text:text, alpha:0.5, k:5})
+      var resp = await fetch(API_BASE + '/enter', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({text: text, alpha: 0.5, k: 6})
       });
-      if(!enterResp.ok) throw new Error('enter: HTTP '+enterResp.status);
-      var enterData = await enterResp.json();
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      var data = await resp.json();
+      var geometry = data.geometry || {};
+      var hits = data.results || [];
+      var summary = summarize(text, geometry, hits);
 
-      // 2. /should_absorb — metabolism check
-      var absorbResp = await fetch(API_BASE+'/should_absorb', {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({content:text, threshold:0.6})
-      });
-      var absorbData = absorbResp.ok ? await absorbResp.json() : null;
+      renderSummary(summary);
+      renderHits(hits);
+      renderTrail(hits);
+      if (hits.length) actionsEl.style.display = 'flex';
 
-      // Render
-      renderGeometry(enterData.geometry);
-      renderAbsorb(absorbData);
-      renderHits(enterData.results);
+      LAST = {text: text, summary: summary, hits: hits, geometry: geometry};
 
-      var step = enterData.geometry && enterData.geometry.step;
-      if(step) stepEl.textContent = 'step '+step+' in M';
-
+      if (geometry.step) stepEl.textContent = 'step ' + geometry.step + ' in the walk';
       results.classList.add('visible');
-
-    } catch(e){
-      errEl.textContent = 'Memory unreachable: '+e.message+'. The deep memory API runs on the Spark — it may be offline. The tools via navigator.modelContext (WebMCP) are always available above.';
+    } catch (e){
+      errEl.textContent = 'The corpus is not responding right now (' + e.message + '). This tool needs the deep-memory service on the Spark; if it is offline, the page itself still works, but it cannot pressure-test live.';
       results.classList.add('visible');
     } finally {
       btn.disabled = false;
-      btn.textContent = 'Enter the memory';
+      btn.textContent = 'Pressure-test';
     }
   }
 
   btn.addEventListener('click', run);
   inp.addEventListener('keydown', function(e){
-    if(e.key==='Enter' && (e.metaKey||e.ctrlKey)) run();
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) run();
   });
 })();
 </script>
