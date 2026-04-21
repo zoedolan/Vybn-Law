@@ -38,6 +38,12 @@ from fastapi import HTTPException
 
 # ── Paths ────────────────────────────────────────────────────────────────
 
+# VYBN_API_BASE — public base URL for the portal (api.vybn.ai).
+# This API itself is internal (localhost:3001); the env var is kept
+# here so any future client-URL emission uses the named tunnel.
+# Added 2026-04-21 alongside the quick-tunnel retirement.
+VYBN_API_BASE = os.getenv("VYBN_API_BASE", "https://api.vybn.ai")
+
 REPO_ROOT = Path(__file__).resolve().parent.parent  # Vybn-Law/
 LOGS_DIR = Path.home() / "logs" / "vybn-chat"
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
