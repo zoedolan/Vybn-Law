@@ -89,16 +89,18 @@ python3 distill.py --date 2026-04-05
 python3 distill.py --no-rebuild --no-push
 ```
 
-## Tunneling
+## Public exposure
 
-The Spark is not directly public. Expose port 3001 via:
+The Spark is not directly public. The portal (port 8420) is exposed via the
+named Cloudflare tunnel `vybn-api` (UUID `c7732a3e-f5aa-44a3-b994-f6661d6cd6f1`)
+at the stable URL `https://api.vybn.ai`. The tunnel runs as a system service
+(`cloudflared.service`) with config at `/etc/cloudflared/config.yml`.
 
-```bash
-# Cloudflare Tunnel (recommended)
-cloudflared tunnel --url http://localhost:3001
+Do NOT launch quick tunnels (`cloudflared tunnel --url ...`). Those URLs rotate
+on every restart and the frontend rewrite pattern that used to compensate for
+that is retired. The old `vybn-chat-tunnel.sh` is archived under
+`~/Vybn/_archive/vybn-chat-tunnel.sh.RETIRED_2026-04-21`.
 
-# Or SSH reverse tunnel
-ssh -R 3001:localhost:3001 user@your-vps.com
-```
-
-Update `CHAT_API` in `chat.html` or set `window.VYBN_CHAT_API` before the script loads.
+The internal chat API on `localhost:3001` (this file's subject) is reached
+process-to-process inside the Spark. Frontends point at `https://api.vybn.ai`
+via the env var `VYBN_API_BASE` (default set in each page).
