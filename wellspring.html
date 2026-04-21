@@ -1189,9 +1189,7 @@ var API = window.API;
     var excerpts = (hits || []).slice(0,3).map(function(h,i){
       var reg = registerFor(h.source);
       return (i+1) + '. [' + reg.human + '] ' + (h.text||'').slice(0,300).replace(/\s+/g,' ');
-    }).join('
-
-');
+    }).join('\n\n');
 
     var kindNote = {
       'refused': 'The corpus kernel already fully absorbs this — no residual.',
@@ -1206,15 +1204,9 @@ var API = window.API;
       'Do not reproduce the source excerpts verbatim. Do not hedge with boilerplate. ' +
       'Write as an interlocutor who has read everything in the corpus and is now speaking directly to the person in the room.';
 
-    var userMsg = 'Idea under pressure-test:
-"' + text + '"
-
-' +
-      'Corpus geometry note: ' + kindNote + '
-
-' +
-      'Nearest corpus material:
-' + (excerpts || '(none — the corpus returned no nearby material)');
+    var userMsg = 'Idea under pressure-test:\n"' + text + '"\n\n' +
+      'Corpus geometry note: ' + kindNote + '\n\n' +
+      'Nearest corpus material:\n' + (excerpts || '(none — the corpus returned no nearby material)');
 
     try {
       var vllmBase = (document.querySelector('meta[name="api-base"]') || {}).content || 'https://vybn.ai';
@@ -1246,8 +1238,7 @@ var API = window.API;
         var chunk = await reader.read();
         if (chunk.done) break;
         buf += decoder.decode(chunk.value, {stream:true});
-        var lines = buf.split('
-');
+        var lines = buf.split('\n');
         buf = lines.pop(); // keep incomplete line
         for (var i=0; i<lines.length; i++){
           var line = lines[i].trim();
@@ -1418,12 +1409,12 @@ var API = window.API;
       var resp = await fetch(API_BASE + '/enter', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({text: text, alpha: 0.5, k: 6})
+        body: JSON.stringify({text: text, alpha: 0.5, k: 6, context: 'public'})
       });
       if (!resp.ok) throw new Error('HTTP ' + resp.status);
       var data = await resp.json();
       var geometry = data.geometry || {};
-      var hits = data.results || [];
+      var hits = data.trace || data.results || [];
       var summary = summarize(text, geometry, hits);
 
       renderSummary(summary);
