@@ -1248,7 +1248,7 @@ var API = window.API;
               // Strip <think>...</think> reasoning traces from Nemotron
               delta = delta.replace(/<\/?think>/gi,'');
               if (delta) {
-                delta = delta.replace(/</?think>/gi, "");
+                delta = delta.replace(/<\/?think>/gi, "");
                 if (delta) {
                   synthEl.classList.remove("loading");
                   bodyEl.textContent += delta;
