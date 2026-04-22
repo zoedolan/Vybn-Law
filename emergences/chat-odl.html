@@ -748,7 +748,12 @@
       btn.addEventListener('click', () => sendMessage(btn.dataset.prompt));
     });
 
-    chatInput.focus();
+    // Only auto-focus when the chat is standalone. When embedded in an iframe
+    // (e.g. on open-door-legal.html), focusing the input would force the parent
+    // page to scroll down to the chat on load.
+    const isEmbedded = window.self !== window.top
+      || new URLSearchParams(window.location.search).get('embed') === '1';
+    if (!isEmbedded) chatInput.focus();
   </script>
 </body>
 </html>
