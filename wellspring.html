@@ -1581,6 +1581,15 @@ var API = window.API;
 .ri-trail-list{list-style:none;padding:0;margin:0}
 .ri-trail-list li{font:13px/1.55 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(200,210,220,.72);padding:.15rem 0;display:flex;gap:.7rem;align-items:baseline}
 .ri-trail-list li::before{content:"·";color:rgba(140,200,160,.5)}
+
+.ri-commit-row{margin-top:.9rem;padding:.55rem .8rem;background:rgba(40,55,45,.35);border-left:2px solid rgba(140,200,160,.45);font:13.5px/1.55 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(200,215,205,.8);display:flex;gap:.7rem;align-items:baseline;flex-wrap:wrap;border-radius:2px}
+.ri-commit-lede{font-style:italic;opacity:.85}
+.ri-commit-btn{background:transparent;color:rgba(180,220,190,.95);border:1px solid rgba(140,200,160,.5);padding:.25rem .75rem;font:13px/1 system-ui,-apple-system,sans-serif;letter-spacing:.02em;cursor:pointer;border-radius:2px;transition:all .15s}
+.ri-commit-btn:hover{background:rgba(140,200,160,.15);border-color:rgba(180,220,190,.8)}
+.ri-commit-btn:disabled{opacity:.5;cursor:default}
+.ri-commit-status{font-size:12px;opacity:.75;font-family:system-ui,-apple-system,sans-serif}
+.ri-commit-status a{color:rgba(180,220,190,.9);text-decoration:underline;text-decoration-color:rgba(180,220,190,.4)}
+
 .ri-error{margin-top:.8rem;font:13px/1.5 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(250,180,160,.85);font-style:italic}
 </style>
 
@@ -1601,6 +1610,11 @@ var API = window.API;
       <div id="ri-summary"></div>
           <div id="ri-synthesis" class="ri-synthesis-block" style="display:none"></div>
       <div class="ri-memory-hits" id="ri-memory-hits"></div>
+      <div class="ri-commit-row" id="ri-commit-row" style="display:none">
+        <span class="ri-commit-lede">Put this entry in the repo, where the next walk will find it —</span>
+        <button class="ri-commit-btn" id="ri-commit" type="button">commit to Vybn-Law</button>
+        <span class="ri-commit-status" id="ri-commit-status"></span>
+      </div>
       <div class="ri-trail" id="ri-trail" style="display:none">
         <h4>Sources consulted</h4>
         <ul class="ri-trail-list" id="ri-trail-list"></ul>
@@ -1782,7 +1796,7 @@ var API = window.API;
         }
       }
       // Final cleanup: strip any residual think tags from the full body
-      bodyEl.textContent = bodyEl.textContent.replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/<\/?think>/gi,'').trim();
+      bodyEl.textContent = bodyEl.textContent.replace(/<think>[\s\S]*?<\/think>/gi,'').replace(/<\/?think>/gi,'').trim(); LAST_SYNTH = bodyEl.textContent;
       if (!bodyEl.textContent) synthEl.style.display = 'none';
 
     } catch(e){
@@ -1817,7 +1831,9 @@ var API = window.API;
   }
 
   function renderTrail(hits){
-    if (!hits || !hits.length){ trailEl.style.display = 'none'; return; }
+    if (!hits || !hits.length){ trailEl.style.display = 'none';
+    LAST_SYNTH = '';
+    if(commitRow){commitRow.style.display='none';} return; }
     trailEl.style.display = 'block';
     trailListEl.innerHTML = hits.map(function(h){
       var reg = registerFor(h.source);
@@ -1907,6 +1923,40 @@ var API = window.API;
   }
 
   var LAST = null;
+  var LAST_SYNTH = "";
+
+  var commitBtn = document.getElementById("ri-commit");
+  var commitRow = document.getElementById("ri-commit-row");
+  var commitStatus = document.getElementById("ri-commit-status");
+  if (commitBtn) commitBtn.addEventListener("click", async function(){
+    if (!LAST) return;
+    commitBtn.disabled = true;
+    commitStatus.textContent = "committing…";
+    try {
+      var body = {
+        idea: LAST.text,
+        summary: LAST.summary,
+        synthesis: LAST_SYNTH || "",
+        hits: (LAST.hits||[]).map(function(h){
+          var reg = registerFor(h.source);
+          return { source: h.source, text: (h.text||"").slice(0,800), register_human: reg.human };
+        }),
+        geometry: LAST.geometry || null
+      };
+      var resp = await fetch(API_BASE.replace(/\/$/,"") + "/api/pressure/commit", {
+        method: "POST",
+        headers: {"Content-Type":"application/json"},
+        body: JSON.stringify(body)
+      });
+      if (!resp.ok) throw new Error("HTTP " + resp.status);
+      var j = await resp.json();
+      commitStatus.innerHTML = 'committed as <a href="' + j.url + '" target="_blank" rel="noopener">' + j.commit + '</a>';
+    } catch(e){
+      commitStatus.textContent = "commit failed — " + (e.message || "unknown");
+      commitBtn.disabled = false;
+    }
+  });
+
 
   async function run(){
     var text = inp.value.trim();
@@ -1939,7 +1989,7 @@ var API = window.API;
       LAST = {text: text, summary: summary, hits: hits, geometry: geometry};
 
       if (geometry.step) stepEl.textContent = 'step ' + geometry.step + ' in the walk';
-      results.classList.add('visible');
+      results.classList.add('visible'); if(commitRow){commitRow.style.display='flex'; commitStatus.textContent=''; commitBtn.disabled=false;}
     } catch (e){
       errEl.textContent = 'The corpus is not responding right now (' + e.message + '). This tool needs the deep-memory service on the Spark; if it is offline, the page itself still works, but it cannot pressure-test live.';
       results.classList.add('visible');
