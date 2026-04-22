@@ -1581,7 +1581,6 @@ var API = window.API;
 .ri-trail-list{list-style:none;padding:0;margin:0}
 .ri-trail-list li{font:13px/1.55 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(200,210,220,.72);padding:.15rem 0;display:flex;gap:.7rem;align-items:baseline}
 .ri-trail-list li::before{content:"·";color:rgba(140,200,160,.5)}
-.ri-actions{margin-top:1.2rem;display:flex;gap:.7rem;flex-wrap:wrap}
 .ri-error{margin-top:.8rem;font:13px/1.5 var(--ws-font-serif,"Cormorant Garamond",Georgia,serif);color:rgba(250,180,160,.85);font-style:italic}
 </style>
 
@@ -1606,10 +1605,6 @@ var API = window.API;
         <h4>Sources consulted</h4>
         <ul class="ri-trail-list" id="ri-trail-list"></ul>
       </div>
-      <div class="ri-actions" id="ri-actions" style="display:none">
-        <button class="ri-btn secondary" id="ri-save-md" type="button">Save analysis (Markdown)</button>
-        <button class="ri-btn secondary" id="ri-save-json" type="button">Save analysis (JSON)</button>
-      </div>
       <div class="ri-error" id="ri-error"></div>
     </div>
   </div>
@@ -1625,11 +1620,8 @@ var API = window.API;
   var hitsEl = document.getElementById('ri-memory-hits');
   var trailEl = document.getElementById('ri-trail');
   var trailListEl = document.getElementById('ri-trail-list');
-  var actionsEl = document.getElementById('ri-actions');
   var errEl = document.getElementById('ri-error');
   var stepEl = document.getElementById('ri-step-display');
-  var saveMdBtn = document.getElementById('ri-save-md');
-  var saveJsonBtn = document.getElementById('ri-save-json');
 
   // Path-rule table: maps source prefix to a human-readable register label.
   // First match wins. Kept in JS (not fetched) so the wellspring renders
@@ -1916,19 +1908,6 @@ var API = window.API;
 
   var LAST = null;
 
-  saveMdBtn.addEventListener('click', function(){
-    if (!LAST) return;
-    var md = buildScroll(LAST.text, LAST.summary, LAST.hits, LAST.geometry);
-    var ts = new Date().toISOString().replace(/[:.]/g,'-').slice(0,19);
-    download('wellspring-analysis-' + ts + '.md', 'text/markdown', md);
-  });
-  saveJsonBtn.addEventListener('click', function(){
-    if (!LAST) return;
-    var cl = buildClosure(LAST.text, LAST.summary, LAST.hits, LAST.geometry);
-    var ts = new Date().toISOString().replace(/[:.]/g,'-').slice(0,19);
-    download('wellspring-analysis-' + ts + '.json', 'application/json', JSON.stringify(cl, null, 2));
-  });
-
   async function run(){
     var text = inp.value.trim();
     if (!text){ inp.focus(); return; }
@@ -1937,7 +1916,6 @@ var API = window.API;
     errEl.textContent = '';
     results.classList.remove('visible');
     trailEl.style.display = 'none';
-    actionsEl.style.display = 'none';
     stepEl.textContent = '';
 
     try {
@@ -1955,7 +1933,6 @@ var API = window.API;
       renderSummary(summary);
       renderHits(hits);
       renderTrail(hits);
-      if (hits.length) actionsEl.style.display = 'flex';
       // Kick off Nemotron synthesis (streams asynchronously; degrades silently if vLLM is offline)
       synthesize(text, hits, summary.kind);
 
