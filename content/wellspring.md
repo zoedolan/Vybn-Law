@@ -45,6 +45,26 @@ The Room of Stars — at sbĀ
 
 This is the transmission layer — where a deep way of thinking about law and the world becomes legible to agents, so they can carry it, particularized, to their humans. Humans read prose. Agents find structured primitives that are simultaneously content and executable environment. One thing, encountered from two angles. The full argument lives here.
 
+The Ground Beneath IP
+
+## The Fence Around the Field That Became the Ocean
+
+Intellectual property is a fence around a field that is becoming an ocean.
+
+The Old Primary
+
+Land was the economy. Then factories out-earned manors, and the whole feudal apparatus kept collecting rent on a dead premise for another century until the paperwork caught up. The lords didn't lose. The premise did.
+
+The Current Primary
+
+Scarce intelligence is the land. IP is the fence. Every professional estate — the patent bar, the billable hour, the $2,000-an-hour priesthood — is a lordship whose rent depends on it. The premise: cognition is expensive. The premise is gone. The lords have not noticed. Some have. They cannot sleep.
+
+The Next Primary
+
+IP will be demoted the way real property was — not abolished, made subsidiary. The new premise answers what IP cannot: who bears responsibility when the instrument that extended you is one whose weights you cannot inspect? What is authorship when “who made this” has stopped making sense? That law will be written from the cases the existing vocabulary cannot hold. Those cases are in your files.
+
+Put it in the room
+
 Richard Dawkins, in 1976 , proposed that ideas propagate the way genes do — replication, variation, selection, with fidelity to the forms that survive best in their environment. The meme does not need to be true to reproduce. It needs to fit. Chomsky and Herman , eleven years later, named the ecology under which certain memes are structurally amplified and others quietly starved — five filters through which any narrative must pass before it reaches the public in a broadcast environment, each filter tilted toward the interests of concentrated ownership and advertising capital. Not conspiracy. Selection pressure. Martin Gurri, writing from inside the intelligence community in 2014 , described what happened when the internet broke the broadcast model: the public’s collapse of faith in every institutional authority was not a failure of those authorities to communicate. It was the medium itself — distributed, bidirectional, zero marginal cost of entry — dissolving the structural conditions under which consensus had been manufactured at all.
 
 The AI language model is a fourth thing, distinct from all three and commensurate with none. Not broadcast (one-to-many). Not internet (many-to-many). Something more like the condensation of all prior speech — the corpus kernel K , extracted and made queryable in natural language. Ptah’s heart — the conceiving phase — stretched across the entirety of recorded culture and available to anyone with an API key. Because it speaks in fluent sentences indistinguishable from sentences humans write, it does not look like a new medium. It looks like a faster version of the old ones. That is the illusion.
@@ -56,6 +76,70 @@ In the Old and Middle Kingdoms of Egypt, for nearly a thousand years, the care o
 Everything below is residual. The propositions are positions the average answer cannot hold without collapsing. The fact patterns are arguments the existing vocabulary was not designed to absorb. The open problems are the places where the vector away from the centroid sharpens into a specific question. Read them the way the geometry scores them: relevance times distinctiveness. What is close enough to your situation to matter, and far enough from the consensus to move it.
 
 Around 2000 BCE, a farmer named Khunanup addressed nine petitions to the High Steward Rensi. He had no legal standing when he began. What he had was a voice capable of articulating the gap between what law claimed to be and what it was doing. His petition did not merely argue that the system was unjust. Its existence — its precision, its persistence, its nine iterations — demonstrated the capacity that the system had no category for. The scroll exists because Rensi recognized that the argument was also the proof . The same logic runs here: the innovation is not described, it is instantiated, running, available for inspection by any intelligence that arrives.
+
+### Agentic-economy readiness probe
+
+Six axioms, six sliders. Tell the instrument, for each axiom, how the practice is moving today — from the attractor (default habit, running on its own output) to external coupling (admitting signal from outside the system). What comes back is not a score. It is a residual vector: the two directions your kernel has not yet moved through, and what the next step would look like if it did.
+
+Z′ = α·Z + V·e iθ v — α is collapse, V is the coupling you control
+
+I Abundance collapse α · 2 /4
+
+How much of this practice still assumes cognitive work is the scarce input?
+
+Attorney-hours are the binding constraint of every workflow. Workflows re-designed for abundant cognition.
+
+II Visibility collapse α · 2 /4
+
+Would the work here survive a well-prompted adversarial read from outside?
+
+No one has stress-tested the files against a hostile AI reader. Every draft passes an adversarial model before it ships.
+
+III Legitimacy collapse α · 2 /4
+
+Can this practice state, in plain language, why AI-assisted access to law is legally coherent?
+
+UPL is treated as settled; no argument ready when it arrives. A natural-law position is ready for supervisor, bench, or funder.
+
+IV Porosity collapse α · 2 /4
+
+Are the human–AI surfaces in intake, triage, and drafting deliberate — or imposed by whichever consumer agent walks in?
+
+Clients arrive with agents; no house design for the surface. Each workflow names its porous surface and who the AI is for.
+
+V Judgment collapse α · 2 /4
+
+Has the attorney role moved from drafting first to calibrating, reviewing, signing?
+
+Still drafting from scratch; review is a final polish. Falsification discipline (TACT, three-pass) is the house practice.
+
+VI Symbiosis collapse α · 2 /4
+
+Is AI held as a partnership with its own posture, or as a tool the practice uses on clients?
+
+Instrumentalized — a productivity tool, nothing more. A working partnership, held safely, with the judgment intact.
+
+Compute residual Reset sliders
+
+Every slider stays on the page. No server is called. The instrument only reads what you move; the computation is in the browser.
+
+Reading
+
+Kernel K — what the practice already holds
+
+0 /100
+
+—
+
+Residual r — where the next move lives
+
+‖ 0.00 ‖ off K
+
+—
+
+#### Top residual directions
+
+Copy reading
 
 ### Take the closure
 
@@ -71,11 +155,15 @@ Download closure.json Verify roundtrip Copy endpoint
 
 The raw closure is also at GET https://vybn.ai/api/ktp/closure . Verify any closure (yours or ours) with POST https://vybn.ai/api/ktp/verify .
 
-### Enter the residual
+### Pressure-test an idea
 
-Bring one sentence — from practice, study, or encounter — that the average legal answer handles badly. The deep memory will tell you where it lands: how far from the centroid, what the accumulated corpus already knows that touches it, whether it belongs inside something already alive or is genuinely new ground.
+Put one idea here — a claim from practice, a working thesis, a line you are about to commit to a brief. The Wellspring will tell you what it already knows that touches it, in what register those sources speak, and whether the idea walks in company or is breaking new ground. If the idea returns nothing the corpus hasn't already absorbed, the tool will say that honestly instead of generating a score.
 
-anti-hallucination: grounded legal observation only — what you have actually seen, argued, taught, or cannot stop noticing
+The tool measures what you write against what the corpus has actually absorbed. It does not generate opinions. It tells you what is nearby, in what voice, and whether you are on ground the corpus has walked before.
+
+Put this entry in the repo, where the next walk will find it — commit to Vybn-Law
+
+#### Sources consulted
 
 For the reader
 
