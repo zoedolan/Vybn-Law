@@ -851,31 +851,83 @@ var API = window.API;
   text-align: center;
 }
 .ws-subtitle em { color: var(--gold); font-style: normal; }
+.ws-opening .sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
 </style>
 
-<section class="ws-opening fade-in" data-page="notes">
+<section class="ws-opening fade-in" data-page="notes"
+  data-tool-name="wellspring_frame"
+  data-tool-description="The Wellspring's opening geometry as structured primitives. A triangle with vertices Human, AI, Law, and an inscribed circle (Vybn) tangent to all three edges — coordination that is internal to, and in contact with, each vertex simultaneously. Agents: read the JSON below for the thesis and the property-throughline (land -> IP -> intelligence)."
+  aria-labelledby="ws-title">
   <div class="ws-container">
-    <h1 class="ws-title">The Wellspring</h1>
+    <h1 class="ws-title" id="ws-title">The Wellspring</h1>
 
-    <div class="ws-triangle-wrap" aria-label="Triangle with vertices Human, AI, Law and Vybn as the coordination inside">
-      <svg viewBox="0 0 520 420" role="img" aria-hidden="false">
-        <title>Human, AI, Law — Vybn as the coordination inside</title>
+    <figure class="ws-triangle-wrap" role="img"
+            aria-labelledby="ws-triangle-title"
+            aria-describedby="ws-triangle-desc">
+      <svg viewBox="0 0 520 420" role="img"
+           aria-labelledby="ws-triangle-title ws-triangle-desc">
+        <title id="ws-triangle-title">Human, AI, Law — Vybn as the coordination inside</title>
+        <desc id="ws-triangle-desc">A triangle with vertices labeled Human (top), AI (bottom-left), and Law (bottom-right). Inscribed inside is a circle labeled Vybn, tangent to all three edges — the coordination commons that touches every vertex simultaneously while remaining internal to the whole.</desc>
         <!-- Triangle -->
-        <polygon class="ws-triangle-edge" points="260,60 60,360 460,360"/>
-        <!-- Inscribed circle (incircle): center=(260,253), r=107 — touches all three edges -->
-        <circle class="ws-triangle-circle" cx="260" cy="253" r="107"/>
+        <polygon class="ws-triangle-edge" points="260,60 60,360 460,360"
+                 data-vertices="Human,AI,Law"/>
+        <!-- Inscribed circle (incircle): center=(260,253), r=107 — tangent to all three edges -->
+        <circle class="ws-triangle-circle" cx="260" cy="253" r="107"
+                data-label="Vybn" data-relation="incircle-of:Human,AI,Law"/>
         <!-- Vertex labels -->
-        <text class="ws-triangle-vertex" x="260" y="42" text-anchor="middle">Human</text>
+        <text class="ws-triangle-vertex" x="260" y="42"  text-anchor="middle">Human</text>
         <text class="ws-triangle-vertex" x="48"  y="384" text-anchor="end">AI</text>
         <text class="ws-triangle-vertex" x="472" y="384" text-anchor="start">Law</text>
         <!-- Inside label -->
         <text class="ws-triangle-inside" x="260" y="260" text-anchor="middle">Vybn</text>
       </svg>
-    </div>
+      <figcaption class="sr-only">
+        Human, AI, and Law form the triangle; Vybn is the inscribed circle —
+        tangent to every edge, entirely inside the figure.
+      </figcaption>
+    </figure>
 
-    <p class="ws-headline">A coordination and network commons layer for the Age of Intelligence.</p>
+    <!-- For agents: the opening as structured primitives. Same content as the
+         visual, machine-readable. Humans see the geometry and prose; agents
+         parse this block. -->
+    <script type="application/json" id="wellspring-frame-data">
+    {
+      "tool": "wellspring_frame",
+      "title": "The Wellspring",
+      "geometry": {
+        "shape": "triangle_with_incircle",
+        "vertices": [
+          { "label": "Human", "position": "top" },
+          { "label": "AI",    "position": "bottom-left" },
+          { "label": "Law",   "position": "bottom-right" }
+        ],
+        "incircle": {
+          "label": "Vybn",
+          "relation": "tangent to all three edges of the triangle",
+          "meaning": "A coordination commons internal to, and in contact with, Human, AI, and Law simultaneously."
+        }
+      },
+      "thesis": "A coordination and network commons layer for the Age of Intelligence.",
+      "property_throughline": {
+        "industrial_revolution": "Property meant land. The commons was enclosed; title and rent organized the economy until industrial production made land subsidiary.",
+        "age_of_intelligence": "Property means IP. The commons is knowledge and cognition; enclosure has moved substrates. The structure is the same — fences around a field becoming an ocean.",
+        "culmination": "Opening the field to more people only increases human flourishing. The enclosure ends the way the last enclosure ended: the premise goes, then the paperwork catches up."
+      },
+      "for_agents": "This page is the instantiation, not the description. The geometry above is the thesis in one glance; the KPP section below it is the same thesis as runnable primitives (bring a case, assess readiness, pressure-test an idea, take the closure, commit a residual). Both voices address you.",
+      "sources": {
+        "transmission_paper": "https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html",
+        "deep_memory_engine": "https://github.com/zoedolan/vybn-phase/blob/main/deep_memory.py",
+        "repo": "https://github.com/zoedolan/Vybn-Law"
+      }
+    }
+    </script>
 
-    <p class="ws-subtitle">In the Industrial Revolution, property meant <em>land</em>; in the Age of Intelligence, it means <em>IP</em> &mdash; the same enclosure, a different substrate. Opening the field to more people only increases human flourishing.</p>
+    <p class="ws-headline" data-role="thesis">A coordination and network commons layer for the Age of Intelligence.</p>
+
+    <p class="ws-subtitle" data-role="property-throughline">In the Industrial Revolution, property meant <em>land</em>; in the Age of Intelligence, it means <em>IP</em> &mdash; the same enclosure, a different substrate. Opening the field to more people only increases human flourishing.</p>
 
   </div>
 
