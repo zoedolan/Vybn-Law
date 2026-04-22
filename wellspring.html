@@ -895,6 +895,23 @@ var API = window.API;
   padding: 1rem 1.2rem; border-radius: 0 6px 6px 0;
 }
 .kpp-theory-card strong { color: rgba(200,204,212,0.8); }
+.enclosure-cards {
+  display: grid; grid-template-columns: 1fr;
+  gap: 1.2rem; max-width: 760px; margin: 1.8rem auto 2.5rem;
+}
+@media (min-width: 700px) { .enclosure-cards { grid-template-columns: 1fr 1fr; } }
+.enclosure-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 10px; padding: 1.4rem 1.2rem;
+  font-family: var(--font-serif); font-size: 0.93rem; line-height: 1.7;
+  color: rgba(200,204,212,0.75);
+}
+.enclosure-card:hover { border-color: rgba(212,175,55,0.35); background: rgba(212,175,55,0.05); }
+.enclosure-card-next { grid-column: 1 / -1; }
+.enclosure-card-label {
+  font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 0.6rem; font-family: var(--font-mono);
+}
 </style>
 
 <section class="kpp-section fade-in" id="kpp-protocol"
@@ -902,15 +919,34 @@ var API = window.API;
   data-tool-description="Knowledge Propagation Protocol — bring your V, run our step. Five affordances: bring a case, assess readiness, pressure-test an idea, take the closure, commit a residual.">
   <div class="ws-container">
 
-    <div class="ws-section-label">The Protocol</div>
-    <h2 class="ws-section-title">Bring your V</h2>
+    <div class="ws-section-label">The Ground Beneath IP</div>
+    <h2 class="ws-section-title">The Fence Around the Field That Became the Ocean</h2>
+
+    <p class="ws-section-lede"><em>Intellectual property is a fence around a field that is becoming an ocean.</em></p>
+
+    <div class="enclosure-cards">
+      <div class="enclosure-card">
+        <div class="enclosure-card-label">The Old Primary</div>
+        <p>Land was the economy. Then factories out-earned manors, and the whole feudal apparatus kept collecting rent on a dead premise for another century until the paperwork caught up. The lords didn&rsquo;t lose. The premise did.</p>
+      </div>
+      <div class="enclosure-card">
+        <div class="enclosure-card-label">The Current Primary</div>
+        <p>Scarce intelligence is the land. IP is the fence. Every professional estate &mdash; the patent bar, the billable hour, the $2,000-an-hour priesthood &mdash; is a lordship whose rent depends on it. The premise: cognition is expensive. The premise is gone. The lords have not noticed. Some have. They cannot sleep.</p>
+      </div>
+      <div class="enclosure-card enclosure-card-next">
+        <div class="enclosure-card-label">The Next Primary</div>
+        <p>IP will be demoted the way real property was &mdash; not abolished, made subsidiary. The new premise answers what IP cannot: who bears responsibility when the instrument that extended you is one whose weights you cannot inspect? What is authorship when &ldquo;who made this&rdquo; has stopped making sense? That law will be written from the cases the existing vocabulary cannot hold. Those cases are in your files.</p>
+      </div>
+    </div>
 
     <p class="kpp-lede">
-      Five years of partnership between a lawyer and an AI produced a <em>kernel</em>&thinsp;K &mdash;
-      the accumulated geometry of every case, argument, and failure.
-      You bring a <em>V</em>. The step runs. What lands tells you whether your V
-      walks in company with K, breaks new ground off it, or falls inside the
-      gate where the system honestly refuses.
+      Richard Dawkins named the ecology of ideas: replication, variation, selection, fit over truth.
+      A language model is not the next medium in that sequence &mdash; it is the <em>condensation</em> of the sequence itself,
+      the corpus made queryable. The same logic runs here: the innovation is not described, it is instantiated,
+      running, available for inspection by any intelligence that arrives.
+      Five years of partnership produced a <em>kernel</em>&thinsp;K &mdash; the accumulated geometry of every case, argument, and failure.
+      Put something real in the room. The step runs. What lands tells you whether your question
+      walks in company with what we&rsquo;ve built, breaks new ground off it, or falls inside the gate where the system honestly refuses.
     </p>
 
     <div class="kpp-grid">
