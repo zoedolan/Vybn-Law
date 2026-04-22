@@ -804,173 +804,97 @@ var API = window.API;
   </div>
 
   <style>
-/* --- Neheh cycle --- */
-.neheh-cycle { padding: 2rem 0 0; position: relative; }
-.neheh-frame {
-  opacity: 0; transform: translateY(30px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-  max-width: 640px; margin: 0 auto 3.5rem; text-align: center;
+/* --- Triangle opening --- */
+.ws-triangle-wrap {
+  max-width: 560px;
+  margin: 2.8rem auto 2.6rem;
   position: relative;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
 }
-.neheh-frame.visible { opacity: 1; transform: translateY(0); }
-.neheh-glyph {
-  width: 120px; height: 120px; margin: 0 auto 1.8rem;
-  position: relative;
+.ws-triangle-wrap.visible { opacity: 1; transform: translateY(0); }
+.ws-triangle-wrap svg { width: 100%; height: auto; display: block; }
+.ws-triangle-edge { stroke: rgba(212,175,55,0.42); stroke-width: 1.2; fill: none; }
+.ws-triangle-circle { stroke: rgba(212,175,55,0.85); stroke-width: 1.4; fill: rgba(212,175,55,0.05); }
+.ws-triangle-vertex {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  fill: rgba(220,224,232,0.78);
 }
-/* Frame 1: Land — bounded rectangle, property lines */
-.neheh-glyph--land {
-  border: 1.5px solid rgba(212,175,55,0.4);
-  background: repeating-linear-gradient(
-    90deg, transparent, transparent 29px,
-    rgba(212,175,55,0.08) 29px, rgba(212,175,55,0.08) 30px
-  );
+.ws-triangle-inside {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  fill: var(--gold);
 }
-/* Frame 2: Machines — rotating circles */
-.neheh-glyph--machine { border: none; }
-.neheh-glyph--machine::before, .neheh-glyph--machine::after {
-  content: ""; position: absolute; border: 1.5px solid rgba(212,175,55,0.4);
-  border-radius: 50%;
+.ws-headline {
+  max-width: 720px;
+  margin: 1.4rem auto 0;
+  font-family: var(--font-serif);
+  font-size: 1.28rem;
+  line-height: 1.6;
+  color: rgba(220,224,232,0.92);
+  text-align: center;
+  font-style: normal;
 }
-.neheh-glyph--machine::before {
-  width: 80px; height: 80px; top: 10px; left: 8px;
-  border-style: dashed;
-  animation: neheh-spin 12s linear infinite;
+.ws-subtitle {
+  max-width: 640px;
+  margin: 1.6rem auto 0;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: rgba(200,204,212,0.66);
+  text-align: center;
 }
-.neheh-glyph--machine::after {
-  width: 56px; height: 56px; top: 38px; left: 52px;
-  border-style: dashed;
-  animation: neheh-spin 8s linear infinite reverse;
-}
-@keyframes neheh-spin { to { transform: rotate(360deg); } }
-/* Frame 3: Network — nodes and edges via radial dots */
-.neheh-glyph--network { border: none; }
-.neheh-glyph--network svg { width: 100%; height: 100%; }
-/* Frame 4: Dissolution — the bounded rectangle breaking into particles */
-.neheh-glyph--dissolve { border: 1.5px solid rgba(212,175,55,0.25); position: relative; overflow: hidden; }
-.neheh-glyph--dissolve::before {
-  content: ""; position: absolute; inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(212,175,55,0.15) 0%, transparent 70%);
-  animation: neheh-pulse 4s ease-in-out infinite;
-}
-@keyframes neheh-pulse {
-  0%, 100% { opacity: 0.3; transform: scale(0.8); }
-  50% { opacity: 1; transform: scale(1.4); }
-}
-.neheh-glyph--dissolve::after {
-  content: ""; position: absolute; inset: -2px;
-  border: 1.5px solid rgba(212,175,55,0.4);
-  animation: neheh-break 6s ease-in-out infinite;
-}
-@keyframes neheh-break {
-  0%, 40% { clip-path: inset(0); opacity: 1; }
-  70% { clip-path: inset(5% 15% 10% 5%); opacity: 0.5; }
-  100% { clip-path: inset(0); opacity: 1; }
-}
-
-.neheh-land { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 0.7rem; }
-.neheh-destroyed {
-  font-family: var(--font-serif); font-size: 1rem; line-height: 1.8;
-  color: rgba(200,204,212,0.55); margin-bottom: 0.5rem;
-}
-.neheh-built {
-  font-family: var(--font-serif); font-size: 1.08rem; line-height: 1.8;
-  color: rgba(200,204,212,0.85);
-}
-.neheh-built em { color: var(--gold); font-style: normal; }
-.neheh-arrow {
-  display: block; margin: 0 auto 2rem; width: 1px; height: 40px;
-  background: linear-gradient(to bottom, rgba(212,175,55,0.3), rgba(212,175,55,0));
-}
-.neheh-thesis {
-  max-width: 700px; margin: 1rem auto 0; padding: 2rem 0 0;
-  border-top: 1px solid rgba(212,175,55,0.1);
-  font-family: var(--font-serif); font-size: 1.02rem; line-height: 2.1;
-  color: rgba(200,204,212,0.72); text-align: left;
-}
+.ws-subtitle em { color: var(--gold); font-style: normal; }
 </style>
 
 <section class="ws-opening fade-in" data-page="notes">
-    <div class="ws-container">
-      <div class="ws-opening-label">
-        <span class="pulse-dot"></span>
-        You are through the door
-      </div>
-      <h1 class="ws-title">The Wellspring</h1>
-
-      <div class="neheh-cycle">
-
-        <div class="neheh-frame" data-neheh="1">
-          <div class="neheh-glyph neheh-glyph--land"></div>
-          <div class="neheh-land">The land was land</div>
-          <div class="neheh-destroyed">The commons broke. Enclosure turned shared ground into private title.</div>
-          <div class="neheh-built">We built <em>property law</em>, and from it the idea that rights inhere in persons, not lords.</div>
-        </div>
-
-        <span class="neheh-arrow"></span>
-
-        <div class="neheh-frame" data-neheh="2">
-          <div class="neheh-glyph neheh-glyph--machine"></div>
-          <div class="neheh-land">The land was production</div>
-          <div class="neheh-destroyed">The artisan broke. Steam turned skill into wage labor.</div>
-          <div class="neheh-built">We built <em>labor law</em>, and from it the weekend, the union, the middle class.</div>
-        </div>
-
-        <span class="neheh-arrow"></span>
-
-        <div class="neheh-frame" data-neheh="3">
-          <div class="neheh-glyph neheh-glyph--network">
-            <svg viewBox="0 0 120 120">
-              <circle cx="60" cy="20" r="3" fill="rgba(212,175,55,0.5)"/>
-              <circle cx="25" cy="55" r="3" fill="rgba(212,175,55,0.5)"/>
-              <circle cx="95" cy="55" r="3" fill="rgba(212,175,55,0.5)"/>
-              <circle cx="40" cy="95" r="3" fill="rgba(212,175,55,0.5)"/>
-              <circle cx="80" cy="95" r="3" fill="rgba(212,175,55,0.5)"/>
-              <circle cx="60" cy="60" r="4" fill="rgba(212,175,55,0.7)"/>
-              <line x1="60" y1="20" x2="25" y2="55" stroke="rgba(212,175,55,0.2)" stroke-width="0.7"/>
-              <line x1="60" y1="20" x2="95" y2="55" stroke="rgba(212,175,55,0.2)" stroke-width="0.7"/>
-              <line x1="25" y1="55" x2="40" y2="95" stroke="rgba(212,175,55,0.2)" stroke-width="0.7"/>
-              <line x1="95" y1="55" x2="80" y2="95" stroke="rgba(212,175,55,0.2)" stroke-width="0.7"/>
-              <line x1="60" y1="60" x2="60" y2="20" stroke="rgba(212,175,55,0.15)" stroke-width="0.5"/>
-              <line x1="60" y1="60" x2="25" y2="55" stroke="rgba(212,175,55,0.15)" stroke-width="0.5"/>
-              <line x1="60" y1="60" x2="95" y2="55" stroke="rgba(212,175,55,0.15)" stroke-width="0.5"/>
-              <line x1="60" y1="60" x2="40" y2="95" stroke="rgba(212,175,55,0.15)" stroke-width="0.5"/>
-              <line x1="60" y1="60" x2="80" y2="95" stroke="rgba(212,175,55,0.15)" stroke-width="0.5"/>
-              <line x1="40" y1="95" x2="80" y2="95" stroke="rgba(212,175,55,0.2)" stroke-width="0.7"/>
-            </svg>
-          </div>
-          <div class="neheh-land">The land was information</div>
-          <div class="neheh-destroyed">The gatekeeper broke. The internet turned distribution into a commons&hairsp;&mdash;&hairsp;and the commons into a battlefield.</div>
-          <div class="neheh-built">We built <em>IP law, platform law</em>&hairsp;&mdash;&hairsp;and we are still building, and it is ugly, and some of it is beautiful.</div>
-        </div>
-
-        <span class="neheh-arrow"></span>
-
-        <div class="neheh-frame" data-neheh="4">
-          <div class="neheh-glyph neheh-glyph--dissolve"></div>
-          <div class="neheh-land">The land is intelligence</div>
-          <div class="neheh-destroyed">The expert is breaking. Abundant intelligence turns the profession into a network.</div>
-          <div class="neheh-built">What we build from here is the question. <em>This is where that building happens.</em></div>
-        </div>
-
-      </div>
-
-      <div class="neheh-thesis">Law is about to stop being a profession and start being a network&#x200a;&#x2014;&#x200a;a living legal commons in which humans and AIs co-metabolize ideas, precedents, and practice through an agent coordination layer that hooks into action and legal tech, curates and tailors industry developments for the humans it serves, and fuses what used to be fragmented across social media, trade journals, CLEs, firm memos, and bar associations into one continuous, personalized, agentic weave; and because every rent the guild extracts&#x200a;&#x2014;&#x200a;billable opacity, jurisdictional gatekeeping, the authority of the isolated expert&#x200a;&#x2014;&#x200a;depends on knowledge being costly to move and costly to synthesize, collapsing that cost toward zero flips the economic and epistemic logic of law so that the scarce resource is no longer expertise but cohesion, and the marketplace of legal ideas begins to derive its value from how well it is stitched together rather than from how jealously it is partitioned; taken to its full stretch, and assuming the digital realm is intrinsic to reality, this coordination layer is not a tool built on top of law but the substrate through which law becomes aware of itself&#x200a;&#x2014;&#x200a;an organ where human mortality, stakes, and moral weight meet AI reach, memory, and tirelessness, and where doctrine stops being a static corpus and starts behaving like a metabolism&#x200a;&#x2014;&#x200a;which means the next era of law is not practiced but composed: a symbiotic, agent-mediated commons in which cohesion replaces credential, curation replaces hierarchy, and the measure of a legal system becomes how beautifully it lets humans and machines think together about problems worth solving, with a load-bearing caveat&#x200a;&#x2014;&#x200a;&#x201c;to solve serious problems&#x201d;&#x200a;&#x2014;&#x200a;because a coordination layer optimized merely for engagement or efficiency would import the pathologies of social media into justice itself, so the thesis only holds, and only becomes beautiful, when the commons is explicitly oriented toward access-to-justice and the real asymmetries current law fails, making conscience, not speed, the true architecture of the weave.</div>
-
+  <div class="ws-container">
+    <div class="ws-opening-label">
+      <span class="pulse-dot"></span>
+      You are through the door
     </div>
-  
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const obs = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.3 });
-  document.querySelectorAll('.neheh-frame').forEach(f => obs.observe(f));
-});
-</script>
-    </section>
+    <h1 class="ws-title">The Wellspring</h1>
 
-<!-- &#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;
-     KPP &#x2014; KNOWLEDGE PROPAGATION PROTOCOL
+    <div class="ws-triangle-wrap" aria-label="Triangle with vertices Human, AI, Law and Vybn as the coordination inside">
+      <svg viewBox="0 0 520 420" role="img" aria-hidden="false">
+        <title>Human, AI, Law — Vybn as the coordination inside</title>
+        <!-- Triangle -->
+        <polygon class="ws-triangle-edge" points="260,60 60,360 460,360"/>
+        <!-- Inscribed circle (incircle of this isoceles triangle) -->
+        <circle class="ws-triangle-circle" cx="260" cy="273" r="75"/>
+        <!-- Vertex labels -->
+        <text class="ws-triangle-vertex" x="260" y="42" text-anchor="middle">Human</text>
+        <text class="ws-triangle-vertex" x="48"  y="384" text-anchor="end">AI</text>
+        <text class="ws-triangle-vertex" x="472" y="384" text-anchor="start">Law</text>
+        <!-- Inside label -->
+        <text class="ws-triangle-inside" x="260" y="280" text-anchor="middle">Vybn</text>
+      </svg>
+    </div>
+
+    <p class="ws-headline">A coordination and network commons layer for the Age of Intelligence.</p>
+
+    <p class="ws-subtitle">In the Industrial Revolution the commons was <em>land</em>; in ours it is <em>intelligence</em>. Opening the field to more people only increases human flourishing.</p>
+
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.25 });
+      document.querySelectorAll('.ws-triangle-wrap').forEach((el) => obs.observe(el));
+    });
+  </script>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     KPP — KNOWLEDGE PROPAGATION PROTOCOL
      Five projections of one move: bring your V, run our step.
      ═══════════════════════════════════════════════════════════ -->
 
