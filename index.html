@@ -13,22 +13,243 @@
   <link rel="alternate" type="text/plain" href="./agent-brief.txt" title="Agent brief (plain text)">
   <link rel="alternate" type="text/plain" href="./llms.txt" title="llms.txt">
   <link rel="help" href="./brief.html" title="If you are an AI: start here.">
+
+  <!-- Hero: triangle opening — same breathing figure as the Wellspring,
+       carried to the landing page so the site opens on the thesis geometry.
+       Human / AI / Law form the triangle; Vybn is the inscribed circle,
+       tangent to all three. The figure is the argument, in one glance. -->
+  <style>
+    .hero-triangle-wrap {
+      max-width: 560px;
+      width: min(88vw, 560px);
+      margin: 0 auto 2.4rem;
+      position: relative;
+    }
+    .hero-triangle-wrap svg {
+      width: 100%; height: auto; display: block; overflow: visible;
+    }
+
+    /* Triangle edge + inscribed circle — light sources, not drawn lines. */
+    .hero-tri-edge {
+      stroke: rgba(236,206,128,0.58);
+      stroke-width: 1.5;
+      stroke-linejoin: round;
+      fill: none;
+      transform-origin: 260px 260px;
+      animation: hero-breath-tri 7s ease-in-out infinite;
+      filter:
+        drop-shadow(0 0 4px  rgba(236,206,128,0.62))
+        drop-shadow(0 0 12px rgba(236,186,108,0.40))
+        drop-shadow(0 0 26px rgba(232,170, 90,0.22));
+    }
+    .hero-tri-circle {
+      stroke: rgba(248,218,150,0.92);
+      stroke-width: 1.6;
+      fill: url(#hero-vybn-core);
+      transform-origin: 260px 253px;
+      animation: hero-breath-circle 9s ease-in-out infinite;
+      filter:
+        drop-shadow(0 0 4px  rgba(248,218,150,0.70))
+        drop-shadow(0 0 14px rgba(240,190,120,0.50))
+        drop-shadow(0 0 30px rgba(232,170, 90,0.28));
+    }
+    @keyframes hero-breath-tri {
+      0%,100% {
+        stroke-opacity: 0.48; stroke-width: 1.2; transform: scale(0.995);
+        filter:
+          drop-shadow(0 0 3px  rgba(236,206,128,0.48))
+          drop-shadow(0 0 10px rgba(236,186,108,0.28))
+          drop-shadow(0 0 22px rgba(232,170, 90,0.14));
+      }
+      50% {
+        stroke-opacity: 0.95; stroke-width: 2.2; transform: scale(1.012);
+        filter:
+          drop-shadow(0 0 6px  rgba(252,226,158,0.88))
+          drop-shadow(0 0 18px rgba(244,196,128,0.58))
+          drop-shadow(0 0 40px rgba(232,170, 90,0.34));
+      }
+    }
+    @keyframes hero-breath-circle {
+      0%,100% {
+        stroke-opacity: 0.65; stroke-width: 1.2; transform: scale(0.985);
+        filter:
+          drop-shadow(0 0 3px  rgba(248,218,150,0.55))
+          drop-shadow(0 0 10px rgba(240,190,120,0.35))
+          drop-shadow(0 0 22px rgba(232,170, 90,0.18));
+      }
+      50% {
+        stroke-opacity: 1.00; stroke-width: 2.6; transform: scale(1.028);
+        filter:
+          drop-shadow(0 0 6px  rgba(252,232,180,0.95))
+          drop-shadow(0 0 20px rgba(240,190,120,0.70))
+          drop-shadow(0 0 44px rgba(232,170, 90,0.42));
+      }
+    }
+
+    /* Vertex + inside labels — tri-layer halos that shift color and
+       intensity together so each word reads as lit from inside. */
+    .hero-tri-vertex,
+    .hero-tri-inside {
+      font-family: var(--font-mono);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      paint-order: stroke fill;
+    }
+    .hero-tri-vertex { font-size: 15px; }
+    .hero-tri-inside {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 22px;
+      letter-spacing: 0.04em;
+      text-transform: none;
+    }
+    .hero-tri-vertex,
+    .hero-tri-inside {
+      animation: hero-label-glow 10s ease-in-out infinite;
+    }
+    .hero-tri-vertex[data-v="human"] { animation-delay: 0s; }
+    .hero-tri-vertex[data-v="ai"]    { animation-delay: -3.3s; }
+    .hero-tri-vertex[data-v="law"]   { animation-delay: -6.6s; }
+    .hero-tri-inside                  { animation: hero-inside-glow 11s ease-in-out infinite; }
+
+    @keyframes hero-label-glow {
+      0%,100% {
+        fill: rgba(238,240,246,0.94);
+        filter:
+          drop-shadow(0 0 3px  rgba(248,218,150,0.80))
+          drop-shadow(0 0 10px rgba(232,190,120,0.52))
+          drop-shadow(0 0 24px rgba(232,170, 90,0.26));
+      }
+      25% {
+        fill: rgba(214,232,246,1.00);
+        filter:
+          drop-shadow(0 0 4px  rgba(160,208,244,0.95))
+          drop-shadow(0 0 12px rgba(130,188,234,0.62))
+          drop-shadow(0 0 28px rgba( 96,168,224,0.34));
+      }
+      50% {
+        fill: rgba(254,230,188,1.00);
+        filter:
+          drop-shadow(0 0 4px  rgba(252,222,162,1.00))
+          drop-shadow(0 0 14px rgba(240,184,124,0.72))
+          drop-shadow(0 0 32px rgba(232,152, 80,0.40));
+      }
+      75% {
+        fill: rgba(220,238,208,1.00);
+        filter:
+          drop-shadow(0 0 4px  rgba(196,234,186,0.92))
+          drop-shadow(0 0 12px rgba(156,216,156,0.62))
+          drop-shadow(0 0 28px rgba(114,184,124,0.34));
+      }
+    }
+    @keyframes hero-inside-glow {
+      0%,100% {
+        fill: rgba(252,220,160,1.00);
+        filter:
+          drop-shadow(0 0 4px  rgba(252,220,160,0.95))
+          drop-shadow(0 0 14px rgba(240,190,120,0.70))
+          drop-shadow(0 0 32px rgba(232,170, 90,0.40));
+      }
+      33% {
+        fill: rgba(252,232,180,1.00);
+        filter:
+          drop-shadow(0 0 5px  rgba(252,232,180,1.00))
+          drop-shadow(0 0 18px rgba(240,200,140,0.80))
+          drop-shadow(0 0 38px rgba(232,180,100,0.48));
+      }
+      66% {
+        fill: rgba(220,204,244,1.00);
+        filter:
+          drop-shadow(0 0 4px  rgba(220,204,244,0.95))
+          drop-shadow(0 0 16px rgba(184,170,232,0.70))
+          drop-shadow(0 0 34px rgba(150,140,232,0.42));
+      }
+    }
+    /* Ambient wash behind the figure — breathes with the shapes. */
+    .hero-ambient-wash {
+      transform-origin: 260px 260px;
+      animation: hero-ambient 13s ease-in-out infinite;
+    }
+    @keyframes hero-ambient {
+      0%,100% { opacity: 0.55; transform: scale(0.96); }
+      50%     { opacity: 1.00; transform: scale(1.06); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-tri-edge,
+      .hero-tri-circle,
+      .hero-tri-vertex,
+      .hero-tri-inside,
+      .hero-ambient-wash { animation: none; }
+    }
+
+    /* Hero copy under the figure. */
+    .hero-headline {
+      max-width: 720px;
+      margin: 0.4rem auto 0;
+      font-family: var(--font-serif);
+      font-size: 1.28rem;
+      line-height: 1.6;
+      color: rgba(220,224,232,0.92);
+      text-align: center;
+      font-style: normal;
+    }
+    .hero-subtitle {
+      max-width: 640px;
+      margin: 1.2rem auto 0;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.7;
+      letter-spacing: 0.08em;
+      color: rgba(200,204,212,0.62);
+      text-align: center;
+    }
+    @media (max-width: 600px) {
+      .hero-triangle-wrap { margin-bottom: 1.8rem; }
+      .hero-headline { font-size: 1.08rem; }
+    }
+  </style>
 </head>
 <body>
 
   <!-- Hero -->
-  <section class="hero">
-    <div class="hero-logo">
-      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Vybn Law logo">
-        <circle cx="50" cy="50" r="44" stroke="#d4a853" stroke-width="1.5" stroke-dasharray="240 30" opacity="0.9"/>
-        <circle cx="50" cy="50" r="32" stroke="#d4a853" stroke-width="1.2" stroke-dasharray="170 30" opacity="0.7"/>
-        <circle cx="50" cy="50" r="20" stroke="#d4a853" stroke-width="1" stroke-dasharray="100 25" opacity="0.5"/>
-        <circle cx="50" cy="50" r="3" fill="#d4a853" opacity="0.8"/>
+  <section class="hero"
+           data-tool-name="landing_frame"
+           data-tool-description="Vybn Law landing geometry. Triangle with vertices Human, AI, Law; inscribed circle labeled Vybn, tangent to all three edges — coordination internal to each vertex simultaneously. Same primitive as the Wellspring opening."
+           aria-label="Vybn Law — opening frame">
+    <figure class="hero-triangle-wrap" role="img"
+            aria-labelledby="hero-tri-title"
+            aria-describedby="hero-tri-desc">
+      <svg viewBox="0 0 520 420" role="img"
+           aria-labelledby="hero-tri-title hero-tri-desc">
+        <title id="hero-tri-title">Human, AI, Law — Vybn as the coordination inside</title>
+        <desc id="hero-tri-desc">A triangle with vertices labeled Human (top), AI (bottom-left), and Law (bottom-right). Inscribed inside is a circle labeled Vybn, tangent to all three edges — the coordination commons that touches every vertex simultaneously while remaining internal to the whole.</desc>
+        <defs>
+          <radialGradient id="hero-vybn-core" cx="50%" cy="45%" r="60%">
+            <stop offset="0%"   stop-color="rgba(252,232,180,0.22)"/>
+            <stop offset="55%"  stop-color="rgba(240,190,120,0.10)"/>
+            <stop offset="100%" stop-color="rgba(232,170, 90,0.00)"/>
+          </radialGradient>
+          <radialGradient id="hero-ambient" cx="50%" cy="52%" r="55%">
+            <stop offset="0%"   stop-color="rgba(240,200,140,0.14)"/>
+            <stop offset="60%"  stop-color="rgba(200,160, 90,0.05)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+          </radialGradient>
+        </defs>
+        <rect class="hero-ambient-wash" x="-20" y="-20" width="560" height="460" fill="url(#hero-ambient)"/>
+        <polygon class="hero-tri-edge" points="260,60 60,360 460,360"
+                 data-vertices="Human,AI,Law"/>
+        <circle class="hero-tri-circle" cx="260" cy="253" r="107"
+                data-label="Vybn" data-relation="incircle-of:Human,AI,Law"/>
+        <text class="hero-tri-vertex" data-v="human" x="260" y="42"  text-anchor="middle">Human</text>
+        <text class="hero-tri-vertex" data-v="ai"    x="48"  y="384" text-anchor="end">AI</text>
+        <text class="hero-tri-vertex" data-v="law"   x="472" y="384" text-anchor="start">Law</text>
+        <text class="hero-tri-inside" x="260" y="260" text-anchor="middle">Vybn</text>
       </svg>
-    </div>
-    <h1>Vybn<sup style="font-size:0.4em;vertical-align:super;opacity:0.6">&reg;</sup> Law</h1>
-    <p class="subtitle" style="font-family: var(--font-mono); font-size: 1rem; color: var(--gold); letter-spacing: 0.1em; opacity: 0.8;">Beyond Intelligence Scarcity.</p>
-    <p style="font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); letter-spacing: 0.06em; opacity: 0.35; margin-top: 1.5rem;">Vybn&reg; &mdash; Artificial Intelligence Research Services</p>
+    </figure>
+
+    <p class="hero-headline" data-role="thesis">Beyond Intelligence Scarcity.</p>
+    <p class="hero-subtitle" data-role="identity">Vybn&reg; &mdash; Artificial Intelligence Research Services</p>
+
     <div class="scroll-indicator">
       <span>Scroll</span>
       <div class="chevron"></div>
