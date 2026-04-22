@@ -872,6 +872,19 @@ var API = window.API;
       </div>
     </div>
 
+    <!-- VYBN_ENCLOSURE_CHAT: streaming response area -->
+    <div id="enclosure-response" style="display:none; max-width:680px; margin:2rem auto 0; text-align:left;">
+      <div id="enclosure-response-text"
+           style="font-family:var(--font-serif); font-size:1rem; line-height:1.85;
+                  color:rgba(220,224,232,0.9); white-space:pre-wrap; word-break:break-word;
+                  border-left:2px solid rgba(212,175,55,0.4); padding-left:1.4rem;
+                  min-height:2rem;"></div>
+      <div id="enclosure-response-cursor"
+           style="display:inline-block; width:2px; height:1.1em; background:rgba(212,175,55,0.7);
+                  vertical-align:text-bottom; margin-left:2px; animation:blink 1s step-end infinite;"></div>
+    </div>
+    <!-- /VYBN_ENCLOSURE_CHAT -->
+
   </div>
 </section>
 
@@ -923,6 +936,7 @@ var API = window.API;
   gap: 1rem;
   margin-top: 0.8rem;
 }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 .enclosure-step {
   font-family: var(--font-mono);
   font-size: 0.78rem;
@@ -967,10 +981,15 @@ var API = window.API;
 </style>
 
 <script>
+/* VYBN_ENCLOSURE_CHAT */
 (function(){
-  var btn = document.getElementById('enclosure-submit');
-  var inp = document.getElementById('enclosure-input');
+  var btn  = document.getElementById('enclosure-submit');
+  var inp  = document.getElementById('enclosure-input');
+  var resp = document.getElementById('enclosure-response');
+  var txt  = document.getElementById('enclosure-response-text');
+  var cur  = document.getElementById('enclosure-response-cursor');
   if (!btn || !inp) return;
+
   btn.addEventListener('click', function(){
     var text = inp.value.trim();
     if (!text) return;
@@ -978,18 +997,86 @@ var API = window.API;
     btn.disabled = true;
     btn.textContent = '…';
     inp.style.opacity = '0.5';
+
+    // Step 1: rotate the walk (non-blocking; failures are silent)
+    var stepEl = document.getElementById('enclosure-step');
     fetch(apiBase + '/api/walk', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({message: text, rotate: true, scope: 'wellspring', source_tag: 'enclosure-frame'})
     }).then(function(r){ return r.json(); })
     .then(function(d){
-      var stepEl = document.getElementById('enclosure-step');
       if (stepEl && d && d.step) { stepEl.textContent = 'step ' + d.step; stepEl.style.display = 'inline'; }
+    }).catch(function(){});
+
+    // Step 2: stream the enclosure chat response
+    resp.style.display = 'block';
+    txt.textContent = '';
+    if (cur) cur.style.display = 'inline-block';
+
+    fetch(apiBase + '/api/chat', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        message: text,
+        context: 'enclosure',
+        session_id: 'enclosure-' + Date.now()
+      })
+    }).then(function(r){
+      var reader = r.body.getReader();
+      var decoder = new TextDecoder();
+      var buf = '';
+
+      function pump(){
+        return reader.read().then(function(chunk){
+          if (chunk.done) {
+            btn.textContent = 'In the room';
+            if (cur) cur.style.display = 'none';
+            return;
+          }
+          buf += decoder.decode(chunk.value, {stream: true});
+          var lines = buf.split('
+');
+          buf = lines.pop(); // keep incomplete line
+          lines.forEach(function(line){
+            if (!line.startsWith('data: ')) return;
+            var data = line.slice(6).trim();
+            if (!data || data === '[DONE]') return;
+            try {
+              var obj = JSON.parse(data);
+              // SSE frame format: {"content": "..."}
+              // also handle {"text": "..."} or {"delta": "..."} for forward-compat
+              var token = (obj.content !== undefined) ? obj.content
+                        : (obj.text !== undefined) ? obj.text
+                        : (obj.delta !== undefined) ? obj.delta
+                        : null;
+              // skip metadata frames (rag_sources, walk_arrival, [DONE])
+              if (token === null && (obj.rag_sources || obj.walk_arrival)) return;
+              if (token !== null) {
+                txt.textContent += token;
+                // auto-scroll into view gently
+                if (resp.getBoundingClientRect().bottom > window.innerHeight) {
+                  resp.scrollIntoView({behavior:'smooth', block:'end'});
+                }
+              }
+            } catch(e) {
+              // plain text delta
+              if (data && data !== '[DONE]') txt.textContent += data;
+            }
+          });
+          return pump();
+        });
+      }
+
+      return pump();
+    }).catch(function(err){
       btn.textContent = 'In the room';
-    }).catch(function(){ btn.textContent = 'In the room'; });
+      if (cur) cur.style.display = 'none';
+      txt.textContent = txt.textContent || '— (the walk is offline; your case is in the room) —';
+    });
   });
 })();
+/* /VYBN_ENCLOSURE_CHAT */
 </script>
 
 <script>
