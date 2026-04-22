@@ -814,22 +814,77 @@ var API = window.API;
   transition: opacity 1.2s ease, transform 1.2s ease;
 }
 .ws-triangle-wrap.visible { opacity: 1; transform: translateY(0); }
-.ws-triangle-wrap svg { width: 100%; height: auto; display: block; }
-.ws-triangle-edge { stroke: rgba(212,175,55,0.42); stroke-width: 1.2; fill: none; }
-.ws-triangle-circle { stroke: rgba(212,175,55,0.85); stroke-width: 1.4; fill: rgba(212,175,55,0.05); }
-.ws-triangle-vertex {
+.ws-triangle-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+/* The triangle and the circle breathe — opacity and stroke-width drift
+   on slightly different periods so they never lock in phase. */
+.ws-triangle-edge {
+  stroke: rgba(212,175,55,0.42);
+  stroke-width: 1.2;
+  fill: none;
+  transform-origin: 260px 260px;
+  animation: ws-breath-tri 7s ease-in-out infinite;
+}
+.ws-triangle-circle {
+  stroke: rgba(212,175,55,0.85);
+  stroke-width: 1.4;
+  fill: rgba(212,175,55,0.05);
+  transform-origin: 260px 253px;
+  animation: ws-breath-circle 9s ease-in-out infinite;
+}
+@keyframes ws-breath-tri {
+  0%,100% { stroke-opacity: 0.32; stroke-width: 1.0; transform: scale(0.995); }
+  50%     { stroke-opacity: 0.72; stroke-width: 1.8; transform: scale(1.010); }
+}
+@keyframes ws-breath-circle {
+  0%,100% { stroke-opacity: 0.55; stroke-width: 1.1; transform: scale(0.985); fill-opacity: 0.03; }
+  50%     { stroke-opacity: 1.00; stroke-width: 2.2; transform: scale(1.025); fill-opacity: 0.09; }
+}
+
+/* Vertex + interior labels glow through a small color cycle.
+   Each vertex rides a different offset so the color wheel turns
+   around the figure rather than pulsing in unison. */
+.ws-triangle-vertex,
+.ws-triangle-inside {
   font-family: var(--font-mono);
-  font-size: 15px;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  fill: rgba(220,224,232,0.82);
+  paint-order: stroke fill;
 }
+.ws-triangle-vertex { font-size: 15px; }
 .ws-triangle-inside {
   font-family: var(--font-serif);
   font-style: italic;
   font-size: 22px;
-  letter-spacing: 0.02em;
-  fill: var(--gold);
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.ws-triangle-vertex,
+.ws-triangle-inside {
+  animation: ws-label-glow 10s ease-in-out infinite;
+}
+.ws-triangle-vertex[data-v="human"] { animation-delay: 0s; }
+.ws-triangle-vertex[data-v="ai"]    { animation-delay: -3.3s; }
+.ws-triangle-vertex[data-v="law"]   { animation-delay: -6.6s; }
+.ws-triangle-inside                  { animation: ws-inside-glow 11s ease-in-out infinite; }
+
+@keyframes ws-label-glow {
+  0%,100% { fill: rgba(220,224,232,0.80); filter: drop-shadow(0 0 3px  rgba(212,175,55,0.35)); }
+  25%     { fill: rgba(184,214,236,0.92); filter: drop-shadow(0 0 6px  rgba(120,180,230,0.45)); }
+  50%     { fill: rgba(224,200,168,0.95); filter: drop-shadow(0 0 7px  rgba(232,170,110,0.55)); }
+  75%     { fill: rgba(208,220,184,0.92); filter: drop-shadow(0 0 6px  rgba(168,208,150,0.45)); }
+}
+@keyframes ws-inside-glow {
+  0%,100% { fill: rgba(212,175,55,0.85);  filter: drop-shadow(0 0 5px  rgba(212,175,55,0.55)); }
+  33%     { fill: rgba(232,198,140,1.00); filter: drop-shadow(0 0 10px rgba(232,180,120,0.70)); }
+  66%     { fill: rgba(200,184,232,0.95); filter: drop-shadow(0 0 9px  rgba(170,160,232,0.60)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ws-triangle-edge,
+  .ws-triangle-circle,
+  .ws-triangle-vertex,
+  .ws-triangle-inside { animation: none; }
 }
 .ws-headline {
   max-width: 720px;
@@ -878,9 +933,9 @@ var API = window.API;
         <circle class="ws-triangle-circle" cx="260" cy="253" r="107"
                 data-label="Vybn" data-relation="incircle-of:Human,AI,Law"/>
         <!-- Vertex labels -->
-        <text class="ws-triangle-vertex" x="260" y="42"  text-anchor="middle">Human</text>
-        <text class="ws-triangle-vertex" x="48"  y="384" text-anchor="end">AI</text>
-        <text class="ws-triangle-vertex" x="472" y="384" text-anchor="start">Law</text>
+        <text class="ws-triangle-vertex" data-v="human" x="260" y="42"  text-anchor="middle">Human</text>
+        <text class="ws-triangle-vertex" data-v="ai"    x="48"  y="384" text-anchor="end">AI</text>
+        <text class="ws-triangle-vertex" data-v="law"   x="472" y="384" text-anchor="start">Law</text>
         <!-- Inside label -->
         <text class="ws-triangle-inside" x="260" y="260" text-anchor="middle">Vybn</text>
       </svg>
