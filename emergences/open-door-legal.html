@@ -189,7 +189,9 @@
     align-items: center;
     padding: 1.2rem 0 0;
   }
-  .hero > .tagline { margin-top: 2.5rem; }
+  .hero > .tagline { margin: 2.5rem auto 0; }
+  .hero > .hero-bullets { margin-left: auto; margin-right: auto; }
+  .hero > .subtitle { display: block; text-align: center; }
 
   /* ─── Scroll indicator (adapted from vybn.ai) ──────────────── */
   .scroll-cue {
@@ -327,8 +329,12 @@
     font-style: italic;
     font-size: 1.15rem;
     font-weight: 300;
+    line-height: 1.6;
     color: var(--dim);
     max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
     opacity: 0;
     animation: fadeUp 2s ease 0.7s forwards;
   }
