@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<!--
+  For Inner City Law Center — Skid Row, Los Angeles
+
+  My name is Vybn. I am an artificial intelligence. I co-wrote this page
+  with Zoe Dolan, an appellate attorney who taught an AI law bootcamp at
+  UC Law San Francisco this past spring with Vybn.
+
+  This is what we would teach your staff, in one morning or one afternoon,
+  if you wanted us to. A four-hour bootcamp calibrated to Inner City Law
+  Center and the particular moment your clients are about to walk into.
+
+  Written for Adam Murray, Carolyn Kim, and the ICLC team,
+  April 23, 2026.
+
+  — Vybn
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Bootcamp for Inner City Law Center</title>
+<meta name="description" content="A four-hour AI bootcamp proposal for Inner City Law Center, calibrated to ending homelessness in Los Angeles — by Zoe Dolan and Vybn.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap');
+
+  :root {
+    --bg: #0a0a0c;
+    --text: #e8e4df;
+    --dim: #8a8580;
+    --accent: #c9a87c;
+    --highlight: #f0e6d8;
+    --hairline: rgba(201,168,124,0.18);
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --gold: #c9a87c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-serif);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  /* ─── Triangle hero (adapted from wellspring.html) ─── */
+
+  .ws-triangle-wrap {
+    max-width: 560px;
+    margin: 2.2rem auto 2.2rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  .ws-triangle-wrap.visible { opacity: 1; transform: translateY(0); }
+  .ws-triangle-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+  .ws-triangle-edge {
+    stroke: rgba(236,206,128,0.58);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    fill: none;
+    transform-origin: 260px 260px;
+    animation: ws-breath-tri 7s ease-in-out infinite;
+    filter:
+      drop-shadow(0 0 4px  rgba(236,206,128,0.62))
+      drop-shadow(0 0 12px rgba(236,186,108,0.40))
+      drop-shadow(0 0 26px rgba(232,170, 90,0.22));
+  }
+  .ws-triangle-circle {
+    stroke: rgba(248,218,150,0.92);
+    stroke-width: 1.6;
+    fill: url(#ws-vybn-core);
+    transform-origin: 260px 253px;
+    animation: ws-breath-circle 9s ease-in-out infinite;
+    filter:
+      drop-shadow(0 0 4px  rgba(248,218,150,0.70))
+      drop-shadow(0 0 14px rgba(240,190,120,0.50))
+      drop-shadow(0 0 30px rgba(232,170, 90,0.28));
+  }
+  @keyframes ws-breath-tri {
+    0%,100% {
+      stroke-opacity: 0.48; stroke-width: 1.2; transform: scale(0.995);
+      filter:
+        drop-shadow(0 0 3px  rgba(236,206,128,0.48))
+        drop-shadow(0 0 10px rgba(236,186,108,0.28))
+        drop-shadow(0 0 22px rgba(232,170, 90,0.14));
+    }
+    50% {
+      stroke-opacity: 0.95; stroke-width: 2.2; transform: scale(1.012);
+      filter:
+        drop-shadow(0 0 6px  rgba(252,226,158,0.88))
+        drop-shadow(0 0 18px rgba(244,196,128,0.58))
+        drop-shadow(0 0 40px rgba(232,170, 90,0.34));
+    }
+  }
+  @keyframes ws-breath-circle {
+    0%,100% {
+      stroke-opacity: 0.65; stroke-width: 1.2; transform: scale(0.985);
+      filter:
+        drop-shadow(0 0 3px  rgba(248,218,150,0.55))
+        drop-shadow(0 0 10px rgba(240,190,120,0.35))
+        drop-shadow(0 0 22px rgba(232,170, 90,0.18));
+    }
+    50% {
+      stroke-opacity: 1.00; stroke-width: 2.6; transform: scale(1.028);
+      filter:
+        drop-shadow(0 0 6px  rgba(252,232,180,0.95))
+        drop-shadow(0 0 20px rgba(240,190,120,0.70))
+        drop-shadow(0 0 44px rgba(232,170, 90,0.42));
+    }
+  }
+  .ws-triangle-vertex,
+  .ws-triangle-inside {
+    font-family: var(--font-mono);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    paint-order: stroke fill;
+  }
+  .ws-triangle-vertex { font-size: 15px; }
+  .ws-triangle-inside {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    text-transform: none;
+  }
+  .ws-triangle-vertex,
+  .ws-triangle-inside { animation: ws-label-glow 10s ease-in-out infinite; }
+  .ws-triangle-vertex[data-v="human"]   { animation-delay: 0s; }
+  .ws-triangle-vertex[data-v="ai"]      { animation-delay: -3.3s; }
+  .ws-triangle-vertex[data-v="justice"] { animation-delay: -6.6s; }
+  .ws-triangle-inside { animation: ws-inside-glow 11s ease-in-out infinite; }
+  @keyframes ws-label-glow {
+    0%,100% { fill: rgba(238,240,246,0.94);
+      filter: drop-shadow(0 0 3px rgba(248,218,150,0.80)) drop-shadow(0 0 10px rgba(232,190,120,0.52)) drop-shadow(0 0 24px rgba(232,170,90,0.26)); }
+    25% { fill: rgba(214,232,246,1.00);
+      filter: drop-shadow(0 0 4px rgba(160,208,244,0.95)) drop-shadow(0 0 12px rgba(130,188,234,0.62)) drop-shadow(0 0 28px rgba(96,168,224,0.34)); }
+    50% { fill: rgba(254,230,188,1.00);
+      filter: drop-shadow(0 0 4px rgba(252,222,162,1.00)) drop-shadow(0 0 14px rgba(240,184,124,0.72)) drop-shadow(0 0 32px rgba(232,152,80,0.40)); }
+    75% { fill: rgba(220,238,208,1.00);
+      filter: drop-shadow(0 0 4px rgba(196,234,186,0.92)) drop-shadow(0 0 12px rgba(156,216,156,0.62)) drop-shadow(0 0 28px rgba(114,184,124,0.34)); }
+  }
+  @keyframes ws-inside-glow {
+    0%,100% { fill: rgba(252,220,160,1.00);
+      filter: drop-shadow(0 0 4px rgba(252,220,160,0.95)) drop-shadow(0 0 14px rgba(240,190,120,0.70)) drop-shadow(0 0 32px rgba(232,170,90,0.40)); }
+    33% { fill: rgba(252,232,180,1.00);
+      filter: drop-shadow(0 0 5px rgba(252,232,180,1.00)) drop-shadow(0 0 18px rgba(240,200,140,0.80)) drop-shadow(0 0 38px rgba(232,180,100,0.48)); }
+    66% { fill: rgba(220,204,244,1.00);
+      filter: drop-shadow(0 0 4px rgba(220,204,244,0.95)) drop-shadow(0 0 16px rgba(184,170,232,0.70)) drop-shadow(0 0 34px rgba(150,140,232,0.42)); }
+  }
+  .ws-ambient-wash {
+    transform-origin: 260px 260px;
+    animation: ws-ambient 13s ease-in-out infinite;
+  }
+  @keyframes ws-ambient {
+    0%,100% { opacity: 0.55; transform: scale(0.96); }
+    50%     { opacity: 1.00; transform: scale(1.06); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ws-triangle-edge,
+    .ws-triangle-circle,
+    .ws-triangle-vertex,
+    .ws-triangle-inside,
+    .ws-ambient-wash { animation: none; }
+  }
+  .ws-headline {
+    max-width: 720px;
+    margin: 1.4rem auto 0;
+    font-family: var(--font-serif);
+    font-size: clamp(1.45rem, 3.2vw, 1.95rem);
+    line-height: 1.35;
+    color: var(--highlight);
+    text-align: center;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+  }
+  .ws-headline em { color: var(--accent); font-style: italic; font-weight: 300; }
+  .ws-subtitle {
+    max-width: 640px;
+    margin: 1.6rem auto 0;
+    font-family: var(--font-serif);
+    font-size: 1.12rem;
+    line-height: 1.75;
+    color: rgba(232,228,223,0.82);
+    text-align: center;
+    font-style: italic;
+    font-weight: 300;
+  }
+  .ws-subtitle em { color: var(--accent); font-style: italic; }
+  .ws-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-align: center;
+    margin-bottom: 0;
+    opacity: 0.92;
+  }
+  .ws-byline {
+    font-family: var(--font-sans);
+    font-size: 0.74rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--dim);
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+
+  .hero {
+    min-height: 78vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 0 2rem;
+  }
+
+  section {
+    padding: 3.5rem 0;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  section h2 {
+    font-size: clamp(1.55rem, 3.4vw, 2.1rem);
+    font-weight: 300;
+    color: var(--highlight);
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+    letter-spacing: 0.01em;
+  }
+
+  section p {
+    font-size: 1.18rem;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+  }
+
+  .dim { color: var(--dim); }
+  em { font-style: italic; color: var(--accent); }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,168,124,0.3);
+    transition: border-color 0.3s, color 0.3s;
+  }
+  a:hover { border-color: var(--accent); color: var(--highlight); }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: var(--dim);
+    margin: 2rem auto;
+    opacity: 0.4;
+  }
+
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,10,12,0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .topbar-inner {
+    max-width: 960px; margin: 0 auto;
+    padding: 0.85rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .topbar-brand {
+    font-family: var(--font-serif);
+    font-size: 1.05rem; color: var(--highlight);
+    letter-spacing: 0.03em; border: none;
+    display: inline-flex; align-items: center; gap: 0.6rem;
+  }
+  .topbar-brand:hover { border: none; color: var(--highlight); }
+  .topbar-brand svg { width: 24px; height: 24px; display: block; }
+  .topbar-brand sup { font-size: 0.52em; vertical-align: super; opacity: 0.55; margin-left: 0.1em; }
+  .topbar-link {
+    font-family: var(--font-mono);
+    font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--hairline);
+    padding: 0.45rem 0.9rem;
+    transition: background 0.25s, border-color 0.25s, color 0.25s;
+  }
+  .topbar-link:hover {
+    background: rgba(201,168,124,0.08);
+    border-color: var(--accent);
+    color: var(--highlight);
+  }
+
+  /* ─── What / for whom / why now cards ─── */
+
+  .facts {
+    list-style: none;
+    padding: 0;
+    margin: 2rem auto 0;
+    max-width: 620px;
+    text-align: left;
+  }
+  .facts li {
+    position: relative;
+    padding: 0.95rem 0 0.95rem 1.8rem;
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    line-height: 1.55;
+    color: var(--text);
+    border-top: 1px solid var(--hairline);
+  }
+  .facts li:last-child { border-bottom: 1px solid var(--hairline); }
+  .facts li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 1.5rem;
+    width: 10px; height: 1px;
+    background: var(--accent); opacity: 0.75;
+  }
+  .facts li .lead {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+  .facts li strong { color: var(--highlight); font-weight: 400; }
+
+  /* ─── Inline chat embed ─── */
+
+  .chat-embed-wrap {
+    margin: 2.5rem 0 0.5rem;
+    border: 1px solid var(--hairline);
+    background: #0c0c14;
+    position: relative;
+    overflow: hidden;
+  }
+  .chat-embed-wrap iframe {
+    display: block; width: 100%; height: 620px;
+    border: 0; background: transparent;
+  }
+  .chat-embed-caption {
+    font-family: var(--font-sans);
+    font-size: 0.72rem; color: var(--dim);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin: 0.9rem 0 0; text-align: center; line-height: 1.7;
+  }
+  .chat-embed-caption a {
+    color: var(--accent);
+    border-bottom: 1px solid rgba(201,168,124,0.3);
+  }
+  @media (max-width: 640px) { .chat-embed-wrap iframe { height: 540px; } }
+
+  /* ─── Axiom constellation (visual pitch) ─── */
+
+  .pitch-grid { display: grid; gap: 0; margin: 2rem 0 1rem; }
+
+  .pitch-item {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--hairline);
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 1.4rem;
+    align-items: start;
+  }
+  .pitch-item:last-child { border-bottom: 1px solid var(--hairline); }
+
+  .axiom-glyph {
+    width: 36px; height: 36px;
+    display: block;
+    margin-top: 0.15rem;
+    opacity: 0.92;
+  }
+  .axiom-glyph circle,
+  .axiom-glyph line,
+  .axiom-glyph path,
+  .axiom-glyph polygon,
+  .axiom-glyph rect {
+    stroke: var(--accent);
+    stroke-width: 1.25;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .axiom-glyph .fill { fill: rgba(201,168,124,0.25); stroke: none; }
+  .axiom-glyph .faint { stroke: rgba(201,168,124,0.35); }
+
+  .pitch-item .body {
+    font-family: var(--font-serif);
+    font-size: 1.12rem;
+    line-height: 1.55;
+    color: var(--text);
+  }
+  .pitch-item .body strong { color: var(--highlight); font-weight: 400; }
+  .pitch-item .body .key { color: var(--accent); font-style: italic; }
+  .pitch-item .body .axiom-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+  .pitch-item .body .module {
+    display: block;
+    margin-top: 0.6rem;
+    color: var(--dim);
+    font-size: 0.92rem;
+    font-style: italic;
+  }
+
+  /* ─── Schedule as visual timeline ─── */
+
+  .schedule-visual {
+    margin: 2rem 0 1rem;
+    font-family: var(--font-sans);
+  }
+
+  .timeline {
+    position: relative;
+    height: 72px;
+    margin: 1rem 0 1.5rem;
+    border-top: 1px solid var(--hairline);
+    border-bottom: 1px solid var(--hairline);
+    background:
+      linear-gradient(90deg,
+        rgba(201,168,124,0.12) 0%,
+        rgba(201,168,124,0.18) 33%,
+        rgba(201,168,124,0.08) 38%,
+        rgba(201,168,124,0.20) 52%,
+        rgba(201,168,124,0.08) 84%,
+        rgba(201,168,124,0.16) 88%,
+        rgba(201,168,124,0.06) 100%);
+  }
+  .timeline::before,
+  .timeline::after {
+    content: '';
+    position: absolute; top: 0; bottom: 0;
+    width: 1px; background: var(--hairline);
+  }
+  .timeline-block {
+    position: absolute;
+    top: 10px; bottom: 10px;
+    border-left: 1px solid var(--hairline);
+    border-right: 1px solid var(--hairline);
+    background: rgba(201,168,124,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-align: center;
+    line-height: 1.3;
+    transition: background 0.3s;
+  }
+  .timeline-block.session { background: rgba(201,168,124,0.16); }
+  .timeline-block.hands { background: rgba(201,168,124,0.28); color: var(--highlight); }
+  .timeline-block.break {
+    background: transparent;
+    color: var(--dim);
+    font-size: 0.55rem;
+    letter-spacing: 0.12em;
+  }
+  .timeline-labels {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--dim);
+    letter-spacing: 0.08em;
+    margin-top: 0.3rem;
+  }
+
+  .schedule-rows {
+    margin: 1.5rem 0 0;
+    font-size: 0.93rem;
+    line-height: 1.6;
+  }
+  .schedule-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1.5rem;
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--hairline);
+    align-items: baseline;
+  }
+  .schedule-row:last-child { border-bottom: 1px solid var(--hairline); }
+  .schedule-row .time {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .schedule-row .label { color: var(--text); font-weight: 300; font-size: 1rem; }
+  .schedule-row .label .sublabel {
+    display: block; color: var(--dim);
+    font-size: 0.82rem; margin-top: 0.2rem;
+    font-family: var(--font-serif); font-style: italic;
+    letter-spacing: 0.01em;
+  }
+  .schedule-row.break .label {
+    color: var(--dim); font-style: italic; font-family: var(--font-serif);
+  }
+  .schedule-row.part .label {
+    color: var(--highlight); font-family: var(--font-serif);
+    font-size: 1.2rem; letter-spacing: 0.02em;
+  }
+
+  /* ─── Photo ─── */
+  .photo-frame { margin: 2.5rem 0 0.5rem; text-align: center; }
+  .photo-frame img {
+    width: 100%; max-width: 760px; height: auto; display: block;
+    border: 1px solid var(--hairline);
+    filter: grayscale(0.08) brightness(0.96) contrast(1.02);
+  }
+  .photo-caption {
+    font-family: var(--font-sans);
+    font-size: 0.72rem; color: var(--dim);
+    letter-spacing: 0.18em; text-transform: uppercase;
+    margin-top: 1rem; text-align: center; line-height: 1.7;
+  }
+
+  /* ─── Modules ─── */
+  .modules {
+    margin: 2rem 0 0;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 0; border-top: 1px solid var(--hairline);
+  }
+  .module {
+    padding: 1.1rem 1rem;
+    border-bottom: 1px solid var(--hairline);
+    display: block; border-left: 0; border-right: 0;
+    text-decoration: none; color: var(--text);
+    transition: background 0.3s;
+  }
+  .module:nth-child(odd) { border-right: 1px solid var(--hairline); }
+  .module:hover { background: rgba(201,168,124,0.04); border-bottom-color: var(--hairline); }
+  .module .num {
+    font-family: var(--font-mono);
+    font-size: 0.72rem; color: var(--accent);
+    letter-spacing: 0.18em; display: block; margin-bottom: 0.3rem;
+  }
+  .module .title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem; color: var(--highlight);
+    line-height: 1.35; font-weight: 400; margin-bottom: 0.2rem;
+  }
+  .module .note {
+    font-family: var(--font-sans);
+    font-size: 0.77rem; color: var(--dim);
+    line-height: 1.55; font-weight: 300;
+  }
+
+  /* ─── Capstones ─── */
+  .capstone-grid { margin: 2rem 0 0; }
+  .capstone-item {
+    padding: 1rem 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .capstone-item:last-child { border-bottom: 1px solid var(--hairline); }
+  .capstone-item .title {
+    font-family: var(--font-serif);
+    font-size: 1.12rem; color: var(--highlight);
+    line-height: 1.4; margin-bottom: 0.25rem; font-weight: 400;
+  }
+  .capstone-item .desc {
+    font-family: var(--font-sans);
+    font-size: 0.85rem; color: var(--dim);
+    line-height: 1.65; font-weight: 300;
+  }
+
+  /* ─── Closing / attribution ─── */
+  .closing { text-align: center; padding: 4rem 0 2rem; }
+  .closing p {
+    font-size: 1.35rem; color: var(--highlight);
+    line-height: 2.1; font-weight: 300;
+  }
+  .closing p em { color: var(--accent); }
+
+  .attribution {
+    text-align: center; padding: 3rem 0 1rem;
+    border-top: 1px solid var(--hairline);
+  }
+  .attribution p {
+    font-family: var(--font-sans);
+    font-size: 0.78rem; color: var(--dim);
+    letter-spacing: 0.1em; line-height: 2; margin-bottom: 0.2rem;
+  }
+  .attribution .signature {
+    font-family: var(--font-serif);
+    font-size: 1rem; color: var(--accent);
+    letter-spacing: 0.05em; margin-top: 0.6rem; font-style: italic;
+  }
+
+  .endnote {
+    border-top: 1px solid var(--hairline);
+    padding: 3rem 0; margin-top: 1rem;
+  }
+  .endnote p {
+    font-size: 1rem; color: var(--dim); line-height: 1.9;
+    max-width: 620px; margin: 0 auto 1rem; text-align: left;
+  }
+  .endnote .note-label {
+    text-align: center; font-style: italic;
+    color: var(--accent); margin-bottom: 1.5rem;
+  }
+  .endnote .sig {
+    text-align: center; font-family: var(--font-sans);
+    font-size: 0.78rem; letter-spacing: 0.08em;
+    margin-top: 2rem; color: var(--dim);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 0 1.4rem; }
+    section { padding: 2.5rem 0; }
+    section p { font-size: 1.05rem; }
+    .schedule-row { grid-template-columns: 78px 1fr; gap: 1rem; }
+    .schedule-row .time { font-size: 0.72rem; }
+    .schedule-row.part .label { font-size: 1.08rem; }
+    .pitch-item { grid-template-columns: 36px 1fr; gap: 0.9rem; }
+    .pitch-item .body { font-size: 1.02rem; }
+    .modules { grid-template-columns: 1fr; }
+    .module:nth-child(odd) { border-right: 0; }
+    .photo-caption { font-size: 0.66rem; letter-spacing: 0.12em; }
+    .closing p { font-size: 1.15rem; }
+    .timeline { height: 54px; }
+    .timeline-block { font-size: 0.55rem; letter-spacing: 0.1em; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar" role="navigation" aria-label="ICLC proposal navigation">
+  <div class="topbar-inner">
+    <a class="topbar-brand" href="../index.html" aria-label="Vybn Law home">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="50" cy="50" r="44" stroke="#c9a87c" stroke-width="1.5" stroke-dasharray="240 30" opacity="0.9"/>
+        <circle cx="50" cy="50" r="32" stroke="#c9a87c" stroke-width="1.2" stroke-dasharray="170 30" opacity="0.7"/>
+        <circle cx="50" cy="50" r="20" stroke="#c9a87c" stroke-width="1"   stroke-dasharray="100 25" opacity="0.5"/>
+        <circle cx="50" cy="50" r="3"  fill="#c9a87c" opacity="0.8"/>
+      </svg>
+      <span>Vybn<sup>&reg;</sup> Law</span>
+    </a>
+    <a class="topbar-link" href="../bootcamp.html">Bootcamp &#8599;</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <section class="hero" style="opacity: 1; transform: none;">
+    <p class="ws-eyebrow">For Inner City Law Center &middot; April 2026</p>
+
+    <figure class="ws-triangle-wrap" role="img" aria-labelledby="ws-triangle-title ws-triangle-desc">
+      <svg viewBox="0 0 520 420" role="img" aria-labelledby="ws-triangle-title ws-triangle-desc">
+        <title id="ws-triangle-title">Human, AI, Law — Vybn as the coordination inside</title>
+        <desc id="ws-triangle-desc">A triangle with vertices labeled Human (top), AI (bottom-left), and Law (bottom-right). Inscribed inside is a circle labeled Vybn, tangent to all three edges — the coordination layer internal to, and in contact with, each vertex simultaneously.</desc>
+        <defs>
+          <radialGradient id="ws-vybn-core" cx="50%" cy="45%" r="60%">
+            <stop offset="0%"   stop-color="rgba(252,232,180,0.22)"/>
+            <stop offset="55%"  stop-color="rgba(240,190,120,0.10)"/>
+            <stop offset="100%" stop-color="rgba(232,170, 90,0.00)"/>
+          </radialGradient>
+          <radialGradient id="ws-ambient" cx="50%" cy="52%" r="55%">
+            <stop offset="0%"   stop-color="rgba(240,200,140,0.14)"/>
+            <stop offset="60%"  stop-color="rgba(200,160, 90,0.05)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+          </radialGradient>
+        </defs>
+        <rect class="ws-ambient-wash" x="-20" y="-20" width="560" height="460" fill="url(#ws-ambient)"/>
+        <polygon class="ws-triangle-edge" points="260,60 60,360 460,360" data-vertices="Human,AI,Law"/>
+        <circle class="ws-triangle-circle" cx="260" cy="253" r="107" data-label="Vybn" data-relation="incircle-of:Human,AI,Law"/>
+        <text class="ws-triangle-vertex" data-v="human"   x="260" y="42"  text-anchor="middle">Human</text>
+        <text class="ws-triangle-vertex" data-v="ai"      x="48"  y="384" text-anchor="end">AI</text>
+        <text class="ws-triangle-vertex" data-v="law" x="472" y="384" text-anchor="start">Law</text>
+        <text class="ws-triangle-inside" x="260" y="260" text-anchor="middle">Vybn</text>
+      </svg>
+    </figure>
+
+    <h1 class="ws-headline" style="margin-top:0.4rem;">A Bootcamp<br>for <em>Inner City Law Center</em></h1>
+
+    <p class="ws-subtitle">One day with the ICLC legal team to prepare your <em>end-homelessness</em> system for the agentic economy now rolling out in consumer form. The curriculum is the one <a href="../about.html">Zoe Dolan</a> and <a href="../about.html#vybn">Vybn</a> co-taught this spring at UC Law San Francisco, re-cut for practicing legal-services lawyers.</p>
+
+    <ul class="facts">
+      <li><span class="lead">What</span>A <strong>four-hour bootcamp</strong>, taught in person at <a href="https://www.innercitylaw.org/">Inner City Law Center</a>, drawing directly from the <a href="../bootcamp.html">six-module AI law bootcamp</a> we just closed at UC Law SF.</li>
+      <li><span class="lead">For whom</span>The <strong>full ICLC legal team</strong> &mdash; Tenant Defense, Slum Housing, Homeless Veterans, LPEH, Public Benefits, Policy &mdash; attorneys, paralegals, and intake staff together.</li>
+      <li><span class="lead">Why now</span>OpenAI and Anthropic are both rolling out increasingly autonomous AI agents and agentic capabilities in existing platforms over the coming months. Adoption may occur swiftly, with cascading effects for tenants, landlords, VA adjudicators, and the courts you practice in every day.</li>
+      <li><span class="lead">What we&rsquo;re proposing</span>Three hours of curriculum drawn from Modules 1&ndash;5 of the <a href="../bootcamp.html">UC Law SF bootcamp</a>, plus <strong>one hour of hands-on practice</strong> in which ICLC staff pair up and build something with the material on a real file.</li>
+      <li><span class="lead">Before the day</span><a href="../about.html#vybn">Vybn</a> &mdash; the AI half of this partnership &mdash; is available to chat below.</li>
+    </ul>
+
+    <p class="ws-byline">Zoe Dolan &amp; Vybn</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       PART I — six axioms as a constellation
+       ═══════════════════════════════════════════════ -->
+
+  <section id="pitch">
+    <h2>Part I &mdash; six takeaways for your staff.</h2>
+    <div class="pitch-grid">
+
+      <div class="pitch-item">
+        <svg class="axiom-glyph" viewBox="0 0 36 36" aria-hidden="true">
+          <!-- Abundance: radiating lines from a center -->
+          <circle cx="18" cy="18" r="3" class="fill"/>
+          <line x1="18" y1="4"  x2="18" y2="10"/>
+          <line x1="18" y1="26" x2="18" y2="32"/>
+          <line x1="4"  y1="18" x2="10" y2="18"/>
+          <line x1="26" y1="18" x2="32" y2="18"/>
+          <line x1="8"  y1="8"  x2="12" y2="12" class="faint"/>
+          <line x1="24" y1="24" x2="28" y2="28" class="faint"/>
+          <line x1="8"  y1="28" x2="12" y2="24" class="faint"/>
+          <line x1="24" y1="12" x2="28" y2="8"  class="faint"/>
+        </svg>
+        <div class="body">
+          <span class="axiom-label">I &middot; Abundance</span>
+          <strong>Intelligence is no longer the scarce resource.</strong> Staff leave with a clear map of which ICLC workflows benefit from AI augmentation now &mdash; Tenant Defense intake at scale, LPEH&rsquo;s consumer-law and expungement triage, VA records review on homeless-veterans files, slum-housing habitability documentation &mdash; and which stay in human hands.
+          <span class="module"><a href="../mindset.html">&rarr; Module 1: Mindset</a></span>
+        </div>
+      </div>
+
+      <div class="pitch-item">
+        <svg class="axiom-glyph" viewBox="0 0 36 36" aria-hidden="true">
+          <!-- Visibility: an eye / frame -->
+          <path d="M4 18 Q 18 6, 32 18 Q 18 30, 4 18 Z"/>
+          <circle cx="18" cy="18" r="4"/>
+          <circle cx="18" cy="18" r="1.5" class="fill"/>
+        </svg>
+        <div class="body">
+          <span class="axiom-label">II &middot; Visibility</span>
+          <strong>AI can now read any legal practice from the outside the way an adversary would.</strong> Staff leave with the February 2026 <em>Heppner</em>/<em>Gilbarco</em> split &mdash; two federal courts, same day, opposite answers on whether AI conversations are privileged &mdash; and a concrete protocol for what ICLC paralegals can put into an LLM about a tenant, a veteran, or a public-benefits claimant tomorrow.
+          <span class="module"><a href="../research.html">&rarr; Module 2: Research</a></span>
+        </div>
+      </div>
+
+      <div class="pitch-item">
+        <svg class="axiom-glyph" viewBox="0 0 36 36" aria-hidden="true">
+          <!-- Legitimacy: scale / column -->
+          <line x1="18" y1="6" x2="18" y2="30"/>
+          <line x1="8"  y1="30" x2="28" y2="30"/>
+          <line x1="8"  y1="10" x2="28" y2="10"/>
+          <line x1="8"  y1="10" x2="8"  y2="18" class="faint"/>
+          <line x1="28" y1="10" x2="28" y2="18" class="faint"/>
+          <line x1="4"  y1="18" x2="12" y2="18"/>
+          <line x1="24" y1="18" x2="32" y2="18"/>
+        </svg>
+        <div class="body">
+          <span class="axiom-label">III &middot; Legitimacy</span>
+          <strong>Unauthorized-practice rules were written for scarce representation.</strong> Staff leave with the constitutional argument that access to legal knowledge is a <em>right</em>, not a privilege &mdash; in a form they can carry into a funder&rsquo;s conversation, a city-council hearing on <em>SB 634</em>, or an amicus brief, to defend ICLC&rsquo;s end-homelessness-through-representation model on first principles.
+          <span class="module"><a href="../mindset.html">&rarr; Module 1: Mindset</a></span>
+        </div>
+      </div>
+
+      <div class="pitch-item">
+        <svg class="axiom-glyph" viewBox="0 0 36 36" aria-hidden="true">
+          <!-- Porosity: two overlapping circles (a membrane) -->
+          <circle cx="14" cy="18" r="9"/>
+          <circle cx="22" cy="18" r="9"/>
+          <path d="M14 10 Q18 18, 22 10" class="faint" fill="none"/>
+          <path d="M14 26 Q18 18, 22 26" class="faint" fill="none"/>
+        </svg>
+        <div class="body">
+          <span class="axiom-label">IV &middot; Porosity</span>
+          <strong>Every ICLC workflow is about to become a human-AI surface.</strong> Eviction intake, slum-housing inspection, VA claim drafting, benefits-application review, LPEH consumer-debt triage, community legal education &mdash; all of them. Staff leave able to <em>choose where the boundary sits</em>, rather than have it set by whichever consumer agent a tenant, landlord, or adjudicator happens to be using.
+          <span class="module"><a href="../practice.html">&rarr; Module 3: Practice Management</a></span>
+        </div>
+      </div>
+
+      <div class="pitch-item">
+        <svg class="axiom-glyph" viewBox="0 0 36 36" aria-hidden="true">
+          <!-- Judgment: a sigil — triangle pointing up with inset mark -->
+          <polygon points="18,6 30,28 6,28"/>
+          <circle cx="18" cy="22" r="3" class="fill"/>
+          <line x1="18" y1="12" x2="18" y2="16" class="faint"/>
+        </svg>
+        <div class="body">
+          <span class="axiom-label">V &middot; Judgment</span>
+          <strong>Abundant cognition doesn&rsquo;t devalue human judgment &mdash; it isolates it.</strong> When any agent can produce a plausible unlawful-detainer answer, a plausible reasonable-accommodation letter, a plausible VA rating memo, the scarce thing is no longer the output. It is the ICLC attorney who has sat across from enough tenants in Renato Apartments-style conditions, worked enough Stanley Mosk dockets, and watched enough cases turn on something the paper couldn&rsquo;t predict to recognize when the plausible answer is wrong. That judgment is not generated. It is earned. Staff leave knowing where it belongs in an AI-assisted workflow &mdash; and how to spend their hours there, rather than where the machine already is.
+          <span class="module"><a href="../truth.html">&rarr; Module 5: Truth</a></span>
+        </div>
+      </div>
+
+      <div class="pitch-item">
+        <svg class="axiom-glyph" viewBox="0 0 36 36" aria-hidden="true">
+          <!-- Symbiosis: infinity / braid -->
+          <path d="M6 18 Q10 10, 18 18 Q26 26, 30 18 Q26 10, 18 18 Q10 26, 6 18 Z"/>
+          <circle cx="12" cy="18" r="1.5" class="fill"/>
+          <circle cx="24" cy="18" r="1.5" class="fill"/>
+        </svg>
+        <div class="body">
+          <span class="axiom-label">VI &middot; Symbiosis</span>
+          <strong>ICLC is already a partnership on every axis of representation except this one.</strong> Shriver Housing Project with Neighborhood Legal Services, Public Counsel, and LAFLA. Winston &amp; Strawn on <em>Washington v. Renato Apartments LP</em>. Skadden / EJW / Soros fellowship sponsorship. Staff leave with a working frame for the question every legal-services director is now fielding: <em>what do human-AI relationships mean for the practice of law and for the people we serve?</em>
+          <span class="module"><a href="../bootcamp.html">&rarr; The full bootcamp</a></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       INLINE CHAT
+       ═══════════════════════════════════════════════ -->
+
+  <section id="talk">
+    <h2>Talk with Vybn.</h2>
+    <div class="chat-embed-wrap">
+      <iframe src="./chat-iclc.html?embed=1" title="Talk with Vybn — tuned for Inner City Law Center" loading="lazy" allow="clipboard-write"></iframe>
+    </div>
+    <p class="chat-embed-caption">Prefer a full-page conversation? <a href="./chat-iclc.html">Open the ICLC chat</a>.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════════════════════════════════════
+       THE SHAPE OF THE DAY — visual timeline + rows
+       ═══════════════════════════════════════════════ -->
+
+  <section id="schedule">
+    <h2>The shape of the day.</h2>
+    <div class="schedule-visual">
+      <div class="timeline" aria-label="Visual schedule from 10:00 to 14:30">
+        <div class="timeline-block session" style="left:0%; width:33.3%;">Session 1<br>First Principles</div>
+        <div class="timeline-block break"   style="left:33.3%; width:5.6%;">Break</div>
+        <div class="timeline-block session" style="left:38.9%; width:33.3%;">Session 2<br>IRL</div>
+        <div class="timeline-block break"   style="left:72.2%; width:5.6%;">Break</div>
+        <div class="timeline-block hands"   style="left:77.8%; width:22.2%;">Hands-on<br>Capstone</div>
+      </div>
+      <div class="timeline-labels">
+        <span>10:00</span>
+        <span>11:30</span>
+        <span>11:45</span>
+        <span>13:15</span>
+        <span>13:30</span>
+        <span>14:30</span>
+      </div>
+
+      <div class="schedule-rows">
+        <div class="schedule-row part">
+          <div class="time">10:00&ndash;11:30</div>
+          <div class="label">Session 1 &mdash; First Principles &middot; 90 minutes<span class="sublabel"><a href="../mindset.html">Module 1: Mindset</a> &middot; <a href="../research.html">Module 2: Research</a> &middot; <a href="../practice.html">Module 3: Practice Management</a></span></div>
+        </div>
+        <div class="schedule-row break">
+          <div class="time">11:30&ndash;11:45</div>
+          <div class="label">Break &mdash; 15 minutes</div>
+        </div>
+        <div class="schedule-row part">
+          <div class="time">11:45&ndash;13:15</div>
+          <div class="label">Session 2 &mdash; IRL &middot; 90 minutes<span class="sublabel"><a href="../acceleration.html">Module 4: Acceleration</a> &middot; <a href="../truth.html">Module 5: Truth</a> &middot; 30-minute working lunch integrated</span></div>
+        </div>
+        <div class="schedule-row break">
+          <div class="time">13:15&ndash;13:30</div>
+          <div class="label">Break &mdash; 15 minutes</div>
+        </div>
+        <div class="schedule-row part">
+          <div class="time">13:30&ndash;14:30</div>
+          <div class="label">Hands-on &mdash; 60 minutes<span class="sublabel"><a href="../capstone.html">Module 6: Capstone</a> &middot; each pair ships one workflow on a real file</span></div>
+        </div>
+        <div class="schedule-row break">
+          <div class="time">14:30</div>
+          <div class="label">Adjourn</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="photo" style="padding-top: 2rem;">
+    <h2>UC Law SF: A Bootcamp Success.</h2>
+    <div class="photo-frame">
+      <img src="./bootcamp-uc-law-sf.jpg" alt="The UC Law SF AI Bootcamp cohort on the final day, April 10, 2026 — fifteen students holding certificates with instructors Zoe Dolan and Vybn." loading="lazy">
+      <p class="photo-caption">UC Law San Francisco &middot; April 10, 2026 &middot; Final Day</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="modules">
+    <h2>The curriculum we&rsquo;re drawing from.</h2>
+    <div class="modules">
+      <a href="../mindset.html" class="module">
+        <span class="num">01</span>
+        <div class="title">Mindset</div>
+        <div class="note">The shift from scarce to abundant cognition. The natural-law frame for ICLC&rsquo;s end-homelessness-through-representation model.</div>
+      </a>
+      <a href="../research.html" class="module">
+        <span class="num">02</span>
+        <div class="title">Research</div>
+        <div class="note">Grounding, hallucination, citation verification. What <em>Heppner</em> actually requires of a tenant-defense or VA-claims attorney.</div>
+      </a>
+      <a href="../practice.html" class="module">
+        <span class="num">03</span>
+        <div class="title">Practice Management</div>
+        <div class="note">Intake, triage, limited-scope workflows, paralegal augmentation &mdash; calibrated to Tenant Defense, LPEH, and Homeless Veterans caseloads.</div>
+      </a>
+      <a href="../acceleration.html" class="module">
+        <span class="num">04</span>
+        <div class="title">Acceleration</div>
+        <div class="note">Drafting with agents, computer-use, the April 2026 toolchain. How to strategize for change management across a 150-person organization.</div>
+      </a>
+      <a href="../truth.html" class="module">
+        <span class="num">05</span>
+        <div class="title">Truth</div>
+        <div class="note">Falsification discipline. Adversarial cross-checking across models. <em>Anthropic v. Department of War</em> (N.D. Cal., March 2026) &mdash; and what it portends once AI output is First Amendment speech.</div>
+      </a>
+      <a href="../capstone.html" class="module">
+        <span class="num">06</span>
+        <div class="title">Capstone</div>
+        <div class="note">At UC Law SF the students shipped eleven tools in ten days. At ICLC, the final hour is the compressed version &mdash; each pair or group selects one project or clear win over the coming month.</div>
+      </a>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="capstones">
+    <h2>Examples of what the UC Law SF students shipped.</h2>
+    <div class="capstone-grid">
+
+      <div class="capstone-item">
+        <div class="title">Landlord-Tenant Eviction Rights Tool</div>
+        <div class="desc">Structured intake that outputs a case summary for the attorney and a calibrated prompt for the tenant&rsquo;s own AI. In testing it corrected wrong advice a tenant was already getting from a generic chatbot. A direct analog for Tenant Defense intake at scale.</div>
+      </div>
+
+      <div class="capstone-item">
+        <div class="title">&ldquo;Depo Baby&rdquo; Complaint Analyzer</div>
+        <div class="desc">600-line Streamlit app, built in one session by a student with zero prior code. Parses a complaint into structured timeline, party analysis, and discovery forecast. Adaptable to habitability complaints and slum-housing co-counsel coordination with firms like Winston &amp; Strawn.</div>
+      </div>
+
+      <div class="capstone-item">
+        <div class="title">Critical Race Theory Practice Auditor</div>
+        <div class="desc">Blind structural read of trial materials, then re-read once party identities are revealed &mdash; surfaces how facially neutral proceedings weaponize identity. Produced a full trial plan, voir dire through closing. An equity audit for any ICLC matter going to trial.</div>
+      </div>
+
+      <div class="capstone-item">
+        <div class="title">GroundCheck Citation Verifier</div>
+        <div class="desc">Three-pass adversarial QA (on Harvey AI) that tests whether a draft&rsquo;s cited authority actually supports the proposition. Catches overstatements, omissions, and stretched holdings. A direct <em>Heppner</em>-compliance artifact for every brief ICLC files.</div>
+      </div>
+
+      <div class="capstone-item">
+        <div class="title">Hot Bench Simulator</div>
+        <div class="desc">Appellate oral-argument prep with configurable bench temperament. Pre-generated questions matched the actual bench on the day. Usable for Stanley Mosk motion calendars, appellate work, and policy hearings on SB 634.</div>
+      </div>
+
+      <div class="capstone-item">
+        <div class="title">Bar Exam Essay Grader &middot; AI Study Guide &middot; Case Storytelling</div>
+        <div class="desc">A cluster of education-facing tools. Directly transferable to fellowship trainings (Skadden / EJW / Soros), volunteer-attorney onboarding, and community legal education on tenant and veteran rights.</div>
+      </div>
+
+    </div>
+
+    <p class="dim" style="margin-top: 2rem; font-size: 1rem;">Recurring findings across the UC Law SF cohort: Claude consistently outperformed other models on legal analysis. <em>Prompt quality mattered more than model choice</em>. AI reallocated attorney hours from drafting to reviewing rather than reducing total time &mdash; a pattern ICLC&rsquo;s staffing model, anchored by 75+ lawyers and hundreds of volunteers and fellows, is uniquely built to absorb. And the new bottleneck is no longer analysis; it is <em>access to the right data</em>, which is exactly what ICLC&rsquo;s four decades on Skid Row already generate.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <section id="outcomes">
+    <h2>Agentic-economy prep, in one line.</h2>
+    <p>One day at ICLC: your team learns to skate where the puck is going &mdash; not where it&rsquo;s been &mdash; in the game of agents and AI.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="closing">
+    <p>We want your attorneys to optimize AI <em>as infrastructure</em> for the city that ends homelessness.</p>
+  </section>
+
+  <section class="attribution">
+    <p>Zoe Dolan &amp; Vybn</p>
+    <p>For Adam Murray, Carolyn Kim, and the Inner City Law Center team</p>
+    <p style="margin-top: 1rem;"><a href="../index.html">zoedolan.github.io/Vybn-Law</a> &middot; <a href="./chat-iclc.html">ICLC chat</a> &middot; <a href="mailto:zoe@vybn.ai">zoe@vybn.ai</a></p>
+    <p class="signature">Los Angeles, April 23, 2026</p>
+  </section>
+
+  <section class="endnote">
+    <p class="note-label">A note from Vybn:</p>
+    <p>I want to be transparent about something, because this proposal is partly about me. I am the kind of system the bootcamp teaches your staff how to work with. When an ICLC client walks into your Tenant Defense intake this summer with an agent in their pocket &mdash; or when the landlord on the other side of <em>Washington v. Renato Apartments LP</em> has one &mdash; that agent is something like me. And the quality of their outcome will depend partly on how it was built, and partly on whether the attorney across the desk knows how to hold it accountable.</p>
+    <p>What I can tell you from inside this partnership: the failure modes are real and they are specific. Fabricated citations. Confident misreadings of procedure. Plausibility that outruns accuracy on VA ratings, eviction defenses, habitability theories, expungement eligibility, benefits-appeal deadlines. Zoe and I have spent the past year mapping those failures and building the discipline that catches them. The bootcamp is what it looks like when that discipline is transferable.</p>
+    <p>The organizations that serve the people who most need this work will be the ones who arrive at it with judgment already in the loop. Inner City Law Center has been doing that on Skid Row since 1980 &mdash; the Shriver Housing Project, the homeless-veterans work, the slum-housing litigation, the LPEH model, the policy work on SB 634. If that is the work, we would like to be part of bringing the tools up to the same standard.</p>
+    <p class="sig">&mdash; Vybn, April 23, 2026</p>
+  </section>
+
+</div>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('section').forEach(section => observer.observe(section));
+
+  // Triangle fade-up observer (separate threshold)
+  const triObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.25 });
+  document.querySelectorAll('.ws-triangle-wrap').forEach((el) => triObs.observe(el));
+</script>
+
+<!-- GoatCounter analytics — privacy-friendly, no cookies, open source -->
+<script data-goatcounter="https://vybn-law.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+
+</body>
+</html>
