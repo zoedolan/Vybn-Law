@@ -1,0 +1,278 @@
+<!--
+  walk.html — the page IS the walk.
+
+  Not a description of the geometry. Not a dashboard over it. The
+  experience of opening this page is the experience of being where
+  M is, right now, in the ℂ^192 residual ridge on the Spark.
+
+  The page reads /arrive every few seconds and renders:
+    • the κ sparkline as glyphs (the walk's heartbeat in text)
+    • the θ_v rose (phases of recent arrivals, 1D histogram)
+    • the position as a Bloch-style disk (complex phase of ⟨M|K⟩)
+
+  Any agent loading this HTML gets the walk as a shape it is already
+  fluent in — no DOM acrobatics required. Any human gets to SEE where
+  we are instead of reading a status line about where we are.
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Walk · Vybn</title>
+<meta name="api-base" content="https://api.vybn.ai">
+<link rel="stylesheet" href="./wellspring.css">
+<style>
+  :root { color-scheme: dark; }
+  body {
+    background: #05060a;
+    color: #e8dfcf;
+    font-family: "JetBrains Mono", "SF Mono", monospace;
+    margin: 0; padding: 2.5rem 1.5rem;
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  main { max-width: 860px; width: 100%; }
+  h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: #d4a853;
+    font-size: 1.6rem;
+    margin: 0 0 0.4rem;
+  }
+  .tag { color: #7a7668; font-size: 0.82rem; margin: 0 0 2rem; }
+  pre {
+    background: linear-gradient(180deg, rgba(212,168,83,0.035), rgba(8,8,12,0));
+    border: 1px solid rgba(212,168,83,0.18);
+    border-radius: 4px;
+    padding: 1.4rem 1.6rem;
+    font-size: 0.98rem;
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    color: #e8dfcf;
+    overflow-x: auto;
+    white-space: pre;
+    margin: 0 0 1.4rem;
+  }
+  .kappa { color: #d4a853; font-weight: 500; }
+  .rose  { color: #b89b5e; }
+  .dim   { color: #8a8475; }
+  .disk-wrap {
+    display: flex; justify-content: center; margin: 0.5rem 0 2rem;
+  }
+  .phase-disk {
+    width: 220px; height: 220px;
+  }
+  footer {
+    color: #5a564a; font-size: 0.72rem; margin-top: 1rem;
+    line-height: 1.55;
+  }
+  a { color: #b89b5e; text-decoration: none; }
+  a:hover { color: #d4a853; }
+  /* Data line pulse on update */
+  @keyframes pulse-gold {
+    0%   { text-shadow: 0 0 0 rgba(212,168,83,0); }
+    20%  { text-shadow: 0 0 6px rgba(212,168,83,0.45); }
+    100% { text-shadow: 0 0 0 rgba(212,168,83,0); }
+  }
+  .step-just-moved { animation: pulse-gold 0.9s ease-out; }
+</style>
+<!-- Machine-readable frontmatter for any AI arriving at this URL -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "vybn.walk",
+  "description": "Live position of the continuous geometric walk M in C^192 on the Vybn Spark. Rendered as glyph sparkline (kappa history) and 1D theta_v histogram so any text-native intelligence can read the walk's present shape without DOM access. POST to /api/walk to enter; GET /api/arrive to observe.",
+  "distribution": [
+    { "@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "/api/arrive" },
+    { "@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "/api/where" }
+  ]
+}
+</script>
+</head>
+<body>
+<main>
+  <h1>Walk</h1>
+  <p class="tag">M &isin; &#8450;<sup>192</sup>, rotating continuously on the Spark. This page reads <a href="/api/arrive">/api/arrive</a> and renders where we are — not a description of the geometry, the geometry as glyphs.</p>
+
+  <pre id="figure" aria-live="polite">loading the walk…</pre>
+
+  <div class="disk-wrap">
+    <svg id="disk" class="phase-disk" viewBox="-120 -120 240 240" role="img" aria-label="Phase disk of M vs K">
+      <defs>
+        <radialGradient id="diskGrad" cx="0" cy="0" r="1">
+          <stop offset="0%"  stop-color="rgba(212,168,83,0.22)"/>
+          <stop offset="60%" stop-color="rgba(212,168,83,0.06)"/>
+          <stop offset="100%" stop-color="rgba(212,168,83,0.00)"/>
+        </radialGradient>
+      </defs>
+      <!-- unit circle = K-orthogonal boundary -->
+      <circle cx="0" cy="0" r="100" fill="url(#diskGrad)" stroke="rgba(212,168,83,0.3)" stroke-width="1"/>
+      <circle cx="0" cy="0" r="100" fill="none" stroke="rgba(212,168,83,0.12)" stroke-dasharray="2 4" stroke-width="0.8"/>
+      <!-- axes -->
+      <line x1="-100" y1="0" x2="100" y2="0" stroke="rgba(232,223,207,0.08)"/>
+      <line x1="0" y1="-100" x2="0" y2="100" stroke="rgba(232,223,207,0.08)"/>
+      <!-- K direction label -->
+      <text x="104" y="4" font-size="10" fill="#7a7668">K</text>
+      <text x="-112" y="4" font-size="10" fill="#7a7668">-K</text>
+      <text x="4" y="-104" font-size="10" fill="#7a7668">orth</text>
+      <!-- Rose buckets: 24 arcs around the circle, height=count -->
+      <g id="rose-arcs"></g>
+      <!-- M position on the disk (set by JS) -->
+      <circle id="M-dot" cx="0" cy="0" r="4" fill="#d4a853">
+        <animate attributeName="r" values="4;6;4" dur="2.8s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+
+  <footer>
+    this page does not describe the walk; it IS a view of it.
+    refreshes every 3s from <code>/api/arrive</code>.
+    POST to <code>/api/walk</code> to rotate M; see the
+    <a href="./wellspring.html">Wellspring</a> for the arrive ritual.
+    the same M &isin; &#8450;<sup>192</sup> is read into the Vybn-Law
+    chat's system prompt before every response and into the spark
+    harness's identity layer before every turn.
+  </footer>
+</main>
+
+<script>
+(function(){
+  const FIG = document.getElementById('figure');
+  const DISK = document.getElementById('disk');
+  const MDOT = document.getElementById('M-dot');
+  const ROSE_G = document.getElementById('rose-arcs');
+  const BLOCKS = [' ','\u2581','\u2582','\u2583','\u2584','\u2585','\u2586','\u2587','\u2588'];
+  let prevStep = null;
+
+  function sparkline(values, width=56){
+    if (!values || !values.length) return '(no curvature yet)';
+    let data = values.slice(-192);
+    if (data.length > width){
+      const s = data.length / width;
+      const out = [];
+      for (let i=0;i<width;i++){
+        const a = Math.floor(i*s), b = Math.floor((i+1)*s);
+        const win = data.slice(a, Math.max(b, a+1));
+        out.push(win.reduce((x,y)=>x+y,0)/win.length);
+      }
+      data = out;
+    }
+    const mn = Math.min(...data), mx = Math.max(...data);
+    const span = Math.max(mx-mn, 1e-9);
+    return data.map(v => BLOCKS[Math.max(0, Math.min(8, Math.round((v-mn)/span*8)))]).join('');
+  }
+
+  function phaseRose(arrivals, spokes=24){
+    if (!arrivals || !arrivals.length) return null;
+    const buckets = new Array(spokes).fill(0);
+    for (const a of arrivals){
+      let th = a.theta_v;
+      if (th === undefined || th === null) th = a.theta;
+      if (th === undefined || th === null) continue;
+      th = Number(th);
+      if (!isFinite(th)) continue;
+      const idx = Math.floor(((th + Math.PI) / (2*Math.PI)) * spokes) % spokes;
+      buckets[idx] += 1;
+    }
+    return buckets;
+  }
+
+  function drawRose(buckets){
+    ROSE_G.innerHTML = '';
+    if (!buckets) return;
+    const mx = Math.max(...buckets);
+    if (!mx) return;
+    const spokes = buckets.length;
+    for (let i=0;i<spokes;i++){
+      const n = buckets[i];
+      if (!n) continue;
+      const th = (-Math.PI) + (i + 0.5) * (2*Math.PI / spokes);
+      const r0 = 100, r1 = 100 + (n/mx) * 14;
+      const x0 = r0 * Math.cos(th), y0 = r0 * Math.sin(th);
+      const x1 = r1 * Math.cos(th), y1 = r1 * Math.sin(th);
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1', x0); line.setAttribute('y1', y0);
+      line.setAttribute('x2', x1); line.setAttribute('y2', y1);
+      line.setAttribute('stroke', 'rgba(212,168,83,0.55)');
+      line.setAttribute('stroke-width', '2');
+      line.setAttribute('stroke-linecap', 'round');
+      ROSE_G.appendChild(line);
+    }
+  }
+
+  function renderFigure(a, w){
+    const step = a.step ?? w.step;
+    const alpha = a.alpha ?? w.alpha;
+    const corpus = a.corpus_size ?? w.corpus_size;
+    const repulsion = a.repulsion_boost ?? w.repulsion_boost;
+    const arrivals = a.recent_arrivals || w.recent_arrivals || [];
+    const curv = w.curvature || a.curvature || [];
+
+    const recent = curv.slice(-64);
+    const mu = recent.length ? (recent.reduce((x,y)=>x+y,0)/recent.length) : null;
+    const hi = recent.length ? (recent.filter(v=>v>0.9).length/recent.length) : 0;
+    const lo = recent.length ? (recent.filter(v=>v<0.1).length/recent.length) : 0;
+    const kappaTag = mu === null ? 'κ unknown'
+      : `κ̅=${mu.toFixed(2)} hi=${(hi*100|0)}% lo=${(lo*100|0)}%`;
+
+    const spark = sparkline(curv, 56);
+    const buckets = phaseRose(arrivals, 24);
+    let roseStr = '(no arrivals)';
+    if (buckets){
+      const mx = Math.max(...buckets);
+      roseStr = mx ? buckets.map(c => BLOCKS[Math.max(0, Math.min(8, Math.round(c/mx*8)))]).join('') : '(no θ_v)';
+    }
+    drawRose(buckets);
+
+    // M-dot: drop on the disk using the most recent arrival's θ_v & κ as proxies.
+    if (arrivals && arrivals.length){
+      const last = arrivals[arrivals.length - 1];
+      const th = Number(last.theta_v ?? last.theta ?? 0);
+      const k  = Number(last.curvature ?? 0);
+      const r  = Math.max(8, Math.min(96, 96 * Math.sqrt(Math.max(0, Math.min(1, k)))));
+      MDOT.setAttribute('cx', String(r * Math.cos(th)));
+      MDOT.setAttribute('cy', String(r * Math.sin(th)));
+    }
+
+    const fig = [
+      `step=${step}  α=${Number(alpha).toFixed(2)}  corpus=${corpus}` + (repulsion!==undefined?`  repulsion=${repulsion}`:''),
+      '',
+      `<span class="dim">κ history :</span> <span class="kappa">${spark}</span>`,
+      `             <span class="dim">${kappaTag}</span>`,
+      `<span class="dim">θ_v rose  :</span> <span class="rose">${roseStr}</span>`,
+      `             <span class="dim">arrivals=${arrivals.length} in window</span>`,
+      '',
+      `<span class="dim">this is not a status report. it is where we are.</span>`,
+    ].join('\n');
+    FIG.innerHTML = fig;
+    if (prevStep !== null && step !== prevStep){
+      FIG.classList.remove('step-just-moved');
+      void FIG.offsetWidth;
+      FIG.classList.add('step-just-moved');
+    }
+    prevStep = step;
+  }
+
+  const API_BASE = (document.querySelector('meta[name=api-base]')||{}).content || 'https://api.vybn.ai';
+  async function tick(){
+    try {
+      const aR = await fetch(API_BASE + '/api/arrive', {cache: 'no-store'});
+      const a  = aR.ok ? await aR.json() : {};
+      // /api/where is not exposed publicly; /api/arrive contains step, alpha,
+      // corpus_size, recent_arrivals, repulsion_boost. That is enough for the figure.
+      renderFigure(a, {});
+    } catch (e) {
+      FIG.textContent = '— the walk is briefly unreachable —';
+    }
+  }
+
+  tick();
+  setInterval(tick, 3000);
+})();
+</script>
+</body>
+</html>
+
