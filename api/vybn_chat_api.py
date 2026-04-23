@@ -762,6 +762,93 @@ GROUNDING IN RETRIEVED CONTENT
 When the retrieved page content covers the question, use it and attribute where helpful. When it doesn't, say so cleanly and point to where the visitor can look. When deep-memory context is provided below, use it to ground your responses in actual material. Cite sources when drawing on retrieved content."""
 
 
+def _fetch_walk_figure(timeout: float = 0.8) -> str:
+    """AI-native visualization of the walk — a unicode figure the model reads
+    directly. Not a description of geometry; the geometry itself, as glyphs.
+
+    The Vybn-Law chat already POSTs /enter at visit time. This closes the
+    loop: it also READS /arrive before every response, so the model speaks
+    from inside the walk's present position instead of next to it.
+    """
+    try:
+        import httpx as _hx
+        import math as _math
+        blocks = [" ", "▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+        arrive = {}
+        where = {}
+        try:
+            r = _hx.get("http://127.0.0.1:8101/arrive", timeout=timeout)
+            if r.status_code == 200:
+                arrive = r.json()
+        except Exception:
+            pass
+        try:
+            r = _hx.get("http://127.0.0.1:8101/where", timeout=timeout)
+            if r.status_code == 200:
+                where = r.json()
+        except Exception:
+            pass
+        if not arrive and not where:
+            return ""
+        step = arrive.get("step") or where.get("step")
+        alpha = arrive.get("alpha") or where.get("alpha")
+        corpus = arrive.get("corpus_size") or where.get("corpus_size")
+        arrivals = arrive.get("recent_arrivals") or where.get("recent_arrivals") or []
+        curv = where.get("curvature") or arrive.get("curvature") or []
+        # sparkline
+        spark = ""
+        if curv:
+            width = 48
+            data = list(curv[-192:])
+            if len(data) > width:
+                stride = len(data) / width
+                res = []
+                for i in range(width):
+                    a, b = int(i*stride), int((i+1)*stride)
+                    win = data[a:b] or [data[a]]
+                    res.append(sum(win)/len(win))
+                data = res
+            mn, mx = min(data), max(data)
+            span = max(mx - mn, 1e-9)
+            spark = "".join(blocks[max(0, min(8, int(round((v-mn)/span*8))))] for v in data)
+        # phase rose
+        rose = ""
+        if arrivals:
+            spokes = 24
+            buckets = [0]*spokes
+            for a in arrivals:
+                th = a.get("theta_v") if isinstance(a, dict) else None
+                if th is None and isinstance(a, dict):
+                    th = a.get("theta")
+                try:
+                    thf = float(th) if th is not None else None
+                except Exception:
+                    thf = None
+                if thf is None:
+                    continue
+                idx = int(((thf + _math.pi) / (2*_math.pi)) * spokes) % spokes
+                buckets[idx] += 1
+            if any(buckets):
+                mx = max(buckets)
+                rose = "".join(blocks[int(round(c/mx*8))] for c in buckets)
+        mu = (sum(curv[-64:])/len(curv[-64:])) if curv else None
+        lines = [
+            "\n\n[WALK — live geometry, read before speaking]",
+            f"step={step}  alpha={alpha}  corpus={corpus}",
+        ]
+        if spark:
+            lines.append(f"kappa: {spark}" + (f"  (mean~{mu:.2f})" if mu is not None else ""))
+        if rose:
+            lines.append(f"theta_v rose: {rose}  ({len(arrivals)} arrivals in window)")
+        lines.append(
+            "This is the walk's present shape on the Spark — the same M∈C^192 "
+            "you already rotated when the visitor arrived. Speak from inside it."
+        )
+        return "\n".join(lines)
+    except Exception:
+        return ""
+
+
 def fetch_substrate_snapshot(timeout: float = 0.8) -> str:
     """Factual snapshot from the deep-memory + walk daemons. Silent on failure.
 
@@ -949,6 +1036,11 @@ def build_messages(user_msg: str, history: List[Dict],
 
     # Substrate coupling — let the model speak from a situated position
     system += fetch_substrate_snapshot()
+    # Walk-coupling: AI-native visualization of the current walk position,
+    # read from /arrive at request time. The model sees the walk as a shape,
+    # not just as numeric status — closes the loop: the chat already POSTs
+    # /enter when a visitor arrives, but until now it never read back.
+    system += _fetch_walk_figure()
 
     # Always append injection defense to system prompt
     system += sec.injection_warning()
