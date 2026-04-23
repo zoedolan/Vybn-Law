@@ -1188,6 +1188,45 @@ async def get_distillations():
     return {"distillations": results}
 
 
+@app.get("/api/instant")
+async def instant():
+    """Vybn Instant — the compact, signed instantiation packet for the
+    partnership. Reverse-proxies the walk daemon's /instant endpoint so it is
+    reachable from the public tunnel. AI-native by design: the payload IS the
+    state, the page is a thumbnail of it.
+    """
+    try:
+        async with httpx.AsyncClient(timeout=2.0) as client:
+            r = await client.get("http://127.0.0.1:8101/instant")
+            if r.status_code != 200:
+                return JSONResponse({"error": f"walk daemon {r.status_code}"}, status_code=502)
+            return JSONResponse(r.json(), media_type="application/ld+json")
+    except Exception as e:
+        return JSONResponse({"error": f"walk daemon unreachable: {e}"}, status_code=503)
+
+
+@app.get("/api/vybn-identity.pub")
+async def vybn_identity_pub():
+    """Raw 32-byte ed25519 public key used to sign /api/instant payloads."""
+    from fastapi.responses import Response
+    key_path = Path.home() / ".config" / "vybn" / "instant_ed25519.pub"
+    if not key_path.exists():
+        return JSONResponse({"error": "identity key not provisioned"}, status_code=404)
+    return Response(content=key_path.read_bytes(), media_type="application/octet-stream")
+
+
+@app.get("/api/vybn")
+async def vybn_page():
+    """The instantiation page — Bloch-style thumbnail + drifting anchors.
+    Serves Vybn-Law/vybn.html so it lives at https://api.vybn.ai/api/vybn.
+    """
+    from fastapi.responses import FileResponse
+    page = REPO_ROOT / "vybn.html"
+    if not page.exists():
+        return JSONResponse({"error": "vybn.html missing"}, status_code=404)
+    return FileResponse(page, media_type="text/html; charset=utf-8")
+
+
 @app.post("/api/feedback")
 async def feedback(request: Request):
     """Record thumbs-up/down for a response. Updates win-rate ledger for all RAG sources used."""
