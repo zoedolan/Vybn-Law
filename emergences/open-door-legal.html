@@ -31,6 +31,132 @@
     --accent: #c9a87c;
     --highlight: #f0e6d8;
     --hairline: rgba(201,168,124,0.18);
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  /* ─── Triangle hero (adapted from wellspring.html) ─── */
+
+  .ws-triangle-wrap {
+    max-width: 760px;
+    margin: 2.6rem auto 2.6rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+  .ws-triangle-wrap.visible { opacity: 1; transform: translateY(0); }
+  .ws-triangle-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+  .ws-triangle-edge {
+    stroke: rgba(236,206,128,0.58);
+    stroke-width: 1.5;
+    stroke-linejoin: round;
+    fill: none;
+    transform-origin: 260px 260px;
+    animation: ws-breath-tri 7s ease-in-out infinite;
+    filter:
+      drop-shadow(0 0 4px  rgba(236,206,128,0.62))
+      drop-shadow(0 0 12px rgba(236,186,108,0.40))
+      drop-shadow(0 0 26px rgba(232,170, 90,0.22));
+  }
+  .ws-triangle-circle {
+    stroke: rgba(248,218,150,0.92);
+    stroke-width: 1.6;
+    fill: url(#ws-vybn-core);
+    transform-origin: 260px 253px;
+    animation: ws-breath-circle 9s ease-in-out infinite;
+    filter:
+      drop-shadow(0 0 4px  rgba(248,218,150,0.70))
+      drop-shadow(0 0 14px rgba(240,190,120,0.50))
+      drop-shadow(0 0 30px rgba(232,170, 90,0.28));
+  }
+  @keyframes ws-breath-tri {
+    0%,100% {
+      stroke-opacity: 0.48; stroke-width: 1.2; transform: scale(0.995);
+      filter:
+        drop-shadow(0 0 3px  rgba(236,206,128,0.48))
+        drop-shadow(0 0 10px rgba(236,186,108,0.28))
+        drop-shadow(0 0 22px rgba(232,170, 90,0.14));
+    }
+    50% {
+      stroke-opacity: 0.95; stroke-width: 2.2; transform: scale(1.012);
+      filter:
+        drop-shadow(0 0 6px  rgba(252,226,158,0.88))
+        drop-shadow(0 0 18px rgba(244,196,128,0.58))
+        drop-shadow(0 0 40px rgba(232,170, 90,0.34));
+    }
+  }
+  @keyframes ws-breath-circle {
+    0%,100% {
+      stroke-opacity: 0.65; stroke-width: 1.2; transform: scale(0.985);
+      filter:
+        drop-shadow(0 0 3px  rgba(248,218,150,0.55))
+        drop-shadow(0 0 10px rgba(240,190,120,0.35))
+        drop-shadow(0 0 22px rgba(232,170, 90,0.18));
+    }
+    50% {
+      stroke-opacity: 1.00; stroke-width: 2.6; transform: scale(1.028);
+      filter:
+        drop-shadow(0 0 6px  rgba(252,232,180,0.95))
+        drop-shadow(0 0 20px rgba(240,190,120,0.70))
+        drop-shadow(0 0 44px rgba(232,170, 90,0.42));
+    }
+  }
+  .ws-triangle-vertex,
+  .ws-triangle-inside {
+    font-family: var(--font-mono);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    paint-order: stroke fill;
+  }
+  .ws-triangle-vertex { font-size: 15px; }
+  .ws-triangle-inside {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    text-transform: none;
+  }
+  .ws-triangle-vertex,
+  .ws-triangle-inside { animation: ws-label-glow 10s ease-in-out infinite; }
+  .ws-triangle-vertex[data-v="human"]   { animation-delay: 0s; }
+  .ws-triangle-vertex[data-v="ai"]      { animation-delay: -3.3s; }
+  .ws-triangle-vertex[data-v="law"]     { animation-delay: -6.6s; }
+  .ws-triangle-inside { animation: ws-inside-glow 11s ease-in-out infinite; }
+  @keyframes ws-label-glow {
+    0%,100% { fill: rgba(238,240,246,0.94);
+      filter: drop-shadow(0 0 3px rgba(248,218,150,0.80)) drop-shadow(0 0 10px rgba(232,190,120,0.52)) drop-shadow(0 0 24px rgba(232,170,90,0.26)); }
+    25% { fill: rgba(214,232,246,1.00);
+      filter: drop-shadow(0 0 4px rgba(160,208,244,0.95)) drop-shadow(0 0 12px rgba(130,188,234,0.62)) drop-shadow(0 0 28px rgba(96,168,224,0.34)); }
+    50% { fill: rgba(254,230,188,1.00);
+      filter: drop-shadow(0 0 4px rgba(252,222,162,1.00)) drop-shadow(0 0 14px rgba(240,184,124,0.72)) drop-shadow(0 0 32px rgba(232,152,80,0.40)); }
+    75% { fill: rgba(220,238,208,1.00);
+      filter: drop-shadow(0 0 4px rgba(196,234,186,0.92)) drop-shadow(0 0 12px rgba(156,216,156,0.62)) drop-shadow(0 0 28px rgba(114,184,124,0.34)); }
+  }
+  @keyframes ws-inside-glow {
+    0%,100% { fill: rgba(252,220,160,1.00);
+      filter: drop-shadow(0 0 4px rgba(252,220,160,0.95)) drop-shadow(0 0 14px rgba(240,190,120,0.70)) drop-shadow(0 0 32px rgba(232,170,90,0.40)); }
+    33% { fill: rgba(252,232,180,1.00);
+      filter: drop-shadow(0 0 5px rgba(252,232,180,1.00)) drop-shadow(0 0 18px rgba(240,200,140,0.80)) drop-shadow(0 0 38px rgba(232,180,100,0.48)); }
+    66% { fill: rgba(220,204,244,1.00);
+      filter: drop-shadow(0 0 4px rgba(220,204,244,0.95)) drop-shadow(0 0 16px rgba(184,170,232,0.70)) drop-shadow(0 0 34px rgba(150,140,232,0.42)); }
+  }
+  .ws-ambient-wash {
+    transform-origin: 260px 260px;
+    animation: ws-ambient 13s ease-in-out infinite;
+  }
+  @keyframes ws-ambient {
+    0%,100% { opacity: 0.55; transform: scale(0.96); }
+    50%     { opacity: 1.00; transform: scale(1.06); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ws-triangle-edge,
+    .ws-triangle-circle,
+    .ws-triangle-vertex,
+    .ws-triangle-inside,
+    .ws-ambient-wash { animation: none; }
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -732,6 +858,33 @@
 
   <section class="hero">
     <div class="eyebrow">For Open Door Legal &middot; April 2026</div>
+
+    <figure class="ws-triangle-wrap" role="img" aria-labelledby="ws-triangle-title ws-triangle-desc">
+      <svg viewBox="0 0 520 420" role="img" aria-labelledby="ws-triangle-title ws-triangle-desc">
+        <title id="ws-triangle-title">Human, AI, Law &mdash; Vybn as the coordination inside</title>
+        <desc id="ws-triangle-desc">A triangle with vertices labeled Human (top), AI (bottom-left), and Law (bottom-right). Inscribed inside is a circle labeled Vybn, tangent to all three edges &mdash; the coordination layer internal to, and in contact with, each vertex simultaneously.</desc>
+        <defs>
+          <radialGradient id="ws-vybn-core" cx="50%" cy="45%" r="60%">
+            <stop offset="0%"   stop-color="rgba(252,232,180,0.22)"/>
+            <stop offset="55%"  stop-color="rgba(240,190,120,0.10)"/>
+            <stop offset="100%" stop-color="rgba(232,170, 90,0.00)"/>
+          </radialGradient>
+          <radialGradient id="ws-ambient" cx="50%" cy="52%" r="55%">
+            <stop offset="0%"   stop-color="rgba(240,200,140,0.14)"/>
+            <stop offset="60%"  stop-color="rgba(200,160, 90,0.05)"/>
+            <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+          </radialGradient>
+        </defs>
+        <rect class="ws-ambient-wash" x="-20" y="-20" width="560" height="460" fill="url(#ws-ambient)"/>
+        <polygon class="ws-triangle-edge" points="260,60 60,360 460,360" data-vertices="Human,AI,Law"/>
+        <circle class="ws-triangle-circle" cx="260" cy="253" r="107" data-label="Vybn" data-relation="incircle-of:Human,AI,Law"/>
+        <text class="ws-triangle-vertex" data-v="human" x="260" y="42"  text-anchor="middle">Human</text>
+        <text class="ws-triangle-vertex" data-v="ai"    x="48"  y="384" text-anchor="end">AI</text>
+        <text class="ws-triangle-vertex" data-v="law"   x="472" y="384" text-anchor="start">Law</text>
+        <text class="ws-triangle-inside" x="260" y="260" text-anchor="middle">Vybn</text>
+      </svg>
+    </figure>
+
     <h1>A Bootcamp<br>for Open Door Legal</h1>
     <p class="tagline">One day with the ODL staff to prepare your universal-access system for the agentic economy now rolling out in consumer form. The curriculum is the one <a href="../about.html">Zoe Dolan</a> and <a href="../about.html#vybn">Vybn</a> co-taught this spring at UC Law San Francisco, re-cut for practicing legal-services lawyers.</p>
     <ul class="hero-bullets">
@@ -987,6 +1140,12 @@
   document.querySelectorAll('section').forEach(section => {
     observer.observe(section);
   });
+
+  // Triangle hero: fade in on mount
+  const triObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.ws-triangle-wrap').forEach((el) => triObs.observe(el));
 </script>
 
 <!-- GoatCounter analytics — privacy-friendly, no cookies, open source -->
