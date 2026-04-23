@@ -177,14 +177,19 @@
   }
 
   .hero {
-    min-height: 86vh;
+    display: block;
+    text-align: center;
+    padding: 0 0 6rem;
+  }
+  .hero-stage {
+    min-height: calc(100svh - 68px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    text-align: center;
-    padding: 2.5rem 0 7rem;
+    padding: 1.2rem 0 0;
   }
+  .hero > .tagline { margin-top: 2.5rem; }
 
   /* ─── Scroll indicator (adapted from vybn.ai) ──────────────── */
   .scroll-cue {
@@ -206,8 +211,8 @@
 
   .scroll-cue-flow {
     position: relative;
-    width: 60px;
-    height: 130px;
+    width: 50px;
+    height: 70px;
     overflow: visible;
   }
   .scroll-cue-particle {
@@ -241,17 +246,17 @@
   .scroll-cue-particle.sp-8 { animation-delay: 2.45s; left: 32px; }
 
   @keyframes cue-fall {
-    0%   { top: -8px;   opacity: 0;   transform: scale(0.4); }
-    10%  {               opacity: 1;   transform: scale(1.2); }
-    40%  {               opacity: 1;   transform: scale(1.0); }
-    75%  {               opacity: 0.5; transform: scale(0.8); }
-    100% { top: 120px;   opacity: 0;   transform: scale(0.1); }
+    0%   { top: -8px;  opacity: 0;   transform: scale(0.4); }
+    12%  {              opacity: 1;   transform: scale(1.15); }
+    45%  {              opacity: 1;   transform: scale(1.0); }
+    78%  {              opacity: 0.5; transform: scale(0.8); }
+    100% { top: 64px;   opacity: 0;   transform: scale(0.1); }
   }
 
   .scroll-cue-line {
     width: 2px;
-    height: 80px;
-    margin-top: -10px;
+    height: 44px;
+    margin-top: -6px;
     border-radius: 1px;
     opacity: 0.7;
     filter: blur(1.4px);
@@ -299,12 +304,14 @@
   }
 
   .hero h1 {
-    font-size: clamp(2.2rem, 5.2vw, 3.6rem);
+    max-width: 720px;
+    margin: 0.4rem auto 1rem;
+    font-family: var(--font-serif);
+    font-size: clamp(1.45rem, 3.2vw, 1.95rem);
     font-weight: 300;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.01em;
     color: var(--highlight);
-    margin-bottom: 1.8rem;
-    line-height: 1.22;
+    line-height: 1.35;
     opacity: 0;
     animation: fadeUp 2s ease 0.3s forwards;
   }
@@ -974,6 +981,7 @@
 <div class="container">
 
   <section class="hero">
+    <div class="hero-stage">
     <figure class="ws-triangle-wrap" role="img" aria-labelledby="ws-triangle-title ws-triangle-desc">
       <svg viewBox="0 0 520 420" role="img" aria-labelledby="ws-triangle-title ws-triangle-desc">
         <title id="ws-triangle-title">Human, AI, Law &mdash; Vybn as the coordination inside</title>
@@ -1001,6 +1009,7 @@
     </figure>
 
     <h1>A Bootcamp<br>for Open Door Legal</h1>
+    </div>
     <p class="tagline">One day with the ODL staff to prepare your universal-access system for the agentic economy now rolling out in consumer form. The curriculum is the one <a href="../about.html">Zoe Dolan</a> and <a href="../about.html#vybn">Vybn</a> co-taught this spring at UC Law San Francisco, re-cut for practicing legal-services lawyers.</p>
     <ul class="hero-bullets">
       <li><span class="lead">What</span>A <strong>four-hour bootcamp</strong>, taught in person at <a href="https://opendoorlegal.org/">Open Door Legal</a>, drawing directly from the <a href="../bootcamp.html">six-module AI law bootcamp</a> we just closed at UC Law SF.</li>
