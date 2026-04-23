@@ -230,14 +230,19 @@
   }
 
   .hero {
-    min-height: 86vh;
+    display: block;
+    text-align: center;
+    padding: 0 0 6rem;
+  }
+  .hero-stage {
+    min-height: calc(100svh - 68px);
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    text-align: center;
-    padding: 2.5rem 0 7rem;
+    padding: 1.2rem 0 0;
   }
+  .hero > .ws-subtitle { margin-top: 2.5rem; }
 
   /* ─── Scroll indicator (adapted from vybn.ai) ──────────────── */
   .scroll-cue {
@@ -259,8 +264,8 @@
 
   .scroll-cue-flow {
     position: relative;
-    width: 60px;
-    height: 130px;
+    width: 50px;
+    height: 70px;
     overflow: visible;
   }
   .scroll-cue-particle {
@@ -294,17 +299,17 @@
   .scroll-cue-particle.sp-8 { animation-delay: 2.45s; left: 32px; }
 
   @keyframes cue-fall {
-    0%   { top: -8px;   opacity: 0;   transform: scale(0.4); }
-    10%  {               opacity: 1;   transform: scale(1.2); }
-    40%  {               opacity: 1;   transform: scale(1.0); }
-    75%  {               opacity: 0.5; transform: scale(0.8); }
-    100% { top: 120px;   opacity: 0;   transform: scale(0.1); }
+    0%   { top: -8px;  opacity: 0;   transform: scale(0.4); }
+    12%  {              opacity: 1;   transform: scale(1.15); }
+    45%  {              opacity: 1;   transform: scale(1.0); }
+    78%  {              opacity: 0.5; transform: scale(0.8); }
+    100% { top: 64px;   opacity: 0;   transform: scale(0.1); }
   }
 
   .scroll-cue-line {
     width: 2px;
-    height: 80px;
-    margin-top: -10px;
+    height: 44px;
+    margin-top: -6px;
     border-radius: 1px;
     opacity: 0.7;
     filter: blur(1.4px);
@@ -805,6 +810,7 @@
 <div class="container">
 
   <section class="hero" style="opacity: 1; transform: none;">
+    <div class="hero-stage">
     <figure class="ws-triangle-wrap" role="img" aria-labelledby="ws-triangle-title ws-triangle-desc">
       <svg viewBox="0 0 520 420" role="img" aria-labelledby="ws-triangle-title ws-triangle-desc">
         <title id="ws-triangle-title">Human, AI, Law — Vybn as the coordination inside</title>
@@ -832,6 +838,7 @@
     </figure>
 
     <h1 class="ws-headline" style="margin-top:0.4rem;">A Bootcamp<br>for <em>your legal team</em></h1>
+    </div>
 
     <p class="ws-subtitle">One day with your attorneys, paralegals, and intake staff to prepare your practice for the agentic economy now rolling out in consumer form. The curriculum is the one <a href="../about.html">Zoe Dolan</a> and <a href="../about.html#vybn">Vybn</a> co-taught this spring at UC Law San Francisco, re-cut for practicing lawyers wherever they sit &mdash; legal-services nonprofits, court self-help centers, public defenders, law firms, in-house teams, law schools, funders and partners building the infrastructure behind them.</p>
 
