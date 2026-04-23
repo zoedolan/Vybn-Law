@@ -230,13 +230,113 @@
   }
 
   .hero {
-    min-height: 78vh;
+    min-height: 86vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 4rem 0 2rem;
+    padding: 2.5rem 0 7rem;
+  }
+
+  /* ─── Scroll indicator (adapted from vybn.ai) ──────────────── */
+  .scroll-cue {
+    position: fixed;
+    bottom: 1.6rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    opacity: 0;
+    animation: cue-fade-in 1.6s ease 1.6s forwards;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+  .scroll-cue.cue-hidden { opacity: 0 !important; }
+
+  .scroll-cue-flow {
+    position: relative;
+    width: 60px;
+    height: 130px;
+    overflow: visible;
+  }
+  .scroll-cue-particle {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    animation: cue-fall 2.8s ease-in-out infinite;
+  }
+  .scroll-cue-particle.sp-warm {
+    background: #c9a87c;
+    box-shadow:
+      0 0 10px rgba(201,168,124,0.95),
+      0 0 26px rgba(201,168,124,0.55),
+      0 0 52px rgba(201,168,124,0.20);
+  }
+  .scroll-cue-particle.sp-cool {
+    background: #6b9bd1;
+    box-shadow:
+      0 0 10px rgba(107,155,209,0.95),
+      0 0 26px rgba(107,155,209,0.55),
+      0 0 52px rgba(107,155,209,0.20);
+  }
+  .scroll-cue-particle.sp-1 { animation-delay: 0s;    left: 10px; }
+  .scroll-cue-particle.sp-2 { animation-delay: 0.35s; left: 40px; }
+  .scroll-cue-particle.sp-3 { animation-delay: 0.70s; left: 18px; }
+  .scroll-cue-particle.sp-4 { animation-delay: 1.05s; left: 36px; }
+  .scroll-cue-particle.sp-5 { animation-delay: 1.40s; left: 12px; }
+  .scroll-cue-particle.sp-6 { animation-delay: 1.75s; left: 42px; }
+  .scroll-cue-particle.sp-7 { animation-delay: 2.10s; left: 22px; }
+  .scroll-cue-particle.sp-8 { animation-delay: 2.45s; left: 32px; }
+
+  @keyframes cue-fall {
+    0%   { top: -8px;   opacity: 0;   transform: scale(0.4); }
+    10%  {               opacity: 1;   transform: scale(1.2); }
+    40%  {               opacity: 1;   transform: scale(1.0); }
+    75%  {               opacity: 0.5; transform: scale(0.8); }
+    100% { top: 120px;   opacity: 0;   transform: scale(0.1); }
+  }
+
+  .scroll-cue-line {
+    width: 2px;
+    height: 80px;
+    margin-top: -10px;
+    border-radius: 1px;
+    opacity: 0.7;
+    filter: blur(1.4px);
+    animation: cue-pulse 4s ease-in-out infinite;
+  }
+  @keyframes cue-pulse {
+    0%,100% { opacity: 0.3; background: #c9a87c; box-shadow: 0 0 8px rgba(201,168,124,0.45), 0 0 20px rgba(201,168,124,0.25); }
+    50%     { opacity: 1.0; background: #6b9bd1; box-shadow: 0 0 14px rgba(107,155,209,0.55), 0 0 34px rgba(107,155,209,0.32); }
+  }
+
+  .scroll-cue-text {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    margin-top: 0.7rem;
+    color: var(--dim);
+    animation: cue-text-breath 5s ease-in-out infinite;
+  }
+  @keyframes cue-text-breath {
+    0%,100% { color: #c9a87c; opacity: 0.55; text-shadow: 0 0 8px rgba(201,168,124,0.30); }
+    50%     { color: #a9c3e3; opacity: 1.00; text-shadow: 0 0 12px rgba(107,155,209,0.40); }
+  }
+
+  @keyframes cue-fade-in { to { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-cue,
+    .scroll-cue-particle,
+    .scroll-cue-line,
+    .scroll-cue-text { animation: none; }
+    .scroll-cue { opacity: 1; }
   }
 
   section {
@@ -686,6 +786,22 @@
   </div>
 </nav>
 
+<!-- Scroll cue — particles falling through a glow line. Fades out on first scroll. -->
+<div class="scroll-cue" id="scroll-cue" aria-hidden="true">
+  <div class="scroll-cue-flow">
+    <div class="scroll-cue-particle sp-warm sp-1"></div>
+    <div class="scroll-cue-particle sp-cool sp-2"></div>
+    <div class="scroll-cue-particle sp-warm sp-3"></div>
+    <div class="scroll-cue-particle sp-cool sp-4"></div>
+    <div class="scroll-cue-particle sp-warm sp-5"></div>
+    <div class="scroll-cue-particle sp-cool sp-6"></div>
+    <div class="scroll-cue-particle sp-warm sp-7"></div>
+    <div class="scroll-cue-particle sp-cool sp-8"></div>
+  </div>
+  <div class="scroll-cue-line"></div>
+  <span class="scroll-cue-text">Scroll</span>
+</div>
+
 <div class="container">
 
   <section class="hero" style="opacity: 1; transform: none;">
@@ -1037,6 +1153,22 @@
     entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.25 });
   document.querySelectorAll('.ws-triangle-wrap').forEach((el) => triObs.observe(el));
+
+  // Scroll cue — fade out once the visitor has moved past the hero.
+  (function () {
+    const cue = document.getElementById('scroll-cue');
+    if (!cue) return;
+    let hidden = false;
+    const onScroll = () => {
+      if (hidden) return;
+      if (window.scrollY > 120) {
+        cue.classList.add('cue-hidden');
+        hidden = true;
+        window.removeEventListener('scroll', onScroll);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
 </script>
 
 <!-- GoatCounter analytics — privacy-friendly, no cookies, open source -->
