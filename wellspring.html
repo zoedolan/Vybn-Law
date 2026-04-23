@@ -806,7 +806,8 @@ var API = window.API;
   <style>
 /* --- Triangle opening --- */
 .ws-triangle-wrap {
-  max-width: 560px;
+  max-width: clamp(280px, min(72vw, 68svh), 760px);
+  width: 100%;
   /* Title is gone — the figure itself is the opening. Pull it up
      so the page lifts immediately instead of leaving a dead band
      where the h1 used to live. */
