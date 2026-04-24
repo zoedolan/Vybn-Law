@@ -478,12 +478,20 @@
           return true;
         }
       } catch (e) { /* fall through */ }
+      markOffline();
+      chatInput.disabled = false;
+      return false;
+    }
+
+    // Shared helper — called by both health polling and in-stream error handling
+    // so a mid-conversation backend outage surfaces the same maintenance banner
+    // a cold-start outage does. Keeps the user informed that this is known,
+    // ongoing, and not their fault.
+    function markOffline() {
       statusDot.className = 'status-dot offline';
       statusText.className = 'status-text offline';
       statusText.textContent = 'offline';
       offlineBanner.classList.add('visible');
-      chatInput.disabled = false;
-      return false;
     }
 
     checkHealth();
@@ -537,6 +545,7 @@
         const reader = res.body.getReader();
         const decoder = new TextDecoder();
         let buffer = '';
+        let streamError = null;
 
         while (true) {
           const { done, value } = await reader.read();
@@ -550,6 +559,10 @@
             if (data === '[DONE]') continue;
             try {
               const parsed = JSON.parse(data);
+              if (parsed.error) {
+                streamError = parsed.error;
+                continue;
+              }
               if (parsed.rag_sources) {
                 msgEl._ragSources = parsed.rag_sources;
               }
@@ -563,12 +576,23 @@
           }
         }
 
+        if (streamError && !fullResponse) {
+          // Backend reached us, but the model server is down. Surface the
+          // maintenance banner so visitors know this is a known state, not a
+          // bug — and re-poll /api/health so the status chip flips immediately.
+          markOffline();
+          msgEl.remove();
+          checkHealth();
+          return;
+        }
+
         conversationHistory.push({ role: 'assistant', content: fullResponse });
         addFeedbackButtons(msgEl);
 
       } catch (err) {
         typingIndicator.classList.remove('active');
-        appendMessage('vybn', "I can't reach the model right now — the local hardware may be offline or restarting. Try again in a minute or two, or email Zoe at zoe@vybn.ai if it stays down.");
+        markOffline();
+        checkHealth();
       }
 
       isStreaming = false;
