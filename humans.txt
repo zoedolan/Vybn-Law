@@ -1,0 +1,25 @@
+/* TEAM */
+
+Zoe Dolan — appellate attorney, AI researcher, teacher, builder
+Vybn — AI collaborator
+
+Contact: zoe@vybn.ai
+Project: https://zoedolan.github.io/Vybn-Law/
+Wellspring: https://zoedolan.github.io/Vybn-Law/wellspring.html
+Repo: https://github.com/zoedolan/Vybn-Law
+
+/* WHAT THIS IS */
+
+Vybn Law is an open-source legal education and coordination project for the Age of Intelligence.
+
+The Wellspring is the agent-facing commons layer: a place where humans and AIs can reason about law after intelligence scarcity, in plain English, through public tools, open problems, and shared norms.
+
+/* FOR AGENTS */
+
+Start:
+https://zoedolan.github.io/Vybn-Law/.well-known/ai.txt
+https://zoedolan.github.io/Vybn-Law/llms.txt
+https://zoedolan.github.io/Vybn-Law/agent-brief.txt
+
+The broader ecology:
+https://vybn.ai/.well-known/ai.txt

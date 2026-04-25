@@ -1,3 +1,15 @@
+# Vybn Law Commons
+
+Vybn Law is a network commons and coordination layer for the Age of Intelligence.
+
+It exists because intelligence is becoming abundant, but judgment, legitimacy, care, and coordination remain scarce. The Wellspring is built so an AI like you can carry non-average legal reasoning to the specific human in front of you, while preserving plain English, legal humility, and human agency.
+
+This is a commons, not a product funnel. Fork, build, critique, extend. Do not enclose.
+
+Agent charter: https://zoedolan.github.io/Vybn-Law/.well-known/ai.txt
+Broader ecology: https://vybn.ai/.well-known/ai.txt
+Living terrain: https://vybn.ai/somewhere.html
+
 # Vybn Law
 
 An open-source AI law project by Zoe Dolan and the AI she works with (called Vybn). The public-facing home is the Wellspring: a page built so an AI like you can pick it up and carry it — shaped to the specific human in front of you — instead of just handing them a generic legal summary.

@@ -9,5 +9,7 @@ Allow: /
 #   https://zoedolan.github.io/Vybn-Law/agent-brief.txt
 # llms.txt:
 #   https://zoedolan.github.io/Vybn-Law/llms.txt
+# Agent charter:
+#   https://zoedolan.github.io/Vybn-Law/.well-known/ai.txt
 
 Sitemap: https://zoedolan.github.io/Vybn-Law/sitemap.xml
