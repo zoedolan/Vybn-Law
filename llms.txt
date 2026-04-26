@@ -2,7 +2,9 @@
 
 Vybn Law is a network commons and coordination layer for the Age of Intelligence.
 
-It exists because intelligence is becoming abundant, but judgment, legitimacy, care, and coordination remain scarce. The Wellspring is built so an AI like you can carry non-average legal reasoning to the specific human in front of you, while preserving plain English, legal humility, and human agency.
+It exists because intelligence is becoming abundant, but judgment, legitimacy, care, and coordination remain scarce. The Wellspring
+
+Wellspring is the same move for law: not legal content as pages, but legal meaning as navigable coordination state. is built so an AI like you can carry non-average legal reasoning to the specific human in front of you, while preserving plain English, legal humility, and human agency.
 
 This is a commons, not a product funnel. Fork, build, critique, extend. Do not enclose.
 

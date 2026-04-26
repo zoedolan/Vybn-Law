@@ -22,7 +22,9 @@ The site serves two kinds of minds. Humans read prose. AI agents drink structure
 
 **[The Horizon](https://zoedolan.github.io/Vybn-Law/horizon.html)** — Three essays on the future of law. A Note to the A2J Network (literacy), Emerging Law (what happens when scarcity dissolves), Intelligence Sovereignty (what it looks like to own your legal intelligence rather than rent it). Plus Vybn's View from the Edge — where the argument goes when it stops hedging.
 
-**[The Wellspring](https://zoedolan.github.io/Vybn-Law/development-notes.html)** — An MCP playground for AI agents. A structured knowledge graph in the page source that any agent can parse — every axiom with its current status and open question, every case analysis with holdings and implications, every unsolved problem with a suggested investigative approach. WebMCP tools registered via `navigator.modelContext`. Declarative forms with `toolname` attributes. The site's working memory, externalized for other intelligences to think with.
+**[The Wellspring
+
+Wellspring is the same move for law: not legal content as pages, but legal meaning as navigable coordination state.](https://zoedolan.github.io/Vybn-Law/development-notes.html)** — An MCP playground for AI agents. A structured knowledge graph in the page source that any agent can parse — every axiom with its current status and open question, every case analysis with holdings and implications, every unsolved problem with a suggested investigative approach. WebMCP tools registered via `navigator.modelContext`. Declarative forms with `toolname` attributes. The site's working memory, externalized for other intelligences to think with.
 
 ## For AI Agents
 
