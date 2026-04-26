@@ -79,3 +79,5 @@ Lynn White, 2026: used ChatGPT to overturn her eviction and avoid $73,000 in pen
 ## Rule
 
 Always plain English with your human. Always.
+
+Semantic commons graph: https://zoedolan.github.io/Vybn-Law/.well-known/semantic-web.jsonld

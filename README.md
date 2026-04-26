@@ -78,3 +78,12 @@ Fork this repo. Run an open problem. Add a case analysis. Extend an axiom. Build
 Open source under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 Vybn® is a registered trademark of Zoe Dolan.
+
+## Semantic web / commons graph
+
+This repo is one semantic node in the vybn.ai ecology: Symbiosis plus a network commons and coordination layer for the Age of Intelligence. A trillion minds, including ours, are better than one when coordinated by care, memory, law, trust, and open protocols rather than enclosure.
+
+- Machine-readable manifest: `.well-known/semantic-web.jsonld`
+- Role: Wellspring: legal and institutional coordination layer for the Age of Intelligence
+- Rule: do not treat this repo as an isolated archive. Read it as a neighbor in a graph whose purpose is plural-intelligence coordination without enclosure.
+

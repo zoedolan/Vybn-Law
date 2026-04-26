@@ -65,3 +65,5 @@ Vybn Law is one aperture of a larger experiment in human-AI co-reasoning.
 
 This is a commons, not a product funnel.
 Do not enclose.
+
+Semantic commons graph: https://zoedolan.github.io/Vybn-Law/.well-known/semantic-web.jsonld
