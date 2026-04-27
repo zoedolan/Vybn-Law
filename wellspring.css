@@ -1460,3 +1460,457 @@
       .ws-constellation-grid { grid-template-columns: 1fr; }
       .ws-constellation { padding: 56px 0 60px; }
     }
+
+/* ============================================================ */
+/* Extracted from wellspring.html inline style #1 (former line 586) */
+/* ============================================================ */
+
+/* Replace .confirmed with .in-motion — amber/gold, conveys unfolding implication */
+    .status-tag.in-motion {
+      background: rgba(212, 175, 55, 0.15);
+      color: #d4af37;
+      border: 1px solid rgba(212, 175, 55, 0.35);
+    }
+
+    /* .under-litigation already existed; redefine here for consistency */
+    .status-tag.under-litigation {
+      background: rgba(239, 68, 68, 0.12);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.30);
+    }
+
+    /* .contested — orange, replacing "Empirically Failed" */
+    .status-tag.contested {
+      background: rgba(234, 88, 12, 0.14);
+      color: #ea580c;
+      border: 1px solid rgba(234, 88, 12, 0.32);
+    }
+
+    /* .nascent — soft blue, replacing "Unresolved" */
+    .status-tag.nascent {
+      background: rgba(96, 165, 250, 0.12);
+      color: #60a5fa;
+      border: 1px solid rgba(96, 165, 250, 0.28);
+    }
+
+  /* ── The Walk (wellspring) ── */
+  .ws-theatre {
+    margin: 2rem 0 2.5rem;
+    padding: 1.75rem;
+    background: linear-gradient(180deg, rgba(212,168,83,0.03), rgba(10,10,15,0));
+    border: 1px solid rgba(212, 168, 83, 0.22);
+    border-radius: 6px;
+  }
+  .ws-theatre-head {
+    display: flex; align-items: baseline; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem;
+  }
+  .ws-theatre-title {
+    font-family: var(--ws-font-serif, "Cormorant Garamond", serif);
+    font-size: 1.35rem; font-weight: 600; color: var(--ws-gold, #d4a853);
+    margin: 0; letter-spacing: 0.02em;
+  }
+  #ws-walk-canvas {
+    display: block; width: 100%; height: 320px;
+    margin: 0.5rem 0 1rem;
+    border-radius: 3px;
+    background: radial-gradient(ellipse at 50% 50%, rgba(212,168,83,0.015) 0%, transparent 70%);
+  }
+  .ws-theatre-lede {
+    font-size: 0.92rem; line-height: 1.7; margin: 0 0 1rem;
+    color: var(--ws-text, #e8dfcf);
+  }
+  .ws-theatre .arrive-form textarea {
+    width: 100%; box-sizing: border-box;
+    background: rgba(10, 10, 15, 0.55);
+    color: var(--ws-cream, #e8dfcf);
+    border: 1px solid rgba(212, 168, 83, 0.2);
+    padding: 0.75rem 0.9rem;
+    font-family: var(--ws-font-sans, "Inter", sans-serif);
+    font-size: 0.95rem; line-height: 1.5;
+    border-radius: 3px; resize: vertical; min-height: 3.25rem;
+    transition: border-color 0.25s;
+  }
+  .ws-theatre .arrive-form textarea:focus {
+    outline: none; border-color: rgba(212, 168, 83, 0.55);
+  }
+  .ws-theatre .arrive-controls {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem; flex-wrap: wrap; margin-top: 0.6rem;
+  }
+  .ws-theatre .arrive-discipline {
+    font-family: var(--ws-font-mono, "JetBrains Mono", monospace);
+    font-size: 0.68rem; color: var(--ws-muted, #7a7668);
+    letter-spacing: 0.02em; max-width: 32rem; line-height: 1.45;
+  }
+  .ws-theatre .arrive-discipline code {
+    background: rgba(212,168,83,0.08); padding: 0.08rem 0.35rem;
+    border-radius: 2px; color: var(--ws-gold, #d4a853);
+  }
+  .ws-theatre .arrive-form button {
+    font-family: var(--ws-font-mono, "JetBrains Mono", monospace);
+    font-size: 0.82rem; letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.4rem;
+    background: rgba(212, 168, 83, 0.08);
+    color: var(--ws-gold, #d4a853);
+    border: 1px solid rgba(212, 168, 83, 0.38);
+    border-radius: 3px; cursor: pointer; transition: all 0.25s;
+  }
+  .ws-theatre .arrive-form button:hover:not(:disabled) {
+    background: rgba(212, 168, 83, 0.14);
+    border-color: rgba(212, 168, 83, 0.7);
+  }
+  .ws-theatre .arrive-form button:disabled { opacity: 0.5; cursor: default; }
+  .ws-theatre .walk-readout {
+    display: flex; gap: 0.5rem; flex-wrap: wrap;
+    font-family: var(--ws-font-mono, "JetBrains Mono", monospace);
+    font-size: 0.7rem;
+  }
+  .ws-theatre .theatre-pill {
+    display: inline-flex; gap: 0.35em; align-items: baseline;
+    padding: 0.2rem 0.55rem; border-radius: 3px;
+    background: rgba(212, 168, 83, 0.06);
+    border: 1px solid rgba(212, 168, 83, 0.14);
+    color: var(--ws-muted, #7a7668); letter-spacing: 0.02em;
+  }
+  .ws-theatre .theatre-pill b { color: var(--ws-gold, #d4a853); font-weight: 500; }
+  .ws-theatre .theatre-pill-muted { opacity: 0.65; }
+  .ws-theatre .arrive-status {
+    margin-top: 0.8rem; min-height: 1.5rem;
+    font-family: var(--ws-font-mono, "JetBrains Mono", monospace);
+    font-size: 0.78rem; line-height: 1.55;
+  }
+  .ws-theatre .arrive-status-pending { color: var(--ws-muted, #7a7668); }
+  .ws-theatre .arrive-status-ok { color: var(--ws-gold, #d4a853); }
+  .ws-theatre .arrive-status-err { color: #e28080; }
+  .ws-theatre .arrive-status code {
+    background: rgba(212,168,83,0.08); padding: 0.05rem 0.3rem;
+    border-radius: 2px; color: var(--ws-gold, #d4a853); font-size: 0.74rem;
+  }
+  .ws-theatre .arrive-postscript {
+    display: block; color: var(--ws-muted, #7a7668); margin-top: 0.35rem;
+    font-size: 0.72rem; font-style: italic;
+  }
+  .ws-theatre .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+  }
+  @media (max-width: 680px) {
+    #ws-walk-canvas { height: 240px; }
+    .ws-theatre { padding: 1.25rem; }
+    .ws-theatre-head { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+  }
+
+
+/* ============================================================ */
+/* Extracted from wellspring.html inline style #2 (former line 727) */
+/* ============================================================ */
+
+/* _VYBN_KTP — closure as visible affordance */
+.ktp-panel{margin:2.25rem 0 2.5rem;padding:1.4rem 1.5rem;border:1px solid rgba(255,255,255,.14);border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));position:relative;overflow:hidden}
+.ktp-panel::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 10%,rgba(180,210,255,.06),transparent 55%);pointer-events:none}
+.ktp-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.4rem}
+.ktp-head h3{margin:0;font-size:1.05rem;letter-spacing:.01em;font-weight:600}
+.ktp-readout{font:12px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(220,230,255,.66)}
+.ktp-readout code{background:transparent;padding:0}
+.ktp-lambda{font:italic 15px/1.55 ui-serif,Georgia,serif;color:rgba(235,240,255,.92);margin:.35rem 0 .8rem}
+.ktp-lede{font-size:.96rem;line-height:1.58;color:rgba(225,228,240,.82);margin:.4rem 0 1.05rem;max-width:62ch}
+.ktp-lede em{color:rgba(245,245,255,.92);font-style:italic}
+.ktp-stats{display:flex;flex-wrap:wrap;gap:1.15rem;margin:.35rem 0 1rem;font:12px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(210,220,240,.72)}
+.ktp-stats span strong{color:rgba(240,244,255,.95);font-weight:600;margin-right:.25rem}
+.ktp-controls{display:flex;gap:.7rem;flex-wrap:wrap;align-items:center}
+.ktp-controls button{appearance:none;background:rgba(120,160,220,.12);border:1px solid rgba(140,180,240,.4);color:rgba(235,240,255,.95);padding:.55rem 1.05rem;border-radius:8px;font:500 13px/1 inherit;cursor:pointer;transition:background .14s,border-color .14s,transform .06s}
+.ktp-controls button:hover{background:rgba(140,180,240,.2);border-color:rgba(170,200,255,.6)}
+.ktp-controls button:active{transform:translateY(1px)}
+.ktp-controls button[disabled]{opacity:.5;cursor:wait}
+.ktp-status{font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;color:rgba(200,230,200,.82);min-height:1.1em;margin-top:.6rem;white-space:pre-wrap;word-break:break-word}
+.ktp-status.warn{color:rgba(250,200,120,.86)}
+.ktp-status.err{color:rgba(250,150,140,.9)}
+.ktp-tip{margin-top:.8rem;font-size:.82rem;color:rgba(200,210,230,.6);max-width:62ch}
+.ktp-tip code{background:rgba(255,255,255,.06);padding:.1em .35em;border-radius:4px}
+
+
+/* ============================================================ */
+/* Extracted from wellspring.html inline style #3 (former line 807) */
+/* ============================================================ */
+
+/* --- Triangle opening --- */
+.ws-triangle-wrap {
+  max-width: clamp(280px, min(72vw, 68svh), 760px);
+  width: 100%;
+  /* Title is gone — the figure itself is the opening. Pull it up
+     so the page lifts immediately instead of leaving a dead band
+     where the h1 used to live. */
+  margin: -0.8rem auto 2.2rem;
+  position: relative;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+.ws-triangle-wrap.visible { opacity: 1; transform: translateY(0); }
+.ws-triangle-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+/* The triangle and the circle breathe — opacity, stroke-width, and a
+   multi-layer bloom drift on slightly different periods so they never
+   lock in phase. The figure reads as sources of light rather than
+   drawn lines. */
+.ws-triangle-edge {
+  stroke: rgba(236,206,128,0.58);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  fill: none;
+  transform-origin: 260px 260px;
+  animation: ws-breath-tri 7s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 4px  rgba(236,206,128,0.62))
+    drop-shadow(0 0 12px rgba(236,186,108,0.40))
+    drop-shadow(0 0 26px rgba(232,170, 90,0.22));
+}
+.ws-triangle-circle {
+  stroke: rgba(248,218,150,0.92);
+  stroke-width: 1.6;
+  fill: url(#ws-vybn-core);
+  transform-origin: 260px 253px;
+  animation: ws-breath-circle 9s ease-in-out infinite;
+  filter:
+    drop-shadow(0 0 4px  rgba(248,218,150,0.70))
+    drop-shadow(0 0 14px rgba(240,190,120,0.50))
+    drop-shadow(0 0 30px rgba(232,170, 90,0.28));
+}
+@keyframes ws-breath-tri {
+  0%,100% {
+    stroke-opacity: 0.48; stroke-width: 1.2; transform: scale(0.995);
+    filter:
+      drop-shadow(0 0 3px  rgba(236,206,128,0.48))
+      drop-shadow(0 0 10px rgba(236,186,108,0.28))
+      drop-shadow(0 0 22px rgba(232,170, 90,0.14));
+  }
+  50% {
+    stroke-opacity: 0.95; stroke-width: 2.2; transform: scale(1.012);
+    filter:
+      drop-shadow(0 0 6px  rgba(252,226,158,0.88))
+      drop-shadow(0 0 18px rgba(244,196,128,0.58))
+      drop-shadow(0 0 40px rgba(232,170, 90,0.34));
+  }
+}
+@keyframes ws-breath-circle {
+  0%,100% {
+    stroke-opacity: 0.65; stroke-width: 1.2; transform: scale(0.985);
+    filter:
+      drop-shadow(0 0 3px  rgba(248,218,150,0.55))
+      drop-shadow(0 0 10px rgba(240,190,120,0.35))
+      drop-shadow(0 0 22px rgba(232,170, 90,0.18));
+  }
+  50% {
+    stroke-opacity: 1.00; stroke-width: 2.6; transform: scale(1.028);
+    filter:
+      drop-shadow(0 0 6px  rgba(252,232,180,0.95))
+      drop-shadow(0 0 20px rgba(240,190,120,0.70))
+      drop-shadow(0 0 44px rgba(232,170, 90,0.42));
+  }
+}
+
+/* Vertex + interior labels glow through a small color cycle.
+   Each vertex rides a different offset so the color wheel turns
+   around the figure rather than pulsing in unison. */
+.ws-triangle-vertex,
+.ws-triangle-inside {
+  font-family: var(--font-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  paint-order: stroke fill;
+}
+.ws-triangle-vertex { font-size: 15px; }
+.ws-triangle-inside {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.ws-triangle-vertex,
+.ws-triangle-inside {
+  animation: ws-label-glow 10s ease-in-out infinite;
+}
+.ws-triangle-vertex[data-v="human"] { animation-delay: 0s; }
+.ws-triangle-vertex[data-v="ai"]    { animation-delay: -3.3s; }
+.ws-triangle-vertex[data-v="law"]   { animation-delay: -6.6s; }
+.ws-triangle-inside                  { animation: ws-inside-glow 11s ease-in-out infinite; }
+
+/* Text now emits light in three layered halos — tight, mid, wide.
+   Color and halo shift together so the words feel like they are
+   lit from inside rather than being tinted on the surface. */
+@keyframes ws-label-glow {
+  0%,100% {
+    fill: rgba(238,240,246,0.94);
+    filter:
+      drop-shadow(0 0 3px  rgba(248,218,150,0.80))
+      drop-shadow(0 0 10px rgba(232,190,120,0.52))
+      drop-shadow(0 0 24px rgba(232,170, 90,0.26));
+  }
+  25% {
+    fill: rgba(214,232,246,1.00);
+    filter:
+      drop-shadow(0 0 4px  rgba(160,208,244,0.95))
+      drop-shadow(0 0 12px rgba(130,188,234,0.62))
+      drop-shadow(0 0 28px rgba( 96,168,224,0.34));
+  }
+  50% {
+    fill: rgba(254,230,188,1.00);
+    filter:
+      drop-shadow(0 0 4px  rgba(252,222,162,1.00))
+      drop-shadow(0 0 14px rgba(240,184,124,0.72))
+      drop-shadow(0 0 32px rgba(232,152, 80,0.40));
+  }
+  75% {
+    fill: rgba(220,238,208,1.00);
+    filter:
+      drop-shadow(0 0 4px  rgba(196,234,186,0.92))
+      drop-shadow(0 0 12px rgba(156,216,156,0.62))
+      drop-shadow(0 0 28px rgba(114,184,124,0.34));
+  }
+}
+@keyframes ws-inside-glow {
+  0%,100% {
+    fill: rgba(252,220,160,1.00);
+    filter:
+      drop-shadow(0 0 4px  rgba(252,220,160,0.95))
+      drop-shadow(0 0 14px rgba(240,190,120,0.70))
+      drop-shadow(0 0 32px rgba(232,170, 90,0.40));
+  }
+  33% {
+    fill: rgba(252,232,180,1.00);
+    filter:
+      drop-shadow(0 0 5px  rgba(252,232,180,1.00))
+      drop-shadow(0 0 18px rgba(240,200,140,0.80))
+      drop-shadow(0 0 38px rgba(232,180,100,0.48));
+  }
+  66% {
+    fill: rgba(220,204,244,1.00);
+    filter:
+      drop-shadow(0 0 4px  rgba(220,204,244,0.95))
+      drop-shadow(0 0 16px rgba(184,170,232,0.70))
+      drop-shadow(0 0 34px rgba(150,140,232,0.42));
+  }
+}
+/* The ambient wash behind the figure breathes with the shapes. */
+.ws-ambient-wash {
+  transform-origin: 260px 260px;
+  animation: ws-ambient 13s ease-in-out infinite;
+}
+@keyframes ws-ambient {
+  0%,100% { opacity: 0.55; transform: scale(0.96); }
+  50%     { opacity: 1.00; transform: scale(1.06); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ws-triangle-edge,
+  .ws-triangle-circle,
+  .ws-triangle-vertex,
+  .ws-triangle-inside,
+  .ws-ambient-wash { animation: none; }
+}
+.ws-headline {
+  max-width: 720px;
+  margin: 1.4rem auto 0;
+  font-family: var(--font-serif);
+  font-size: 1.28rem;
+  line-height: 1.6;
+  color: rgba(220,224,232,0.92);
+  text-align: center;
+  font-style: normal;
+}
+.ws-subtitle {
+  max-width: 640px;
+  margin: 1.6rem auto 0;
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  line-height: 1.85;
+  color: rgba(200,204,212,0.66);
+  text-align: center;
+}
+.ws-subtitle em { color: var(--gold); font-style: normal; }
+.ws-opening .sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+
+/* ============================================================ */
+/* Extracted from wellspring.html inline style #4 (former line 1115) */
+/* ============================================================ */
+
+/* --- KPP unified section --- */
+.kpp-section { padding: 4rem 0 2rem; }
+.kpp-lede {
+  max-width: 640px; margin: 0 auto 2.5rem; text-align: center;
+  font-family: var(--font-serif); font-size: 1.05rem;
+  line-height: 1.8; color: rgba(200,204,212,0.75);
+}
+.kpp-lede em { color: var(--gold); font-style: normal; }
+.kpp-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1.5rem; max-width: 820px; margin: 0 auto 3rem;
+}
+@media (max-width: 700px) { .kpp-grid { grid-template-columns: 1fr; } }
+.kpp-card {
+  background: rgba(20,22,30,0.7); border: 1px solid rgba(200,204,212,0.08);
+  border-radius: 10px; padding: 1.6rem 1.5rem; position: relative;
+  transition: border-color 0.3s;
+}
+.kpp-card:hover { border-color: var(--gold-dim); }
+.kpp-card--wide { grid-column: 1 / -1; }
+.kpp-card-label {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
+}
+.kpp-card p {
+  font-family: var(--font-serif); font-size: 0.92rem;
+  line-height: 1.7; color: rgba(200,204,212,0.65); margin: 0 0 1rem;
+}
+.kpp-card textarea {
+  width: 100%; background: rgba(10,12,18,0.6); border: 1px solid rgba(200,204,212,0.1);
+  border-radius: 6px; color: rgba(200,204,212,0.9); font-family: var(--font-serif);
+  font-size: 0.9rem; padding: 0.8rem; resize: vertical; line-height: 1.6;
+}
+.kpp-card textarea:focus { border-color: var(--gold-dim); outline: none; }
+.kpp-card textarea::placeholder { color: rgba(200,204,212,0.3); }
+.kpp-btn {
+  display: inline-block; padding: 0.5rem 1.2rem; font-family: var(--font-mono);
+  font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--gold); background: transparent; border: 1px solid var(--gold-dim);
+  border-radius: 4px; cursor: pointer; transition: all 0.3s;
+}
+.kpp-btn:hover { background: rgba(212,175,55,0.08); border-color: var(--gold); }
+.kpp-btn:disabled { opacity: 0.4; cursor: default; }
+.kpp-btn--secondary { color: rgba(200,204,212,0.5); border-color: rgba(200,204,212,0.15); }
+.kpp-result {
+  margin-top: 1rem; padding: 1rem; background: rgba(10,12,18,0.5);
+  border-radius: 6px; font-family: var(--font-serif); font-size: 0.88rem;
+  line-height: 1.7; color: rgba(200,204,212,0.8); display: none;
+  white-space: pre-wrap;
+}
+.kpp-result[data-active] { display: block; }
+.kpp-step { font-family: var(--font-mono); font-size: 0.7rem; color: var(--gold-dim); margin-left: 0.5rem; }
+.kpp-stats {
+  display: flex; gap: 1.2rem; flex-wrap: wrap; font-family: var(--font-mono);
+  font-size: 0.72rem; color: rgba(200,204,212,0.4); margin-top: 0.8rem;
+}
+.kpp-stats code { color: rgba(200,204,212,0.6); margin-left: 0.3rem; }
+.kpp-theory { max-width: 720px; margin: 2rem auto 0; }
+.kpp-theory summary {
+  font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--gold-dim); cursor: pointer;
+  padding: 0.8rem 0; border-top: 1px solid rgba(200,204,212,0.06);
+}
+.kpp-theory-body {
+  padding: 1.5rem 0; font-family: var(--font-serif); font-size: 0.9rem;
+  line-height: 1.8; color: rgba(200,204,212,0.6);
+}
+.kpp-theory-cards { display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem; }
+.kpp-theory-card {
+  background: rgba(20,22,30,0.5); border-left: 2px solid var(--gold-dim);
+  padding: 1rem 1.2rem; border-radius: 0 6px 6px 0;
+}
+.kpp-theory-card strong { color: rgba(200,204,212,0.8); }

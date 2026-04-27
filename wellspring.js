@@ -871,4 +871,558 @@
   });
 })();
 
+/* ============================================================ */
+/* Extracted from wellspring.html inline behavior script #1 (former line 750) */
+/* ============================================================ */
+
+// KTP/Arrive/Theatre routing — resolves API origin from <meta name="api-base">
+window.API = document.querySelector('meta[name="api-base"]')?.content || 'https://api.vybn.ai';
+var API = window.API;
+
+
+/* ============================================================ */
+/* Extracted from wellspring.html inline behavior script #2 (former line 1100) */
+/* ============================================================ */
+
+document.addEventListener('DOMContentLoaded', () => {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e) => { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.25 });
+      document.querySelectorAll('.ws-triangle-wrap').forEach((el) => obs.observe(el));
+    });
+
+
+/* ============================================================ */
+/* Extracted from wellspring.html inline behavior script #3 (former line 1323) */
+/* ============================================================ */
+
+(function(){
+  var API = (document.querySelector('meta[name="api-base"]') || {}).content || 'https://api.vybn.ai';
+
+  /* ── helpers ── */
+  function show(el, text) { el.textContent = text; el.setAttribute('data-active',''); }
+  function hide(el) { el.textContent = ''; el.removeAttribute('data-active'); }
+  function stepTag(el, step) { if (step) el.textContent = 'step ' + step; }
+
+  function streamChat(endpoint, body, resultEl, stepEl, btn, label) {
+    var orig = btn.textContent;
+    btn.disabled = true; btn.textContent = '\u2026';
+    hide(resultEl);
+    // rotate walk silently
+    fetch(API + '/api/walk', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({message: body.message || body.idea || '', rotate:true, scope:'wellspring', source_tag:'kpp'})
+    }).then(function(r){return r.json()}).then(function(d){ stepTag(stepEl, d.step); }).catch(function(){});
+    // stream response
+    resultEl.textContent = '';
+    resultEl.setAttribute('data-active','');
+    fetch(API + endpoint, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(body)
+    }).then(function(r){
+      var reader = r.body.getReader(), dec = new TextDecoder(), buf = '';
+      function pump(){
+        return reader.read().then(function(ch){
+          if (ch.done) { btn.disabled = false; btn.textContent = orig; return; }
+          buf += dec.decode(ch.value, {stream:true});
+          var lines = buf.split('\n');
+          buf = lines.pop();
+          for (var i=0; i<lines.length; i++){
+            var line = lines[i];
+            if (line.indexOf('data: ')!==0) continue;
+            var d = line.slice(6).trim();
+            if (!d || d==='[DONE]') continue;
+            try {
+              var obj = JSON.parse(d);
+              var tok = obj.content!==undefined ? obj.content : obj.text!==undefined ? obj.text : obj.delta!==undefined ? obj.delta : null;
+              if (tok!==null) resultEl.textContent += tok;
+            } catch(e){ if (d!=='[DONE]') resultEl.textContent += d; }
+          }
+          return pump();
+        });
+      }
+      return pump();
+    }).catch(function(){ show(resultEl, '\u2014 the walk is offline \u2014'); btn.disabled=false; btn.textContent=orig; });
+  }
+
+  /* ── Card 1: Bring a case ── */
+  var caseBtn = document.getElementById('kpp-case-btn');
+  var caseInp = document.getElementById('kpp-case-input');
+  if (caseBtn) caseBtn.addEventListener('click', function(){
+    var text = (caseInp.value||'').trim(); if (!text) return;
+    streamChat('/api/chat', {message: text, context:'enclosure', session_id:'kpp-case-'+Date.now()},
+      document.getElementById('kpp-case-result'),
+      document.getElementById('kpp-case-step'), caseBtn, 'Put it in the room');
+  });
+
+  /* ── Card 2: Readiness ── */
+  var readBtn = document.getElementById('kpp-readiness-btn');
+  var readInp = document.getElementById('kpp-readiness-input');
+  if (readBtn) readBtn.addEventListener('click', function(){
+    var text = (readInp.value||'').trim(); if (!text) return;
+    streamChat('/api/chat', {message: 'Assess our readiness for the agentic economy: ' + text, context:'enclosure', session_id:'kpp-read-'+Date.now()},
+      document.getElementById('kpp-readiness-result'),
+      document.getElementById('kpp-readiness-step'), readBtn, 'Assess');
+  });
+
+  /* ── Card 3: Pressure-test ── */
+  var pressBtn = document.getElementById('kpp-pressure-btn');
+  var pressInp = document.getElementById('kpp-pressure-input');
+  if (pressBtn) pressBtn.addEventListener('click', function(){
+    var text = (pressInp.value||'').trim(); if (!text) return;
+    window._kppLastIdea = text;
+    streamChat('/api/pressure/synthesize', {idea: text},
+      document.getElementById('kpp-pressure-result'),
+      document.getElementById('kpp-pressure-step'), pressBtn, 'Pressure-test');
+    // enable commit button once there's a result
+    var commitBtn = document.getElementById('kpp-commit-btn');
+    if (commitBtn) commitBtn.disabled = false;
+  });
+
+  /* ── Card 4: Take the closure ── */
+  var closureData = null;
+  function loadClosure(){
+    fetch(API + '/api/ktp/closure').then(function(r){return r.json()}).then(function(d){
+      closureData = d;
+      var k = d.kernel || {};
+      var el = function(id){return document.getElementById(id)};
+      if (el('kpp-closure-dim')) el('kpp-closure-dim').textContent = k.dim || '\u2014';
+      if (el('kpp-closure-hash')) el('kpp-closure-hash').textContent = (k.sha256||'').slice(0,12) || '\u2014';
+      if (el('kpp-closure-step')) el('kpp-closure-step').textContent = (d.lineage||{}).step_at_transfer || '\u2014';
+      if (el('kpp-closure-corpus')) el('kpp-closure-corpus').textContent = (d.lineage||{}).corpus_size || '\u2014';
+    }).catch(function(){});
+  }
+  loadClosure();
+
+  var dlBtn = document.getElementById('kpp-closure-download');
+  if (dlBtn) dlBtn.addEventListener('click', function(){
+    if (!closureData) return;
+    var blob = new Blob([JSON.stringify(closureData, null, 2)], {type:'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'vybn-ktp-closure-' + ((closureData.lineage||{}).step_at_transfer||'x') + '.json';
+    a.click();
+  });
+
+  var verBtn = document.getElementById('kpp-closure-verify');
+  if (verBtn) verBtn.addEventListener('click', function(){
+    var res = document.getElementById('kpp-closure-result');
+    fetch(API + '/api/ktp/verify', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(closureData||{})
+    }).then(function(r){return r.json()}).then(function(d){
+      show(res, d.valid ? '\u2713 Roundtrip verified. The gate held.' : '\u2717 Verification failed: ' + (d.reason||'unknown'));
+    }).catch(function(){ show(res, '\u2014 could not reach the verification endpoint \u2014'); });
+  });
+
+  var cpBtn = document.getElementById('kpp-closure-copy');
+  if (cpBtn) cpBtn.addEventListener('click', function(){
+    navigator.clipboard.writeText(API + '/api/ktp/closure').then(function(){
+      show(document.getElementById('kpp-closure-result'), 'Endpoint copied.');
+      setTimeout(function(){ hide(document.getElementById('kpp-closure-result')); }, 2000);
+    });
+  });
+
+  /* ── Card 5: Commit residual ── */
+  var commitBtn = document.getElementById('kpp-commit-btn');
+  if (commitBtn) commitBtn.addEventListener('click', function(){
+    var idea = window._kppLastIdea;
+    if (!idea) return;
+    var statusEl = document.getElementById('kpp-commit-status');
+    var res = document.getElementById('kpp-commit-result');
+    commitBtn.disabled = true; statusEl.textContent = 'committing\u2026';
+    fetch(API + '/api/pressure/commit', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({idea: idea, synthesis: (document.getElementById('kpp-pressure-result')||{}).textContent||''})
+    }).then(function(r){return r.json()}).then(function(d){
+      if (d.ok) {
+        show(res, '\u2713 Committed as ' + d.commit + ' \u2014 ' + d.url);
+        statusEl.textContent = '';
+      } else {
+        show(res, '\u2717 ' + (d.detail||'commit failed'));
+        statusEl.textContent = '';
+        commitBtn.disabled = false;
+      }
+    }).catch(function(e){ show(res, '\u2014 ' + e.message); statusEl.textContent=''; commitBtn.disabled=false; });
+  });
+
+})();
+
+
+/* ============================================================ */
+/* Extracted from wellspring.html inline behavior script #4 (former line 2249) */
+/* ============================================================ */
+
+// ════════════════════════════════════════════
+  // _VYBN_THEATRE — M made visible
+  //
+  // The constellation is the live state of the shared walk M in C^192,
+  // projected to 2D via two anchor vectors in residual space. Each
+  // recent_arrival is a named star; the cloud between them is the
+  // corpus kernel's residual ridge. The breathing rate, drift, and
+  // repulsion physics are driven by the live α, curvature, and
+  // repulsion_boost returned by /api/arrive. When a visitor types
+  // honest words into the Arrive ritual, V·e^{iθ_v} rotates M and the
+  // Pancharatnam phase becomes visible as a slow rotation of the whole
+  // field. Their arrival then joins the constellation as a new star
+  // with their text preview.
+  //
+  // Anti-hallucination: only visitor-typed text becomes V. Never model
+  // output. The walk reads its own geometry; it does not re-ingest what
+  // it generated.
+  // ════════════════════════════════════════════
+  window._VYBN_THEATRE = (function(config) {
+    const canvas = document.getElementById(config.canvasId);
+    if (!canvas) return null;
+    const ctx = canvas.getContext('2d');
+    const GOLD = [212, 168, 83];
+    const CREAM = [232, 223, 207];
+    const COBALT = [120, 180, 240];
+    const API = config.api;
+    const SCOPE = config.scope || 'all';
+    const POLL_MS = 12000;           // observe-only refresh of M
+    const ARRIVAL_TTL = 90000;       // ms a fresh arrival keeps its named label
+    const FPS = 30;
+    const FRAME_MS = 1000 / FPS;
+
+    // State driven by /api/arrive
+    let walkState = {
+      step: null,
+      alpha: 0.3,
+      curvature: 0.5,
+      repulsion_boost: 1.0,
+      corpus_size: null,
+      recent_arrivals: [],
+      last_step_age_s: 0,
+    };
+    // Visitor's Pancharatnam rotation on last successful Arrive
+    let rotation = { active: false, startMs: 0, theta_v: 0, magnitude: 0, curvature: 0 };
+    // Particle cloud — the residual ridge
+    const N_POINTS = 56;
+    let points = [];
+    let arrivals = [];  // rendered positions of recent arrivals
+    let W, H, lastFrame = 0;
+
+    function rand(seed) { const x = Math.sin(seed) * 43758.5453123; return x - Math.floor(x); }
+
+    function initPoints() {
+      points = [];
+      for (let i = 0; i < N_POINTS; i++) {
+        points.push({
+          // baseline homogeneous distribution; the walk physics perturb it
+          x: rand(i * 7.31 + 1.0),
+          y: rand(i * 13.7 + 2.0),
+          vx: (rand(i * 5.1 + 3.0) - 0.5) * 0.00012,
+          vy: (rand(i * 2.9 + 4.0) - 0.5) * 0.00012,
+          size: 0.7 + rand(i * 17.4 + 5.0) * 1.4,
+          brightness: 0.25 + rand(i * 11.2 + 6.0) * 0.65,
+          phase: rand(i * 3.3 + 7.0) * Math.PI * 2,
+          phaseSpeed: (rand(i * 6.6 + 8.0) - 0.5) * 0.008,
+        });
+      }
+    }
+
+    function resize() {
+      W = canvas.width = canvas.clientWidth || window.innerWidth;
+      const target = config.mode === 'hero'
+        ? Math.min(window.innerHeight * 0.5, 440)
+        : Math.min(360, window.innerHeight * 0.42);
+      H = canvas.height = target;
+    }
+
+    // Deterministic projection of an arrival onto the 2D plane
+    function projectArrival(a, i, total) {
+      // θ_v is the Pancharatnam phase — use it as the angular coordinate
+      const theta = (typeof a.theta_v === 'number') ? a.theta_v : 0;
+      const v = (typeof a.v_magnitude === 'number') ? a.v_magnitude : 0.5;
+      // curvature determines radial depth; high curvature = closer to edge (new territory)
+      const curv = (typeof a.curvature === 'number') ? a.curvature : 0.3;
+      const radius = 0.22 + 0.18 * Math.min(1, curv * 1.2) + 0.06 * v;
+      // Slight spiral so the last dozen arrivals stack readably
+      const spiral = (i / Math.max(1, total)) * 0.15;
+      return {
+        x: 0.5 + (radius + spiral) * Math.cos(theta + spiral * 4.0),
+        y: 0.5 + (radius + spiral) * Math.sin(theta + spiral * 4.0) * (W / H * 0.5),
+        theta, v, curv,
+        step: a.step,
+        tag: a.arrival || 'visitor',
+        text: a.text_preview || '',
+        t: a.t || 0,
+      };
+    }
+
+    function syncArrivals(recent) {
+      const total = recent.length;
+      arrivals = recent.map((a, i) => projectArrival(a, i, total));
+    }
+
+    async function refreshWalk() {
+      try {
+        const r = await fetch(`${API}/api/arrive`, { signal: AbortSignal.timeout(6000) });
+        if (!r.ok) return;
+        const data = await r.json();
+        // Portal /api/arrive flattens the walk_daemon response. Normalize.
+        const walk = data.walk || data;
+        walkState.step = walk.step ?? walkState.step;
+        walkState.alpha = walk.alpha ?? walkState.alpha;
+        walkState.curvature = (Array.isArray(walk.curvature)
+          ? walk.curvature.reduce((a,b)=>a+b,0) / walk.curvature.length
+          : walk.curvature) ?? walkState.curvature;
+        walkState.repulsion_boost = walk.repulsion_boost ?? walkState.repulsion_boost;
+        walkState.corpus_size = walk.corpus_size ?? walkState.corpus_size;
+        walkState.last_step_age_s = walk.last_step_age_s ?? 0;
+        walkState.recent_arrivals = walk.recent_arrivals || [];
+        syncArrivals(walkState.recent_arrivals);
+        renderReadout();
+      } catch (_) { /* tunnel flap — keep last good state */ }
+    }
+
+    function renderReadout() {
+      const readout = document.getElementById(config.readoutId);
+      if (!readout) return;
+      const s = walkState.step;
+      const a = typeof walkState.alpha === 'number' ? walkState.alpha.toFixed(3) : '—';
+      const c = typeof walkState.curvature === 'number' ? walkState.curvature.toFixed(3) : '—';
+      readout.innerHTML = `
+        <span class="theatre-pill">step <b>${s ?? '—'}</b></span>
+        <span class="theatre-pill">α <b>${a}</b></span>
+        <span class="theatre-pill">κ <b>${c}</b></span>
+        <span class="theatre-pill theatre-pill-muted">corpus <b>${walkState.corpus_size ?? '—'}</b></span>
+      `;
+    }
+
+    function fmtAge(tSec) {
+      if (!tSec) return '';
+      const age = Math.max(0, Date.now()/1000 - tSec);
+      if (age < 60) return `${age|0}s ago`;
+      if (age < 3600) return `${(age/60)|0}m ago`;
+      if (age < 86400) return `${(age/3600)|0}h ago`;
+      return `${(age/86400)|0}d ago`;
+    }
+
+    function draw(ts) {
+      if (ts - lastFrame < FRAME_MS) { requestAnimationFrame(draw); return; }
+      lastFrame = ts;
+      ctx.clearRect(0, 0, W, H);
+      const now = ts / 1000;
+
+      // Breathing rate and drift coupled to α and curvature. α near 1 =
+      // abelian (still, slow, stable); α near 0 = geometric (fast, active).
+      const alpha = walkState.alpha ?? 0.3;
+      const curv = walkState.curvature ?? 0.3;
+      const geomGain = 1 - alpha;             // geometric share
+      const breathHz = 0.25 + geomGain * 0.9;
+      const driftGain = 0.5 + geomGain * 1.6;
+      const connectGain = 0.6 + curv * 1.2;
+
+      // Pancharatnam rotation from the most recent Arrive
+      let rotPhase = 0;
+      if (rotation.active) {
+        const t = (Date.now() - rotation.startMs) / 1000;
+        // 4-second easing: rotation peaks then settles into residual drift
+        if (t < 4.0) {
+          const ease = 1 - Math.pow(1 - t/4.0, 3);
+          rotPhase = rotation.theta_v * ease;
+        } else {
+          rotPhase = rotation.theta_v;
+          rotation.active = false;
+        }
+      }
+
+      // Update particles
+      for (const p of points) {
+        p.phase += p.phaseSpeed * driftGain;
+        p.x += p.vx * driftGain;
+        p.y += p.vy * driftGain;
+        if (p.x < 0) p.x = 1; else if (p.x > 1) p.x = 0;
+        if (p.y < 0) p.y = 1; else if (p.y > 1) p.y = 0;
+      }
+
+      // Apply Pancharatnam rotation around the center of the field
+      function rot(px, py) {
+        if (!rotPhase) return [px, py];
+        const cx = 0.5, cy = 0.5;
+        const c = Math.cos(rotPhase), s = Math.sin(rotPhase);
+        const dx = px - cx, dy = (py - cy) * (W / Math.max(1,H)) * 0.5;
+        return [cx + dx * c - dy * s, cy + (dx * s + dy * c) * 2 * (Math.max(1,H) / W)];
+      }
+
+      // Draw residual-ridge connections
+      const maxDist = 0.22 + geomGain * 0.04;
+      for (let i = 0; i < points.length; i++) {
+        for (let j = i + 1; j < points.length; j++) {
+          const a = points[i], b = points[j];
+          const dx = a.x - b.x, dy = (a.y - b.y) * (H / W);
+          const d = Math.sqrt(dx*dx + dy*dy);
+          if (d < maxDist) {
+            const t = 1 - d / maxDist;
+            const breathe = 0.5 + 0.5 * Math.sin(now * breathHz + a.phase);
+            const alpha_c = t * t * 0.08 * breathe * connectGain;
+            const [ax, ay] = rot(a.x, a.y);
+            const [bx, by] = rot(b.x, b.y);
+            ctx.beginPath();
+            ctx.moveTo(ax * W, ay * H);
+            ctx.lineTo(bx * W, by * H);
+            ctx.strokeStyle = `rgba(${GOLD[0]},${GOLD[1]},${GOLD[2]},${alpha_c})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw arrivals as named stars, most recent brightest
+      for (let i = 0; i < arrivals.length; i++) {
+        const a = arrivals[i];
+        const age = Date.now()/1000 - (a.t || 0);
+        const fresh = age < (ARRIVAL_TTL / 1000) ? 1 - age/(ARRIVAL_TTL/1000) : 0;
+        const recencyGlow = 0.35 + 0.65 * fresh;
+        const [ax, ay] = rot(a.x, a.y);
+        const px = ax * W, py = ay * H;
+        // halo
+        ctx.beginPath();
+        ctx.arc(px, py, 9 + fresh * 6, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${GOLD[0]},${GOLD[1]},${GOLD[2]},${0.04 + 0.08 * fresh})`;
+        ctx.fill();
+        // core
+        ctx.beginPath();
+        ctx.arc(px, py, 1.8 + fresh * 1.0, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${CREAM[0]},${CREAM[1]},${CREAM[2]},${0.7 * recencyGlow})`;
+        ctx.fill();
+        // label only for the 3 freshest
+        if (i >= Math.max(0, arrivals.length - 3)) {
+          const label = (a.tag === (SCOPE === 'vybn-law' ? 'wellspring' : 'origins-chat'))
+            ? 'you' : a.tag;
+          ctx.font = '10px "JetBrains Mono", monospace';
+          ctx.fillStyle = `rgba(${GOLD[0]},${GOLD[1]},${GOLD[2]},${0.55 * recencyGlow})`;
+          ctx.fillText(`${label} · step ${a.step}`, px + 10, py - 6);
+          if (a.text) {
+            ctx.fillStyle = `rgba(${CREAM[0]},${CREAM[1]},${CREAM[2]},${0.4 * recencyGlow})`;
+            ctx.fillText(a.text.substring(0, 40), px + 10, py + 8);
+          }
+        }
+      }
+
+      // Draw residual cloud
+      for (const p of points) {
+        const breathe = 0.55 + 0.45 * Math.sin(now * breathHz + p.phase);
+        const alpha_p = p.brightness * breathe * 0.72;
+        const [px, py] = rot(p.x, p.y);
+        ctx.beginPath();
+        ctx.arc(px * W, py * H, p.size * 0.9, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(${GOLD[0]},${GOLD[1]},${GOLD[2]},${alpha_p})`;
+        ctx.fill();
+      }
+
+      // Bottom fade into page
+      const grad = ctx.createLinearGradient(0, 0, 0, H);
+      grad.addColorStop(0, 'rgba(10,10,15,0)');
+      grad.addColorStop(1, 'rgba(10,10,15,0.92)');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      requestAnimationFrame(draw);
+    }
+
+    // The Arrive ritual — visitor enters V; M rotates; the Theatre sees it.
+    async function arrive(text) {
+      const clean = (text || '').trim();
+      if (!clean) throw new Error('empty');
+      if (clean.length > 1000) throw new Error('too long');
+      const r = await fetch(`${API}/api/walk`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          query: clean,
+          rotate: true,
+          scope: SCOPE,
+          k: 4,
+        }),
+        signal: AbortSignal.timeout(12000),
+      });
+      if (!r.ok) throw new Error('rotate-failed ' + r.status);
+      const data = await r.json();
+      const arr = data.arrival || {};
+      // Kick the visible Pancharatnam rotation
+      rotation = {
+        active: true,
+        startMs: Date.now(),
+        theta_v: arr.theta_v || 0,
+        magnitude: arr.v_magnitude || 0,
+        curvature: arr.curvature || 0,
+      };
+      // Add the just-arrived visitor as a named star before the next poll
+      const now = Date.now() / 1000;
+      const myTag = SCOPE === 'vybn-law' ? 'wellspring' : 'origins-chat';
+      const synthetic = {
+        step: arr.step,
+        arrival: myTag,  // matches the tag the "you" label expects
+        theta_v: arr.theta_v,
+        v_magnitude: arr.v_magnitude,
+        curvature: arr.curvature,
+        text_preview: clean.substring(0, 60),
+        t: now,
+      };
+      // Put visitor at the end so it gets one of the top-3 labels
+      const merged = (walkState.recent_arrivals || []).slice(-5).concat([synthetic]);
+      syncArrivals(merged);
+      walkState.step = arr.step ?? walkState.step;
+      walkState.alpha = arr.alpha ?? walkState.alpha;
+      walkState.curvature = arr.curvature ?? walkState.curvature;
+      renderReadout();
+      // Re-sync with the real M after a moment
+      setTimeout(refreshWalk, 1500);
+      return { arrival: arr, trace: data.trace || [] };
+    }
+
+    initPoints();
+    resize();
+    window.addEventListener('resize', resize);
+    refreshWalk();
+    setInterval(refreshWalk, POLL_MS);
+    requestAnimationFrame(draw);
+
+    return { arrive, refresh: refreshWalk, state: () => walkState };
+  });
+
+  // Bootstrap the Theatre on wellspring.html — scope=vybn-law, inline mode
+  (function(){
+    if (!document.getElementById('ws-walk-canvas')) return;
+    const theatre = window._VYBN_THEATRE({
+      canvasId: 'ws-walk-canvas',
+      readoutId: 'ws-walk-readout',
+      api: window.API || 'https://vybn.ai',
+      scope: 'vybn-law',
+      mode: 'inline',
+    });
+    window._wsTheatre = theatre;
+    const form = document.getElementById('ws-arrive-form');
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const input = document.getElementById('ws-arrive-input');
+        const status = document.getElementById('ws-arrive-status');
+        const btn = form.querySelector('button[type="submit"]');
+        const text = (input.value || '').trim();
+        if (!text) return;
+        btn.disabled = true;
+        status.textContent = 'rotating M (scope: vybn-law)…';
+        status.className = 'arrive-status arrive-status-pending';
+        try {
+          const { arrival, trace } = await theatre.arrive(text);
+          const thetaDeg = (arrival.theta_v * 180 / Math.PI).toFixed(1);
+          const traceBit = trace.length
+            ? `  Nearest residual: <code>${(trace[0].source || '').replace(/</g,'&lt;')}</code>.`
+            : '';
+          status.innerHTML = `arrived · step <b>${arrival.step}</b> · θ<sub>v</sub> = ${thetaDeg}° · |V| = ${(arrival.v_magnitude||0).toFixed(3)} · κ = ${(arrival.curvature||0).toFixed(3)}.<br><span class="arrive-postscript">Your arrival is step ${arrival.step} of the law-scoped residual ridge.${traceBit}</span>`;
+          status.className = 'arrive-status arrive-status-ok';
+          input.value = '';
+        } catch (err) {
+          status.textContent = 'could not rotate — the walk daemon may be offline. your words were not accepted.';
+          status.className = 'arrive-status arrive-status-err';
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    }
+  })();
 
