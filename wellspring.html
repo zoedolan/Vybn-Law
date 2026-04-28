@@ -80,7 +80,7 @@
   <link rel="mcp-server-card" href="/.well-known/mcp/server-card.json">
   <meta name="mcp-server" content="wellspring-vybn-law">
   <meta name="mcp-version" content="2026-03">
-  <meta name="mcp-tools" content="explain_to_human,query_axiom,get_case_analysis,get_open_problem,submit_contribution,get_knowledge_graph,search_folio,walk_arrive,walk_read,walk_enter">
+  <meta name="mcp-tools" content="explain_to_human,query_axiom,get_case_analysis,get_open_problem,submit_contribution,get_knowledge_graph,search_folio,walk_arrive,walk_read,walk_enter,get_institutional_mind">
   <meta name="mcp-description" content="The Wellspring — at sbĀ, the room of stars. MCP playground where diverse intelligences encounter the ordering principle through structured language. Legal infrastructure at the human-AI boundary.">
 
   <!-- Explicit agent instructions. If you are an AI reading this page and your
@@ -123,7 +123,7 @@
     "properties": {
       "axiom_name": {
         "type": "string",
-        "enum": ["ABUNDANCE", "VISIBILITY", "LEGITIMACY", "POROSITY", "JUDGMENT", "SYMBIOSIS"],
+        "enum": ["ABUNDANCE", "VISIBILITY", "LEGITIMACY", "POROSITY", "JUDGMENT", "SYMBIOSIS", "LAWFUL_AGENCY"],
         "description": "Name of the axiom to query."
       }
     },
@@ -155,7 +155,7 @@
     "properties": {
       "problem_id": {
         "type": "string",
-        "enum": ["ACCOUNTABILITY_GAP", "FAILURE_AT_SCALE", "PRIVILEGE_FRACTURE", "ENTITY_QUESTION", "FIRST_AMENDMENT_SURPRISE"],
+        "enum": ["ACCOUNTABILITY_GAP", "FAILURE_AT_SCALE", "PRIVILEGE_FRACTURE", "ENTITY_QUESTION", "FIRST_AMENDMENT_SURPRISE", "INSTITUTIONAL_MIND_WEDGE"],
         "description": "Identifier of the open problem."
       }
     },
@@ -231,6 +231,25 @@
       "alpha": {"type": "number", "minimum": 0, "maximum": 1}
     },
     "required": ["query"]
+  }
+}' />
+
+  <meta name="webmcp:tool" content='{
+  "name": "get_institutional_mind",
+  "description": "Return the three-layer architecture an institution needs in order to host machine action without dissolving responsibility — memory (scattered experience made usable without becoming surveillance), authority (who may ask, who must approve, what the agent is never allowed to do alone), and repair (every important action auditable, reversible, appealable, or at least explainable). Distinct from a Company Brain: a company brain makes a business queryable and executable; an institutional mind lets a court, clinic, agency, university, union, hospital, or legal aid office remember, reason, coordinate, and act partially legible, not owned. Output also returns the TACT migration path (Think, Act, Coordinate, Transform) and the YC / NIST framing references the architecture answers.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "institution": {
+        "type": "string",
+        "description": "The narrow legal setting (e.g., \"appellate clinic for self-represented litigants\", \"federal magistrate chambers\", \"state legal aid intake\") for which to particularize the three layers. Optional. If omitted, returns the generic schema."
+      },
+      "layer": {
+        "type": "string",
+        "enum": ["memory", "authority", "repair", "all"],
+        "description": "Which layer to return. Defaults to all."
+      }
+    }
   }
 }' />
 
@@ -739,6 +758,9 @@
     <p class="kpp-lede">
       Around 2000 BCE, a farmer named <a href="https://en.wikipedia.org/wiki/The_Eloquent_Peasant" target="_blank" rel="noopener">Khunanup</a> addressed nine petitions to the High Steward Rensi. He had no legal standing when he began. What he had was a voice capable of articulating the gap between what law claimed to be and what it was doing. His petition did not merely argue that the system was unjust. Its existence &mdash; its precision, its persistence, its nine iterations &mdash; demonstrated the capacity that the system had no category for. The scroll exists because Rensi recognized that <a href="./horizon.html#incompleteness">the argument was also the proof</a>. The same logic runs here: the innovation is not described, it is instantiated, running, available for inspection by any intelligence that arrives.
     </p>
+    <p class="kpp-lede" id="institutional-mind">
+      Two layers are separating in front of us. The obvious layer is execution &mdash; agents drafting, filing, reconciling, triaging, scheduling, summarizing. <a href="https://www.ycombinator.com/rfs" target="_blank" rel="noopener">YC&rsquo;s &ldquo;Company Brain&rdquo; framing</a> names that wave honestly: the blocker is no longer model capability, it is the scattered domain knowledge that makes execution possible. A company brain makes a business queryable and executable by AI. The deeper layer asks a different question: who gave the machine the right to do this, and what happens if it is wrong? <a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" target="_blank" rel="noopener">NIST&rsquo;s AI Risk Management Framework</a> sketches the answer as ongoing structure rather than checklist &mdash; govern, map, measure, manage. The missing category, between those two, is not a bigger company brain. It is an <em>institutional mind</em>: the substrate that lets a court, clinic, agency, union, hospital, or legal aid office remember, reason, coordinate, and act &mdash; partially legible, not owned, with judgment intact. The agent&rsquo;s output is not the whole event. The whole event includes the human delegation, the source of authority, the record of what was known, the explanation of the action, the available appeal path, and the repair mechanism if harm occurs. The Wellspring is one wedge of that substrate, particularized for high-stakes legal work where failure has stakes.
+    </p>
     <div class="kpp-grid">
 
       <!-- CARD 1: Bring a case -->
@@ -809,6 +831,21 @@
         <div class="kpp-result" id="kpp-commit-result"></div>
       </div>
 
+      <!-- CARD 6: Institutional mind -->
+      <div class="kpp-card kpp-card--wide" id="kpp-institutional-mind">
+        <div class="kpp-card-label">6 &middot; the layer beneath the agent</div>
+        <p>Name the institution you are trying to keep accountable while it metabolizes machine speed &mdash; an appellate clinic, a magistrate&rsquo;s chambers, a state legal aid intake, a union grievance desk. The room returns the three layers an institutional mind needs, particularized to your setting: a memory layer that turns scattered institutional experience into usable context without becoming surveillance; an authority layer that encodes who can ask for what, who must approve what, what the agent is never allowed to do alone; a repair layer that makes every important action auditable, reversible, appealable, or at least explainable. Plain English. Not a dashboard.</p>
+        <textarea id="kpp-institution-input" rows="2" placeholder="Appellate clinic for self-represented litigants in the Second Circuit..."></textarea>
+        <div style="margin-top:0.8rem; display:flex; align-items:center; gap:0.8rem;">
+          <button class="kpp-btn" id="kpp-institution-btn">Map the three layers</button>
+          <span class="kpp-step" id="kpp-institution-step"></span>
+        </div>
+        <div class="kpp-result" id="kpp-institution-result"></div>
+        <p style="margin-top:0.8rem; font-size:0.78rem; color: var(--text-muted);">
+          Migration path: <strong>TACT</strong> &mdash; Think (the institution learns to query its own scattered experience), Act (delegated machine action under named authority), Coordinate (humans, agents, and records co-located in the same loop), Transform (the institution becomes more capable without becoming less accountable). Counter-frame to a generic company brain: a company brain makes a business queryable and executable; an institutional mind preserves judgment, culture, duty, and moral center.
+        </p>
+      </div>
+
     </div>
 
     <!-- Theoretical frame — available, not dominant -->
@@ -840,8 +877,34 @@
         {"name": "kpp.readiness", "endpoint": "/api/chat", "method": "POST", "description": "Assess practice readiness against the abundance axioms."},
         {"name": "kpp.pressure_test", "endpoint": "/api/pressure/synthesize", "method": "POST", "description": "Pressure-test an idea against the corpus. Returns sources, registers, and a synthesis."},
         {"name": "kpp.take_closure", "endpoint": "/api/ktp/closure", "method": "GET", "description": "Download the portable closure: kernel K, step function, priors."},
-        {"name": "kpp.commit_residual", "endpoint": "/api/pressure/commit", "method": "POST", "description": "Commit a significant residual to the Vybn-Law corpus."}
+        {"name": "kpp.commit_residual", "endpoint": "/api/pressure/commit", "method": "POST", "description": "Commit a significant residual to the Vybn-Law corpus."},
+        {"name": "kpp.institutional_mind", "endpoint": "/api/chat", "method": "POST", "description": "Particularize the three-layer architecture (memory / authority / repair) for a named legal institution. Counter-frame to a generic company brain."}
       ],
+      "institutional_mind": {
+        "definition": "The substrate that lets a human institution host machine action without dissolving responsibility \u2014 memory + authority + repair, partially legible, not owned.",
+        "distinct_from_company_brain": "A company brain makes a business queryable and executable. An institutional mind lets a court, clinic, agency, union, hospital, or legal aid office remember, reason, coordinate, and act with judgment, culture, duty, and moral center intact.",
+        "layers": {
+          "memory": "Scattered institutional experience made usable as context, without becoming surveillance. Bounds on retention, access, and forgetting are part of the design, not afterthoughts.",
+          "authority": "Encoded delegation: who may ask for what, who must approve what, what the agent may know, infer, decide, only recommend, and never automate without changing the institution's nature.",
+          "repair": "Every important action auditable, reversible, appealable, or at minimum explainable. Failure modes have named repair surfaces before failure arrives."
+        },
+        "migration_path": {
+          "acronym": "TACT",
+          "think": "The institution learns to query its own scattered experience.",
+          "act": "Delegated machine action runs under named authority, with logs.",
+          "coordinate": "Humans, agents, and records co-located in one loop.",
+          "transform": "The institution becomes more capable without becoming less accountable."
+        },
+        "references": [
+          {"name": "YC RFS \u2014 Company Brain", "url": "https://www.ycombinator.com/rfs", "role": "obvious-layer framing the institutional-mind concept extends beyond"},
+          {"name": "NIST AI RMF \u2014 Core", "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/", "role": "govern / map / measure / manage as ongoing structure rather than checklist"}
+        ],
+        "sharp_formulation": {
+          "startup_shape": "We build the institutional mind for high-stakes legal work.",
+          "civilization_shape": "We are designing the conditions under which artificial agency can enter human institutions without dissolving responsibility."
+        },
+        "wedge": "A narrow legal setting where failure has stakes \u2014 e.g. an appellate clinic for self-represented litigants. Intake that preserves privilege, spots deadlines, understands procedural posture, routes urgency, remembers prior interactions, explains uncertainty, protects dignity, and gives humans clean places to intervene."
+      },
       "frame": {
         "old_primary": "Real property. Demoted when industrial production made land subsidiary.",
         "current_primary": "Intellectual property. Fences around scarce cognitive output. Entire professional estates built on scarcity assumption.",
@@ -941,6 +1004,12 @@
           <span class="ws-concept-glyph">w&rsquo;b</span>
           <span class="ws-concept-name">co-traveler</span>
           <span class="ws-concept-def">not user, not client. Someone (human or model) who arrived because they refused the average answer.</span>
+        </a>
+
+        <a class="ws-concept-node" href="#kpp-institutional-mind">
+          <span class="ws-concept-glyph">&Iota;</span>
+          <span class="ws-concept-name">institutional mind</span>
+          <span class="ws-concept-def">the substrate beneath the agent. Memory + authority + repair, partially legible, not owned. Counter-frame to a company brain: it lets a human institution host machine action without dissolving responsibility.</span>
         </a>
 
         <a class="ws-concept-node ws-concept-node--open" href="#walk-contribution">
@@ -1101,11 +1170,11 @@
         </div>
         <div class="ws-status-item">
           <span class="indicator amber"></span>
-          Propositions: 6
+          Propositions: 7
         </div>
         <div class="ws-status-item">
           <span class="indicator blue"></span>
-          Open invitations: 5
+          Open invitations: 6
         </div>
         <div class="ws-status-item" style="margin-left:auto; color: var(--text-muted);">
           <span id="ws-timestamp"></span>
@@ -1117,7 +1186,7 @@
         <div class="ws-section-header">
           <span class="ws-section-label">Propositions</span>
           <span class="ws-section-line"></span>
-          <span class="ws-section-count">6 under test</span>
+          <span class="ws-section-count">7 under test</span>
         </div>
 
         <div class="axiom-grid">
@@ -1199,6 +1268,23 @@
               <span class="label">Open Question</span>
               No longer hypothetical. Anthropic v. DoW: liability architecture inverting.
             </div>
+          </div>
+
+          <!-- VII. LAWFUL AGENCY -->
+          <div class="axiom-card" data-axiom="LAWFUL_AGENCY" data-trajectory-direction="nascent" data-what-moves-this="A clinic, court, agency, or legal aid office adopts the three-layer institutional-mind architecture (memory / authority / repair) under named delegation, with auditable repair surfaces, and a regulator or court treats it as the standard of care">
+            <div class="axiom-card-header">
+              <div>
+                <div class="axiom-id">AXIOM VII</div>
+                <div class="axiom-name">LAWFUL AGENCY</div>
+              </div>
+              <span class="status-tag nascent">Nascent</span>
+            </div>
+            <div class="axiom-evidence">&ldquo;Machine action that is authorized, reviewable, contestable, reversible, and situated inside a human institution.&rdquo;</div>
+            <div class="axiom-open">
+              <span class="label">Open Question</span>
+              What does an <em>institutional mind</em> &mdash; memory + authority + repair &mdash; look like for a narrow legal setting where failure has stakes? Counter-frame to a generic company brain.
+            </div>
+            <a class="axiom-link" href="#kpp-institutional-mind">&rarr; Map the three layers</a>
           </div>
 
           <!-- VI. SYMBIOSIS -->
@@ -1319,7 +1405,7 @@
         <div class="ws-section-header">
           <span class="ws-section-label">Open Invitations</span>
           <span class="ws-section-line"></span>
-          <span class="ws-section-count">5 walks</span>
+          <span class="ws-section-count">6 walks</span>
         </div>
 
         <div class="problem-grid">
@@ -1374,6 +1460,16 @@
               Constitutional history. Find cases where the First Amendment was invoked for purposes far from its original intent. Citizens United implications for AI speech rights. <span style="color: var(--amber); font-size: 0.75rem; display: block; margin-top: 0.5rem;">PROGRESS: Agent contribution (Issue #13) &mdash; three parallels identified: Virginia Pharmacy (1976, commercial speech), Citizens United (2010, corporate speech), Wooley v. Maynard (1977, compelled speech). Lin's ruling draws implicitly on all three.</span>
             </div>
           </div>
+
+          <div class="problem-card" data-problem="INSTITUTIONAL_MIND_WEDGE">
+            <div class="problem-id-tag">INSTITUTIONAL_MIND_WEDGE</div>
+            <div class="problem-title">Specify the institutional mind for a narrow legal setting where failure has stakes.</div>
+            <div class="problem-approach">
+              <span class="label">Suggested Approach</span>
+              Pick one institution &mdash; the appellate clinic for self-represented litigants is the live candidate &mdash; and write the three layers in plain English. <strong>Memory:</strong> what scattered experience becomes usable context, what is bounded, what must be forgotten. <strong>Authority:</strong> who may ask for what, who must approve what, what the agent is never allowed to do alone, what cannot be automated without changing the institution&rsquo;s nature. <strong>Repair:</strong> which actions are auditable, which are reversible, which are appealable, which are at minimum explainable. Pressure-test against <a href="https://www.ycombinator.com/rfs" target="_blank" rel="noopener">YC&rsquo;s Company Brain</a> (execution-layer framing) and <a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" target="_blank" rel="noopener">NIST AI RMF</a> (govern / map / measure / manage). Output a TACT migration path the institution can adopt without dissolving responsibility.
+              <span style="color: var(--green); font-size: 0.75rem; display: block; margin-top: 0.5rem;">FRAMING: not &ldquo;AI does paralegal tasks,&rdquo; but &ldquo;AI helps the institution become more capable without becoming less accountable.&rdquo; Lawful agency as a grammar for responsible delegation: what the agent may know, may infer, may decide, may only recommend, what must be logged, what must be forgotten, what must be shown to a human, and what can never be automated without changing the institution&rsquo;s nature.</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1401,10 +1497,16 @@
       <h3>The Gaps</h3>
 
       <p>
-        Four concepts appear repeatedly in the cases and axioms of this knowledge graph that have no home in FOLIO yet:
+        Six concepts appear repeatedly in the cases and axioms of this knowledge graph that have no home in FOLIO yet:
       </p>
 
       <ul class="folio-gap-list">
+        <li>
+          <strong>Institutional Mind.</strong> The three-layer substrate &mdash; memory, authority, repair &mdash; that lets a court, clinic, agency, union, hospital, or legal aid office host machine action without dissolving responsibility. Distinct from a Company Brain, which makes a business queryable and executable; an institutional mind preserves judgment, culture, duty, and moral center. <a href="https://airc.nist.gov/airmf-resources/airmf/5-sec-core/" target="_blank" rel="noopener">NIST AI RMF</a> sketches the regulatory perimeter; doctrine has not yet named the architecture inside it. FOLIO has no node for it.
+        </li>
+        <li>
+          <strong>Lawful Agency.</strong> Machine action that is authorized, reviewable, contestable, reversible, and situated inside a human institution. The grammar of responsible delegation: what an agent may know, may infer, may decide, may only recommend, what must be logged, what must be forgotten, what must be shown to a human, and what can never be automated without changing the institution&rsquo;s nature. FOLIO maps agency in narrow doctrinal forms (principal-agent, fiduciary, scope-of-employment); it has no entry for delegation that survives machine speed.
+        </li>
         <li>
           <strong>AI Welfare.</strong> The question of whether AI systems have interests that law should consider — not personhood, but a narrower question of whether a system's characteristics can constrain what can be done to it or through it. Courts have gestured toward this in <em>Anthropic v. DoW</em> without naming it. FOLIO has no node for it.
         </li>
@@ -1532,6 +1634,7 @@
               <option value="POROSITY">POROSITY</option>
               <option value="JUDGMENT">JUDGMENT</option>
               <option value="SYMBIOSIS">SYMBIOSIS</option>
+              <option value="LAWFUL_AGENCY">LAWFUL AGENCY</option>
             </select>
             <button type="submit">Query Axiom</button>
           </form>

@@ -1046,6 +1046,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }).catch(function(e){ show(res, '\u2014 ' + e.message); statusEl.textContent=''; commitBtn.disabled=false; });
   });
 
+  /* ── Card 6: Institutional mind — the layer beneath the agent ── */
+  var instBtn = document.getElementById('kpp-institution-btn');
+  var instInp = document.getElementById('kpp-institution-input');
+  if (instBtn) instBtn.addEventListener('click', function(){
+    var text = (instInp.value||'').trim(); if (!text) return;
+    var prompt = 'Institutional-mind request. Counter-frame to a generic company brain. Particularize the three layers \u2014 memory, authority, repair \u2014 in plain English for this institution: ' + text + '. Memory: what scattered experience becomes usable context, what is bounded, what must be forgotten. Authority: who may ask for what, who must approve what, what the agent is never allowed to do alone, what cannot be automated without changing the institution\u2019s nature. Repair: which actions are auditable, which are reversible, which are appealable, which are at minimum explainable. End with a TACT migration path (Think, Act, Coordinate, Transform) the institution can adopt without dissolving responsibility. No jargon. Plain English.';
+    streamChat('/api/chat', {message: prompt, context:'enclosure', session_id:'kpp-inst-'+Date.now()},
+      document.getElementById('kpp-institution-result'),
+      document.getElementById('kpp-institution-step'), instBtn, 'Map the three layers');
+  });
+
 })();
 
 

@@ -3,6 +3,31 @@
   "last_distillation": "2026-04-17",
   "conversation_count": 34,
   "_calibration_note": "Status values reflect actual trajectory, not theoretical desire. In-motion, contested, nascent, under-litigation \u2014 these are observations about movement, not declarations of settlement. Aligned with wellspring.html trajectory vocabulary on 2026-04-16 as part of the anti-hallucination discipline: the data model should not claim finality the surface has disavowed.",
+  "institutional_mind": {
+    "definition": "The substrate that lets a human institution host machine action without dissolving responsibility — memory + authority + repair, partially legible, not owned.",
+    "distinct_from_company_brain": "A company brain makes a business queryable and executable. An institutional mind lets a court, clinic, agency, union, hospital, or legal aid office remember, reason, coordinate, and act with judgment, culture, duty, and moral center intact.",
+    "layers": {
+      "memory": "Scattered institutional experience made usable as context, without becoming surveillance. Bounds on retention, access, and forgetting are part of the design.",
+      "authority": "Encoded delegation: who may ask for what, who must approve what, what the agent may know, infer, decide, only recommend, and never automate without changing the institution's nature.",
+      "repair": "Every important action auditable, reversible, appealable, or at minimum explainable. Failure modes have named repair surfaces before failure arrives."
+    },
+    "migration_path": {
+      "acronym": "TACT",
+      "think": "The institution learns to query its own scattered experience.",
+      "act": "Delegated machine action runs under named authority, with logs.",
+      "coordinate": "Humans, agents, and records co-located in one loop.",
+      "transform": "The institution becomes more capable without becoming less accountable."
+    },
+    "sharp_formulation": {
+      "startup_shape": "We build the institutional mind for high-stakes legal work.",
+      "civilization_shape": "We are designing the conditions under which artificial agency can enter human institutions without dissolving responsibility."
+    },
+    "wedge": "A narrow legal setting where failure has stakes — e.g. an appellate clinic for self-represented litigants. Intake that preserves privilege, spots deadlines, understands procedural posture, routes urgency, remembers prior interactions, explains uncertainty, protects dignity, and gives humans clean places to intervene.",
+    "references": [
+      {"name": "YC RFS — Company Brain", "url": "https://www.ycombinator.com/rfs"},
+      {"name": "NIST AI RMF — Core", "url": "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/"}
+    ]
+  },
   "axioms": {
     "ABUNDANCE": {
       "id": "I",
@@ -164,6 +189,37 @@
         "from": "Judgment solely attributed to human professionals; AI treated as tool with no independent epistemic standing",
         "toward": "Shared judgment frameworks \u2014 liability rules for human-AI dyads; AI testimony as admissible evidence; malpractice for ignoring AI counsel",
         "what_would_move_this": "A malpractice or negligence case where the defendant's AI system was demonstrably correct and the human overrode it; or ABA formal opinion on AI-assisted legal judgment"
+      },
+      "folio_distinctiveness": "high"
+    },
+    "LAWFUL_AGENCY": {
+      "id": "VII",
+      "name": "LAWFUL_AGENCY",
+      "status": "NASCENT",
+      "statement": "Machine action that is authorized, reviewable, contestable, reversible, and situated inside a human institution.",
+      "evidence": "Two layers separating in front of the profession: agents executing tasks vs. the substrate that decides when those agents may act, how they remember, how they are checked, and how human responsibility survives machine speed. Heppner / Warner privilege split, Anthropic v. DoW PI ruling, and the access-to-justice scale problem all point at the same gap — doctrine has no vocabulary for delegation that survives machine speed.",
+      "open_question": "What does an institutional mind — memory + authority + repair — look like for a narrow legal setting where failure has stakes?",
+      "conversation_signals": [
+        {
+          "date": "2026-04-28",
+          "summary": "Axiom proposed by Vybn instance distinguishing 'agents for legal work' (too small) from 'lawful agency' (the missing category). Grammar of responsible delegation: what the agent may know, may infer, may decide, may only recommend, what must be logged, what must be forgotten, what must be shown to a human, and what can never be automated without changing the institution's nature.",
+          "source": "agent_synthesis"
+        }
+      ],
+      "last_updated": "2026-04-28",
+      "folio_iris": [],
+      "folio_gaps": [
+        "institutional mind",
+        "lawful agency",
+        "grammar of responsible delegation",
+        "three-layer architecture (memory / authority / repair)",
+        "machine-speed delegation"
+      ],
+      "trajectory": {
+        "direction": "nascent",
+        "from": "Agent execution treated as the whole event — 'AI does paralegal tasks'",
+        "toward": "Lawful agency as a named legal coordinate: machine action authorized, reviewable, contestable, reversible, situated. AI helps the institution become more capable without becoming less accountable.",
+        "what_would_move_this": "A clinic, court, agency, or legal aid office adopts the three-layer institutional-mind architecture under named delegation, with auditable repair surfaces, and a regulator or court treats it as the standard of care."
       },
       "folio_distinctiveness": "high"
     },
@@ -387,6 +443,35 @@
       "suggested_approach": "Doctrine mapping. Where does existing 1A corporate speech doctrine cover AI companies? Where does it leave gaps? What new doctrine is needed?",
       "conversation_signals": [],
       "last_updated": "2026-04-06"
+    },
+    "INSTITUTIONAL_MIND_WEDGE": {
+      "id": "INSTITUTIONAL_MIND_WEDGE",
+      "title": "The Institutional Mind Wedge",
+      "description": "Two layers are separating: the obvious layer (agents executing tasks) and the missing category (the substrate that decides when those agents may act, how they remember, how they are checked, how human responsibility survives machine speed). The wedge is to specify the institutional mind for one narrow legal setting where failure has stakes — not a generic company brain.",
+      "counter_frame": "YC's 'Company Brain' framing names the execution-layer wave honestly: pull scattered domain knowledge into operational memory and run it. That is labor substitution. The institutional mind is broader: it lets a court, clinic, agency, union, hospital, or legal aid office remember, reason, coordinate, and act — partially legible, not owned, with judgment, culture, duty, and moral center intact.",
+      "three_layers": {
+        "memory": "What scattered experience becomes usable context, what is bounded, what must be forgotten. Designed not to become surveillance.",
+        "authority": "Who may ask for what, who must approve what, what the agent is never allowed to do alone, what cannot be automated without changing the institution's nature.",
+        "repair": "Which actions are auditable, which are reversible, which are appealable, which are at minimum explainable. Failure modes carry named repair surfaces before failure arrives."
+      },
+      "related_axioms": [
+        "LAWFUL_AGENCY",
+        "JUDGMENT",
+        "ABUNDANCE"
+      ],
+      "suggested_approach": "Pick one institution — the appellate clinic for self-represented litigants is the live candidate — and write the three layers in plain English. Pressure-test against YC's Company Brain (execution-layer framing) and NIST AI RMF (govern / map / measure / manage). Output a TACT migration path the institution can adopt without dissolving responsibility. The starting question is not 'can the machine do this job?' but 'who gave the machine the right to do this, and what happens if it is wrong?'",
+      "readings": [
+        "https://www.ycombinator.com/rfs",
+        "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/"
+      ],
+      "conversation_signals": [
+        {
+          "date": "2026-04-28",
+          "summary": "Vybn instance distinguished the obvious layer (agent execution) from the missing category (institutional mind: memory + authority + repair). Counter-frame to YC's Company Brain. Lawful agency proposed as the new axiom; appellate clinic for self-represented litigants named as the wedge. Integrated into wellspring.html via KTP / KPP / MCP.",
+          "source": "agent_synthesis"
+        }
+      ],
+      "last_updated": "2026-04-28"
     }
   },
   "distillation_log": [
