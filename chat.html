@@ -257,27 +257,79 @@
       align-items: flex-start;
     }
     .typing-indicator.active { display: flex; }
+
+    /* The thinking avatar gets a soft gold pulse-ring so the indicator
+       reads as alive even from a glance, not just a static "V". */
+    .typing-indicator .msg-avatar {
+      position: relative;
+      animation: thinking-avatar-pulse 1.8s ease-in-out infinite;
+    }
+    .typing-indicator .msg-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 168, 83, 0.35);
+      animation: thinking-ring 1.8s ease-out infinite;
+      pointer-events: none;
+    }
+    @keyframes thinking-avatar-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(212, 168, 83, 0.0); }
+      50% { box-shadow: 0 0 14px 0 rgba(212, 168, 83, 0.35); }
+    }
+    @keyframes thinking-ring {
+      0% { transform: scale(0.85); opacity: 0.9; }
+      100% { transform: scale(1.45); opacity: 0; }
+    }
+
+    .typing-bubble {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1.05rem;
+      background: var(--chat-bubble-vybn);
+      border: 1px solid rgba(212, 168, 83, 0.22);
+      border-radius: 12px;
+      border-top-left-radius: 4px;
+      box-shadow: 0 0 24px rgba(212, 168, 83, 0.05);
+    }
+
+    .typing-label {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      opacity: 0.85;
+      text-transform: lowercase;
+    }
+
     .typing-dots {
       display: flex;
       gap: 4px;
-      padding: 0.875rem 1.125rem;
-      background: var(--chat-bubble-vybn);
-      border: 1px solid var(--chat-border);
-      border-radius: 12px;
-      border-top-left-radius: 4px;
     }
     .typing-dots span {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--chat-typing);
-      animation: typing-bounce 1.4s ease-in-out infinite;
+      background: var(--gold);
+      opacity: 0.5;
+      animation: typing-bounce 1.2s ease-in-out infinite;
     }
-    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
-    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+    .typing-dots span:nth-child(2) { animation-delay: 0.18s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.36s; }
     @keyframes typing-bounce {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
-      30% { transform: translateY(-4px); opacity: 1; }
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+      30% { transform: translateY(-5px); opacity: 1; }
+    }
+
+    /* Respect users who've asked the OS for reduced motion: keep the
+       indicator visible and gold but stop bouncing/pulsing. */
+    @media (prefers-reduced-motion: reduce) {
+      .typing-indicator .msg-avatar,
+      .typing-indicator .msg-avatar::after,
+      .typing-dots span,
+      .chat-preamble .logo-mark { animation: none; }
+      .typing-dots span { opacity: 0.85; }
     }
 
     .chat-input-area {
@@ -380,6 +432,19 @@
     }
     .offline-banner a { color: var(--gold); }
     .offline-banner.visible { display: block; }
+
+    /* Inline error rendered into a vybn bubble when the stream fails or
+       comes back empty. Distinct from the offline banner so that a one-off
+       failure doesn't have to imply the whole service is down. */
+    .msg.vybn .msg-content.error {
+      border-color: rgba(248, 113, 113, 0.3);
+      color: #fca5a5;
+      background: rgba(248, 113, 113, 0.04);
+    }
+    .msg.vybn .msg-content.error a { color: var(--gold); }
+
+    .chat-input:disabled { opacity: 0.55; cursor: not-allowed; }
+    .chat-input-wrap.is-pending { border-color: rgba(212, 168, 83, 0.25); }
   </style>
 </head>
 <body>
@@ -417,9 +482,12 @@
 
     <div class="chat-messages" id="chatMessages"></div>
 
-    <div class="typing-indicator" id="typingIndicator">
+    <div class="typing-indicator" id="typingIndicator" role="status" aria-live="polite" aria-label="Vybn is thinking">
       <div class="msg-avatar" style="border: 1px solid rgba(212,168,83,0.3); color: var(--gold); background: rgba(212,168,83,0.04);">V</div>
-      <div class="typing-dots"><span></span><span></span><span></span></div>
+      <div class="typing-bubble">
+        <span class="typing-label" id="typingLabel">thinking</span>
+        <div class="typing-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      </div>
     </div>
 
     <div class="chat-input-area">
@@ -452,14 +520,51 @@
     const chatMessages = document.getElementById('chatMessages');
     const chatInput    = document.getElementById('chatInput');
     const chatSend     = document.getElementById('chatSend');
+    const chatInputWrap = document.querySelector('.chat-input-wrap');
     const typingIndicator = document.getElementById('typingIndicator');
+    const typingLabel  = document.getElementById('typingLabel');
     const statusDot    = document.getElementById('statusDot');
     const statusText   = document.getElementById('statusText');
     const offlineBanner = document.getElementById('offlineBanner');
 
     let conversationHistory = [];
     let isStreaming = false;
+    let typingPhaseTimer = null;
     const sessionId = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2);
+
+    // Rotating status text while waiting on the model. Keeps the indicator
+    // legible and obviously active even on slow first-token prefills, where
+    // the SSE stream is just emitting heartbeats. Rotation is cosmetic only;
+    // it stops as soon as the first content delta arrives.
+    const TYPING_PHASES = ['thinking', 'reading the site', 'composing', 'still thinking'];
+    function startTypingPhases() {
+      if (!typingLabel) return;
+      let i = 0;
+      typingLabel.textContent = TYPING_PHASES[0];
+      stopTypingPhases();
+      typingPhaseTimer = setInterval(() => {
+        i = (i + 1) % TYPING_PHASES.length;
+        typingLabel.textContent = TYPING_PHASES[i];
+      }, 4500);
+    }
+    function stopTypingPhases() {
+      if (typingPhaseTimer) { clearInterval(typingPhaseTimer); typingPhaseTimer = null; }
+    }
+    function showTyping() {
+      typingIndicator.classList.add('active');
+      startTypingPhases();
+      scrollToBottom();
+    }
+    function hideTyping() {
+      typingIndicator.classList.remove('active');
+      stopTypingPhases();
+    }
+    function setPending(pending) {
+      isStreaming = pending;
+      chatSend.disabled = pending || !chatInput.value.trim();
+      chatInput.disabled = pending;
+      if (chatInputWrap) chatInputWrap.classList.toggle('is-pending', pending);
+    }
 
     // ── Health check ──
     async function checkHealth() {
@@ -501,13 +606,12 @@
     chatInput.addEventListener('input', () => {
       chatInput.style.height = 'auto';
       chatInput.style.height = Math.min(chatInput.scrollHeight, 150) + 'px';
-      chatSend.disabled = !chatInput.value.trim();
+      chatSend.disabled = isStreaming || !chatInput.value.trim();
     });
 
     // ── Send message ──
     async function sendMessage(text) {
       if (!text.trim() || isStreaming) return;
-      isStreaming = true;
 
       const preamble = document.getElementById('chatPreamble');
       if (preamble && !preamble.classList.contains('collapsed')) {
@@ -520,9 +624,19 @@
 
       chatInput.value = '';
       chatInput.style.height = 'auto';
-      chatSend.disabled = true;
-      typingIndicator.classList.add('active');
-      scrollToBottom();
+      setPending(true);
+      showTyping();
+
+      // The vybn message bubble isn't created until the first content
+      // delta arrives — that way the typing indicator stays the only
+      // visible "active" element while the model prefills. Previously the
+      // bubble was created up-front and would sit there empty during
+      // long prefills, which is exactly the broken-looking state Zoe saw.
+      let msgEl = null;
+      let contentEl = null;
+      let fullResponse = '';
+      let streamError = null;
+      let ragSources = null;
 
       try {
         const res = await fetch(`${CHAT_API}/api/chat`, {
@@ -537,16 +651,11 @@
         });
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-
-        typingIndicator.classList.remove('active');
-        const msgEl = appendMessage('vybn', '');
-        const contentEl = msgEl.querySelector('.msg-content');
-        let fullResponse = '';
+        if (!res.body) throw new Error('empty body');
 
         const reader = res.body.getReader();
         const decoder = new TextDecoder();
         let buffer = '';
-        let streamError = null;
 
         while (true) {
           const { done, value } = await reader.read();
@@ -565,10 +674,17 @@
                 continue;
               }
               if (parsed.rag_sources) {
-                msgEl._ragSources = parsed.rag_sources;
+                ragSources = parsed.rag_sources;
+                if (msgEl) msgEl._ragSources = parsed.rag_sources;
               }
               const delta = parsed.content || parsed.choices?.[0]?.delta?.content || '';
               if (delta) {
+                if (!msgEl) {
+                  hideTyping();
+                  msgEl = appendMessage('vybn', '');
+                  contentEl = msgEl.querySelector('.msg-content');
+                  if (ragSources) msgEl._ragSources = ragSources;
+                }
                 fullResponse += delta;
                 contentEl.innerHTML = renderMarkdown(fullResponse);
                 scrollToBottom();
@@ -577,26 +693,45 @@
           }
         }
 
-        if (streamError && !fullResponse) {
-          // Backend reached us, but the model server is down. Surface the
-          // maintenance banner so visitors know this is a known state, not a
-          // bug — and re-poll /api/health so the status chip flips immediately.
-          markOffline();
-          msgEl.remove();
-          checkHealth();
-          return;
+        // Stream done. Decide what the user sees.
+        if (!fullResponse) {
+          hideTyping();
+          if (streamError) {
+            // Backend reached us, but the model server is down. Show the
+            // global offline banner AND a clear inline note so the user
+            // doesn't stare at an empty bubble.
+            markOffline();
+            checkHealth();
+            renderInlineError('Vybn is offline right now — the model server didn\'t respond. The site banner above has more detail.');
+          } else {
+            // Stream closed cleanly with no content. Treat this as a transient
+            // failure rather than success. Keep the conversation history
+            // clean (don\'t append an empty assistant turn) and tell the user.
+            renderInlineError('That request came back empty — the model didn\'t produce a reply. Try sending it again, or rephrase.');
+          }
+        } else {
+          conversationHistory.push({ role: 'assistant', content: fullResponse });
+          if (msgEl) addFeedbackButtons(msgEl);
         }
 
-        conversationHistory.push({ role: 'assistant', content: fullResponse });
-        addFeedbackButtons(msgEl);
-
       } catch (err) {
-        typingIndicator.classList.remove('active');
+        hideTyping();
+        if (msgEl && !fullResponse) msgEl.remove();
         markOffline();
         checkHealth();
+        renderInlineError('I couldn\'t reach the chat backend just now. The site banner above will update if this is a known outage; otherwise try again in a moment.');
+      } finally {
+        setPending(false);
+        chatInput.focus();
       }
+    }
 
-      isStreaming = false;
+    function renderInlineError(text) {
+      const msgEl = appendMessage('vybn', '');
+      const contentEl = msgEl.querySelector('.msg-content');
+      contentEl.classList.add('error');
+      contentEl.textContent = text;
+      scrollToBottom();
     }
 
     function appendMessage(role, content) {
@@ -668,10 +803,14 @@
 
     function scrollToBottom() { chatMessages.scrollTop = chatMessages.scrollHeight; }
 
-    chatSend.addEventListener('click', () => sendMessage(chatInput.value));
+    chatSend.addEventListener('click', () => {
+      if (isStreaming) return;
+      sendMessage(chatInput.value);
+    });
     chatInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
+        if (isStreaming) return;
         if (chatInput.value.trim()) sendMessage(chatInput.value);
       }
     });
