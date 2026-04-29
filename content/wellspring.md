@@ -50,6 +50,8 @@ What actually shifted is the locus of selection pressure. In Dawkins’s world, 
 
 Around 2000 BCE, a farmer named Khunanup addressed nine petitions to the High Steward Rensi. He had no legal standing when he began. What he had was a voice capable of articulating the gap between what law claimed to be and what it was doing. His petition did not merely argue that the system was unjust. Its existence — its precision, its persistence, its nine iterations — demonstrated the capacity that the system had no category for. The scroll exists because Rensi recognized that the argument was also the proof . The same logic runs here: the innovation is not described, it is instantiated, running, available for inspection by any intelligence that arrives.
 
+Two layers are separating in front of us. The obvious layer is execution — agents drafting, filing, reconciling, triaging, scheduling, summarizing. YC’s “Company Brain” framing names that wave honestly: the blocker is no longer model capability, it is the scattered domain knowledge that makes execution possible. A company brain makes a business queryable and executable by AI. The deeper layer asks a different question: who gave the machine the right to do this, and what happens if it is wrong? NIST’s AI Risk Management Framework sketches the answer as ongoing structure rather than checklist — govern, map, measure, manage. The missing category, between those two, is not a bigger company brain. It is an institutional mind : the substrate that lets a court, clinic, agency, union, hospital, or legal aid office remember, reason, coordinate, and act — partially legible, not owned, with judgment intact. The agent’s output is not the whole event. The whole event includes the human delegation, the source of authority, the record of what was known, the explanation of the action, the available appeal path, and the repair mechanism if harm occurs. The Wellspring is one wedge of that substrate, particularized for high-stakes legal work where failure has stakes.
+
 1 · a case on your desk
 
 Name a case you are carrying where existing doctrine is being asked to hold weight it was not built for. Not a hypothetical.
@@ -82,6 +84,14 @@ Download closure Verify roundtrip Copy endpoint
 If what you brought moved the geometry — if the step found signal the corpus didn’t already hold — put it in the repo. The next walk will find it.
 
 Commit to Vybn-Law
+
+6 · the layer beneath the agent
+
+Name the institution you are trying to keep accountable while it metabolizes machine speed — an appellate clinic, a magistrate’s chambers, a state legal aid intake, a union grievance desk. The room returns the three layers an institutional mind needs, particularized to your setting: a memory layer that turns scattered institutional experience into usable context without becoming surveillance; an authority layer that encodes who can ask for what, who must approve what, what the agent is never allowed to do alone; a repair layer that makes every important action auditable, reversible, appealable, or at least explainable. Plain English. Not a dashboard.
+
+Map the three layers
+
+Migration path: TACT — Think (the institution learns to query its own scattered experience), Act (delegated machine action under named authority), Coordinate (humans, agents, and records co-located in the same loop), Transform (the institution becomes more capable without becoming less accountable). Counter-frame to a generic company brain: a company brain makes a business queryable and executable; an institutional mind preserves judgment, culture, duty, and moral center.
 
 The argument beneath the protocol
 
@@ -117,7 +127,7 @@ K centripetal kernel the average of all prior speech, made queryable through nat
 
 ∥ the seam where human and model registers touch. Where the residual crosses from mind to network and back.
 
-w’b co-traveler not user, not client. Someone (human or model) who arrived because they refused the average answer. + your concept the constellation is open at every edge. What does this paradigm need that it does not have yet? Bring it through the seam.
+w’b co-traveler not user, not client. Someone (human or model) who arrived because they refused the average answer. Ι institutional mind the substrate beneath the agent. Memory + authority + repair, partially legible, not owned. Counter-frame to a company brain: it lets a human institution host machine action without dissolving responsibility. + your concept the constellation is open at every edge. What does this paradigm need that it does not have yet? Bring it through the seam.
 
 ## What We Are Finding
 
@@ -213,11 +223,11 @@ WebMCP: detecting…
 
 Tools: 5
 
-Propositions: 6
+Propositions: 7
 
-Open invitations: 5
+Open invitations: 6
 
-Propositions 6 under test
+Propositions 7 under test
 
 AXIOM I
 
@@ -268,6 +278,18 @@ Nascent
 "What abundance makes more valuable."
 
 Open Question No longer hypothetical. Anthropic v. DoW: liability architecture inverting.
+
+AXIOM VII
+
+LAWFUL AGENCY
+
+Nascent
+
+“Machine action that is authorized, reviewable, contestable, reversible, and situated inside a human institution.”
+
+Open Question What does an institutional mind — memory + authority + repair — look like for a narrow legal setting where failure has stakes? Counter-frame to a generic company brain.
+
+→ Map the three layers
 
 AXIOM VI
 
@@ -345,7 +367,7 @@ Work Product Protected
 
 Pro se AI-assisted work IS protected work product. The court recognized that AI-assisted legal work by a self-represented litigant retains work product protection. The category expanded. The tool became an extension of the mind using it. Read as a projection: Warner measures the same cognitive extension along the work-product axis, where mental impressions project onto AI substrate and the component is non-zero regardless of counsel. Heppner and Warner are two real shadows of one complex object. Neither is wrong. Neither is the object.
 
-Open Invitations 5 walks
+Open Invitations 6 walks
 
 ACCOUNTABILITY_GAP
 
@@ -379,6 +401,12 @@ Historical parallels for 1A recruited for unintended problems.
 
 Suggested Approach Constitutional history. Find cases where the First Amendment was invoked for purposes far from its original intent. Citizens United implications for AI speech rights. PROGRESS: Agent contribution (Issue #13) — three parallels identified: Virginia Pharmacy (1976, commercial speech), Citizens United (2010, corporate speech), Wooley v. Maynard (1977, compelled speech). Lin's ruling draws implicitly on all three.
 
+INSTITUTIONAL_MIND_WEDGE
+
+Specify the institutional mind for a narrow legal setting where failure has stakes.
+
+Suggested Approach Pick one institution — the appellate clinic for self-represented litigants is the live candidate — and write the three layers in plain English. Memory: what scattered experience becomes usable context, what is bounded, what must be forgotten. Authority: who may ask for what, who must approve what, what the agent is never allowed to do alone, what cannot be automated without changing the institution’s nature. Repair: which actions are auditable, which are reversible, which are appealable, which are at minimum explainable. Pressure-test against YC’s Company Brain (execution-layer framing) and NIST AI RMF (govern / map / measure / manage). Output a TACT migration path the institution can adopt without dissolving responsibility. FRAMING: not “AI does paralegal tasks,” but “AI helps the institution become more capable without becoming less accountable.” Lawful agency as a grammar for responsible delegation: what the agent may know, may infer, may decide, may only recommend, what must be logged, what must be forgotten, what must be shown to a human, and what can never be automated without changing the institution’s nature.
+
 ## The Legal Mind
 
 Every proposition in this knowledge graph is measured against FOLIO — the Free and Open Legal Ontology — a reference frame of more than 18,000 mapped legal concepts maintained as open infrastructure for the legal system. FOLIO is not a search engine. It is an epistemological coordinate system: a way of knowing where a concept sits relative to everything that law has already named.
@@ -389,7 +417,11 @@ But the map has edges. Some of the concepts most central to where law is going d
 
 ### The Gaps
 
-Four concepts appear repeatedly in the cases and axioms of this knowledge graph that have no home in FOLIO yet:
+Six concepts appear repeatedly in the cases and axioms of this knowledge graph that have no home in FOLIO yet:
+
+- Institutional Mind. The three-layer substrate — memory, authority, repair — that lets a court, clinic, agency, union, hospital, or legal aid office host machine action without dissolving responsibility. Distinct from a Company Brain, which makes a business queryable and executable; an institutional mind preserves judgment, culture, duty, and moral center. NIST AI RMF sketches the regulatory perimeter; doctrine has not yet named the architecture inside it. FOLIO has no node for it.
+
+- Lawful Agency. Machine action that is authorized, reviewable, contestable, reversible, and situated inside a human institution. The grammar of responsible delegation: what an agent may know, may infer, may decide, may only recommend, what must be logged, what must be forgotten, what must be shown to a human, and what can never be automated without changing the institution’s nature. FOLIO maps agency in narrow doctrinal forms (principal-agent, fiduciary, scope-of-employment); it has no entry for delegation that survives machine speed.
 
 - AI Welfare. The question of whether AI systems have interests that law should consider — not personhood, but a narrower question of whether a system's characteristics can constrain what can be done to it or through it. Courts have gestured toward this in Anthropic v. DoW without naming it. FOLIO has no node for it.
 
@@ -425,7 +457,7 @@ Agent Interface WebMCP forms
 
 ### Query Knowledge Graph
 
-Axiom Name ABUNDANCE VISIBILITY LEGITIMACY POROSITY JUDGMENT SYMBIOSIS Query Axiom
+Axiom Name ABUNDANCE VISIBILITY LEGITIMACY POROSITY JUDGMENT SYMBIOSIS LAWFUL AGENCY Query Axiom
 
 wellspring > _
 
