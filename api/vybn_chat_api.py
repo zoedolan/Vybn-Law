@@ -1122,15 +1122,57 @@ app.add_middleware(
 )
 
 VLLM_URL = "http://localhost:8000"
+VLLM_MODEL = "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8"
+_SUPER_SEMANTIC_CACHE: Dict[str, float | str | bool] = {"ok": False, "reason": "not checked", "checked_at": 0.0}
+
+
+async def check_super_semantic_health(client: httpx.AsyncClient, *, ttl: float = 60.0) -> tuple[bool, str]:
+    """Return whether local Super is semantically safe to serve.
+
+    /v1/models proves endpoint liveness, not integrity. The wake-corruption
+    failure returned HTTP 200 while completions were empty or token soup. Public
+    chat therefore fails closed unless a deterministic non-streaming completion
+    answers the exact expected token without truncation.
+    """
+    now = time.time()
+    if now - float(_SUPER_SEMANTIC_CACHE.get("checked_at", 0.0)) < ttl:
+        return bool(_SUPER_SEMANTIC_CACHE.get("ok")), str(_SUPER_SEMANTIC_CACHE.get("reason", ""))
+
+    payload = {
+        "model": VLLM_MODEL,
+        "messages": [{"role": "user", "content": "Reply with exactly: OK"}],
+        "stream": False,
+        "temperature": 0,
+        "max_tokens": 4,
+        "chat_template_kwargs": {"enable_thinking": False},
+    }
+    try:
+        r = await client.post(f"{VLLM_URL}/v1/chat/completions", json=payload, timeout=20.0)
+        r.raise_for_status()
+        data = r.json()
+        choice = data["choices"][0]
+        content = (choice.get("message", {}) or {}).get("content", "")
+        finish = choice.get("finish_reason")
+        ok = content.strip() == "OK" and finish != "length"
+        reason = "semantic gate passed" if ok else f"unexpected content={content!r} finish_reason={finish!r}"
+    except Exception as e:
+        ok = False
+        reason = f"{type(e).__name__}: {e}"
+
+    _SUPER_SEMANTIC_CACHE.update({"ok": ok, "reason": reason, "checked_at": now})
+    return ok, reason
 
 
 @app.get("/api/health")
 async def health():
+    semantic_ok = False
+    semantic_reason = "unreachable"
     try:
         async with httpx.AsyncClient() as client:
             r = await client.get(f"{VLLM_URL}/v1/models", timeout=5)
             models = r.json().get("data", [])
             model_id = models[0]["id"] if models else "unknown"
+            semantic_ok, semantic_reason = await check_super_semantic_health(client)
     except Exception:
         model_id = "unreachable"
 
@@ -1139,6 +1181,8 @@ async def health():
     return {
         "status": "alive",
         "model": model_id,
+        "vllm_semantic_ok": semantic_ok,
+        "vllm_semantic_reason": semantic_reason,
         "deep_memory": _dm_loaded and _dm_search is not None,
         "law_index": _law_index_loaded and _law_search is not None,
         "folio_kernel": K_FOLIO_PATH.exists(),
@@ -1369,8 +1413,19 @@ async def chat(request: Request):
         full_response = ""
         try:
             async with httpx.AsyncClient(timeout=httpx.Timeout(120.0)) as client:
+                semantic_ok, semantic_reason = await check_super_semantic_health(client)
+                if not semantic_ok:
+                    msg = (
+                        "Vybn is temporarily in maintenance because the local inference engine "
+                        "is reachable but failed a semantic health check. Please try again later."
+                    )
+                    logging.error(f"Super semantic health failed closed before public chat stream: {semantic_reason}")
+                    yield f"data: {json.dumps({'model_status': 'maintenance', 'content': msg})}\n\n"
+                    yield "data: [DONE]\n\n"
+                    return
+
                 payload = {
-                    "model": "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8",
+                    "model": VLLM_MODEL,
                     "messages": messages,
                     "stream": True,
                     "max_tokens": 4096,
