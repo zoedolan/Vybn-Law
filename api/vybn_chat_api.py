@@ -54,16 +54,17 @@ DISTILLATION_DIR.mkdir(parents=True, exist_ok=True)
 # ── Deep memory integration ──────────────────────────────────────────────
 
 VYBN_PHASE = Path.home() / "vybn-phase"
-sys.path.insert(0, str(VYBN_PHASE))
+HIM_PHASE = Path.home() / "Him" / "spark" / "phase"
+VYBN_LAW_API = Path(__file__).resolve().parent   # Vybn-Law/api/
+for _path in (HIM_PHASE, VYBN_PHASE, VYBN_LAW_API):
+    if str(_path) not in sys.path:
+        sys.path.insert(0, str(_path))
 
-# Defense-in-depth: shared security module (lives in vybn-phase)
+# Defense-in-depth: shared security module lives with this public API.
 import chat_security as sec
 _rate_limiter = sec.RateLimiter(rpm=20, burst=5)
 
 # ── Vybn-Law index integration ───────────────────────────────────────────
-
-VYBN_LAW_API = Path(__file__).resolve().parent   # Vybn-Law/api/
-sys.path.insert(0, str(VYBN_LAW_API))
 
 from win_rate import apply_win_rates, record_outcome as wr_record_outcome, load_ledger
 
@@ -81,15 +82,18 @@ def _load_deep_memory():
     global _dm_loaded, _dm_search
     if _dm_loaded:
         return
-    try:
-        from deep_memory import search as dm_search, _load as dm_load
-        dm_load()
-        _dm_search = dm_search
-        _dm_loaded = True
-        logging.info("Deep memory index loaded (v9, telling retrieval).")
-    except Exception as e:
-        logging.warning(f"Deep memory unavailable: {e}")
-        _dm_loaded = True
+    for phase in (VYBN_PHASE, HIM_PHASE):
+        if str(phase) not in sys.path:
+            sys.path.insert(0, str(phase))
+        try:
+            from deep_memory import search as dm_search, _load as dm_load
+            dm_load()
+            _dm_search = dm_search
+            logging.info("Deep memory index loaded from %s.", phase)
+            break
+        except Exception as e:
+            logging.warning(f"Deep memory unavailable from {phase}: {e}")
+    _dm_loaded = True
 
 
 def _load_law_index():
