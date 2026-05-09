@@ -54,7 +54,7 @@ Two layers are separating in front of us. The obvious layer is execution — age
 
 1 · a case on your desk
 
-Name a case you are carrying where existing doctrine is being asked to hold weight it was not built for. Not a hypothetical.
+Name a public or anonymized legal, institutional, or AI-governance knot the existing frame cannot hold. Do not paste privileged, client-confidential, sealed, or identifying facts here; use Zoe-controlled contact for confidential work.
 
 Put it in the room
 
@@ -64,11 +64,11 @@ How much of your practice still assumes cognitive work is the scarce input? One 
 
 Assess
 
-3 · an idea you want tested
+3 · irreducible audit
 
-A claim, a working thesis, a line you are about to commit to a brief. The corpus says what it knows — honestly.
+A public/anonymized claim or line you are about to commit. The room returns what it knows, what it cannot hold, and the next artifact.
 
-Pressure-test
+Run audit
 
 4 · take the closure
 
@@ -937,7 +937,7 @@ For agents: the opening as structured primitives. Same content as the
          parse this block.
 
 ═══════════════════════════════════════════════════════════
-     KPP — KNOWLEDGE PROPAGATION PROTOCOL
+     IRREDUCIBLE AUDIT / KPP
      Five projections of one move: bring your V, run our step.
      ═══════════════════════════════════════════════════════════
 
