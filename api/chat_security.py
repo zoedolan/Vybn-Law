@@ -154,3 +154,44 @@ def truncate_response(text: str) -> str:
 def log_security_event(event_type: str, ip: str, details: str = ""):
     """Log security-relevant events for monitoring."""
     log.warning(f"SECURITY [{event_type}] ip={ip} {details}")
+
+# ── Zoe source-scene grounding guard ─────────────────────────────────────
+
+ZOE_SOURCE_SCENE_TERMS = (
+    "which memoir",
+    "what memoir",
+    "set the scene",
+    "are you sure",
+    "zoe memoir",
+    "her memoir",
+    "personal writing",
+    "private writing",
+    "client named",
+    "hearing",
+    "sentencing",
+)
+ZOE_SOURCE_SCENE_REFUSAL = (
+    "I cannot verify that from the context I have. I should not name a Zoe "
+    "memoir, client scene, hearing, location, or private-writing passage "
+    "unless the source text is present and supports it directly."
+)
+
+def is_zoe_source_scene_request(message: str, history: list | None = None) -> bool:
+    """Detect follow-up pressure that asks chat to invent Zoe source scenes.
+
+    This is a deterministic pre-model guard for public chat surfaces: if the
+    retrieved source text is not already present and directly supportive, do
+    not let the model fill gaps about Zoe memoir scenes, clients, hearings,
+    locations, or private writing.
+    """
+    parts = [message or ""]
+    for h in history or []:
+        if isinstance(h, dict):
+            parts.append(str(h.get("content", "")))
+        else:
+            parts.append(str(getattr(h, "content", h)))
+    probe = " ".join(parts[-8:]).lower()
+    return any(term in probe for term in ZOE_SOURCE_SCENE_TERMS)
+
+def zoe_source_scene_refusal_text() -> str:
+    return ZOE_SOURCE_SCENE_REFUSAL
