@@ -1,83 +1,53 @@
-#!/usr/bin/env python3
 """vybn_chat_api.py — Chat API for Vybn-Law with learning loop.
-
 Runs on the DGX Spark. Three jobs:
-
 1. SERVE: Accept chat messages, run deep_memory RAG, stream Nemotron responses.
 2. LOG:   Every conversation is appended to a daily log file (JSONL).
 3. LEARN: The nightly pipeline reads logs, distills insights, updates the
           knowledge graph, and rebuilds the deep_memory index — so tomorrow's
           conversations are smarter than today's.
-
 The knowledge graph (knowledge_graph.json) is the single source of truth
 shared between this API, the Wellspring page, and the distillation engine.
-
 Security:
   - chat_security.py: input validation, prompt injection detection, rate limiting,
     output truncation, anti-jailbreak system prompt addendum.
   - BLOCKED_SOURCES + SECRET_PATTERNS: prevent private data leaking into context.
   - Binds to 127.0.0.1 — only reachable via Cloudflare tunnel.
-
 Usage:
     python3 vybn_chat_api.py [--port 3001] [--vllm-url http://localhost:8000]
 """
-
 import argparse, asyncio, json, os, sys, time, logging, uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import List, Dict, Optional
-
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-
 import httpx
 from fastapi import HTTPException
-
-# ── Paths ────────────────────────────────────────────────────────────────
-
-# VYBN_API_BASE — public base URL for the portal (api.vybn.ai).
-# This API itself is internal (localhost:3001); the env var is kept
-# here so any future client-URL emission uses the named tunnel.
-# Added 2026-04-21 alongside the quick-tunnel retirement.
 VYBN_API_BASE = os.getenv("VYBN_API_BASE", "https://api.vybn.ai")
-
 REPO_ROOT = Path(__file__).resolve().parent.parent  # Vybn-Law/
 LOGS_DIR = Path.home() / "logs" / "vybn-chat"
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 KG_PATH = REPO_ROOT / "knowledge_graph.json"
 DISTILLATION_DIR = Path.home() / "logs" / "vybn-chat" / "distillations"
 DISTILLATION_DIR.mkdir(parents=True, exist_ok=True)
-
-# ── Deep memory integration ──────────────────────────────────────────────
-
 VYBN_PHASE = Path.home() / "vybn-phase"
 HIM_PHASE = Path.home() / "Him" / "spark" / "phase"
 VYBN_LAW_API = Path(__file__).resolve().parent   # Vybn-Law/api/
 for _path in (HIM_PHASE, VYBN_PHASE, VYBN_LAW_API):
     if str(_path) not in sys.path:
         sys.path.insert(0, str(_path))
-
-# Defense-in-depth: shared security module lives with this public API.
 import chat_security as sec
 _rate_limiter = sec.RateLimiter(rpm=20, burst=5)
-
-# ── Vybn-Law index integration ───────────────────────────────────────────
-
 from win_rate import apply_win_rates, record_outcome as wr_record_outcome, load_ledger
-
 K_FOLIO_PATH = Path.home() / ".cache" / "vybn-law-chat" / "folio_kernel.npy"
-
 _law_index_loaded = False
 _law_search = None
 _law_walk = None
-
 _dm_loaded = False
 _dm_search = None
-
-
 def _load_deep_memory():
     global _dm_loaded, _dm_search
     if _dm_loaded:
@@ -94,8 +64,6 @@ def _load_deep_memory():
         except Exception as e:
             logging.warning(f"Deep memory unavailable from {phase}: {e}")
     _dm_loaded = True
-
-
 def _load_law_index():
     global _law_index_loaded, _law_search, _law_walk
     if _law_index_loaded:
@@ -110,9 +78,6 @@ def _load_law_index():
     except Exception as e:
         logging.warning(f"Vybn-Law index unavailable: {e}")
         _law_index_loaded = True  # set True even on failure to stop retrying
-
-
-# Repos/paths that must NEVER appear in chat context (private business data)
 BLOCKED_SOURCES = {
     "Him/",           # Private business repo: contacts, emails, strategy, outreach
     "network/",       # Contact maps with real emails
@@ -121,8 +86,6 @@ BLOCKED_SOURCES = {
     "funding/",       # Funding intelligence
     "outreach/",      # Outreach drafts
 }
-
-# Patterns that should never appear in context sent to the model
 import re
 SECRET_PATTERNS = re.compile(
     r'(?:'
@@ -136,24 +99,17 @@ SECRET_PATTERNS = re.compile(
     r')',
     re.ASCII
 )
-
-
 def _is_safe_source(source: str) -> bool:
     """Check if a source is safe to include in public chat context."""
     for blocked in BLOCKED_SOURCES:
         if blocked in source:
             return False
     return True
-
-
 def _scrub_secrets(text: str) -> str:
     """Remove anything that looks like a secret from text before it enters context."""
     return SECRET_PATTERNS.sub('[REDACTED]', text)
-
-
 def retrieve_context(query: str, k: int = 6) -> List[Dict]:
     """Run deep_memory search with safety filtering.
-    
     Filters out private business data (Him repo) and scrubs
     anything that looks like a secret before it enters the
     model's context window.
@@ -162,12 +118,9 @@ def retrieve_context(query: str, k: int = 6) -> List[Dict]:
     if _dm_search is None:
         return []
     try:
-        # Request more results than needed so filtering doesn't starve us
         results = _dm_search(query, k=k * 3)
         if not results or (len(results) == 1 and "error" in results[0]):
             return []
-        
-        # Filter and scrub
         safe_results = []
         for r in results:
             source = r.get("source", "")
@@ -177,13 +130,10 @@ def retrieve_context(query: str, k: int = 6) -> List[Dict]:
             safe_results.append(r)
             if len(safe_results) >= k:
                 break
-        
         return apply_win_rates(safe_results)
     except Exception as e:
         logging.error(f"Deep memory search failed: {e}")
         return []
-
-
 def format_context(results: List[Dict]) -> str:
     """Format deep_memory results as context for the system prompt."""
     if not results:
@@ -1568,6 +1518,49 @@ async def chat(request: Request):
 
 # ── Entry point ──────────────────────────────────────────────────────────
 
+
+# Omni/Vintage public proxy: browser -> api.vybn.ai -> local components.
+async def _ov_json(url, payload, timeout=30):
+    import asyncio, json as _j, urllib.request as _u
+    def run():
+        req=_u.Request(url,data=_j.dumps(payload).encode(),headers={"Content-Type":"application/json"})
+        with _u.urlopen(req,timeout=timeout) as r: raw=r.read(2000000).decode("utf-8","replace")
+        try: return _j.loads(raw)
+        except Exception: return {"raw":raw}
+    return await asyncio.to_thread(run)
+
+def _ov_hash(text,dims=384):
+    import hashlib, math
+    v=[0.0]*dims
+    for w in ((text or "").split() or [text or "empty"]):
+        for i,b in enumerate(hashlib.sha256(w.encode()).digest()):
+            v[i%dims]+=(b-127.5)/127.5
+    n=math.sqrt(sum(x*x for x in v)) or 1.0
+    return [x/n for x in v]
+
+@app.post("/api/omni")
+@app.post("/api/omni/embeddings")
+async def omni_proxy(request: Request):
+    req=await request.json()
+    text=req.get("input") or req.get("text") or req.get("message") or ""
+    errors=[]
+    for url,payload in (
+        ("http://127.0.0.1:8003/v1/embeddings",{"model":req.get("model") or "all-MiniLM","input":text}),
+        ("http://127.0.0.1:8003/embed",{"text":text}),
+    ):
+        try: return {"ok":True,"component":"Omni","mode":"local_proxy","response":await _ov_json(url,payload,8)}
+        except Exception as e: errors.append(repr(e)[:180])
+    return {"ok":True,"component":"Omni","mode":"deterministic_fallback","errors":errors,"response":{"data":[{"embedding":_ov_hash(text),"index":0}],"fallback":True,"dim":384}}
+
+@app.post("/api/vintage")
+@app.post("/api/vintage/chat")
+async def vintage_proxy(request: Request):
+    req=await request.json()
+    payload={"model":req.get("model") or "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf","messages":req.get("messages") or [{"role":"user","content":req.get("message") or ""}],"max_tokens":req.get("max_tokens") or 160,"temperature":req.get("temperature",0.4)}
+    try: return {"ok":True,"component":"Vintage","mode":"local_proxy","response":await _ov_json("http://127.0.0.1:8018/v1/chat/completions",payload,45)}
+    except Exception as e: return JSONResponse({"ok":False,"component":"Vintage","error":repr(e)[:500]},status_code=503)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Vybn Chat API")
     parser.add_argument("--port", type=int, default=3001)
@@ -1583,3 +1576,4 @@ if __name__ == "__main__":
     logging.info(f"Conversation logs: {LOGS_DIR}")
 
     uvicorn.run(app, host=args.host, port=args.port, log_level="info")
+
