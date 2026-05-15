@@ -18,7 +18,7 @@ Usage:
 import argparse, asyncio, json, os, sys, time, logging, uuid
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import List, Dict
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -1516,13 +1516,12 @@ async def chat(request: Request):
     )
 
 
-# ── Entry point ──────────────────────────────────────────────────────────
-
-
-# Omni/Vintage public status: fail closed; do not launder absent backends.
 def _blocked_component_response(component: str, role: str, missing: list[str]):
-    return JSONResponse({"ok": False, "component": component, "capability": False, "promoted": False, "status": "blocked", "role": role, "missing_witnesses": missing, "mode": "fail_closed_status", "truth_rule": "capability requires role-correct witnessed behavior carried to the consuming route with fail-closed semantics"}, status_code=503)
-
+    key = component.lower(); rec = {}
+    try: him = str(Path.home() / "Him"); sys.path.insert(0, him) if him not in sys.path else None; from spark.runtime import public_capability_records; rec = (public_capability_records().get("records") or {}).get(key, {})
+    except Exception as e: logging.warning("Him capability records unavailable; failing closed: %s", e)
+    rec = {"role": role, "capability": False, "promoted": False, "missing_witnesses": missing} | rec; ok = bool(rec.get("capability") and rec.get("promoted"))
+    return JSONResponse({"ok": ok, "component": key, "capability": bool(rec.get("capability")), "promoted": bool(rec.get("promoted")), "status": "available" if ok else "blocked", "role": rec.get("role"), "state": rec.get("state"), "workloads": rec.get("workloads", []), "consumer": rec.get("consumer"), "missing_witnesses": rec.get("missing_witnesses", []), "mode": "public_capability_record_status", "truth_rule": "capability requires role-correct witnessed behavior carried to the consuming route with fail-closed semantics"}, status_code=200 if ok else 503)
 @app.post("/api/omni")
 @app.post("/api/omni/embeddings")
 async def omni_proxy(request: Request):
