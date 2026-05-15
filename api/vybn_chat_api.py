@@ -1527,14 +1527,14 @@ def _blocked_component_response(component: str, role: str, missing: list[str]):
 async def omni_proxy(request: Request):
     try: await request.json()
     except Exception: pass
-    return _blocked_component_response("Omni", "full_multimodal_perception_dream_organ", ["owner", "multimodal_endpoint", "semantic_multimodal_witness", "routed_loop"])
+    return _blocked_component_response("Omni", "not currently a promoted multimodal endpoint", ["owner", "endpoint", "semantic", "routed"])
 
 @app.post("/api/vintage")
 @app.post("/api/vintage/chat")
 async def vintage_proxy(request: Request):
     try: await request.json()
     except Exception: pass
-    return _blocked_component_response("Vintage", "conversational_fallback", ["owner", "model_identity", "endpoint", "semantic_chat_witness", "routed_consumer"])
+    return _blocked_component_response("Vintage", "not currently a coherent conversational fallback", ["owner", "endpoint", "semantic", "routed"])
 
 
 if __name__ == "__main__":
