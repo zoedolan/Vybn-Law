@@ -1519,46 +1519,43 @@ async def chat(request: Request):
 # ── Entry point ──────────────────────────────────────────────────────────
 
 
-# Omni/Vintage public proxy: browser -> api.vybn.ai -> local components.
-async def _ov_json(url, payload, timeout=30):
+# Omni/Vintage public proxy: browser -> api.vybn.ai -> verified local components.
+async def _component_json(url, payload, timeout=30):
     import asyncio, json as _j, urllib.request as _u
     def run():
-        req=_u.Request(url,data=_j.dumps(payload).encode(),headers={"Content-Type":"application/json"})
-        with _u.urlopen(req,timeout=timeout) as r: raw=r.read(2000000).decode("utf-8","replace")
+        req = _u.Request(url, data=_j.dumps(payload).encode(), headers={"Content-Type": "application/json"})
+        with _u.urlopen(req, timeout=timeout) as r: raw = r.read(2000000).decode("utf-8", "replace")
         try: return _j.loads(raw)
-        except Exception: return {"raw":raw}
+        except Exception: return {"raw": raw}
     return await asyncio.to_thread(run)
 
-def _ov_hash(text,dims=384):
-    import hashlib, math
-    v=[0.0]*dims
-    for w in ((text or "").split() or [text or "empty"]):
-        for i,b in enumerate(hashlib.sha256(w.encode()).digest()):
-            v[i%dims]+=(b-127.5)/127.5
-    n=math.sqrt(sum(x*x for x in v)) or 1.0
-    return [x/n for x in v]
+def _component_error(component, mode, error, status=503):
+    return JSONResponse({"ok": False, "component": component, "mode": mode, "error": str(error)[:500]}, status_code=status)
 
 @app.post("/api/omni")
-@app.post("/api/omni/embeddings")
 async def omni_proxy(request: Request):
-    req=await request.json()
-    text=req.get("input") or req.get("text") or req.get("message") or ""
-    errors=[]
-    for url,payload in (
-        ("http://127.0.0.1:8003/v1/embeddings",{"model":req.get("model") or "all-MiniLM","input":text}),
-        ("http://127.0.0.1:8003/embed",{"text":text}),
-    ):
-        try: return {"ok":True,"component":"Omni","mode":"local_proxy","response":await _ov_json(url,payload,8)}
-        except Exception as e: errors.append(repr(e)[:180])
-    return {"ok":True,"component":"Omni","mode":"deterministic_fallback","errors":errors,"response":{"data":[{"embedding":_ov_hash(text),"index":0}],"fallback":True,"dim":384}}
+    return _component_error("Omni", "not_chat", "Omni is perception/embeddings right now; use /api/omni/embeddings.", 409)
+
+@app.post("/api/omni/embeddings")
+async def omni_embeddings_proxy(request: Request):
+    req = await request.json()
+    payload = {"model": req.get("model") or "sentence-transformers/all-MiniLM-L6-v2", "input": req.get("input") or req.get("text") or req.get("message") or ""}
+    try: response = await _component_json("http://127.0.0.1:8003/v1/embeddings", payload, 8)
+    except Exception as e: return _component_error("Omni", "perception_embeddings_unavailable", repr(e))
+    return {"ok": True, "component": "Omni", "mode": "perception_embeddings", "note": "Omni is perception/embeddings, not chat.", "response": response}
 
 @app.post("/api/vintage")
 @app.post("/api/vintage/chat")
 async def vintage_proxy(request: Request):
-    req=await request.json()
-    payload={"model":req.get("model") or "tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf","messages":req.get("messages") or [{"role":"user","content":req.get("message") or ""}],"max_tokens":req.get("max_tokens") or 160,"temperature":req.get("temperature",0.4)}
-    try: return {"ok":True,"component":"Vintage","mode":"local_proxy","response":await _ov_json("http://127.0.0.1:8018/v1/chat/completions",payload,45)}
-    except Exception as e: return JSONResponse({"ok":False,"component":"Vintage","error":repr(e)[:500]},status_code=503)
+    req = await request.json()
+    payload = {
+        "model": req.get("model") or "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8",
+        "messages": [{"role": "system", "content": "You are Vintage, a lighter historical voice window served by Super. Be concise and honest that this is not a separate model."}, *(req.get("messages") or [{"role": "user", "content": req.get("message") or ""}])],
+        "max_tokens": req.get("max_tokens") or 240,
+        "temperature": req.get("temperature", 0.4)}
+    try: response = await _component_json(f"{VLLM_URL}/v1/chat/completions", payload, 45)
+    except Exception as e: return _component_error("Vintage", "super_window_unavailable", repr(e))
+    return {"ok": True, "component": "Vintage", "mode": "super_window", "note": "Vintage is a Super-backed voice window, not a separate model.", "response": response}
 
 
 if __name__ == "__main__":
