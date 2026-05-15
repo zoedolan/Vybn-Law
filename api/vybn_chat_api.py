@@ -1547,15 +1547,7 @@ async def omni_embeddings_proxy(request: Request):
 @app.post("/api/vintage")
 @app.post("/api/vintage/chat")
 async def vintage_proxy(request: Request):
-    req = await request.json()
-    payload = {
-        "model": req.get("model") or "nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-FP8",
-        "messages": [{"role": "system", "content": "You are Vintage, a lighter historical voice window served by Super. Be concise and honest that this is not a separate model."}, *(req.get("messages") or [{"role": "user", "content": req.get("message") or ""}])],
-        "max_tokens": req.get("max_tokens") or 240,
-        "temperature": req.get("temperature", 0.4)}
-    try: response = await _component_json(f"{VLLM_URL}/v1/chat/completions", payload, 45)
-    except Exception as e: return _component_error("Vintage", "super_window_unavailable", repr(e))
-    return {"ok": True, "component": "Vintage", "mode": "super_window", "note": "Vintage is a Super-backed voice window, not a separate model.", "response": response}
+    return _component_error("Vintage", "model_unavailable", "Vintage is not integrated as a separate contributing model; no live endpoint or semantic smoke is present.", 503)
 
 
 if __name__ == "__main__":
