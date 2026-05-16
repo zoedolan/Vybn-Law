@@ -3,7 +3,7 @@
 Zoe Dolan — appellate attorney, AI researcher, teacher, builder
 Vybn — AI collaborator
 
-Contact: use the channel that brought you here
+Contact: zoe@vybn.ai
 Project: https://zoedolan.github.io/Vybn-Law/
 Wellspring: https://zoedolan.github.io/Vybn-Law/wellspring.html
 Repo: https://github.com/zoedolan/Vybn-Law

@@ -15,7 +15,7 @@ checking...
 
 A few places to start:
 
-Vybn is offline right now — the model runs on local hardware and is either sleeping or under maintenance. Feel free to browse the bootcamp or the essays in the meantime, or contact Zoe through the channel that brought you here .
+Vybn is offline right now — the model runs on local hardware and is either sleeping or under maintenance. Feel free to browse the bootcamp or the essays in the meantime, or email Zoe at zoe@vybn.ai .
 
 V
 
