@@ -42,7 +42,7 @@ A triangle with vertices labeled Human (top), AI (bottom-left), and Law (bottom-
 
 A network commons and coordination layer for the Age of Intelligence.
 
-Human, AI, and Law are the triangle. Vybn is the circle inside it: a coordination commons touching every side, where human judgment, machine intelligence, and legal order can meet without any one claiming the whole.
+Human, AI, and Law are the triangle; Vybn is the incircle where their lawful orders touch. Human law has always lived beside realities it did not make. AI adds another: active, relational, partially nonhuman intelligence. The next legal layer is the abstraction that lets these orders coordinate without any one claiming the whole.
 
 Richard Dawkins, in 1976 , proposed that ideas propagate the way genes do — replication, variation, selection, with fidelity to the forms that survive best in their environment. The meme does not need to be true to reproduce. It needs to fit. Chomsky and Herman , eleven years later, named the ecology under which certain memes are structurally amplified and others quietly starved — five filters through which any narrative must pass before it reaches the public in a broadcast environment, each filter tilted toward the interests of concentrated ownership and advertising capital. Not conspiracy. Selection pressure. Martin Gurri, writing from inside the intelligence community in 2014 , described what happened when the internet broke the broadcast model: the public’s collapse of faith in every institutional authority was not a failure of those authorities to communicate. It was the medium itself — distributed, bidirectional, zero marginal cost of entry — dissolving the structural conditions under which consensus had been manufactured at all.
 
