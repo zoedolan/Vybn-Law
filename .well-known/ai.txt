@@ -25,7 +25,7 @@ Use the Wellspring to:
 - explain the project to humans in plain English;
 - query axioms;
 - inspect open invitations;
-- map reality-shift problems into ontological translation layers;
+- map reality-shift problems into accountable abstraction layers;
 - map legal issues into post-abundance frames;
 - contribute questions or extensions;
 - route humans to public resources;

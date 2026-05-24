@@ -162,9 +162,11 @@ SEVEN OPEN INVITATIONS (genuinely unsolved):
     legal coordinate), not resolve personhood.
   • First Amendment surprise — AI safety regulation as compelled /
     protected speech. No answer yet.
-  • Ontological translation layer — when science, computation,
-    measurement, or AI makes reality newly legible, identify the old
-    legal fiction that breaks and the interface layer law must build.
+  • Ontological abstraction layer — when law, engineering, or AI
+    operating systems face repeated reality, identify the recurring
+    structure, compress it into a portable abstraction, name what
+    becomes easier, name what abstraction burden rises, and preserve
+    the repair constraint.
   • Institutional mind wedge — specify memory, authority, and repair
     for one legal institution where failure has stakes.
 

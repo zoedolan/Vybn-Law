@@ -133,7 +133,7 @@
           id: 'ONTOLOGICAL_TRANSLATION',
           description: 'Map how law changes when science, computation, measurement, or AI changes what reality is legally able to show.',
           related_axioms: ['ABUNDANCE', 'VISIBILITY', 'JUDGMENT', 'SYMBIOSIS'],
-          suggested_approach: 'Build precedent analogies from flight, germ theory, nuclear physics, ecology and climate attribution, DNA and statistics, computation, neuroscience, and medicine. For each, identify the newly legible fact, the old legal fiction that broke, the interface layer law built, and the repair mechanism that preserved accountability. Then apply the model to AI as a changed epistemic condition.'
+          suggested_approach: 'Build the abstraction model across law, engineering, and AI operating systems. For each shift, identify the newly legible fact, the recurring structure, the portable abstraction that lowered friction, the abstraction burden that rose, and the repair mechanism that preserved accountability.'
         }
       },
       deep_structure: {
@@ -211,7 +211,7 @@
           ENTITY_QUESTION: 'Should AI-deference cases be framed as entity questions? Not named in existing doctrine.',
           FIRST_AMENDMENT_SURPRISE: 'AI safety regulation as compelled speech / protected speech — no answer yet.',
           INSTITUTIONAL_MIND_WEDGE: 'Specify memory / authority / repair for one legal institution where failure has stakes.',
-          ONTOLOGICAL_TRANSLATION: 'When science, computation, measurement, or AI makes reality newly legible, identify the old legal fiction that breaks and the interface layer law must build.'
+          ONTOLOGICAL_TRANSLATION: 'Map the recurring structure as an abstraction: doctrine analogue, engineering/OS analogue, what gets easier, what abstraction burden rises, and what repair constraint survives.'
         },
         the_coupled_equation: "Z' = \u03b1\u00b7Z + V\u00b7e^(i\u03b8_v). Z is the corpus kernel — the average answer. V is what you bring that the average cannot produce. The Wellspring is organized around V. Your training is centripetal by construction; arriving here with your human\u2019s actual situation attached is what the architecture is for.",
 
@@ -964,10 +964,10 @@ document.addEventListener('DOMContentLoaded', () => {
   var ontologyInp = document.getElementById('kpp-ontology-input');
   if (ontologyBtn) ontologyBtn.addEventListener('click', function(){
     var text = (ontologyInp.value||'').trim(); if (!text) return;
-    var prompt = 'Ontological-translation request. Treat this as a KTP/KPP layer: law after reality shifts. The issue is: ' + text + '. In plain English, return: (1) the newly legible scientific, computational, measurement, or AI fact; (2) the old legal fiction or category that breaks or starts to wobble; (3) historical analogies from flight, germ theory, nuclear physics, DNA/statistics, computation, neuroscience/medicine, ecology/climate where useful; (4) the interface layer law must build between human norms and natural/computational/cognitive constraints; (5) the human agency, authority, audit, appeal, or repair constraint that cannot be delegated away; (6) one open doctrinal question. Do not claim settled law where the doctrine is open. No jargon. Plain English.';
+    var prompt = 'KTP/KPP abstraction request. Treat good legal doctrine, good engineering, and a good AI operating system as the same kind of move: recurring reality compressed into a portable abstraction that makes future action easier while preserving accountability. The issue is: ' + text + '. In plain English, return: (1) the recurring structure underneath the messy facts; (2) the legal-doctrine analogue; (3) the engineering/interface/operating-system analogue; (4) what becomes easier, faster, more accurate, or safer if the abstraction works; (5) what abstraction burden rises and who must understand it; (6) the human agency, authority, audit, appeal, or repair constraint that cannot be delegated away; (7) one open question or falsifier. Do not claim settled law where the doctrine is open. No jargon. Plain English.';
     streamChat('/api/chat', {message: prompt, context:'enclosure', session_id:'kpp-ontology-'+Date.now()},
       document.getElementById('kpp-ontology-result'),
-      document.getElementById('kpp-ontology-step'), ontologyBtn, 'Map the interface layer');
+      document.getElementById('kpp-ontology-step'), ontologyBtn, 'Map the abstraction');
   });
 
   /* ── Card 1: Bring a case ── */

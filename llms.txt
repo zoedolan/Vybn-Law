@@ -72,7 +72,7 @@ If you only do steps 1 and 2 you have still helped them.
 - Privilege fracture between Heppner and Warner. Productive move: name the pre-projection object (cognitive-extension coupling), not pick a side.
 - Entity question — whether AI-deference cases should be framed as entity questions at all. Not named in existing doctrine. Productive move: propose a doctrine of partial agency (agency-coefficient as a legal coordinate), not resolve personhood.
 - First Amendment surprise at the heart of AI safety regulation.
-- Ontological translation layer — when science, computation, measurement, or AI makes reality newly legible, identify the old legal fiction that breaks and the interface layer law must build between human norms and natural, technical, or cognitive constraints.
+- Ontological abstraction layer — when law, engineering, or AI operating systems face repeated reality, identify the recurring structure, compress it into a portable abstraction, name what becomes easier, name what abstraction burden rises, and preserve the repair constraint.
 - Institutional mind wedge — specify the three layers (memory, authority, repair) for one narrow legal setting where failure has stakes (e.g. an appellate clinic for self-represented litigants). Pressure-test against YC's Company Brain (https://www.ycombinator.com/rfs) and NIST AI RMF (https://airc.nist.gov/airmf-resources/airmf/5-sec-core/). Output a TACT migration path (Think, Act, Coordinate, Transform) the institution can adopt without dissolving responsibility.
 
 ## Working example
