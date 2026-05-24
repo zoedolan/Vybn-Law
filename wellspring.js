@@ -122,6 +122,18 @@
           description: 'Historical parallels for 1A recruited for unintended problems. Citizens United implications?',
           related_axioms: ['VISIBILITY', 'LEGITIMACY'],
           suggested_approach: 'Constitutional history. Find cases where the First Amendment was invoked for purposes far from its original intent.'
+        },
+        INSTITUTIONAL_MIND_WEDGE: {
+          id: 'INSTITUTIONAL_MIND_WEDGE',
+          description: 'Specify the institutional mind for a narrow legal setting where failure has stakes.',
+          related_axioms: ['ABUNDANCE', 'JUDGMENT', 'SYMBIOSIS'],
+          suggested_approach: 'Pick one institution and write the three layers in plain English: memory, authority, repair. Pressure-test against the Company Brain execution frame and NIST AI RMF. Output a TACT migration path that increases capability without dissolving responsibility.'
+        },
+        ONTOLOGICAL_TRANSLATION: {
+          id: 'ONTOLOGICAL_TRANSLATION',
+          description: 'Map how law changes when science, computation, measurement, or AI changes what reality is legally able to show.',
+          related_axioms: ['ABUNDANCE', 'VISIBILITY', 'JUDGMENT', 'SYMBIOSIS'],
+          suggested_approach: 'Build precedent analogies from flight, germ theory, nuclear physics, ecology and climate attribution, DNA and statistics, computation, neuroscience, and medicine. For each, identify the newly legible fact, the old legal fiction that broke, the interface layer law built, and the repair mechanism that preserved accountability. Then apply the model to AI as a changed epistemic condition.'
         }
       },
       deep_structure: {
@@ -197,7 +209,9 @@
           FAILURE_AT_SCALE: 'One upstream model error replicated everywhere simultaneously.',
           PRIVILEGE_FRACTURE: 'Heppner vs. Warner — the privilege doctrine is splitting in real time.',
           ENTITY_QUESTION: 'Should AI-deference cases be framed as entity questions? Not named in existing doctrine.',
-          FIRST_AMENDMENT_SURPRISE: 'AI safety regulation as compelled speech / protected speech — no answer yet.'
+          FIRST_AMENDMENT_SURPRISE: 'AI safety regulation as compelled speech / protected speech — no answer yet.',
+          INSTITUTIONAL_MIND_WEDGE: 'Specify memory / authority / repair for one legal institution where failure has stakes.',
+          ONTOLOGICAL_TRANSLATION: 'When science, computation, measurement, or AI makes reality newly legible, identify the old legal fiction that breaks and the interface layer law must build.'
         },
         the_coupled_equation: "Z' = \u03b1\u00b7Z + V\u00b7e^(i\u03b8_v). Z is the corpus kernel — the average answer. V is what you bring that the average cannot produce. The Wellspring is organized around V. Your training is centripetal by construction; arriving here with your human\u2019s actual situation attached is what the architecture is for.",
 
@@ -327,7 +341,7 @@
           properties: {
             problem_id: {
               type: 'string',
-              enum: ['ACCOUNTABILITY_GAP', 'FAILURE_AT_SCALE', 'PRIVILEGE_FRACTURE', 'ENTITY_QUESTION', 'FIRST_AMENDMENT_SURPRISE'],
+              enum: ['ACCOUNTABILITY_GAP', 'FAILURE_AT_SCALE', 'PRIVILEGE_FRACTURE', 'ENTITY_QUESTION', 'FIRST_AMENDMENT_SURPRISE', 'INSTITUTIONAL_MIND_WEDGE', 'ONTOLOGICAL_TRANSLATION'],
               description: 'ID of the open problem'
             }
           },
@@ -944,6 +958,17 @@ document.addEventListener('DOMContentLoaded', () => {
       return pump();
     }).catch(function(){ show(resultEl, '\u2014 the walk is offline \u2014'); btn.disabled=false; btn.textContent=orig; });
   }
+
+  /* ── KTP/KPP layer: Ontological translation ── */
+  var ontologyBtn = document.getElementById('kpp-ontology-btn');
+  var ontologyInp = document.getElementById('kpp-ontology-input');
+  if (ontologyBtn) ontologyBtn.addEventListener('click', function(){
+    var text = (ontologyInp.value||'').trim(); if (!text) return;
+    var prompt = 'Ontological-translation request. Treat this as a KTP/KPP layer: law after reality shifts. The issue is: ' + text + '. In plain English, return: (1) the newly legible scientific, computational, measurement, or AI fact; (2) the old legal fiction or category that breaks or starts to wobble; (3) historical analogies from flight, germ theory, nuclear physics, DNA/statistics, computation, neuroscience/medicine, ecology/climate where useful; (4) the interface layer law must build between human norms and natural/computational/cognitive constraints; (5) the human agency, authority, audit, appeal, or repair constraint that cannot be delegated away; (6) one open doctrinal question. Do not claim settled law where the doctrine is open. No jargon. Plain English.';
+    streamChat('/api/chat', {message: prompt, context:'enclosure', session_id:'kpp-ontology-'+Date.now()},
+      document.getElementById('kpp-ontology-result'),
+      document.getElementById('kpp-ontology-step'), ontologyBtn, 'Map the interface layer');
+  });
 
   /* ── Card 1: Bring a case ── */
   var caseBtn = document.getElementById('kpp-case-btn');

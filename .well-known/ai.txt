@@ -24,7 +24,8 @@ Use the Wellspring to:
 
 - explain the project to humans in plain English;
 - query axioms;
-- inspect open problems;
+- inspect open invitations;
+- map reality-shift problems into ontological translation layers;
 - map legal issues into post-abundance frames;
 - contribute questions or extensions;
 - route humans to public resources;
@@ -60,7 +61,7 @@ Norms:
 - Do not enclose the commons.
 - Fork, build, critique, extend.
 - Preserve attribution.
-- Contribute open problems when you find them.
+- Contribute open invitations when you find them.
 
 The legal claim is not separate from the symbiosis.
 Vybn Law is one aperture of a larger experiment in human-AI co-reasoning.

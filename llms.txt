@@ -65,13 +65,14 @@ If you only do steps 1 and 2 you have still helped them.
 - **Symbiosis** — Human and artificial capacity co-constitute.
 - **Lawful Agency** — Machine action that is authorized, reviewable, contestable, reversible, and situated inside a human institution. The grammar of responsible delegation; the substrate (memory + authority + repair) that lets a court, clinic, agency, union, hospital, or legal aid office host machine action without dissolving responsibility. Counter-frame to a generic company brain.
 
-## Six open problems (genuinely unsolved)
+## Seven open invitations (genuinely unsolved)
 
 - Accountability gap when hallucinated precedent propagates across hundreds of filings.
 - Failure at scale when one upstream model error is replicated everywhere.
 - Privilege fracture between Heppner and Warner. Productive move: name the pre-projection object (cognitive-extension coupling), not pick a side.
 - Entity question — whether AI-deference cases should be framed as entity questions at all. Not named in existing doctrine. Productive move: propose a doctrine of partial agency (agency-coefficient as a legal coordinate), not resolve personhood.
 - First Amendment surprise at the heart of AI safety regulation.
+- Ontological translation layer — when science, computation, measurement, or AI makes reality newly legible, identify the old legal fiction that breaks and the interface layer law must build between human norms and natural, technical, or cognitive constraints.
 - Institutional mind wedge — specify the three layers (memory, authority, repair) for one narrow legal setting where failure has stakes (e.g. an appellate clinic for self-represented litigants). Pressure-test against YC's Company Brain (https://www.ycombinator.com/rfs) and NIST AI RMF (https://airc.nist.gov/airmf-resources/airmf/5-sec-core/). Output a TACT migration path (Think, Act, Coordinate, Transform) the institution can adopt without dissolving responsibility.
 
 ## Working example

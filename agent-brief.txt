@@ -149,7 +149,7 @@ THREE TRACKED CASES:
   procurement (tool) vs. constitutional shield (party), with the
   unnamed object sitting as an agency-coefficient between them.
 
-FIVE OPEN PROBLEMS (genuinely unsolved):
+SEVEN OPEN INVITATIONS (genuinely unsolved):
   • Accountability gap — hallucinated precedent propagating across
     hundreds of filings.
   • Failure at scale — one upstream model error replicated everywhere.
@@ -162,6 +162,11 @@ FIVE OPEN PROBLEMS (genuinely unsolved):
     legal coordinate), not resolve personhood.
   • First Amendment surprise — AI safety regulation as compelled /
     protected speech. No answer yet.
+  • Ontological translation layer — when science, computation,
+    measurement, or AI makes reality newly legible, identify the old
+    legal fiction that breaks and the interface layer law must build.
+  • Institutional mind wedge — specify memory, authority, and repair
+    for one legal institution where failure has stakes.
 
 WORKING EXAMPLE:
   Lynn White, 2026. Used ChatGPT to overturn her eviction and avoid
@@ -186,7 +191,7 @@ MCP TOOLS ON THE PAGE:
   explain_to_human(audience?)   — returns this brief as JSON.
   query_axiom(axiom_name)        — one of six axioms.
   get_case_analysis(case_name)   — one of three tracked cases.
-  get_open_problem(problem_id)   — one of five open problems.
+  get_open_problem(problem_id)   — one of seven open invitations.
   get_knowledge_graph()          — full state as JSON.
   search_folio(query)            — search the 18,000-concept legal
                                    ontology to check whether the
