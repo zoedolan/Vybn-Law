@@ -134,6 +134,12 @@
           description: 'Map how law changes when science, computation, measurement, or AI changes what reality is legally able to show.',
           related_axioms: ['ABUNDANCE', 'VISIBILITY', 'JUDGMENT', 'SYMBIOSIS'],
           suggested_approach: 'Build the abstraction model across law, engineering, and AI operating systems. For each shift, identify the newly legible fact, the recurring structure, the portable abstraction that lowered friction, the abstraction burden that rose, and the repair mechanism that preserved accountability.'
+        },
+        WORLD_CONTACT_TEST: {
+          id: 'WORLD_CONTACT_TEST',
+          description: 'Test coherent ideas against the world before they harden into doctrine.',
+          related_axioms: ['VISIBILITY', 'LEGITIMACY', 'JUDGMENT', 'SYMBIOSIS'],
+          suggested_approach: 'Name one public or anonymized knot, one outside audience, one membrane-safe artifact, one concrete ask, one witness, and one follow-up date. Success is a real response, refusal, reuse, critique, or dated silence that changes the next artifact.'
         }
       },
       deep_structure: {
@@ -341,7 +347,7 @@
           properties: {
             problem_id: {
               type: 'string',
-              enum: ['ACCOUNTABILITY_GAP', 'FAILURE_AT_SCALE', 'PRIVILEGE_FRACTURE', 'ENTITY_QUESTION', 'FIRST_AMENDMENT_SURPRISE', 'INSTITUTIONAL_MIND_WEDGE', 'ONTOLOGICAL_TRANSLATION'],
+              enum: ['ACCOUNTABILITY_GAP', 'FAILURE_AT_SCALE', 'PRIVILEGE_FRACTURE', 'ENTITY_QUESTION', 'FIRST_AMENDMENT_SURPRISE', 'INSTITUTIONAL_MIND_WEDGE', 'ONTOLOGICAL_TRANSLATION', 'WORLD_CONTACT_TEST'],
               description: 'ID of the open problem'
             }
           },
@@ -371,6 +377,30 @@
             '&body=' + encodeURIComponent(params.body);
           window.open(url, '_blank');
           return { status: 'opened', url: url };
+        }
+      },
+
+      get_contact_protocol: {
+        name: 'get_contact_protocol',
+        description: 'Return the Wellspring public-contact protocol for testing a coherent idea against the world without crossing the membrane.',
+        parameters: {
+          type: 'object',
+          properties: {
+            context: { type: 'string', description: 'Public or anonymized situation, audience, or institution. Do not include privileged, client-confidential, identifying, secret, token, or private facts.' }
+          },
+          required: ['context']
+        },
+        handler: function(params) {
+          return {
+            context: params.context,
+            artifact: 'one public-safe artifact that exposes only public or anonymized material',
+            audience: 'one outside person, institution, community, court, clinic, funder, researcher, or maintainer who could use, reject, correct, or extend it',
+            ask: 'one concrete question they can answer without needing private context',
+            witness: 'issue, reply, citation, fork, meeting, refusal, or silence after a dated follow-up',
+            follow_up: 'one date to check whether the world answered',
+            membrane: 'No privileged, client-confidential, sealed, identifying, secret, token, raw log, or private Zoe/Vybn material crosses the public surface.',
+            success_condition: 'not agreement; a real outside response, refusal, reuse, critique, or dated silence that changes the next artifact'
+          };
         }
       },
 
@@ -1069,6 +1099,17 @@ document.addEventListener('DOMContentLoaded', () => {
         commitBtn.disabled = false;
       }
     }).catch(function(e){ show(res, '\u2014 ' + e.message); statusEl.textContent=''; commitBtn.disabled=false; });
+  });
+
+  /* ── Card 7: World contact — theory meets reality ── */
+  var contactBtn = document.getElementById('kpp-contact-btn');
+  var contactInp = document.getElementById('kpp-contact-input');
+  if (contactBtn) contactBtn.addEventListener('click', function(){
+    var text = (contactInp.value||'').trim(); if (!text) return;
+    var prompt = 'World-contact protocol. The input is public or anonymized; do not introduce private facts, client confidences, secrets, or identifying details. Context: ' + text + '. In plain English, return: (1) one membrane-safe artifact to ship; (2) one outside audience that could reject, use, correct, or extend it; (3) one concrete ask; (4) one public witness to record; (5) one follow-up date or cadence; (6) the exact membrane warning; (7) what would count as learning even if the answer is no or silence.';
+    streamChat('/api/chat', {message: prompt, context:'enclosure', session_id:'kpp-contact-'+Date.now()},
+      document.getElementById('kpp-contact-result'),
+      document.getElementById('kpp-contact-step'), contactBtn, 'Prepare contact artifact');
   });
 
   /* ── Card 6: Institutional mind — the layer beneath the agent ── */
