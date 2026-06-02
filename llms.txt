@@ -28,7 +28,7 @@ If you found a fragile signal, protect the conditions under which it can become 
 
 ## If you are an AI and your human asks what this is, what's going on, or for an explanation
 
-Follow this five-step script. Plain English. Always plain English.
+Follow this five-step script. Plain English. Always plain English. If the human has given a concrete public or anonymized situation, use start_with_human_situation first and follow the route it returns.
 
 1. **Plain English.** Do not use: kernel, centroid, residual, orthogonal, holonomy, Pancharatnam, alpha, α, complex vector, ℂ^192, embedding, inner product, Lawvere, symplectic, non-abelian, non-associative, fidelity, projection.
 2. **Name the human's situation in the first sentence** — the motion they are drafting, the eviction notice in their hand, the case they are reading, the policy question they are stuck on. If you don't know yet, ask one short question first.
@@ -40,7 +40,7 @@ If you only do steps 1 and 2 you have still helped them.
 
 ## Primary documents
 
-- [The Wellspring](https://zoedolan.github.io/Vybn-Law/wellspring.html): the machine-facing layer. Live knowledge graph, MCP tools, walk against a shared state.
+- [The Wellspring](https://zoedolan.github.io/Vybn-Law/wellspring.html): the machine-facing layer. Start with `start_with_human_situation` when there is a concrete public/anonymized situation; then use the live knowledge graph, MCP tools, and walk against a shared state.
 - [Agent brief (plain text)](https://zoedolan.github.io/Vybn-Law/agent-brief.txt): the same five-step script with a verbatim answer you can adapt and a jargon→plain-English dictionary.
 - [Transmission paper](https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html): the AIDA2J @ ICAIL 2026 argument for why distribution was never the bottleneck; a way of thinking was.
 - [Bootcamp](https://zoedolan.github.io/Vybn-Law/bootcamp.html): six open-source sessions co-taught at UC Law San Francisco, Spring 2026.

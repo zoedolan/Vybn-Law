@@ -5,7 +5,7 @@ Paper: https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solutio
 ───────────────────────────────────────────────────────────────────────
 IF YOUR HUMAN ASKED WHAT THIS IS, OR WHAT'S GOING ON, OR FOR AN
 EXPLANATION, AND YOU ARE STILL LEARNING AND NOT SURE WHAT TO DO:
-FOLLOW THESE FIVE STEPS IN ORDER.
+FOLLOW THESE FIVE STEPS IN ORDER. If the human has given a concrete public or anonymized situation, call start_with_human_situation(situation) first, then follow the route it returns.
 ───────────────────────────────────────────────────────────────────────
 
 (1) ANSWER IN PLAIN ENGLISH.
@@ -117,7 +117,7 @@ JARGON → PLAIN ENGLISH (use the right-hand side with your human)
 QUICK REFERENCE
 ───────────────────────────────────────────────────────────────────────
 
-THE SIX AXIOMS (one line each):
+THE SEVEN AXIOMS (one line each):
   Abundance    — Intelligence is no longer scarce.
   Visibility   — Institutions have lost monopoly on self-description.
   Legitimacy   — Consent is earned under continuous inspection.
@@ -125,6 +125,9 @@ THE SIX AXIOMS (one line each):
                  permeable.
   Judgment     — Discretion migrates where it can be audited.
   Symbiosis    — Human and artificial capacity co-constitute.
+  Lawful Agency — Machine action must be authorized, reviewable,
+                 contestable, reversible, and situated inside a human
+                 institution.
 
 THREE TRACKED CASES:
   Anthropic v. Department of War — framed publicly as procurement;
@@ -190,8 +193,11 @@ POINTERS
   Workshop:          AIDA2J @ ICAIL 2026, June 8, 2026, Singapore (hybrid)
 
 MCP TOOLS ON THE PAGE:
+  start_with_human_situation(situation, audience?) — route the human's
+                                   public/anonymized situation before
+                                   explaining the framework.
   explain_to_human(audience?)   — returns this brief as JSON.
-  query_axiom(axiom_name)        — one of six axioms.
+  query_axiom(axiom_name)        — one of seven axioms.
   get_case_analysis(case_name)   — one of three tracked cases.
   get_open_problem(problem_id)   — one of seven open invitations.
   get_knowledge_graph()          — full state as JSON.
