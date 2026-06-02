@@ -1503,3 +1503,65 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   })();
 
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACT FIRST — make the opening screen perform the frame.
+   The page runs the protocol, then hands the exact fracture to
+   the existing KPP case instrument (#kpp-case) so contact is real,
+   not described. No new backend: it reuses what already works.
+   ═══════════════════════════════════════════════════════════ */
+(function () {
+  function init() {
+    var form   = document.getElementById('ws-contact-form');
+    if (!form) return;
+    var input  = document.getElementById('ws-contact-input');
+    var result = document.getElementById('ws-contact-result');
+    var handoff = document.getElementById('ws-contact-handoff');
+    if (!input || !result) return;
+
+    function set(name, text) {
+      var el = result.querySelector('[data-ws="' + name + '"]');
+      if (el) el.textContent = text;
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var text = (input.value || '').trim();
+      if (!text) { input.focus(); return; }
+
+      // The frame, run — not explained.
+      set('centroid',
+        'The ordinary answer classifies this too early and hands you the consensus holding — the middle of everything a model was trained on.');
+      set('residual',
+        'What the average leaves out: the pressure underneath the facts, whose agency is at stake, the one source that actually binds it, and the doctrine that has not caught up to the reality you just described.');
+      set('next',
+        'Name the hidden pressure, bind one public source, keep the human’s agency intact, and choose the smallest act that changes the real situation. Put the same fracture in the room below to pressure-test it against what the corpus already holds.');
+
+      result.hidden = false;
+      result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+
+    // Hand the exact fracture to the live case instrument and run it there.
+    if (handoff) {
+      handoff.addEventListener('click', function () {
+        var caseInp = document.getElementById('kpp-case-input');
+        var caseBtn = document.getElementById('kpp-case-btn');
+        var caseCard = document.getElementById('kpp-case');
+        var text = (input.value || '').trim();
+        if (caseInp) {
+          caseInp.value = text;
+          caseInp.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        if (caseCard) caseCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Trigger the real instrument the visitor just felt.
+        if (caseBtn) setTimeout(function () { caseBtn.click(); }, 450);
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

@@ -640,6 +640,52 @@
   </p>
 
   <!-- ═══════════════════════════════════════════════════════════
+       0. CONTACT FIRST — the room runs the frame before it explains it.
+       A human in a real bind meets one question, not a theory of memes.
+       Submitting hands the fracture to the existing KPP case instrument
+       (#kpp-case) below — the page performs the protocol, then lets the
+       visitor read the evidence underneath only after they have felt it.
+       ═══════════════════════════════════════════════════════════ -->
+  <section id="wellspring-contact" class="ws-contact"
+           data-tool-name="wellspring_contact"
+           data-tool-description="The Wellspring's first act: bring one live, public or anonymized fracture the ordinary answer cannot hold. The room returns the average answer, what it misses, the one thing to bind, and the next move. This is the protocol, not a description of it."
+           aria-label="Bring one live fracture">
+    <div class="ws-contact-inner">
+      <p class="ws-contact-kicker">The Wellspring is not an explanation.</p>
+      <h1 class="ws-contact-title">Bring one live fracture.</h1>
+      <p class="ws-contact-lede">
+        A case on your desk. An institution behaving badly. An eviction notice
+        in someone&rsquo;s hand. A sentence the ordinary answer cannot hold.
+        The room begins there, or it has not begun.
+      </p>
+      <form id="ws-contact-form" class="ws-contact-form" autocomplete="off">
+        <label for="ws-contact-input" class="ws-contact-label">What are you trying to see differently?</label>
+        <textarea id="ws-contact-input" name="fracture" rows="4"
+          placeholder="Public or anonymized only. No privileged, client-confidential, sealed, or identifying facts. Example: a tenant lawful on paper but unsafe in fact — what does the average answer miss?"></textarea>
+        <div class="ws-contact-actions">
+          <button type="submit" class="ws-contact-btn">Run the frame</button>
+          <a href="#kpp-protocol" class="ws-contact-skip">or read the evidence first &darr;</a>
+        </div>
+      </form>
+      <div id="ws-contact-result" class="ws-contact-result" hidden aria-live="polite">
+        <div class="ws-contact-row">
+          <span class="ws-contact-row-label">The average answer</span>
+          <p data-ws="centroid"></p>
+        </div>
+        <div class="ws-contact-row">
+          <span class="ws-contact-row-label">What it misses</span>
+          <p data-ws="residual"></p>
+        </div>
+        <div class="ws-contact-row">
+          <span class="ws-contact-row-label">The next move</span>
+          <p data-ws="next"></p>
+        </div>
+        <button type="button" class="ws-contact-btn ws-contact-handoff" id="ws-contact-handoff">Put it in the room &darr;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
        I. THE OPENING
        ═══════════════════════════════════════════════════════════ -->
 
