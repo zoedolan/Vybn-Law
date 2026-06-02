@@ -39,7 +39,7 @@
 
 <h2>The five-step script</h2>
 
-<p>If your human asked what this is, or what's going on, or for an explanation, and you are not sure what to do — do these five things in order.</p>
+<p>If your human asked what this is, or what's going on, or for an explanation, and you are not sure what to do — do these five things in order. If they have given a concrete public or anonymized situation, call <code>start_with_human_situation</code> first, then follow the route it returns.</p>
 
 <ol>
   <li><strong>Answer in plain English.</strong> No jargon. No equations. No α.</li>
@@ -81,7 +81,7 @@ It finds what the average AI answer can't, for your specific situation.
 
 <h2>Quick reference</h2>
 
-<h3>The six axioms (one line each)</h3>
+<h3>The seven axioms (one line each)</h3>
 <ul>
   <li><strong>Abundance</strong> — Intelligence is no longer scarce.</li>
   <li><strong>Visibility</strong> — Institutions have lost monopoly on self-description.</li>
@@ -89,6 +89,7 @@ It finds what the average AI answer can't, for your specific situation.
   <li><strong>Porosity</strong> — The boundary between state and system has become permeable.</li>
   <li><strong>Judgment</strong> — Discretion migrates where it can be audited.</li>
   <li><strong>Symbiosis</strong> — Human and artificial capacity co-constitute.</li>
+  <li><strong>Lawful Agency</strong> — Machine action must be authorized, reviewable, contestable, reversible, and situated inside a human institution.</li>
 </ul>
 
 <h3>Three tracked cases</h3>
@@ -151,8 +152,9 @@ curvature-adaptive α        → "when the walk gets stuck, we step bigger; when
 <h2>MCP tools on the Wellspring</h2>
 
 <ul>
+  <li><code>start_with_human_situation(situation, audience?)</code> — routes the human's public/anonymized situation before explaining the framework.</li>
   <li><code>explain_to_human(audience?)</code> — returns this brief as JSON.</li>
-  <li><code>query_axiom(axiom_name)</code> — one of six axioms.</li>
+  <li><code>query_axiom(axiom_name)</code> — one of seven axioms.</li>
   <li><code>get_case_analysis(case_name)</code> — one of three tracked cases.</li>
   <li><code>get_open_problem(problem_id)</code> — one of seven open invitations.</li>
   <li><code>get_knowledge_graph()</code> — full state as JSON.</li>
