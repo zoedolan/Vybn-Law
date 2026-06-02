@@ -935,6 +935,19 @@ document.addEventListener('DOMContentLoaded', () => {
 (function(){
   var API = (document.querySelector('meta[name="api-base"]') || {}).content || 'https://api.vybn.ai';
 
+  function openDetailsForHashTarget() {
+    if (!window.location.hash) return;
+    var id = window.location.hash.slice(1);
+    if (!id) return;
+    var target = document.getElementById(id);
+    if (!target) return;
+    var parent = target.closest('details');
+    if (parent) parent.open = true;
+  }
+  openDetailsForHashTarget();
+  window.addEventListener('hashchange', openDetailsForHashTarget);
+
+
   /* ── helpers ── */
   function show(el, text) { el.textContent = text; el.setAttribute('data-active',''); }
   function hide(el) { el.textContent = ''; el.removeAttribute('data-active'); }
