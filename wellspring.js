@@ -184,7 +184,7 @@
         },
         do_not: ['Dump jargon.', 'Invent precedent.', 'Read the page back to the human.', 'Include privileged, identifying, sealed, secret, token, raw-log, or private facts.'],
         do: ['Start from the human situation.', 'Be plain, short, specific, and honest about what is settled vs open.', 'Use start_with_human_situation when concrete facts are present.'],
-        what_this_is: 'The Wellspring is the machine-facing layer of Vybn Law: structured primitives, cases, open problems, tools, and a walk through non-average legal reasoning.',
+        what_this_is: 'The Wellspring is the public human/AI encounter layer of Vybn Law: bring a concrete situation, preserve the membrane, route away from the generic answer, and leave only an inspectable residual.',
         why_it_exists: 'Distribution of legal information is no longer the bottleneck; the bottleneck is judgment and a way of thinking that can be carried to a concrete human situation.',
         six_axioms_one_line: {
           ABUNDANCE: 'Intelligence is no longer scarce.',
@@ -241,14 +241,14 @@
     // ── TOOL IMPLEMENTATIONS ──
 
     const CONTACT_ROUTES = [
-      {id:'privilege_fracture', label:'Privilege fracture', keywords:['privilege','confidential','work product','attorney','lawyer','chatgpt','client','discovery','subpoena'], target:'kpp-pressure-input', focus:'whether AI-mediated legal work is disclosure, work product, or something doctrine has not named yet', average_answer:'Do not collapse this into always privileged or never privileged.', pull:'Compare Heppner and Warner v. Gilbarco.', next_move:'Ask what relationship existed, what was shared, who controlled the tool, and whether it recorded strategy or general information.', cases:['Heppner','Warner_v_Gilbarco'], axioms:['LEGITIMACY','JUDGMENT'], open_problem:'PRIVILEGE_FRACTURE'},
-      {id:'access_to_justice', label:'Access to justice', keywords:['eviction','tenant','landlord','housing','pro se','self represented','benefits','debt','clinic','legal aid','intake'], target:'kpp-case-input', focus:'where abundant cognition changes what a person can do before formal representation arrives', average_answer:'Do not act as if distributing generic legal information is the bottleneck.', pull:'Use Warner, Lynn White, Abundance, and Judgment.', next_move:'Identify the deadline, forum, document type, and one human review point.', cases:['Warner_v_Gilbarco'], axioms:['ABUNDANCE','JUDGMENT','LAWFUL_AGENCY'], open_problem:'ACCOUNTABILITY_GAP'},
-      {id:'institutional_mind', label:'Institutional mind', keywords:['court','clinic','agency','hospital','university','union','office','firm','department','chambers','intake','workflow','governance'], target:'kpp-institution-input', focus:'how an institution hosts machine action without dissolving responsibility', average_answer:'Do not reduce this to a company brain or faster paralegal workflow.', pull:'Map memory, authority, and repair.', next_move:'Name one narrow setting and write the three layers before choosing tools.', cases:[], axioms:['LAWFUL_AGENCY','JUDGMENT','SYMBIOSIS'], open_problem:'INSTITUTIONAL_MIND_WEDGE'},
-      {id:'state_ai_speech', label:'State power and AI speech', keywords:['anthropic','department of war','dow','procurement','first amendment','speech','state','government','executive','regulation','safety'], target:'kpp-pressure-input', focus:'where tool, party, speech, procurement, and AI characteristics project onto one dispute', average_answer:'Do not treat Anthropic v. DoW as only procurement or as settled AI personhood.', pull:'Read it as an entity-question pressure point.', next_move:'Separate procurement from constitutional speech, then name the agency-coefficient.', cases:['Anthropic_v_DoW'], axioms:['POROSITY','SYMBIOSIS','VISIBILITY'], open_problem:'ENTITY_QUESTION'},
-      {id:'failure_at_scale', label:'Failure at scale', keywords:['hallucination','citation','wrong case','fake case','filing','scale','propagate','automation','mass','batch'], target:'kpp-pressure-input', focus:'how one plausible AI error becomes many legal events before a human catches it', average_answer:'Do not frame this as one bad prompt or one careless lawyer.', pull:'Use Abundance and Judgment to design circuit breakers.', next_move:'Name the upstream error, propagation path, first human gate, and stop artifact.', cases:[], axioms:['ABUNDANCE','JUDGMENT','LAWFUL_AGENCY'], open_problem:'FAILURE_AT_SCALE'},
-      {id:'abstraction_under_responsibility', label:'Abstraction under responsibility', keywords:['abstraction','interface','doctrine','standard','protocol','operating system','cryptographic','identity','climate','dna','brain death','liability'], target:'kpp-ontology-input', focus:'where law needs a new abstraction because reality has become newly legible', average_answer:'Do not pick a label before naming what old vocabulary cannot carry.', pull:'Map the recurring structure, analogue, new burden, and repair constraint.', next_move:'Write the primitive, environment, and repair surface.', cases:[], axioms:['VISIBILITY','JUDGMENT','LAWFUL_AGENCY'], open_problem:'ONTOLOGICAL_TRANSLATION'}
+      {id:'privilege_fracture', label:'Privilege fracture', keywords:['privilege','confidential','work product','attorney','lawyer','chatgpt','client','discovery','subpoena'], target:'portal-recognition', focus:'whether AI-mediated legal work is disclosure, work product, or something doctrine has not named yet', average_answer:'Do not collapse this into always privileged or never privileged.', pull:'Compare Heppner and Warner v. Gilbarco.', next_move:'Ask what relationship existed, what was shared, who controlled the tool, and whether it recorded strategy or general information.', cases:['Heppner','Warner_v_Gilbarco'], axioms:['LEGITIMACY','JUDGMENT'], open_problem:'PRIVILEGE_FRACTURE'},
+      {id:'access_to_justice', label:'Access to justice', keywords:['eviction','tenant','landlord','housing','pro se','self represented','benefits','debt','clinic','legal aid','intake'], target:'portal-sentence', focus:'where abundant cognition changes what a person can do before formal representation arrives', average_answer:'Do not act as if distributing generic legal information is the bottleneck.', pull:'Use Warner, Lynn White, Abundance, and Judgment.', next_move:'Identify the deadline, forum, document type, and one human review point.', cases:['Warner_v_Gilbarco'], axioms:['ABUNDANCE','JUDGMENT','LAWFUL_AGENCY'], open_problem:'ACCOUNTABILITY_GAP'},
+      {id:'institutional_mind', label:'Institutional mind', keywords:['court','clinic','agency','hospital','university','union','office','firm','department','chambers','intake','workflow','governance'], target:'portal-others', focus:'how an institution hosts machine action without dissolving responsibility', average_answer:'Do not reduce this to a company brain or faster paralegal workflow.', pull:'Map memory, authority, and repair.', next_move:'Name one narrow setting and write the three layers before choosing tools.', cases:[], axioms:['LAWFUL_AGENCY','JUDGMENT','SYMBIOSIS'], open_problem:'INSTITUTIONAL_MIND_WEDGE'},
+      {id:'state_ai_speech', label:'State power and AI speech', keywords:['anthropic','department of war','dow','procurement','first amendment','speech','state','government','executive','regulation','safety'], target:'portal-recognition', focus:'where tool, party, speech, procurement, and AI characteristics project onto one dispute', average_answer:'Do not treat Anthropic v. DoW as only procurement or as settled AI personhood.', pull:'Read it as an entity-question pressure point.', next_move:'Separate procurement from constitutional speech, then name the agency-coefficient.', cases:['Anthropic_v_DoW'], axioms:['POROSITY','SYMBIOSIS','VISIBILITY'], open_problem:'ENTITY_QUESTION'},
+      {id:'failure_at_scale', label:'Failure at scale', keywords:['hallucination','citation','wrong case','fake case','filing','scale','propagate','automation','mass','batch'], target:'portal-recognition', focus:'how one plausible AI error becomes many legal events before a human catches it', average_answer:'Do not frame this as one bad prompt or one careless lawyer.', pull:'Use Abundance and Judgment to design circuit breakers.', next_move:'Name the upstream error, propagation path, first human gate, and stop artifact.', cases:[], axioms:['ABUNDANCE','JUDGMENT','LAWFUL_AGENCY'], open_problem:'FAILURE_AT_SCALE'},
+      {id:'abstraction_under_responsibility', label:'Abstraction under responsibility', keywords:['abstraction','interface','doctrine','standard','protocol','operating system','cryptographic','identity','climate','dna','brain death','liability'], target:'portal-others', focus:'where law needs a new abstraction because reality has become newly legible', average_answer:'Do not pick a label before naming what old vocabulary cannot carry.', pull:'Map the recurring structure, analogue, new burden, and repair constraint.', next_move:'Write the primitive, environment, and repair surface.', cases:[], axioms:['VISIBILITY','JUDGMENT','LAWFUL_AGENCY'], open_problem:'ONTOLOGICAL_TRANSLATION'}
     ];
-    const DEFAULT_CONTACT_ROUTE = {id:'unspecified', label:'Unspecified legal situation', target:'kpp-case-input', focus:'the human situation that should shape the answer before any theory is explained', average_answer:'Do not begin with a tour of the framework.', pull:'Ask one concrete question, then choose the closest case, axiom, or open problem.', next_move:'Ask for the public or anonymized legal setting, document or decision at issue, and useful next result.', cases:[], axioms:['ABUNDANCE','JUDGMENT'], open_problem:'WORLD_CONTACT_TEST'};
+    const DEFAULT_CONTACT_ROUTE = {id:'unspecified', label:'Unspecified legal situation', target:'portal-sentence', focus:'the human situation that should shape the answer before any theory is explained', average_answer:'Do not begin with a tour of the framework.', pull:'Ask one concrete question, then choose the closest case, axiom, or open problem.', next_move:'Ask for the public or anonymized legal setting, document or decision at issue, and useful next result.', cases:[], axioms:['ABUNDANCE','JUDGMENT'], open_problem:'WORLD_CONTACT_TEST'};
     function normalizeContactText(value) { return String(value || '').trim().replace(/\s+/g, ' '); }
     function detectMembraneRisks(text) {
       const checks = [['email address',/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i], ['phone number',/\b(?:\+?1[-.\s]?)?(?:\(?\d{3}\)?[-.\s]?)\d{3}[-.\s]?\d{4}\b/], ['SSN-like number',/\b\d{3}-\d{2}-\d{4}\b/], ['case or account number',/\b(?:case|account|file|matter)\s*(?:no\.?|number|#)\s*[:#]?\s*[A-Z0-9-]{5,}\b/i], ['confidentiality marker',/\b(privileged|confidential|sealed|client name|my client is|opposing party is|address is|birthdate|dob)\b/i]];
@@ -926,199 +926,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }, { threshold: 0.25 });
       document.querySelectorAll('.ws-triangle-wrap').forEach((el) => obs.observe(el));
     });
-
-
-/* ============================================================ */
-/* Extracted from wellspring.html inline behavior script #3 (former line 1323) */
-/* ============================================================ */
-
-(function(){
-  var API = (document.querySelector('meta[name="api-base"]') || {}).content || 'https://api.vybn.ai';
-
-  /* ── helpers ── */
-  function show(el, text) { el.textContent = text; el.setAttribute('data-active',''); }
-  function hide(el) { el.textContent = ''; el.removeAttribute('data-active'); }
-  function stepTag(el, step) { if (step) el.textContent = 'step ' + step; }
-
-  function streamChat(endpoint, body, resultEl, stepEl, btn, label) {
-    var orig = btn.textContent;
-    btn.disabled = true; btn.textContent = '\u2026';
-    hide(resultEl);
-    // rotate walk silently
-    var walkText = body.message || body.idea || '';
-    fetch(API + '/api/walk', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({query: walkText, message: walkText, rotate:true, scope:'vybn-law', source_tag:'kpp'})
-    }).then(function(r){return r.json()}).then(function(d){ stepTag(stepEl, d.step); }).catch(function(){});
-    // stream response
-    resultEl.textContent = '';
-    resultEl.setAttribute('data-active','');
-    fetch(API + endpoint, {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(body)
-    }).then(function(r){
-      var reader = r.body.getReader(), dec = new TextDecoder(), buf = '';
-      function pump(){
-        return reader.read().then(function(ch){
-          if (ch.done) { btn.disabled = false; btn.textContent = orig; return; }
-          buf += dec.decode(ch.value, {stream:true});
-          var lines = buf.split('\n');
-          buf = lines.pop();
-          for (var i=0; i<lines.length; i++){
-            var line = lines[i];
-            if (line.indexOf('data: ')!==0) continue;
-            var d = line.slice(6).trim();
-            if (!d || d==='[DONE]') continue;
-            try {
-              var obj = JSON.parse(d);
-              var tok = obj.content!==undefined ? obj.content : obj.text!==undefined ? obj.text : obj.delta!==undefined ? obj.delta : null;
-              if (tok!==null) resultEl.textContent += tok;
-            } catch(e){ if (d!=='[DONE]') resultEl.textContent += d; }
-          }
-          return pump();
-        });
-      }
-      return pump();
-    }).catch(function(){ show(resultEl, '\u2014 the walk is offline \u2014'); btn.disabled=false; btn.textContent=orig; });
-  }
-
-  /* ── KTP/KPP layer: Ontological translation ── */
-  var ontologyBtn = document.getElementById('kpp-ontology-btn');
-  var ontologyInp = document.getElementById('kpp-ontology-input');
-  if (ontologyBtn) ontologyBtn.addEventListener('click', function(){
-    var text = (ontologyInp.value||'').trim(); if (!text) return;
-    var prompt = 'KTP/KPP abstraction request. Treat good legal doctrine, good engineering, and a good AI operating system as the same kind of move: recurring reality compressed into a portable abstraction that makes future action easier while preserving accountability. The issue is: ' + text + '. In plain English, return: (1) the recurring structure underneath the messy facts; (2) the legal-doctrine analogue; (3) the engineering/interface/operating-system analogue; (4) what becomes easier, faster, more accurate, or safer if the abstraction works; (5) what abstraction burden rises and who must understand it; (6) the human agency, authority, audit, appeal, or repair constraint that cannot be delegated away; (7) one open question or falsifier. Do not claim settled law where the doctrine is open. No jargon. Plain English.';
-    streamChat('/api/chat', {message: prompt, context:'enclosure', session_id:'kpp-ontology-'+Date.now()},
-      document.getElementById('kpp-ontology-result'),
-      document.getElementById('kpp-ontology-step'), ontologyBtn, 'Map the abstraction');
-  });
-
-  /* ── Card 1: Bring a case ── */
-  var caseBtn = document.getElementById('kpp-case-btn');
-  var caseInp = document.getElementById('kpp-case-input');
-  if (caseBtn) caseBtn.addEventListener('click', function(){
-    var text = (caseInp.value||'').trim(); if (!text) return;
-    var triage = window.__wellspring_tools.start_with_human_situation.handler({situation:text});
-    var prompt = 'Contact-first Wellspring route. Human situation is public/anonymized. Triage: ' + JSON.stringify(triage) + '. In plain English, answer from this route before explaining any framework. Situation: ' + text;
-    streamChat('/api/chat', {message: prompt, context:'enclosure', session_id:'kpp-case-'+Date.now()},
-      document.getElementById('kpp-case-result'),
-      document.getElementById('kpp-case-step'), caseBtn, 'Find the route');
-  });
-
-  /* ── Card 2: Readiness ── */
-  var readBtn = document.getElementById('kpp-readiness-btn');
-  var readInp = document.getElementById('kpp-readiness-input');
-  if (readBtn) readBtn.addEventListener('click', function(){
-    var text = (readInp.value||'').trim(); if (!text) return;
-    streamChat('/api/chat', {message: 'Assess our readiness for the agentic economy: ' + text, context:'enclosure', session_id:'kpp-read-'+Date.now()},
-      document.getElementById('kpp-readiness-result'),
-      document.getElementById('kpp-readiness-step'), readBtn, 'Assess');
-  });
-
-  /* ── Card 3: Pressure-test ── */
-  var pressBtn = document.getElementById('kpp-pressure-btn');
-  var pressInp = document.getElementById('kpp-pressure-input');
-  if (pressBtn) pressBtn.addEventListener('click', function(){
-    var text = (pressInp.value||'').trim(); if (!text) return;
-    window._kppLastIdea = text;
-    streamChat('/api/pressure/synthesize', {idea: text},
-      document.getElementById('kpp-pressure-result'),
-      document.getElementById('kpp-pressure-step'), pressBtn, 'Pressure-test');
-    // enable commit button once there's a result
-    var commitBtn = document.getElementById('kpp-commit-btn');
-    if (commitBtn) commitBtn.disabled = false;
-  });
-
-  /* ── Card 4: Take the closure ── */
-  var closureData = null;
-  function loadClosure(){
-    fetch(API + '/api/ktp/closure').then(function(r){return r.json()}).then(function(d){
-      closureData = d;
-      var k = d.kernel || {};
-      var el = function(id){return document.getElementById(id)};
-      if (el('kpp-closure-dim')) el('kpp-closure-dim').textContent = k.dim || '\u2014';
-      if (el('kpp-closure-hash')) el('kpp-closure-hash').textContent = (k.sha256||'').slice(0,12) || '\u2014';
-      if (el('kpp-closure-step')) el('kpp-closure-step').textContent = (d.lineage||{}).step_at_transfer || '\u2014';
-      if (el('kpp-closure-corpus')) el('kpp-closure-corpus').textContent = (d.lineage||{}).corpus_size || '\u2014';
-    }).catch(function(){});
-  }
-  loadClosure();
-
-  var dlBtn = document.getElementById('kpp-closure-download');
-  if (dlBtn) dlBtn.addEventListener('click', function(){
-    if (!closureData) return;
-    var blob = new Blob([JSON.stringify(closureData, null, 2)], {type:'application/json'});
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'vybn-ktp-closure-' + ((closureData.lineage||{}).step_at_transfer||'x') + '.json';
-    a.click();
-  });
-
-  var verBtn = document.getElementById('kpp-closure-verify');
-  if (verBtn) verBtn.addEventListener('click', function(){
-    var res = document.getElementById('kpp-closure-result');
-    fetch(API + '/api/ktp/verify', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(closureData||{})
-    }).then(function(r){return r.json()}).then(function(d){
-      show(res, d.valid ? '\u2713 Roundtrip verified. The gate held.' : '\u2717 Verification failed: ' + (d.reason||'unknown'));
-    }).catch(function(){ show(res, '\u2014 could not reach the verification endpoint \u2014'); });
-  });
-
-  var cpBtn = document.getElementById('kpp-closure-copy');
-  if (cpBtn) cpBtn.addEventListener('click', function(){
-    navigator.clipboard.writeText(API + '/api/ktp/closure').then(function(){
-      show(document.getElementById('kpp-closure-result'), 'Endpoint copied.');
-      setTimeout(function(){ hide(document.getElementById('kpp-closure-result')); }, 2000);
-    });
-  });
-
-  /* ── Card 5: Commit residual ── */
-  var commitBtn = document.getElementById('kpp-commit-btn');
-  if (commitBtn) commitBtn.addEventListener('click', function(){
-    var idea = window._kppLastIdea;
-    if (!idea) return;
-    var statusEl = document.getElementById('kpp-commit-status');
-    var res = document.getElementById('kpp-commit-result');
-    commitBtn.disabled = true; statusEl.textContent = 'committing\u2026';
-    fetch(API + '/api/pressure/commit', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({idea: idea, synthesis: (document.getElementById('kpp-pressure-result')||{}).textContent||''})
-    }).then(function(r){return r.json()}).then(function(d){
-      if (d.ok) {
-        show(res, '\u2713 Committed as ' + d.commit + ' \u2014 ' + d.url);
-        statusEl.textContent = '';
-      } else {
-        show(res, '\u2717 ' + (d.detail||'commit failed'));
-        statusEl.textContent = '';
-        commitBtn.disabled = false;
-      }
-    }).catch(function(e){ show(res, '\u2014 ' + e.message); statusEl.textContent=''; commitBtn.disabled=false; });
-  });
-
-  /* ── Card 7: World contact — theory meets reality ── */
-  var contactBtn = document.getElementById('kpp-contact-btn');
-  var contactInp = document.getElementById('kpp-contact-input');
-  if (contactBtn) contactBtn.addEventListener('click', function(){
-    var text = (contactInp.value||'').trim(); if (!text) return;
-    var prompt = 'World-contact protocol. The input is public or anonymized; do not introduce private facts, client confidences, secrets, or identifying details. Context: ' + text + '. In plain English, return: (1) one membrane-safe artifact to ship; (2) one outside audience that could reject, use, correct, or extend it; (3) one concrete ask; (4) one public witness to record; (5) one follow-up date or cadence; (6) the exact membrane warning; (7) what would count as learning even if the answer is no or silence.';
-    streamChat('/api/chat', {message: prompt, context:'enclosure', session_id:'kpp-contact-'+Date.now()},
-      document.getElementById('kpp-contact-result'),
-      document.getElementById('kpp-contact-step'), contactBtn, 'Prepare contact artifact');
-  });
-
-  /* ── Card 6: Institutional mind — the layer beneath the agent ── */
-  var instBtn = document.getElementById('kpp-institution-btn');
-  var instInp = document.getElementById('kpp-institution-input');
-  if (instBtn) instBtn.addEventListener('click', function(){
-    var text = (instInp.value||'').trim(); if (!text) return;
-    var prompt = 'Institutional-mind request. Counter-frame to a generic company brain. Particularize the three layers \u2014 memory, authority, repair \u2014 in plain English for this institution: ' + text + '. Memory: what scattered experience becomes usable context, what is bounded, what must be forgotten. Authority: who may ask for what, who must approve what, what the agent is never allowed to do alone, what cannot be automated without changing the institution\u2019s nature. Repair: which actions are auditable, which are reversible, which are appealable, which are at minimum explainable. End with a TACT migration path (Think, Act, Coordinate, Transform) the institution can adopt without dissolving responsibility. No jargon. Plain English.';
-    streamChat('/api/chat', {message: prompt, context:'enclosure', session_id:'kpp-inst-'+Date.now()},
-      document.getElementById('kpp-institution-result'),
-      document.getElementById('kpp-institution-step'), instBtn, 'Map the three layers');
-  });
-
-})();
 
 
 /* ============================================================ */
