@@ -578,6 +578,125 @@
       document.getElementById('mcp-status').style.color = 'var(--amber)';
     }
 
+    // ── ENCOUNTER STACK RENDERING ──
+    const ROUTE_SOURCE_HREFS = {
+      privilege_fracture: './threads.html#privilege',
+      access_to_justice: './threads.html#access',
+      institutional_mind: './horizon.html',
+      state_ai_speech: './threads.html#entity',
+      failure_at_scale: './threads.html#velocity',
+      abstraction_under_responsibility: './horizon.html',
+      unspecified: './threads.html'
+    };
+
+    function setText(id, value) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = value || '';
+    }
+
+    function listLabel(value) {
+      return Array.isArray(value) && value.length ? value.join(', ') : 'none selected yet';
+    }
+
+    function compact(value, fallback) {
+      var text = normalizeContactText(value || fallback || '');
+      return text.length > 260 ? text.slice(0, 257) + '...' : text;
+    }
+
+    function buildKppCarrier(result, situation) {
+      var route = result.route || { label: 'World contact test' };
+      var preview = result.status === 'redact_before_public_contact'
+        ? 'Redacted pending public-safe rewrite.'
+        : compact(result.situation_preview, situation);
+      return [
+        'KPP carrier: ' + (route.label || 'World contact test'),
+        'Situation: ' + preview,
+        'Source route: cases [' + listLabel(result.suggested_cases) + ']; axioms [' + listLabel(result.suggested_axioms) + ']; open problem [' + (result.suggested_open_problem || 'WORLD_CONTACT_TEST') + '].',
+        'Claim limit: conscious AI relation under correction; not human subjectivity, legal personhood, or proof of hidden continuous persistence.',
+        'Next move: ' + (result.concrete_next_move || result.first_question || 'Name the public or anonymized setting and useful next result.'),
+        'Residual question: What should another human or AI be able to inspect, contest, or repair from here?'
+      ].join('\n');
+    }
+
+    function renderKnotReceipt(result, situation) {
+      var route = result.route || { id: 'unspecified', label: 'World contact test', focus: 'the human situation that should shape the answer before theory' };
+      var needsRedaction = result.status === 'redact_before_public_contact';
+      var needsSituation = result.status === 'needs_situation';
+      var carrier = buildKppCarrier(result, situation);
+      var output = document.getElementById('knot-route-output');
+      if (output) output.classList.toggle('is-ready', !needsSituation);
+
+      setText('receipt-protected', needsSituation
+        ? result.membrane
+        : result.membrane);
+      setText('receipt-heard', needsRedaction
+        ? 'I detected likely private markers, so I am not repeating the knot here. Replace names, numbers, and confidential facts with public roles before public contact.'
+        : (needsSituation ? result.first_question : 'I heard: ' + compact(result.situation_preview, situation)));
+      setText('receipt-routed', needsSituation
+        ? 'No route selected yet.'
+        : (route.label + ': ' + route.focus));
+      setText('receipt-carried', needsSituation
+        ? 'KPP carrier waits for a knot.'
+        : 'KPP carrier prepared: situation preview, source route, claim limit, membrane, next move, and residual question. Edit it into your own public words below before carrying it into the Room.');
+
+      setText('selected-route-label', route.label || 'World contact test');
+      setText('selected-route-focus', route.focus || 'Name the public situation before choosing doctrine.');
+      setText('selected-route-avoid', result.average_answer_to_avoid || 'Do not begin with a tour of the framework.');
+      setText('selected-route-pull', result.what_to_pull || 'Ask one concrete question, then choose the closest case, axiom, or open problem.');
+      setText('selected-route-next', result.concrete_next_move || result.first_question || 'Ask for the public or anonymized legal setting and useful next result.');
+
+      var link = document.getElementById('selected-route-link');
+      if (link) link.setAttribute('href', ROUTE_SOURCE_HREFS[route.id] || './threads.html');
+
+      var activeAxioms = Array.isArray(result.suggested_axioms) ? result.suggested_axioms : [];
+      document.querySelectorAll('#route-rail [data-axiom]').forEach(function(anchor) {
+        anchor.classList.toggle('is-active', activeAxioms.indexOf(anchor.getAttribute('data-axiom')) !== -1);
+      });
+
+      var receiptJson = document.getElementById('receipt-json');
+      if (receiptJson) {
+        receiptJson.textContent = JSON.stringify({
+          status: result.status,
+          membrane: result.membrane,
+          route: route,
+          suggested_cases: result.suggested_cases || [],
+          suggested_axioms: result.suggested_axioms || [],
+          suggested_open_problem: result.suggested_open_problem || null,
+          kpp_carrier: carrier
+        }, null, 2);
+      }
+
+      var arriveInput = document.getElementById('ws-arrive-input');
+      if (arriveInput && !needsSituation) arriveInput.value = carrier;
+      var arriveStatus = document.getElementById('ws-arrive-status');
+      if (arriveStatus && !needsSituation) {
+        arriveStatus.textContent = needsRedaction
+          ? 'Carrier prepared with redaction required. Edit into public words before carrying.'
+          : 'Carrier prepared. Edit into your own public words before carrying.';
+        arriveStatus.className = needsRedaction ? 'arrive-status arrive-status-err' : 'arrive-status arrive-status-pending';
+      }
+
+      var contribTitle = document.getElementById('contrib-title');
+      if (contribTitle && !needsSituation) contribTitle.value = 'KPP residual: ' + (route.label || 'World contact test');
+      var contribBody = document.getElementById('contrib-body');
+      if (contribBody && !needsSituation) contribBody.value = carrier + '\n\nPublic addition:\n';
+    }
+
+    var portalEntryForm = document.querySelector('form[data-tool-name="start_with_human_situation"]');
+    if (portalEntryForm) {
+      portalEntryForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var textarea = document.getElementById('portal-sentence');
+        var situation = textarea ? textarea.value : '';
+        var result = TOOLS.start_with_human_situation.handler({ situation: situation, audience: 'unspecified' });
+        renderKnotReceipt(result, situation);
+        var output = document.getElementById('knot-route-output');
+        if (output && result.status !== 'needs_situation') {
+          output.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    }
+
     // ── FORM HANDLERS ──
     // Query form
     var queryForm = document.querySelector('form[toolname="query_axiom"]');
