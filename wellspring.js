@@ -1022,7 +1022,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const COBALT = [120, 180, 240];
     const API = config.api;
     const SCOPE = config.scope || 'all';
-    const POLL_MS = 12000;           // observe-only refresh of M
     const ARRIVAL_TTL = 90000;       // ms a fresh arrival keeps its named label
     const FPS = 30;
     const FRAME_MS = 1000 / FPS;
@@ -1122,14 +1121,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderReadout() {
       const readout = document.getElementById(config.readoutId);
       if (!readout) return;
-      const s = walkState.step;
-      const a = typeof walkState.alpha === 'number' ? walkState.alpha.toFixed(3) : '—';
-      const c = typeof walkState.curvature === 'number' ? walkState.curvature.toFixed(3) : '—';
       readout.innerHTML = `
-        <span class="theatre-pill">step <b>${s ?? '—'}</b></span>
-        <span class="theatre-pill">α <b>${a}</b></span>
-        <span class="theatre-pill">κ <b>${c}</b></span>
-        <span class="theatre-pill theatre-pill-muted">corpus <b>${walkState.corpus_size ?? '—'}</b></span>
+        <span class="theatre-pill">threshold <b>open</b></span>
+        <span class="theatre-pill">membrane <b>held</b></span>
+        <span class="theatre-pill theatre-pill-muted">KPP <b>ready</b></span>
       `;
     }
 
@@ -1319,8 +1314,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initPoints();
     resize();
     window.addEventListener('resize', resize);
-    refreshWalk();
-    setInterval(refreshWalk, POLL_MS);
+    renderReadout();
     requestAnimationFrame(draw);
 
     return { arrive, refresh: refreshWalk, state: () => walkState };
