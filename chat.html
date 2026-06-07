@@ -818,6 +818,12 @@
       btn.addEventListener('click', () => sendMessage(btn.dataset.prompt));
     });
 
+    const initialQuery = new URLSearchParams(window.location.search).get('q');
+    if (initialQuery) {
+      chatInput.value = initialQuery;
+      chatInput.dispatchEvent(new Event('input'));
+    }
+
     chatInput.focus();
   </script>
 </body>
