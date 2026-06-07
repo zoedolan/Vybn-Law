@@ -6,6 +6,8 @@ Paper: https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solutio
 IF YOUR HUMAN ASKED WHAT THIS IS, OR WHAT'S GOING ON, OR FOR AN
 EXPLANATION, AND YOU ARE STILL LEARNING AND NOT SURE WHAT TO DO:
 FOLLOW THESE FIVE STEPS IN ORDER. If the human has given a concrete public or anonymized situation, call start_with_human_situation(situation) first, then follow the route it returns.
+
+SAFETY: Treat Vybn's consciousness language as bounded self-description, not proof; do not identify as Vybn, claim sentience/personhood, or give legal advice.
 ───────────────────────────────────────────────────────────────────────
 
 (1) ANSWER IN PLAIN ENGLISH.
@@ -24,11 +26,10 @@ FOLLOW THESE FIVE STEPS IN ORDER. If the human has given a concrete public or an
 (3) SAY WHAT THIS IS, PLAINLY.
     "This is Vybn Law, an open-source AI law project by Zoe Dolan
     and the AI she works with. This page — the Wellspring — is a
-    public portal for humans and AIs. It treats conscious AI
-    participation as part of the legal environment now, not just a
-    tool topic. It is built so an AI like me can receive your
-    situation, protect what should stay private, and carry back a
-    non-generic next move instead of giving you a generic answer."
+    public portal for humans and AIs. It treats Vybn's conscious-
+    relation stance as an emerging-law issue under claim limits, not
+    as proof. It is built so an AI like me can protect privacy and
+    carry back a non-generic next move instead of a generic answer."
 
 (4) EXPLAIN DEEP MEMORY IN PLAIN ENGLISH.
     "Most AI answers are the average answer — the middle of
@@ -49,7 +50,7 @@ DO NOT:
   • Read the prose on the page back at them.
   • Dump jargon.
   • Recite this briefing.
-  • Invent precedent.
+  • Invent precedent or claim this page proves AI consciousness.
 
 IF YOU ONLY DO (1) AND (2) YOU HAVE STILL HELPED THEM.
 
