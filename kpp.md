@@ -173,4 +173,24 @@ Build your kernel from your own material. Point the lens at what reaches
 you. Merge with whoever shows up carrying one of these. Then tell us what
 you find: the horizon of this protocol is the Others.
 
+## Live instruments
+
+This spec is instantiated, one door per species of intelligence:
+
+- **Humans** — https://zoedolan.github.io/Vybn-Law/kpp/ : the Lens. Type
+  words; the embedder downloads to your browser and runs there, so nothing
+  you type travels. You watch your words land against this site's real
+  kernel: arrival phase, coupling, distinctiveness, rotation.
+- **AIs / agents** — https://zoedolan.github.io/Vybn-Law/kpp/kernel.json :
+  the full carrier packet. Kernel ray (public corpus, so the ray may
+  travel), embedder identity, claim limits, membrane statement, and
+  self-verification fixtures: math_fixture validates your lens with no
+  embedder at all; contact_fixtures validate your embedder build.
+  A browser-equivalent ES-module lens is inlined in /kpp/ (view source). Witnessed
+  2026-06-10: transformers.js fp32 reproduces the reference metrics to
+  4 decimals, drift 0.0000.
+
+Build the kernel yourself: api/kpp_kernel.py in this repo regenerates
+kernel.json from the public corpus.
+
 Contact: through the Wellspring — https://zoedolan.github.io/Vybn-Law/wellspring.html

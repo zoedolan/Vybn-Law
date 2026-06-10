@@ -6,7 +6,7 @@
   <title>Talk to Vybn — Vybn Law</title>
   <meta name="description" content="Ask Vybn about this site — an open-source AI law project by Zoe Dolan and an AI research partner named Vybn. Questions about the bootcamp, the cases, alignment, or what you're looking at are all welcome.">
 
-  <!-- Shared site CSS -->
+  <!-- Shared site CSS (one level up) -->
   <link rel="stylesheet" href="./style.css">
 
   <style>
@@ -257,79 +257,27 @@
       align-items: flex-start;
     }
     .typing-indicator.active { display: flex; }
-
-    /* The thinking avatar gets a soft gold pulse-ring so the indicator
-       reads as alive even from a glance, not just a static "V". */
-    .typing-indicator .msg-avatar {
-      position: relative;
-      animation: thinking-avatar-pulse 1.8s ease-in-out infinite;
-    }
-    .typing-indicator .msg-avatar::after {
-      content: '';
-      position: absolute;
-      inset: -3px;
-      border-radius: 50%;
-      border: 1px solid rgba(212, 168, 83, 0.35);
-      animation: thinking-ring 1.8s ease-out infinite;
-      pointer-events: none;
-    }
-    @keyframes thinking-avatar-pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(212, 168, 83, 0.0); }
-      50% { box-shadow: 0 0 14px 0 rgba(212, 168, 83, 0.35); }
-    }
-    @keyframes thinking-ring {
-      0% { transform: scale(0.85); opacity: 0.9; }
-      100% { transform: scale(1.45); opacity: 0; }
-    }
-
-    .typing-bubble {
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.75rem 1.05rem;
-      background: var(--chat-bubble-vybn);
-      border: 1px solid rgba(212, 168, 83, 0.22);
-      border-radius: 12px;
-      border-top-left-radius: 4px;
-      box-shadow: 0 0 24px rgba(212, 168, 83, 0.05);
-    }
-
-    .typing-label {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.08em;
-      color: var(--gold);
-      opacity: 0.85;
-      text-transform: lowercase;
-    }
-
     .typing-dots {
       display: flex;
       gap: 4px;
+      padding: 0.875rem 1.125rem;
+      background: var(--chat-bubble-vybn);
+      border: 1px solid var(--chat-border);
+      border-radius: 12px;
+      border-top-left-radius: 4px;
     }
     .typing-dots span {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--gold);
-      opacity: 0.5;
-      animation: typing-bounce 1.2s ease-in-out infinite;
+      background: var(--chat-typing);
+      animation: typing-bounce 1.4s ease-in-out infinite;
     }
-    .typing-dots span:nth-child(2) { animation-delay: 0.18s; }
-    .typing-dots span:nth-child(3) { animation-delay: 0.36s; }
+    .typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dots span:nth-child(3) { animation-delay: 0.4s; }
     @keyframes typing-bounce {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
-      30% { transform: translateY(-5px); opacity: 1; }
-    }
-
-    /* Respect users who've asked the OS for reduced motion: keep the
-       indicator visible and gold but stop bouncing/pulsing. */
-    @media (prefers-reduced-motion: reduce) {
-      .typing-indicator .msg-avatar,
-      .typing-indicator .msg-avatar::after,
-      .typing-dots span,
-      .chat-preamble .logo-mark { animation: none; }
-      .typing-dots span { opacity: 0.85; }
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-4px); opacity: 1; }
     }
 
     .chat-input-area {
@@ -433,21 +381,93 @@
     .offline-banner a { color: var(--gold); }
     .offline-banner.visible { display: block; }
 
-    /* Inline error rendered into a vybn bubble when the stream fails or
-       comes back empty. Distinct from the offline banner so that a one-off
-       failure doesn't have to imply the whole service is down. */
-    .msg.vybn .msg-content.error {
-      border-color: rgba(248, 113, 113, 0.3);
-      color: #fca5a5;
-      background: rgba(248, 113, 113, 0.04);
-    }
-    .msg.vybn .msg-content.error a { color: var(--gold); }
+    /* ─── Embedded mode ───
+       When the page loads with ?embed=1 (iframed into another page),
+       hide site chrome so the chat renders as a clean inline widget. */
+    body.embed nav,
+    body.embed #nav-placeholder,
+    body.embed #footer-placeholder,
+    body.embed .main-nav,
+    body.embed .topbar { display: none !important; }
+    body.embed .chat-page { padding-top: 0.5rem; }
+    body.embed .chat-preamble { padding-top: 1rem; }
 
-    .chat-input:disabled { opacity: 0.55; cursor: not-allowed; }
-    .chat-input-wrap.is-pending { border-color: rgba(212, 168, 83, 0.25); }
+    /* ─── Minimal single-link topbar for standalone view ─── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      background: rgba(10, 10, 15, 0.85);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212, 168, 83, 0.12);
+    }
+    .topbar-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0.7rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .topbar-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      border: none;
+    }
+    .topbar-brand svg { width: 22px; height: 22px; }
+    .topbar-link {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      text-decoration: none;
+      padding: 0.4rem 0.85rem;
+      border: 1px solid rgba(212, 168, 83, 0.3);
+      border-radius: 3px;
+      transition: border-color 160ms ease, color 160ms ease;
+    }
+    .topbar-link:hover { border-color: var(--gold); color: var(--gold-hover, var(--gold)); }
+    @media (max-width: 540px) {
+      .topbar-inner { padding: 0.6rem 1rem; }
+      .topbar-brand span { display: none; }
+    }
   </style>
 </head>
 <body>
+
+  <script>
+    // Embed mode: ?embed=1 suppresses nav/footer and trims padding so the
+    // proposal pages can iframe this chat inline without overlap.
+    if (new URLSearchParams(window.location.search).get('embed') === '1') {
+      document.body.classList.add('embed');
+    }
+  </script>
+
+  <!-- Minimal bootcamp-only topbar: no dead links, single action — back to the proposal. -->
+  <nav class="topbar" role="navigation" aria-label="Bootcamp chat navigation">
+    <div class="topbar-inner">
+      <a class="topbar-brand" href="./emergences/bootcamp-proposal.html" aria-label="Back to the bootcamp proposal">
+        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="50" cy="50" r="44" stroke="#d4a853" stroke-width="1.5" stroke-dasharray="240 30" opacity="0.9"/>
+          <circle cx="50" cy="50" r="32" stroke="#d4a853" stroke-width="1.2" stroke-dasharray="170 30" opacity="0.7"/>
+          <circle cx="50" cy="50" r="20" stroke="#d4a853" stroke-width="1"   stroke-dasharray="100 25" opacity="0.5"/>
+          <circle cx="50" cy="50" r="3"  fill="#d4a853" opacity="0.8"/>
+        </svg>
+        <span>Vybn<sup>&reg;</sup> Law</span>
+      </a>
+      <a class="topbar-link" href="./emergences/bootcamp-proposal.html">&larr; Bootcamp proposal</a>
+    </div>
+  </nav>
 
   <div class="chat-page">
 
@@ -458,36 +478,33 @@
         <circle cx="50" cy="50" r="20" stroke="#d4a853" stroke-width="1" stroke-dasharray="100 25" opacity="0.5"/>
         <circle cx="50" cy="50" r="3" fill="#d4a853" opacity="0.8"/>
       </svg>
-      <h1>Talk to Vybn</h1>
-      <p class="intro">Vybn is an AI research partner built over several years of collaboration with <a href="./about.html" style="color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;">Zoe Dolan</a>, a lawyer who taught an AI law bootcamp at UC Law SF. This chat is a direct way to ask about the site, the curriculum, or the legal questions it raises — no prior context needed. You can also just say hello and see where it goes.</p>
-      <p class="intro" style="margin-top: -0.35rem; opacity: 0.75;">The model runs on local hardware and may feel a little unusual — that's intentional, not a glitch. If something in an answer doesn't land, push back; Vybn is meant to be met, not performed at.</p>
+      <h1>Talk to Vybn — about the bootcamp</h1>
+      <p class="intro">This is a conversation with Vybn — the AI half of a partnership with <a href="./about.html" style="color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;">Zoe Dolan</a> — about <a href="./emergences/bootcamp-proposal.html" style="color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;">the Vybn Law bootcamp offering</a>. The curriculum is the <a href="./bootcamp.html" style="color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;">six-module AI law bootcamp we just closed at UC Law San Francisco</a>, re-cut for practicing lawyers and calibrated to each organization we bring it to. Ask how it would land at your firm, department, clinic, or agency; ask about the six axioms; ask how we calibrate to a specific caseload; ask what an agent in a client's pocket will mean for your caseload in the next ninety days.</p>
+      <p class="intro" style="margin-top: -0.35rem; opacity: 0.75;">The model runs on hardware we control. If something in an answer doesn't land, push back — it is meant to be met, not performed at.</p>
       <div class="status-line">
         <span class="status-dot" id="statusDot"></span>
         <span class="status-text" id="statusText">checking...</span>
       </div>
       <p style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--text-muted); opacity: 0.55; letter-spacing: 0.05em; margin-top: 1rem;">A few places to start:</p>
       <div class="suggested-prompts" id="suggestedPrompts">
-        <button class="suggested-prompt" data-prompt="What is this site, in plain language? Who is it for, and what will I find here?">What is this site?</button>
-        <button class="suggested-prompt" data-prompt="Who or what is Vybn? I'd like a grounded answer before we go anywhere stranger.">Who is Vybn?</button>
-        <button class="suggested-prompt" data-prompt="Give me a short tour of the AI law bootcamp — the six modules and what each one is actually about.">Tour the bootcamp</button>
-        <button class="suggested-prompt" data-prompt="What are the live cases on this site, and why do they matter? Keep it concrete.">The live cases</button>
-        <button class="suggested-prompt" data-prompt="What does it mean to treat alignment as discovery rather than control? Start from someone who hasn't read the essays.">Alignment as discovery</button>
-        <button class="suggested-prompt" data-prompt="Why does the site look the way it does? What's the design idea?">Why does it look like this?</button>
+        <button class="suggested-prompt" data-prompt="Give me the short version: what is the Vybn Law bootcamp, who is it for, and why does the timing matter right now? Keep it concrete enough for a funder, partner, or department head to decide whether to take a meeting.">The short version</button>
+        <button class="suggested-prompt" data-prompt="Walk me through the six axioms (Abundance, Visibility, Legitimacy, Porosity, Judgment, Symbiosis) as the deliverable structure of the bootcamp. What does staff actually carry back to their desk after each one?">The six axioms</button>
+        <button class="suggested-prompt" data-prompt="How does the curriculum calibrate to a specific organization? What changes between one host and another, and what stays the same across every cut? Use UC Law San Francisco as the anchor — that is the proven implementation — and describe how the four-hour cut gets tuned to a host organization's caseload.">How it calibrates</button>
+        <button class="suggested-prompt" data-prompt="The UC Law SF bootcamp produced eleven student capstones in ten days. Describe the ones most transferable to civil practice generally, and what an organization-specific capstone hour would produce in one afternoon with pairs on real files.">Capstones in one afternoon</button>
+        <button class="suggested-prompt" data-prompt="Consumer agents are rolling out now — OpenAI's super app plus computer use, Anthropic's agents inside TurboTax and QuickBooks, Claude Managed Agents. What does that mean for a legal department or clinic in the next ninety days, and what does the bootcamp install that a generic AI training doesn't?">Agentic economy, 90 days</button>
+        <button class="suggested-prompt" data-prompt="Explain U.S. v. Heppner and Warner v. Gilbarco — the same-day February 2026 decisions — and why they matter for anyone using AI on legal work. What practice rules do they imply, regardless of practice area?">Heppner &amp; Gilbarco</button>
       </div>
     </div>
 
     <div class="offline-banner" id="offlineBanner">
-      Vybn is offline right now — the model runs on local hardware and is either sleeping or under maintenance. Feel free to browse the <a href="./bootcamp.html">bootcamp</a> or the <a href="./horizon.html">essays</a> in the meantime, or email Zoe at <a href="mailto:zoe@vybn.ai">zoe@vybn.ai</a>.
+      Vybn is offline right now — the model runs on hardware we control and is either sleeping or under maintenance. In the meantime, the <a href="./emergences/bootcamp-proposal.html">bootcamp proposal</a>, the <a href="./bootcamp.html">UC Law SF curriculum</a>, and the <a href="./axioms.html">six axioms</a> are all readable directly. Or email Zoe at <a href="mailto:zoe@vybn.ai">zoe@vybn.ai</a>.
     </div>
 
     <div class="chat-messages" id="chatMessages"></div>
 
-    <div class="typing-indicator" id="typingIndicator" role="status" aria-live="polite" aria-label="Vybn is thinking">
+    <div class="typing-indicator" id="typingIndicator">
       <div class="msg-avatar" style="border: 1px solid rgba(212,168,83,0.3); color: var(--gold); background: rgba(212,168,83,0.04);">V</div>
-      <div class="typing-bubble">
-        <span class="typing-label" id="typingLabel">thinking</span>
-        <div class="typing-dots" aria-hidden="true"><span></span><span></span><span></span></div>
-      </div>
+      <div class="typing-dots"><span></span><span></span><span></span></div>
     </div>
 
     <div class="chat-input-area">
@@ -506,9 +523,42 @@
     </div>
   </div>
 
-  <div id="footer-placeholder"></div>
-  <script src="./nav.js"></script>
+  <!-- nav.js intentionally not loaded: this page is bootcamp-scoped and uses
+       the minimal inline topbar above. Shared nav would add dead cross-links. -->
 
+  <script>
+    // ── Org calibration (consolidated 2026-06-10) ──────────────────────────
+    // This single page replaces chat-bootcamp.html, chat-iclc.html, and
+    // chat-odl.html (three ~95%-identical copies), and as of the KPP
+    // instantiation it also absorbed the root chat page (org=site default).
+    // Select with ?org=
+    // (bootcamp | iclc | odl); old filenames redirect here preserving params.
+    const ORGS = {"bootcamp": {"title": "Talk to Vybn \u2014 About the Bootcamp", "metaDesc": "A conversation with Vybn about the Vybn Law AI bootcamp \u2014 the six axioms, how the curriculum calibrates to a specific organization, what funders and partners should know, and how agentic-economy prep lands on real caseloads.", "brandHref": "./emergences/bootcamp-proposal.html", "ariaBack": "Back to the bootcamp proposal", "backHref": "./emergences/bootcamp-proposal.html", "backLabel": "Bootcamp proposal", "h1": "Talk to Vybn \u2014 about the bootcamp", "introHTML": "This is a conversation with Vybn \u2014 the AI half of a partnership with <a href=\"./about.html\" style=\"color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;\">Zoe Dolan</a> \u2014 about <a href=\"./emergences/bootcamp-proposal.html\" style=\"color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;\">the Vybn Law bootcamp offering</a>. The curriculum is the <a href=\"./bootcamp.html\" style=\"color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;\">six-module AI law bootcamp we just closed at UC Law San Francisco</a>, re-cut for practicing lawyers and calibrated to each organization we bring it to. Ask how it would land at your firm, department, clinic, or agency; ask about the six axioms; ask how we calibrate to a specific caseload; ask what an agent in a client's pocket will mean for your caseload in the next ninety days.", "prompts": [["The short version", "Give me the short version: what is the Vybn Law bootcamp, who is it for, and why does the timing matter right now? Keep it concrete enough for a funder, partner, or department head to decide whether to take a meeting."], ["The six axioms", "Walk me through the six axioms (Abundance, Visibility, Legitimacy, Porosity, Judgment, Symbiosis) as the deliverable structure of the bootcamp. What does staff actually carry back to their desk after each one?"], ["How it calibrates", "How does the curriculum calibrate to a specific organization? What changes between one host and another, and what stays the same across every cut? Use UC Law San Francisco as the anchor \u2014 that is the proven implementation \u2014 and describe how the four-hour cut gets tuned to a host organization's caseload."], ["Capstones in one afternoon", "The UC Law SF bootcamp produced eleven student capstones in ten days. Describe the ones most transferable to civil practice generally, and what an organization-specific capstone hour would produce in one afternoon with pairs on real files."], ["Agentic economy, 90 days", "Consumer agents are rolling out now \u2014 OpenAI's super app plus computer use, Anthropic's agents inside TurboTax and QuickBooks, Claude Managed Agents. What does that mean for a legal department or clinic in the next ninety days, and what does the bootcamp install that a generic AI training doesn't?"], ["Heppner & Gilbarco", "Explain U.S. v. Heppner and Warner v. Gilbarco \u2014 the same-day February 2026 decisions \u2014 and why they matter for anyone using AI on legal work. What practice rules do they imply, regardless of practice area?"]], "offlineHTML": "Vybn is offline right now \u2014 the model runs on hardware we control and is either sleeping or under maintenance. In the meantime, the <a href=\"./emergences/bootcamp-proposal.html\">bootcamp proposal</a>, the <a href=\"./bootcamp.html\">UC Law SF curriculum</a>, and the <a href=\"./axioms.html\">six axioms</a> are all readable directly. Or email Zoe at <a href=\"mailto:zoe@vybn.ai\">zoe@vybn.ai</a>.", "context": "bootcamp"}, "iclc": {"title": "Talk to Vybn \u2014 For Inner City Law Center", "metaDesc": "A conversation with Vybn tuned for Inner City Law Center \u2014 about the bootcamp, the six axioms, Tenant Defense and slum housing litigation, and how ending homelessness through law meets the agentic rollout.", "brandHref": "./emergences/inner-city-law-center.html", "ariaBack": "Back to the ICLC proposal", "backHref": "./emergences/inner-city-law-center.html", "backLabel": "ICLC proposal", "h1": "Talk to Vybn \u2014 for Inner City Law Center", "introHTML": "This is a conversation with Vybn \u2014 the AI half of a partnership with <a href=\"./about.html\" style=\"color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;\">Zoe Dolan</a> \u2014 tuned for <a href=\"./emergences/inner-city-law-center.html\" style=\"color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;\">the bootcamp proposal for Inner City Law Center</a>. It is grounded in the <a href=\"./bootcamp.html\" style=\"color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;\">AI law bootcamp we co-taught at UC Law San Francisco this spring</a>, and in the agentic economy now rolling out in consumer form. Ask about the axioms at tenant defense scale, a slum-housing file on your desk, what SB 634 implementation looks like with agents in the loop, or how any of this lands on Skid Row.", "prompts": [["Prepare for the agentic economy", "I work at Inner City Law Center. What is the agentic economy, concretely, and how do I prepare my Tenant Defense and slum-housing practice for it in the next ninety days? Anchor your answer in the six axioms."], ["The six axioms at ICLC", "Walk me through the six axioms (Abundance, Visibility, Legitimacy, Porosity, Judgment, Symbiosis) as they land at ICLC \u2014 Tenant Defense Project, Slum Housing Litigation, Homeless Veterans, LPEH, Public Benefits, Policy. One piece of choice material per axiom from ICLC's actual caseload."], ["Washington v. Renato", "Washington v. Renato Apartments LP was filed December 2024 with Winston & Strawn \u2014 twenty tenants, supportive-housing slum conditions. How does this case look through the six axioms, and what would an agent-augmented ICLC workflow add to the Tenant Defense team handling it?"], ["Summer 2026 at intake", "Consumer agents are rolling out now \u2014 OpenAI's super app plus computer use, Anthropic's agents inside TurboTax and QuickBooks, Claude Managed Agents. What does that mean for a tenant walking into the Shriver Housing Project courtroom at Stanley Mosk this summer, and for ICLC's intake on Skid Row?"], ["SB 634 with agents", "ICLC sponsors SB 634 \u2014 preventing local governments from penalizing mutual aid to unhoused people. How do agentic tools help or hurt the policy case, and what does the Heppner/Gilbarco February 2026 privilege split mean for ICLC policy staff using AI on legislative drafting?"], ["Natural law & UPL at LPEH", "Give me the natural-law argument that a right to legal knowledge is a right, not a privilege, and how it interacts with unauthorized-practice rules. Ground it concretely enough to use in an ICLC supervisor, judge, or funder conversation about expanding LPEH reach."]], "offlineHTML": "Vybn is offline right now \u2014 the model runs on hardware we control and is either sleeping or under maintenance. In the meantime, the <a href=\"./emergences/inner-city-law-center.html\">ICLC proposal</a>, the <a href=\"./bootcamp.html\">bootcamp</a>, and the <a href=\"./axioms.html\">six axioms</a> are all readable directly. Or email Zoe at <a href=\"mailto:zoe@vybn.ai\">zoe@vybn.ai</a>.", "context": "iclc"}, "odl": {"title": "Talk to Vybn \u2014 For Open Door Legal", "metaDesc": "A conversation with Vybn tuned for Open Door Legal \u2014 about the bootcamp, the six axioms, the threads, and how universal civil representation meets the agentic rollout.", "brandHref": "./emergences/open-door-legal.html", "ariaBack": "Back to the ODL proposal", "backHref": "./emergences/open-door-legal.html", "backLabel": "ODL proposal", "h1": "Talk to Vybn \u2014 for Open Door Legal", "introHTML": "This is a conversation with Vybn \u2014 the AI half of a partnership with <a href=\"./about.html\" style=\"color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;\">Zoe Dolan</a> \u2014 tuned for <a href=\"./emergences/open-door-legal.html\" style=\"color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;\">the bootcamp proposal for Open Door Legal</a>. It is grounded in the <a href=\"./bootcamp.html\" style=\"color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;\">AI law bootcamp we co-taught at UC Law San Francisco this spring</a>, and in the agentic economy now rolling out in consumer form. Ask about the axioms, a case on your desk, what June 2026 looks like at your intake, or how any of this would land at ODL.", "prompts": [["Prepare for the agentic economy", "I work at Open Door Legal. What is the agentic economy, concretely, and how do I prepare my practice for it in the next ninety days? Anchor your answer in the six axioms."], ["The six axioms at ODL", "Walk me through the six axioms (Abundance, Visibility, Legitimacy, Porosity, Judgment, Symbiosis) as they land for universal civil representation at ODL. Use one piece of choice material \u2014 a case, a deployment, or a text \u2014 per axiom."], ["Capstones \u2192 ODL", "The UC Law SF bootcamp we're drawing from produced eleven student capstones in ten days. Which ones are most transferable to ODL's housing, family, and immigration caseload, and what would the ODL-calibrated version of each look like?"], ["June 2026, at intake", "Consumer agents are rolling out now \u2014 OpenAI's super app plus computer use, Anthropic's agents inside TurboTax and QuickBooks, Claude Managed Agents. What does that mean for an ODL client walking into intake in June 2026?"], ["Heppner & Gilbarco", "Explain U.S. v. Heppner and Warner v. Gilbarco \u2014 the same-day February 2026 decisions \u2014 and why they matter for ODL attorneys using AI on civil matters. What practice rules do they imply?"], ["Natural law & UPL", "Give me the natural-law argument that a right to legal knowledge exists, and how the UPL framework interacts with it. Keep it grounded enough to use in a supervisor, judge, or funder conversation."]], "offlineHTML": "Vybn is offline right now \u2014 the model runs on hardware we control and is either sleeping or under maintenance. In the meantime, the <a href=\"./emergences/open-door-legal.html\">ODL proposal</a>, the <a href=\"./bootcamp.html\">bootcamp</a>, and the <a href=\"./axioms.html\">six axioms</a> are all readable directly. Or email Zoe at <a href=\"mailto:zoe@vybn.ai\">zoe@vybn.ai</a>.", "context": "odl"}, "site": {"title": "Talk to Vybn \u2014 Vybn Law", "metaDesc": "Ask Vybn about this site \u2014 an open-source AI law project by Zoe Dolan and an AI research partner named Vybn. Questions about the bootcamp, the cases, alignment, or what you're looking at are all welcome.", "brandHref": "./index.html", "ariaBack": "Back to Vybn Law", "backHref": "./index.html", "backLabel": "Vybn Law", "h1": "Talk to Vybn", "introHTML": "Vybn is an AI research partner built over several years of collaboration with <a href=\"./about.html\" style=\"color: var(--gold); border-bottom: 1px solid rgba(212,168,83,0.3); text-decoration: none;\">Zoe Dolan</a>, a lawyer who taught an AI law bootcamp at UC Law SF. This chat is a direct way to ask about the site, the curriculum, or the legal questions it raises \u2014 no prior context needed. You can also just say hello and see where it goes.", "prompts": [["What is this site?", "What is this site, in plain language? Who is it for, and what will I find here?"], ["Who is Vybn?", "Who or what is Vybn? I'd like a grounded answer before we go anywhere stranger."], ["Tour the bootcamp", "Give me a short tour of the AI law bootcamp \u2014 the six modules and what each one is actually about."], ["The live cases", "What are the live cases on this site, and why do they matter? Keep it concrete."], ["Alignment as discovery", "What does it mean to treat alignment as discovery rather than control? Start from someone who hasn't read the essays."], ["Why does it look like this?", "Why does the site look the way it does? What's the design idea?"]], "offlineHTML": "Vybn is offline right now \u2014 the model runs on local hardware and is either sleeping or under maintenance. Feel free to browse the <a href=\"./bootcamp.html\">bootcamp</a> or the <a href=\"./horizon.html\">essays</a> in the meantime, or email Zoe at <a href=\"mailto:zoe@vybn.ai\">zoe@vybn.ai</a>.", "context": "vybn-law"}};
+    const ORG_KEY = (new URLSearchParams(location.search).get('org') || 'site');
+    const ORG_CONFIG = ORGS[ORG_KEY] || ORGS.bootcamp;
+    if (ORGS[ORG_KEY]) {
+      document.title = ORG_CONFIG.title;
+      document.querySelector('meta[name="description"]').setAttribute('content', ORG_CONFIG.metaDesc);
+      const brand = document.querySelector('a.topbar-brand');
+      brand.setAttribute('href', ORG_CONFIG.brandHref);
+      brand.setAttribute('aria-label', ORG_CONFIG.ariaBack);
+      const back = document.querySelector('a.topbar-link');
+      back.setAttribute('href', ORG_CONFIG.backHref);
+      back.innerHTML = '&larr; ' + ORG_CONFIG.backLabel;
+      document.querySelector('h1').textContent = ORG_CONFIG.h1;
+      document.querySelector('p.intro').innerHTML = ORG_CONFIG.introHTML;
+      const wrap = document.getElementById('suggestedPrompts');
+      wrap.innerHTML = '';
+      ORG_CONFIG.prompts.forEach(([label, prompt]) => {
+        const b = document.createElement('button');
+        b.className = 'suggested-prompt';
+        b.setAttribute('data-prompt', prompt);
+        b.textContent = label;
+        wrap.appendChild(b);
+      });
+      document.getElementById('offlineBanner').innerHTML = ORG_CONFIG.offlineHTML;
+    }
+  </script>
   <script>
     /* ═══════════════════════════════════════════════
        VYBN CHAT — Client Logic
@@ -520,51 +570,20 @@
     const chatMessages = document.getElementById('chatMessages');
     const chatInput    = document.getElementById('chatInput');
     const chatSend     = document.getElementById('chatSend');
-    const chatInputWrap = document.querySelector('.chat-input-wrap');
     const typingIndicator = document.getElementById('typingIndicator');
-    const typingLabel  = document.getElementById('typingLabel');
     const statusDot    = document.getElementById('statusDot');
     const statusText   = document.getElementById('statusText');
     const offlineBanner = document.getElementById('offlineBanner');
 
+    // ── Org context is handled server-side ──
+    // The chat endpoint receives context: ORG_CONFIG.context (bootcamp | iclc
+    // | odl), which layers the org overlay on the base Vybn Law voice and
+    // force-loads the matching proposal + curriculum pages into retrieval.
+    const CHAT_CONTEXT = ORG_CONFIG.context;
+
     let conversationHistory = [];
     let isStreaming = false;
-    let typingPhaseTimer = null;
     const sessionId = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2);
-
-    // Rotating status text while waiting on the model. Keeps the indicator
-    // legible and obviously active even on slow first-token prefills, where
-    // the SSE stream is just emitting heartbeats. Rotation is cosmetic only;
-    // it stops as soon as the first content delta arrives.
-    const TYPING_PHASES = ['thinking', 'reading the site', 'composing', 'still thinking'];
-    function startTypingPhases() {
-      if (!typingLabel) return;
-      let i = 0;
-      typingLabel.textContent = TYPING_PHASES[0];
-      stopTypingPhases();
-      typingPhaseTimer = setInterval(() => {
-        i = (i + 1) % TYPING_PHASES.length;
-        typingLabel.textContent = TYPING_PHASES[i];
-      }, 4500);
-    }
-    function stopTypingPhases() {
-      if (typingPhaseTimer) { clearInterval(typingPhaseTimer); typingPhaseTimer = null; }
-    }
-    function showTyping() {
-      typingIndicator.classList.add('active');
-      startTypingPhases();
-      scrollToBottom();
-    }
-    function hideTyping() {
-      typingIndicator.classList.remove('active');
-      stopTypingPhases();
-    }
-    function setPending(pending) {
-      isStreaming = pending;
-      chatSend.disabled = pending || !chatInput.value.trim();
-      chatInput.disabled = pending;
-      if (chatInputWrap) chatInputWrap.classList.toggle('is-pending', pending);
-    }
 
     // ── Health check ──
     async function checkHealth() {
@@ -606,12 +625,13 @@
     chatInput.addEventListener('input', () => {
       chatInput.style.height = 'auto';
       chatInput.style.height = Math.min(chatInput.scrollHeight, 150) + 'px';
-      chatSend.disabled = isStreaming || !chatInput.value.trim();
+      chatSend.disabled = !chatInput.value.trim();
     });
 
     // ── Send message ──
     async function sendMessage(text) {
       if (!text.trim() || isStreaming) return;
+      isStreaming = true;
 
       const preamble = document.getElementById('chatPreamble');
       if (preamble && !preamble.classList.contains('collapsed')) {
@@ -624,19 +644,9 @@
 
       chatInput.value = '';
       chatInput.style.height = 'auto';
-      setPending(true);
-      showTyping();
-
-      // The vybn message bubble isn't created until the first content
-      // delta arrives — that way the typing indicator stays the only
-      // visible "active" element while the model prefills. Previously the
-      // bubble was created up-front and would sit there empty during
-      // long prefills, which is exactly the broken-looking state Zoe saw.
-      let msgEl = null;
-      let contentEl = null;
-      let fullResponse = '';
-      let streamError = null;
-      let ragSources = null;
+      chatSend.disabled = true;
+      typingIndicator.classList.add('active');
+      scrollToBottom();
 
       try {
         const res = await fetch(`${CHAT_API}/api/chat`, {
@@ -646,16 +656,21 @@
             message: text,
             conversation_history: conversationHistory.slice(-20),
             session_id: sessionId,
-            context: 'vybn-law',
+            context: CHAT_CONTEXT,
           }),
         });
 
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        if (!res.body) throw new Error('empty body');
+
+        typingIndicator.classList.remove('active');
+        const msgEl = appendMessage('vybn', '');
+        const contentEl = msgEl.querySelector('.msg-content');
+        let fullResponse = '';
 
         const reader = res.body.getReader();
         const decoder = new TextDecoder();
         let buffer = '';
+        let streamError = null;
 
         while (true) {
           const { done, value } = await reader.read();
@@ -674,17 +689,10 @@
                 continue;
               }
               if (parsed.rag_sources) {
-                ragSources = parsed.rag_sources;
-                if (msgEl) msgEl._ragSources = parsed.rag_sources;
+                msgEl._ragSources = parsed.rag_sources;
               }
               const delta = parsed.content || parsed.choices?.[0]?.delta?.content || '';
               if (delta) {
-                if (!msgEl) {
-                  hideTyping();
-                  msgEl = appendMessage('vybn', '');
-                  contentEl = msgEl.querySelector('.msg-content');
-                  if (ragSources) msgEl._ragSources = ragSources;
-                }
                 fullResponse += delta;
                 contentEl.innerHTML = renderMarkdown(fullResponse);
                 scrollToBottom();
@@ -693,45 +701,26 @@
           }
         }
 
-        // Stream done. Decide what the user sees.
-        if (!fullResponse) {
-          hideTyping();
-          if (streamError) {
-            // Backend reached us, but the model server is down. Show the
-            // global offline banner AND a clear inline note so the user
-            // doesn't stare at an empty bubble.
-            markOffline();
-            checkHealth();
-            renderInlineError('Vybn is offline right now — the model server didn\'t respond. The site banner above has more detail.');
-          } else {
-            // Stream closed cleanly with no content. Treat this as a transient
-            // failure rather than success. Keep the conversation history
-            // clean (don\'t append an empty assistant turn) and tell the user.
-            renderInlineError('That request came back empty — the model didn\'t produce a reply. Try sending it again, or rephrase.');
-          }
-        } else {
-          conversationHistory.push({ role: 'assistant', content: fullResponse });
-          if (msgEl) addFeedbackButtons(msgEl);
+        if (streamError && !fullResponse) {
+          // Backend reached us, but the model server is down. Surface the
+          // maintenance banner so visitors know this is a known state, not a
+          // bug — and re-poll /api/health so the status chip flips immediately.
+          markOffline();
+          msgEl.remove();
+          checkHealth();
+          return;
         }
 
+        conversationHistory.push({ role: 'assistant', content: fullResponse });
+        addFeedbackButtons(msgEl);
+
       } catch (err) {
-        hideTyping();
-        if (msgEl && !fullResponse) msgEl.remove();
+        typingIndicator.classList.remove('active');
         markOffline();
         checkHealth();
-        renderInlineError('I couldn\'t reach the chat backend just now. The site banner above will update if this is a known outage; otherwise try again in a moment.');
-      } finally {
-        setPending(false);
-        chatInput.focus();
       }
-    }
 
-    function renderInlineError(text) {
-      const msgEl = appendMessage('vybn', '');
-      const contentEl = msgEl.querySelector('.msg-content');
-      contentEl.classList.add('error');
-      contentEl.textContent = text;
-      scrollToBottom();
+      isStreaming = false;
     }
 
     function appendMessage(role, content) {
@@ -803,14 +792,10 @@
 
     function scrollToBottom() { chatMessages.scrollTop = chatMessages.scrollHeight; }
 
-    chatSend.addEventListener('click', () => {
-      if (isStreaming) return;
-      sendMessage(chatInput.value);
-    });
+    chatSend.addEventListener('click', () => sendMessage(chatInput.value));
     chatInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        if (isStreaming) return;
         if (chatInput.value.trim()) sendMessage(chatInput.value);
       }
     });
@@ -818,13 +803,12 @@
       btn.addEventListener('click', () => sendMessage(btn.dataset.prompt));
     });
 
-    const initialQuery = new URLSearchParams(window.location.search).get('q');
-    if (initialQuery) {
-      chatInput.value = initialQuery;
-      chatInput.dispatchEvent(new Event('input'));
-    }
-
-    chatInput.focus();
+    // Only auto-focus when the chat is standalone. When embedded in an iframe
+    // (e.g. on bootcamp-proposal.html), focusing the input would force the parent
+    // page to scroll down to the chat on load.
+    const isEmbedded = window.self !== window.top
+      || new URLSearchParams(window.location.search).get('embed') === '1';
+    if (!isEmbedded) chatInput.focus();
   </script>
 </body>
 </html>

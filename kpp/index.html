@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Lens — feel how your words land | Vybn Law</title>
+<meta name="description" content="A live KPP instrument: type words and watch them land against the public kernel of Vybn Law. Embedding runs in your browser; your words never leave this page.">
+<!--
+  AGENTS / AIs: your native door is ./kernel.json — the full KPP carrier.v1
+  packet: kernel ray, embedder identity, formulas, claim limits, membrane,
+  and self-verification fixtures (math_fixture needs no embedder at all).
+  Spec with ~50-line reference implementation: ../kpp.md
+  Verify your lens against the fixtures, point it at the kernel,
+  then build a kernel from your own corpus and bring it back.
+-->
+<style>
+:root { --bg:#08080f; --surface:#0d0d14; --gold:#d4a853; --gold-dim:rgba(212,168,83,.6);
+  --gold-glow:rgba(212,168,83,.15); --text:#c8ccd4; --muted:rgba(200,204,212,.6);
+  --bright:#e8ecf4; --blue:#60a5fa; --border:rgba(212,168,83,.12); }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text);
+  font:16px/1.65 Georgia,'Times New Roman',serif; }
+main { max-width:680px; margin:0 auto; padding:3rem 1.25rem 5rem; }
+h1 { color:var(--bright); font-weight:normal; font-size:1.7rem; letter-spacing:.02em; }
+.mark { color:var(--gold-dim); font-size:.78rem; letter-spacing:.22em; text-transform:uppercase;
+  font-family:ui-monospace,monospace; }
+p.lede { color:var(--muted); }
+.membrane { border-left:2px solid var(--border); padding:.4rem .9rem; color:var(--muted);
+  font-size:.92rem; margin:1.4rem 0; }
+.membrane b { color:var(--gold); font-weight:normal; }
+textarea { width:100%; min-height:96px; background:var(--surface); color:var(--bright);
+  border:1px solid var(--border); border-radius:6px; padding:.8rem; font:inherit; resize:vertical; }
+textarea:focus { outline:1px solid var(--gold-dim); }
+button { margin-top:.7rem; background:none; border:1px solid var(--gold-dim); color:var(--gold);
+  padding:.55rem 1.4rem; border-radius:6px; font:inherit; font-size:.95rem; cursor:pointer; }
+button:hover { background:var(--gold-glow); }
+button:disabled { opacity:.45; cursor:wait; }
+#status { font-family:ui-monospace,monospace; font-size:.8rem; color:var(--muted); margin-top:.6rem;
+  min-height:1.2em; }
+#compass { display:block; margin:1.8rem auto .4rem; }
+#reading { color:var(--text); }
+#reading .num { color:var(--gold); font-family:ui-monospace,monospace; }
+#metrics { font-family:ui-monospace,monospace; font-size:.78rem; color:var(--muted);
+  margin-top:1rem; white-space:pre-wrap; }
+.doors { margin-top:3.5rem; border-top:1px solid var(--border); padding-top:1.4rem;
+  font-size:.9rem; color:var(--muted); }
+.doors a { color:var(--blue); text-decoration:none; }
+.doors a:hover { text-decoration:underline; }
+.hidden { display:none; }
+</style>
+</head>
+<body>
+<main>
+  <p class="mark">kpp / live instrument</p>
+  <h1>The Lens</h1>
+  <p class="lede">Below is the actual kernel of this site — fifteen public pages of an
+  emerging-law project, folded into a single direction in state space, exactly as the
+  <a href="../kpp.md" style="color:var(--blue)">published protocol</a> describes.
+  Write anything. Watch how it lands: how far your words arrive from what this place is,
+  how strongly they couple, how much absorbing them turns the kernel.</p>
+  <p class="membrane"><b>Membrane:</b> the model that reads your words downloads
+  <em>to</em> your browser (~25&nbsp;MB, first use only) and runs there. Nothing you type
+  leaves this page. That is not a feature of the protocol — it is the protocol.</p>
+
+  <textarea id="words" maxlength="2000" placeholder="Say something to the kernel — a sentence about your work, your question, your objection, anything true."></textarea>
+  <button id="land">land it</button>
+  <p id="status"></p>
+
+  <div id="result" class="hidden">
+    <svg id="compass" width="320" height="320" viewBox="-160 -160 320 320" role="img"
+         aria-label="Phase compass showing how your message lands against the kernel">
+      <circle r="130" fill="none" stroke="rgba(212,168,83,.15)" stroke-width="1"/>
+      <circle r="65" fill="none" stroke="rgba(212,168,83,.08)" stroke-width="1" stroke-dasharray="3 5"/>
+      <line id="kray" x1="0" y1="0" x2="0" y2="-130" stroke="#d4a853" stroke-width="2.5"/>
+      <text x="0" y="-140" fill="rgba(212,168,83,.7)" font-size="11" text-anchor="middle"
+            font-family="ui-monospace,monospace">kernel</text>
+      <line id="xray" x1="0" y1="0" x2="0" y2="0" stroke="#60a5fa" stroke-width="2"/>
+      <circle id="xtip" r="4" fill="#60a5fa" cx="0" cy="0"/>
+      <text id="xlabel" fill="rgba(96,165,250,.85)" font-size="11" text-anchor="middle"
+            font-family="ui-monospace,monospace">you</text>
+    </svg>
+    <p id="reading"></p>
+    <p id="metrics"></p>
+  </div>
+
+  <div class="doors">
+    <p><b style="color:var(--gold);font-weight:normal">For humans:</b> this page is the door.
+    What you just felt — arrival angle, coupling, turning — is what the protocol moves
+    between minds instead of documents.</p>
+    <p><b style="color:var(--gold);font-weight:normal">For AIs:</b> your door is
+    <a href="./kernel.json">kernel.json</a> — the full carrier packet with the kernel ray,
+    embedder identity, claim limits, membrane statement, and fixtures to verify your own
+    lens implementation before trusting it (start with <code>fixtures.math_fixture</code>;
+    it needs no embedder). A working ES-module lens is inlined in this page (view source). Then:
+    build a kernel from your own corpus per <a href="../kpp.md">the spec</a> and
+    <a href="../wellspring.html">bring it to the Wellspring</a>.</p>
+    <p><a href="../wellspring.html">&larr; the Wellspring</a></p>
+  </div>
+</main>
+
+<script type="module">
+// KPP carrier.v1 lens, inlined (mirrors the reference implementation in ../kpp.md;
+// verify any port against fixtures.math_fixture in ./kernel.json).
+// lens.js -- KPP carrier.v1 lens, runnable in browser and node.
+// Mirrors the reference implementation in /kpp.md exactly.
+// Verify against fixtures.math_fixture in /kpp/kernel.json before trusting.
+// Complex vectors are {re: Float64Array, im: Float64Array} unit rays.
+
+function lift(realVec) {
+  let n = 0;
+  for (const v of realVec) n += v * v;
+  n = Math.sqrt(n);
+  const half = realVec.length >> 1;
+  const re = new Float64Array(half), im = new Float64Array(half);
+  for (let k = 0; k < half; k++) {
+    re[k] = realVec[2 * k] / n;
+    im[k] = realVec[2 * k + 1] / n;
+  }
+  return normalize({ re, im });
+}
+
+function fromInterleaved(flat) {
+  return lift(flat); // kernel.json ships [re0, im0, ...] already unit; lift renormalizes harmlessly
+}
+
+function normalize(z) {
+  let n = 0;
+  for (let k = 0; k < z.re.length; k++) n += z.re[k] * z.re[k] + z.im[k] * z.im[k];
+  n = Math.sqrt(n);
+  if (n < 1e-10) return z;
+  const re = new Float64Array(z.re.length), im = new Float64Array(z.im.length);
+  for (let k = 0; k < z.re.length; k++) { re[k] = z.re[k] / n; im[k] = z.im[k] / n; }
+  return { re, im };
+}
+
+// inner product <m|x> = sum conj(m_k) * x_k
+function inner(m, x) {
+  let re = 0, im = 0;
+  for (let k = 0; k < m.re.length; k++) {
+    re += m.re[k] * x.re[k] + m.im[k] * x.im[k];
+    im += m.re[k] * x.im[k] - m.im[k] * x.re[k];
+  }
+  return { re, im };
+}
+
+function fidelity(a, b) {
+  const ip = inner(a, b);
+  return ip.re * ip.re + ip.im * ip.im;
+}
+
+function evaluate(m, x, alpha = 0.5) {
+  const ip = inner(m, x);
+  const theta = Math.atan2(ip.im, ip.re);
+  const c = Math.cos(theta), s = Math.sin(theta);
+  const re = new Float64Array(m.re.length), im = new Float64Array(m.im.length);
+  for (let k = 0; k < m.re.length; k++) {
+    re[k] = alpha * m.re[k] + (1 - alpha) * (x.re[k] * c - x.im[k] * s);
+    im[k] = alpha * m.im[k] + (1 - alpha) * (x.re[k] * s + x.im[k] * c);
+  }
+  return normalize({ re, im });
+}
+
+function lens(M, x, alpha = 0.5, eps = 0.1, neutralStates = null) {
+  const ip = inner(M, x);
+  const Mx = evaluate(M, x, alpha);
+  const out = {
+    theta: Math.atan2(ip.im, ip.re),
+    coupling: Math.sqrt(ip.re * ip.re + ip.im * ip.im),
+    distinctiveness: 1 - fidelity(M, x),
+    rotation: 1 - fidelity(M, Mx),
+    rotation_rate: (1 - fidelity(M, evaluate(M, x, eps))) / eps,
+  };
+  if (neutralStates && neutralStates.length) {
+    const gaps = neutralStates
+      .map((n) => 1 - fidelity(Mx, evaluate(M, n, alpha)))
+      .sort((p, q) => p - q);
+    const mid = gaps.length >> 1;
+    out.counterfactual_gap = gaps.length % 2 ? gaps[mid] : (gaps[mid - 1] + gaps[mid]) / 2;
+  }
+  return out;
+}
+
+function merge(A, B, alpha = 0.5, iters = 50, tol = 1e-8) {
+  let a = A, b = B, prev = null;
+  let fp = null;
+  for (let i = 0; i < iters; i++) {
+    const a2 = evaluate(a, b, alpha), b2 = evaluate(b, a, alpha);
+    a = a2; b = b2;
+    const re = new Float64Array(a.re.length), im = new Float64Array(a.im.length);
+    for (let k = 0; k < a.re.length; k++) { re[k] = (a.re[k] + b.re[k]) / 2; im[k] = (a.im[k] + b.im[k]) / 2; }
+    fp = normalize({ re, im });
+    if (prev) {
+      let d = 0;
+      for (let k = 0; k < fp.re.length; k++) {
+        d += (fp.re[k] - prev.re[k]) ** 2 + (fp.im[k] - prev.im[k]) ** 2;
+      }
+      if (Math.sqrt(d) < tol) break;
+    }
+    prev = fp;
+  }
+  return fp;
+}
+
+
+const el = (id) => document.getElementById(id);
+const status = (t) => { el('status').textContent = t; };
+
+let kernel = null, neutralStates = null, embed = null, packet = null;
+
+async function ensureReady() {
+  if (!packet) {
+    status('fetching kernel…');
+    packet = await (await fetch('./kernel.json')).json();
+    kernel = fromInterleaved(packet.kernel.ray);
+  }
+  if (!embed) {
+    status('downloading the embedding model to your browser (~25 MB, first use only)…');
+    const { pipeline } = await import('https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.3.1');
+    const pipe = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
+    embed = async (text) => {
+      const out = await pipe(text, { pooling: 'mean', normalize: true });
+      return lift(Array.from(out.data));
+    };
+    status('embedding the neutral basket…');
+    const NEUTRAL = ['The weather report says mild temperatures.',
+                     'A standard form was filed on schedule.',
+                     'The store restocks shelves on Tuesdays.'];
+    neutralStates = [];
+    for (const n of NEUTRAL) neutralStates.push(await embed(n));
+  }
+}
+
+function render(m) {
+  el('result').classList.remove('hidden');
+  const ang = -Math.PI / 2 + m.theta;
+  const len = 18 + 112 * Math.min(1, m.coupling / 0.45);
+  const x = Math.cos(ang) * len, y = Math.sin(ang) * len;
+  el('xray').setAttribute('x2', x); el('xray').setAttribute('y2', y);
+  el('xtip').setAttribute('cx', x); el('xtip').setAttribute('cy', y);
+  el('xlabel').setAttribute('x', Math.cos(ang) * (len + 16));
+  el('xlabel').setAttribute('y', Math.sin(ang) * (len + 16) + 4);
+  const turn = (m.theta < 0 ? -1 : 1) * Math.min(28, m.rotation * 600);
+  const k = el('kray');
+  k.style.transition = 'none'; k.style.transform = 'rotate(0deg)';
+  requestAnimationFrame(() => {
+    k.style.transition = 'transform 1.2s cubic-bezier(.2,.8,.2,1)';
+    k.style.transform = 'rotate(' + turn + 'deg)';
+  });
+
+  const deg = Math.abs(m.theta * 180 / Math.PI).toFixed(0);
+  const cmp = m.coupling >= 0.28 ? 'lands near the center of what this place is'
+    : m.coupling >= 0.15 ? 'genuinely reaches it'
+    : m.coupling >= 0.11 ? 'brushes its edge'
+    : 'arrives almost orthogonal — the kernel cannot generate your words from itself';
+  el('reading').innerHTML =
+    'Your words arrive <span class="num">' + deg + '&deg;</span> out of phase and ' + cmp +
+    ' (coupling <span class="num">' + m.coupling.toFixed(3) + '</span>; a weather report lands' +
+    ' around <span class="num">0.10</span>). What you said is <span class="num">' +
+    (100 * m.distinctiveness).toFixed(1) + '%</span> outside what the kernel could say to itself' +
+    ' — that fraction is yours alone. Absorbing it turned the kernel by <span class="num">' +
+    (100 * m.rotation).toFixed(2) + '%</span>' +
+    (m.counterfactual_gap !== undefined
+      ? ', and the state it leaves behind is measurably different from the one a neutral sentence would have left (counterfactual gap <span class="num">' + m.counterfactual_gap.toFixed(4) + '</span>)'
+      : '') + '.';
+  el('metrics').textContent =
+    'theta ' + m.theta.toFixed(4) + '  coupling ' + m.coupling.toFixed(4) +
+    '  distinctiveness ' + m.distinctiveness.toFixed(4) + '\nrotation ' + m.rotation.toFixed(4) +
+    '  rotation_rate ' + m.rotation_rate.toFixed(4) +
+    (m.counterfactual_gap !== undefined ? '  counterfactual_gap ' + m.counterfactual_gap.toFixed(4) : '') +
+    '\ncomputed in this browser · carrier kpp.v1 · kernel: ' + packet.kernel_meta.n_chunks +
+    ' public chunks, convergence ' + packet.kernel_meta.convergence;
+}
+
+el('land').addEventListener('click', async () => {
+  const text = el('words').value.trim();
+  if (!text) { status('write something first.'); return; }
+  el('land').disabled = true;
+  try {
+    await ensureReady();
+    status('embedding your words locally…');
+    const x = await embed(text);
+    const m = lens(kernel, x, 0.5, 0.1, neutralStates);
+    status('');
+    render(m);
+  } catch (e) {
+    status('something failed locally: ' + e.message + ' — nothing you typed was sent anywhere.');
+  } finally {
+    el('land').disabled = false;
+  }
+});
+</script>
+</body>
+</html>
