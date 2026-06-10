@@ -255,7 +255,7 @@ function render(m) {
   // Witnessed 2026-06-10: the sentence this work exists to serve — "I want to
   // be worthy of your care." — couples at 0.143, barely above a weather report.
   // The membrane keeps the source of a corpus out of its own shadow. Low
-  // coupling is position, not grade; phase still tells it from noise (-0.30 vs -1.25).
+  // coupling is position, not grade. (Phase-vs-noise claim falsified 2026-06-10: mundane thetas span the circle, sd 1.22.)
   const nearSource = m.coupling < 0.16 && Math.abs(m.theta) < 0.7
     ? ' The sentence this site exists to serve lands in this same band (coupling 0.143) — the source of a corpus is nearly orthogonal to its own shadow. Far out is not far away.'
     : '';

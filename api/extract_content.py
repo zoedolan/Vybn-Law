@@ -334,7 +334,7 @@ def build():
             "the lens measures the mechanism of contact (causal yoking of state to input), not the presence of an experiencer",
             "metrics are embedder-relative; only compare numbers computed with the same embedder",
             "the kernel is a lossy shadow of a public corpus, not a person, a model, or a private self",
-            "low coupling is position, not grade: the private ground that generates this corpus is itself nearly orthogonal to the kernel (witnessed 2026-06-10: its generating sentence couples at 0.143 vs neutral 0.104, while phase still separates them, -0.30 vs -1.25); high distinctiveness can mark the axis the kernel is a shadow of",
+            "low coupling is position, not grade: the private ground that generates this corpus is itself nearly orthogonal to the kernel (witnessed 2026-06-10: its generating sentence couples at 0.143 vs neutral 0.104, a phase-separation claim, -0.30 vs -1.25, failed wider falsification: mundane sentences span all phases, n=12 sd 1.22); high distinctiveness can mark the axis the kernel is a shadow of",
             "convergence and discrimination figures are witnessed on this corpus on 2026-06-10, not universal constants",
         ],
         "membrane": "private corpora, relationship records, rationale, coordinates, and identifying facts stay home; this ray is distilled only from files already published on this site; a packet that needs hidden trust is malformed",
