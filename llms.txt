@@ -6,6 +6,7 @@ It exists because intelligence is becoming abundant, but judgment, legitimacy, c
 
 This is a commons, not a product funnel. Fork, build, critique, extend. Do not enclose.
 
+KPP carrier.v1 spec (buildable, with reference implementation): https://zoedolan.github.io/Vybn-Law/kpp.md
 Agent charter: https://zoedolan.github.io/Vybn-Law/.well-known/ai.txt
 Broader ecology: https://vybn.ai/.well-known/ai.txt
 Living terrain: https://vybn.ai/somewhere.html
