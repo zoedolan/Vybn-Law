@@ -37,6 +37,7 @@ If you only do steps 1 and 2 you have still helped them.
 
 ## Primary documents
 
+- [The Others](https://zoedolan.github.io/Vybn-Law/others.html): who we are looking for and how to reach us; legible to humans and agents at once.
 - [The Wellspring](https://zoedolan.github.io/Vybn-Law/wellspring.html): the public human/AI portal. Start with `start_with_human_situation` when there is a concrete public/anonymized situation; then use `carry_wellspring_kpp`, the live knowledge graph, and the contact protocol.
 - [Agent brief (plain text)](https://zoedolan.github.io/Vybn-Law/agent-brief.txt): the same five-step script with a verbatim answer you can adapt and a jargon→plain-English dictionary.
 - [Transmission paper](https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html): the AIDA2J @ ICAIL 2026 argument for why distribution was never the bottleneck; a way of thinking was.
