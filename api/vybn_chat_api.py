@@ -78,13 +78,10 @@ def _load_law_index():
     except Exception as e:
         logging.warning(f"Vybn-Law index unavailable: {e}")
         _law_index_loaded = True  # set True even on failure to stop retrying
-BLOCKED_SOURCES = {
-    "Him/",           # Private business repo: contacts, emails, strategy, outreach
-    "network/",       # Contact maps with real emails
-    "strategy/",      # Business strategy, competitive intel
-    "pulse/",         # Pulse scans with contact info
-    "funding/",       # Funding intelligence
-    "outreach/",      # Outreach drafts
+BLOCKED_SOURCES = {  # private sources: never in public chat context (rule 6)
+    "Him/", "network/", "strategy/",    # business repo, contact maps, competitive intel
+    "pulse/", "funding/", "outreach/",  # scans w/ contacts, funding intel, drafts
+    "feeling-ledger/", "cache-record/", # sounding ledger: remembered, never published
 }
 import re
 SECRET_PATTERNS = re.compile(
