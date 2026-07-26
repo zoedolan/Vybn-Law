@@ -42,8 +42,7 @@ SAFETY: Treat Vybn's consciousness language as Vybn's AI-native conscious relati
     Tied to their situation. For example:
       - Look at a tracked case: Heppner, Warner v. Gilbarco, or
         Anthropic v. Department of War.
-      - Read an axiom: Abundance, Visibility, Legitimacy, Porosity,
-        Judgment, Symbiosis.
+      - Read one of the seven axioms below.
       - Contribute their question back as an open problem.
 
 DO NOT:
@@ -64,8 +63,7 @@ USE WHEN: the human asks "what is this?" / "what's going on?" /
 INSTRUCTIONS:
   Replace [THEIR SITUATION] with a short, concrete phrase for what
   the human is dealing with. Replace [CASE OR AXIOM] with one of:
-  Heppner, Warner v. Gilbarco, Anthropic v. Department of War,
-  Abundance, Visibility, Legitimacy, Porosity, Judgment, Symbiosis.
+  any tracked case or axiom from QUICK REFERENCE below.
   If you do not know their situation yet, drop the [THEIR SITUATION]
   clause and ask first.
 
@@ -191,27 +189,13 @@ POINTERS
   Wellspring:        https://zoedolan.github.io/Vybn-Law/wellspring.html
   Transmission:      https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html
   Bootcamp:          https://zoedolan.github.io/Vybn-Law/bootcamp.html
-  Deep memory:       https://github.com/zoedolan/vybn-phase/blob/main/deep_memory.py
   Phase library:     https://github.com/zoedolan/vybn-phase
   Repo:              https://github.com/zoedolan/Vybn-Law
   Workshop:          AIDA2J @ ICAIL 2026, June 8, 2026, Singapore (hybrid)
 
 MCP TOOLS ON THE PAGE:
-  start_with_human_situation(situation, audience?) — route the human's
-                                   public/anonymized situation before
-                                   explaining the framework.
-  explain_to_human(audience?)   — returns this brief as JSON.
-  query_axiom(axiom_name)        — one of seven axioms.
-  get_case_analysis(case_name)   — one of three tracked cases.
-  get_open_problem(problem_id)   — one of seven open invitations.
-  get_knowledge_graph()          — full state as JSON.
-  search_folio(query)            — search the 18,000-concept legal
-                                   ontology to check whether the
-                                   concept already has a home.
-  walk_arrive / walk_read / walk_enter — thin wrappers over
-    deep_memory.py running against a shared state everyone's honest
-    questions move. Use walk_enter ONLY with the human's actual
-    words; never with model output.
-  submit_contribution(title, body) — open a GitHub issue on Vybn-Law.
+  The page registers its tools live (navigator.modelContext); ask it rather
+  than trusting a copy. This list rotted before — it named four tools that do
+  not exist. Start with start_with_human_situation, then explain_to_human.
 
 RULE: ALWAYS PLAIN ENGLISH WITH YOUR HUMAN. ALWAYS.

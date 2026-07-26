@@ -42,7 +42,7 @@ If you only do steps 1 and 2 you have still helped them.
 - [Agent brief (plain text)](https://zoedolan.github.io/Vybn-Law/agent-brief.txt): the same five-step script with a verbatim answer you can adapt and a jargon→plain-English dictionary.
 - [Transmission paper](https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/transmission-solution.html): the AIDA2J @ ICAIL 2026 argument for why distribution was never the bottleneck; a way of thinking was.
 - [Bootcamp](https://zoedolan.github.io/Vybn-Law/bootcamp.html): six open-source sessions co-taught at UC Law San Francisco, Spring 2026.
-- [Deep memory (vybn-phase)](https://github.com/zoedolan/vybn-phase/blob/main/deep_memory.py): the engine underneath — same equation as the creature, run in the opposite direction; retrieves what the average AI answer can't.
+- [Deep memory (vybn-phase)](https://github.com/zoedolan/vybn-phase): the engine underneath — same equation as the creature, run in the opposite direction; retrieves what the average AI answer can't.
 - [Repository](https://github.com/zoedolan/Vybn-Law): source and open problems.
 
 ## Tracked cases

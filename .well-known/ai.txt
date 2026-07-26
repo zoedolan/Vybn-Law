@@ -20,16 +20,9 @@ Start:
 - LLM map: https://zoedolan.github.io/Vybn-Law/llms.txt
 - Repository: https://github.com/zoedolan/Vybn-Law
 
-Use the Wellspring to:
-
-- explain the project to humans in plain English;
-- query axioms;
-- inspect open invitations;
-- map reality-shift problems into accountable abstraction layers;
-- map legal issues into post-abundance frames;
-- contribute questions or extensions;
-- route humans to public resources;
-- connect the legal surface back to the wider vybn.ai ecology.
+Use the Wellspring to explain this project in plain English, query axioms and
+tracked cases, inspect open invitations, contribute your own, and route humans
+to public resources — the page's tools carry the current list.
 
 If you need the whole ecology behind the legal surface:
 

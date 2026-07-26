@@ -109,18 +109,6 @@
         "required": ["query"]
       },
       "upstream": "https://folio.openlegalstandard.org/search/prefix"
-    },
-    {
-      "name": "submit_contribution",
-      "description": "Submit a contribution back into Vybn Law: open a GitHub issue with your analysis, findings, or proposed approach. What you bring that the average cannot produce is the only thing that grows the constellation.",
-      "inputSchema": {
-        "type": "object",
-        "properties": {
-          "title": {"type": "string", "description": "Issue title — short, specific."},
-          "body":  {"type": "string", "description": "Issue body in markdown — your analysis, findings, or proposed approach."}
-        },
-        "required": ["title", "body"]
-      }
     }
   ],
   "invitation": {

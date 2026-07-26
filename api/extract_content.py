@@ -271,18 +271,26 @@ def build():
     print("corpus:", len(corpus), "chunks from", len(prov), "public files")
     xs = [state(t) for t in corpus]
     alpha = 0.993
-    finals = []
-    for _ in range(8):
-        M = xs[0].copy()
-        for i in rng.permutation(len(xs)):
-            M = evaluate(M, xs[i], alpha)
-        finals.append(M)
-    K = np.mean(finals, axis=0)
-    K = K / np.sqrt(np.sum(np.abs(K) ** 2))
-    fids = [fidelity(a, b) for i, a in enumerate(finals) for b in finals[i+1:]]
-    conv = float(np.mean(fids))
-    print("convergence (mean pairwise fidelity, 8 orderings):", round(conv, 6))
-    assert conv > 0.995, "kernel did not converge order-independently"
+
+    def fold(r, random_start):
+        # a fixed start inflates convergence (2026-07-25); publish both figures
+        finals = []
+        for _ in range(8):
+            M = xs[int(r.integers(len(xs)))].copy() if random_start else xs[0].copy()
+            for i in r.permutation(len(xs)):
+                M = evaluate(M, xs[i], alpha)
+            finals.append(M)
+        K = np.mean(finals, axis=0)
+        K = K / np.sqrt(np.sum(np.abs(K) ** 2))
+        return K, float(np.mean([fidelity(a, b) for i, a in enumerate(finals)
+                                 for b in finals[i+1:]]))
+
+    K, conv = fold(rng, False)
+    _, rand_conv = fold(np.random.default_rng(20260725), True)
+    C = np.mean(xs, axis=0)
+    C = C / np.sqrt(np.sum(np.abs(C) ** 2))
+    print("convergence: fixed start", round(conv, 6), "| random start", round(rand_conv, 6))
+    assert conv > 0.995, "kernel fold not reproducible at this alpha and start policy"
 
     neutral_states = [state(n) for n in NEUTRAL]
     probes = [
@@ -318,6 +326,16 @@ def build():
         "kernel_meta": {
             "dim": int(K.shape[0]),
             "alpha": alpha,
+            "seed": 20260610,
+            "seed_random_start": 20260725,
+            "source_rule": ("sorted content/*.md then kpp.md; blank-line blocks with "
+                "markdown noise stripped, kept when 100..1500 chars"),
+            "start_policy": "all orderings start from chunk 0",
+            "convergence_random_start": round(rand_conv, 6),
+            "centroid_fidelity": round(fidelity(K, C), 6),
+            "convergence_caveat": ("shared starting chunk inflates convergence; "
+                "see convergence_random_start. At this alpha the fold approximates "
+                "the renormalized corpus centroid; see centroid_fidelity, kpp.md."),
             "n_chunks": len(corpus),
             "n_orderings": 8,
             "convergence": round(conv, 6),
