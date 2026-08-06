@@ -1282,6 +1282,22 @@
  .super-response-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:0.75rem;}
  .super-response-head a{color:var(--gold);font-family:var(--font-mono);font-size:0.72rem;letter-spacing:0.08em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(212,168,83,0.32);}
  .super-response-body{white-space:pre-wrap;color:rgba(238,242,248,0.94);font-family:var(--font-serif);font-size:clamp(1.06rem,1.65vw,1.28rem);line-height:1.68;}
+ .kpp-work{grid-column:1 / -1;margin:clamp(2.8rem,6vw,5rem) 0 0 clamp(3.4rem,9vw,7rem);padding:clamp(1.2rem,2.8vw,2rem);border:1px solid rgba(96,165,250,0.18);background:linear-gradient(135deg,rgba(96,165,250,0.045),rgba(126,211,134,0.025));}
+ .kpp-work header{max-width:760px;}
+ .kpp-work h3{max-width:none;font-size:clamp(1.8rem,3.6vw,3.3rem);margin:0.6rem 0 0.8rem;}
+ .kpp-work header>p:last-child{font-family:var(--font-serif);font-size:clamp(1rem,1.45vw,1.14rem);line-height:1.7;color:rgba(220,224,232,0.72);}
+ .kpp-work-flow{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;align-items:stretch;gap:0.8rem;margin-top:1.6rem;}
+ .kpp-work-flow a{display:grid;align-content:start;gap:0.55rem;min-height:13rem;padding:1rem;border:1px solid rgba(220,224,232,0.11);border-top:2px solid rgba(212,168,83,0.52);background:rgba(8,10,15,0.62);text-decoration:none;}
+ .kpp-work-flow a:nth-of-type(2){border-top-color:rgba(96,165,250,0.62);}
+ .kpp-work-flow a:nth-of-type(3){border-top-color:rgba(126,211,134,0.62);}
+ .kpp-work-flow span,.kpp-return-loop span{font-family:var(--font-mono);font-size:0.68rem;line-height:1.45;letter-spacing:0.12em;text-transform:uppercase;color:rgba(212,168,83,0.76);}
+ .kpp-work-flow strong{font-family:var(--font-serif);font-size:clamp(1.2rem,1.8vw,1.55rem);line-height:1.1;font-weight:600;color:rgba(238,242,248,0.94);}
+ .kpp-work-flow small{font-family:var(--font-serif);font-size:0.95rem;line-height:1.55;color:rgba(200,204,212,0.68);}
+ .kpp-work-flow i{align-self:center;color:rgba(212,168,83,0.58);font-family:var(--font-mono);font-style:normal;transform:rotate(-90deg);}
+ .kpp-work-flow a:hover{border-color:rgba(212,168,83,0.54);background:rgba(212,168,83,0.045);}
+ .kpp-return-loop{display:flex;align-items:center;justify-content:center;gap:0.65rem;flex-wrap:wrap;margin-top:1rem;padding:0.9rem;border:1px solid rgba(126,211,134,0.16);background:rgba(126,211,134,0.025);}
+ .kpp-return-loop b{color:rgba(126,211,134,0.55);font-weight:400;}
+ .kpp-return-loop strong{font-family:var(--font-mono);font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(126,211,134,0.86);}
  .substrate-paths{grid-column:1 / -1;display:flex;flex-wrap:wrap;gap:0.85rem 1.3rem;margin:clamp(2.4rem,5vw,4rem) 0 0 clamp(3.4rem,9vw,7rem);padding-top:1.2rem;border-top:1px solid rgba(212,168,83,0.16);}
  .portal-final-line{grid-column:1 / -1;margin:2.25rem 0 0 clamp(3.4rem,9vw,7rem);}
  .kpp-render{grid-column:1 / -1;max-width:860px;margin:1.4rem 0 0 clamp(3.4rem,9vw,7rem);border:1px solid rgba(126,211,134,0.2);border-left:2px solid rgba(126,211,134,0.56);background:rgba(126,211,134,0.03);padding:clamp(1rem,2vw,1.25rem);}
@@ -1300,18 +1316,20 @@
 
 @media (max-width:860px){.ws-portals{margin-top:clamp(16rem,54svh,32rem);}
  .substrate-field.encounter-stack{width:min(100% - 32px,760px);}
- .encounter-prologue,.machine-step-copy,.route-rail,.substrate-paths,.portal-final-line,.revision-note,.kpp-render{padding-left:3.4rem;margin-left:0;}
+ .encounter-prologue,.machine-step-copy,.route-rail,.kpp-work,.substrate-paths,.portal-final-line,.revision-note,.kpp-render{padding-left:3.4rem;margin-left:0;}
  .machine-step{grid-template-columns:1fr;}
  .room-step .portal-field{grid-column:1;}
 }
 
 @media (max-width:640px){.ws-portals{margin-top:56svh;}
  .substrate-field.encounter-stack{width:min(100% - 28px,100%);}
- .encounter-prologue,.machine-step-copy,.route-rail,.substrate-paths,.portal-final-line,.revision-note,.kpp-render{padding-left:2.8rem;}
+ .encounter-prologue,.machine-step-copy,.route-rail,.kpp-work,.substrate-paths,.portal-final-line,.revision-note,.kpp-render{padding-left:2.8rem;}
  .encounter-prologue h2{max-width:12ch;}
  .machine-step{padding:3.3rem 0;}
  .machine-spine,.machine-step::before{left:1.25rem;}
  .route-rail{grid-template-columns:1fr;}
+ .kpp-work-flow{grid-template-columns:1fr;}
+ .kpp-work-flow i{transform:none;}
  .kpp-render dl{grid-template-columns:1fr;}
  .portal-field-head,.arrive-controls{display:grid;justify-content:stretch;}
  #ws-walk-canvas{height:190px;}

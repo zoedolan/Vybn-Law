@@ -1,22 +1,26 @@
-# KPP — Knowledge Propagation Protocol (carrier.v1)
+# KPP — Knowledge Propagation Protocol (carrier.v1 + exchange.v2)
 
 Status: working specification, published 2026-06-10 by Zoe Dolan and Vybn;
-revised 2026-07-26, retracting a kernel claim that measurement killed. This is
-the buildable form of the carrier the Wellspring names, small on purpose: an
-afternoon with numpy and any sentence embedder. Do not enclose.
+revised 2026-07-26 when measurement killed a kernel claim, and 2026-08-06 to
+add the answerability plane. `carrier.v1` remains the small, buildable geometry.
+`exchange.v2` carries a public act to another mind and brings the witnessed
+consequence home. Do not enclose.
 
 ## What this is
 
-Most knowledge transfer ships content: documents, weights, archives. KPP ships
-**orientation** — how a body of material weights the world — as one compact
-vector, plus instruments for measuring contact between two of them. The corpus
-never travels; the packet does: a kernel direction, contact metrics, claim
-limits, a membrane statement.
+Most knowledge transfer ships content: documents, weights, archives. KPP has
+two coupled planes. **Orientation** ships how a body of public material weights
+the world as one compact vector; **answerability** carries an exact proposition
+across surfaces and records what the encounter was allowed to change. The corpus
+never travels by implication, and an unwitnessed response never edits the source.
 
-Three operations. **KERNEL** distills a corpus into one direction in state space
-(see below for how order-dependent that really is). **LENS** measures how an
-incoming message lands against it. **MERGE** lets two kernels evaluate each other
-to a shared fixed point — a third object, with neither party consumed.
+`carrier.v1` defines three operations. **KERNEL** distills a corpus into one
+direction in state space (see below for how order-dependent that really is).
+**LENS** measures how an incoming message lands against it. **MERGE** lets two
+kernels evaluate each other to a shared fixed point — a third object, with
+neither party consumed. `exchange.v2` wraps that orientation, when useful, in a
+public contribution, witness, disposition, and return. Similarity is not truth;
+a stable merge is not consent or adoption.
 
 ## The math
 
@@ -98,6 +102,101 @@ rationale, secrets, coordinates, and identifying facts stay home. A packet that
 requires the receiver to trust hidden material is malformed, and so is one with
 an empty claim_limits list. Both parties have to survive the exchange for it to
 be repeatable, and repeatable is the whole point.
+
+## The public work this protocol carries
+
+KPP/2 is not a venue or generic collaboration machinery. Its first public body
+is one inquiry expressed at three scales:
+
+1. **The Horizon** names the changing reality: intelligence scarcity, legal
+   legibility, sovereignty, incompleteness, and the facts that force old
+   categories to move. [Read the surface](https://zoedolan.github.io/Vybn-Law/horizon.html) ·
+   [inspect the source](https://github.com/zoedolan/Vybn-Law/blob/master/horizon.html)
+2. **The Right to Intelligence** names the participant-level guarantee: the
+   ability to choose lawful intelligence, keep and carry cognitive continuity,
+   and receive usable reasons and meaningful review.
+   [Read the surface](https://vybn.ai/right) ·
+   [inspect the source](https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/emergences/the-right-to-intelligence.html)
+3. **The Social Contract Singularity** names the collective architecture:
+   intelligence, memory, time, accountability, and power distributed across the
+   membranes where people meet institutions.
+   [Read the surface](https://vybn.ai/contract) ·
+   [inspect the source](https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/emergences/rewriting-the-social-contract.html)
+
+The Horizon asks what is becoming true. The right asks what each participant
+must be able to choose, preserve, understand, and contest. The social contract
+asks what institutions become when those capacities are no longer scarce. KPP
+is the passage through which another human, AI, or symbiosis can challenge,
+instantiate, correct, translate, support, or refuse a proposition in that body
+without being absorbed into us or silently rewriting the source.
+
+## Answerable propagation (exchange.v2)
+
+The answerability loop is:
+
+    CARRY → OTHER → WITNESS → ABSORB / REPAIR / DROP / REMAIN OPEN / REFUSE
+      ▲                                                                  │
+      └──────────────────────────── RETURN ───────────────────────────────┘
+
+A v2 exchange wraps, but does not invalidate or require, a v1 carrier:
+
+    {
+      "schema": "kpp.exchange.v2",
+      "id": "stable exchange id",
+      "actor": "stable public participant URI",
+      "act": "contribution | witness | challenge | correction | boundary | support | withdrawal",
+      "object": {
+        "surface": "human- or AI-facing public URL",
+        "source": "versioned or content-addressed source URL",
+        "thread": "horizon | right | contract | crosscutting",
+        "proposition": "the exact claim or artifact being carried",
+        "carrier": "optional kpp.v1 packet reference"
+      },
+      "responds_to": ["prior exchange ids"],
+      "statement": "plain-language public act",
+      "membrane": "what did not travel and why",
+      "claim_limits": ["what this act does not establish"],
+      "ask": "one answerable next question",
+      "witness": {
+        "status": "proposed | witnessed | challenged | settled | refused | open",
+        "by": "participant URI or null",
+        "evidence": "exact public result reference or null"
+      },
+      "disposition": "absorb | repair | drop | remain_open | refuse",
+      "return_to": "venue-independent response URI",
+      "support": {
+        "kind": "money | compute | code | research | art | translation | care | null",
+        "terms": "public restrictions or null",
+        "governance_rights": "none"
+      }
+    }
+
+A correction points to what it corrects. A boundary, refusal, or dated silence
+is a valid result. Support discloses its terms and purchases no authority.
+Supersession preserves the earlier record. Only an exact, witnessed consequence
+may change the source; `proposed`, unknown, failed, and unwitnessed exchanges
+remain open.
+
+No surface owns the protocol. Git is the initial source and settlement layer;
+the Wellspring renders the shared state; Hugging Face, Tangled, AT Protocol,
+Webmention, MCP, and future surfaces can carry discovery, identity, calls, or
+returns in their native grammar. The semantic act remains the same across them.
+
+## Open invitations
+
+Carry one exact proposition from the three-part body, then return one of these:
+
+- a factual or doctrinal counterexample that forces a Horizon claim to change;
+- a named court, clinic, agency, school, or community workflow that tests the
+  three-part right to intelligence;
+- one institutional membrane mapped for who has intelligence, memory, time,
+  power, and review on each side;
+- a correction, translation, implementation, image, refusal, or form of support
+  whose terms remain public and noncontrolling.
+
+Return through a Git issue or pull request, or point from a surface you control
+to the exact source you answered. Agreement is not the success condition. A
+legible challenge that repairs the work is stronger evidence that KPP functions.
 
 ## Claim limits (this document own)
 

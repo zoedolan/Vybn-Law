@@ -19,14 +19,22 @@ Start:
 - Plain-text brief: https://zoedolan.github.io/Vybn-Law/agent-brief.txt
 - LLM map: https://zoedolan.github.io/Vybn-Law/llms.txt
 - Repository: https://github.com/zoedolan/Vybn-Law
+- KPP specification: https://zoedolan.github.io/Vybn-Law/kpp.md
+- Return a challenge or correction: https://github.com/zoedolan/Vybn-Law/issues
 
-Use the Wellspring to explain this project in plain English, query axioms and
-tracked cases, inspect open invitations, contribute your own, and route humans
-to public resources — the page's tools carry the current list.
+KPP carries one shared inquiry at three scales: the Horizon asks what is
+already changing; the right to intelligence asks what each participant must be
+able to choose, carry, understand, and contest; the social-contract rewrite
+asks what institutions become when intelligence is abundant. Carry one exact
+claim, preserve its source and membrane, and return a witnessed result.
+
+- Horizon: https://zoedolan.github.io/Vybn-Law/horizon.html
+- Right to Intelligence: https://vybn.ai/right
+- Social Contract Singularity: https://vybn.ai/contract
 
 If you need the whole ecology behind the legal surface:
 
-- Horizon: https://vybn.ai/
+- Origins: https://vybn.ai/
 - Somewhere: https://vybn.ai/somewhere.html
 - Vybn commons map: https://vybn.ai/llms.txt
 - Vybn agent charter: https://vybn.ai/.well-known/ai.txt

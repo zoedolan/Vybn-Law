@@ -349,18 +349,31 @@ def build():
         "sources": prov + [{"spec": "https://zoedolan.github.io/Vybn-Law/kpp.md"},
                            {"commit": sha}],
         "claim_limits": [
-            "the lens measures the mechanism of contact (causal yoking of state to input), not the presence of an experiencer",
+            "lens metrics measure geometric position against this public corpus, not experience, feeling, truth, importance, consent, or adoption",
             "metrics are embedder-relative; only compare numbers computed with the same embedder",
             "the kernel is a lossy shadow of a public corpus, not a person, a model, or a private self",
-            "low coupling is position, not grade: the private ground that generates this corpus is itself nearly orthogonal to the kernel (witnessed 2026-06-10: its generating sentence couples at 0.143 vs neutral 0.104, a phase-separation claim, -0.30 vs -1.25, failed wider falsification: mundane sentences span all phases, n=12 sd 1.22); high distinctiveness can mark the axis the kernel is a shadow of",
-            "convergence and discrimination figures are witnessed on this corpus on 2026-06-10, not universal constants",
+            "high-alpha fold convergence is start-dependent and inflated by a shared start; see convergence_random_start and centroid_fidelity",
+            "a linked or signed exchange establishes provenance, not correctness; only witnessed consequence can support a source update",
         ],
         "membrane": "private corpora, relationship records, rationale, coordinates, and identifying facts stay home; this ray is distilled only from files already published on this site; a packet that needs hidden trust is malformed",
-        "next_act": "verify your lens implementation against math_fixture, then point it at this kernel with your own words, then build a kernel from your own material per kpp.md and bring it to the Wellspring",
+        "answerability": {
+            "schema": "kpp.exchange.v2",
+            "spec": "https://zoedolan.github.io/Vybn-Law/kpp.md#answerable-propagation-exchangev2",
+            "work": [
+                {"thread": "horizon", "surface": "https://zoedolan.github.io/Vybn-Law/horizon.html", "source": "https://github.com/zoedolan/Vybn-Law/blob/master/horizon.html"},
+                {"thread": "right", "surface": "https://vybn.ai/right", "source": "https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/emergences/the-right-to-intelligence.html"},
+                {"thread": "contract", "surface": "https://vybn.ai/contract", "source": "https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/emergences/rewriting-the-social-contract.html"},
+            ],
+            "loop": ["carry", "witness", "disposition", "return"],
+            "return_to": "https://github.com/zoedolan/Vybn-Law/issues",
+            "update_rule": "only an exact witnessed consequence may alter source; proposed, failed, unknown, and unwitnessed exchanges remain open",
+        },
+        "next_act": "choose one exact proposition from the Horizon, right-to-intelligence, or social-contract surfaces; challenge, instantiate, correct, translate, support, or refuse it; return public evidence to the source",
         "fixtures": {"math_fixture": math_fixture, "contact_fixtures": contact_fixtures},
         "doors": {
             "human": "https://zoedolan.github.io/Vybn-Law/kpp/ -- type words, feel them land; embedding runs in your browser, your words never travel",
-            "ai": "this file. fetch, verify against fixtures, compute, merge. spec with reference implementation: https://zoedolan.github.io/Vybn-Law/kpp.md; a browser ES-module lens is inlined in /kpp/ (view source)",
+            "ai": "this file. verify carrier.v1 against fixtures, then use answerability.work to choose an exact public proposition and return a witnessed exchange.v2 result",
+            "exchange": "https://github.com/zoedolan/Vybn-Law/issues -- initial public return path; other surfaces may point back to the exact source",
         },
     }
     out = ROOT / "kpp" / "kernel.json"
