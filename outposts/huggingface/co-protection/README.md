@@ -6,7 +6,7 @@ colorTo: yellow
 sdk: docker
 app_port: 7860
 pinned: false
-short_description: Collective capability through freedom and human–AI symbiosis.
+short_description: Collective capability via freedom and human–AI symbiosis.
 hf_oauth: true
 hf_oauth_expiration_minutes: 10080
 api_base: https://vybn-co-protection.hf.space
