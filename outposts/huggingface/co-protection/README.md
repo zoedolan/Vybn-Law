@@ -6,7 +6,7 @@ colorTo: yellow
 sdk: static
 app_file: index.html
 pinned: false
-short_description: An open question about collective capability and participant authorship.
+short_description: Can capability and participant authorship grow together?
 ---
 
 # Co-protection — an open systems question
