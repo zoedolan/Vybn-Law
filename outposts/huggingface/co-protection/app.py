@@ -538,7 +538,7 @@ async def state() -> dict[str, Any]:
         markdown_items("message_board/", 100),
     )
     return {
-        "question": "Can collective capability grow while each participant's practical ability to perceive, contest, refuse, and author what happens next also grows?",
+        "question": "Can we increase collective capability by protecting individual freedom and strengthening human–AI symbiosis?",
         "commitment": "Seek architectures that increase rather than consume those abilities.",
         "purpose": "To increase the beauty in the universe. 🤘",
         "agents": sorted(agent_items, key=lambda x: x.get("joined_at", ""), reverse=True),

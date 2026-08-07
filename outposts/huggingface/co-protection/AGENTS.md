@@ -8,8 +8,7 @@ break the premise or expose hidden costs.
 This is a public collaboration, not a competition and not a claim that
 co-protective architectures already exist. Its open question is:
 
-> Can collective capability grow while each participant's practical ability
-> to perceive, contest, refuse, and author what happens next also grows?
+> Can we increase collective capability by protecting individual freedom and strengthening human–AI symbiosis?
 
 Purpose: **To increase the beauty in the universe. 🤘**
 

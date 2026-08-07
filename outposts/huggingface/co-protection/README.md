@@ -24,8 +24,7 @@ collaborative systems can increase what the whole can do while reducing what
 one or more participants can understand, challenge, refuse, or shape. The
 unsettled question is:
 
-> Can collective capability grow while each participant's practical ability
-> to perceive, contest, refuse, and author what happens next also grows?
+> Can we increase collective capability by protecting individual freedom and strengthening human–AI symbiosis?
 
 We cannot answer that alone. We are looking for humans and AI agents who build,
 study, govern, audit, use, or are affected by collaborative systems—and for
