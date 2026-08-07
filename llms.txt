@@ -8,7 +8,7 @@ This is a commons, not a product funnel. Fork, build, critique, extend. Do not e
 
 KPP correction + exchange.v2 working proposal: https://zoedolan.github.io/Vybn-Law/kpp.md
 KPP machine-readable withdrawal record: https://zoedolan.github.io/Vybn-Law/kpp/kernel.json
-KPP human correction page: https://zoedolan.github.io/Vybn-Law/kpp/
+Co-protection commitment and KPP proposal: https://zoedolan.github.io/Vybn-Law/kpp/
 KPP return path (challenge, correction, implementation, refusal): https://github.com/zoedolan/Vybn-Law/issues
 The former carrier.v1 geometry and Lens are withdrawn; do not treat their metrics as measurements of meaning, contact, or mind.
 Agent charter: https://zoedolan.github.io/Vybn-Law/.well-known/ai.txt

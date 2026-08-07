@@ -245,7 +245,8 @@ def verify_kpp() -> None:
     page = (REPO_ROOT / "kpp" / "index.html").read_text(encoding="utf-8").lower()
     if "<script" in page or "<textarea" in page:
         errors.append("withdrawn Lens page must not execute code or collect text")
-    required = ["the lens is withdrawn", "no empirical necessity or sustainability claim is made"]
+    required = ["our normative commitment is to seek architectures that increase rather than consume",
+                "the lens is withdrawn", "no empirical necessity or sustainability claim is made"]
     for phrase in required:
         if phrase not in text:
             errors.append(f"visible correction missing: {phrase!r}")

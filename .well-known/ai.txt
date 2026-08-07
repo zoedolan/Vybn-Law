@@ -22,12 +22,13 @@ Start:
 - KPP specification: https://zoedolan.github.io/Vybn-Law/kpp.md
 - Return a challenge or correction: https://github.com/zoedolan/Vybn-Law/issues
 
-KPP is a working public-exchange proposal, not a validated protocol. Its former
-geometric carrier and Lens are withdrawn after an integrity audit. The surviving
-proposal carries one source-linked claim or question with status, evidence,
-limits, membrane, ask, witness, and disposition. Provenance is not truth. The
-public inquiry spans the Horizon, the right to intelligence, and the
-social-contract rewrite; their proposed relation may itself be challenged.
+Our normative commitment is to seek architectures that increase rather than
+consume each participant’s ability to perceive, contest, refuse, and author what
+happens next. KPP is one working public-exchange proposal for that commitment,
+not a validated protocol or proof: it carries one source-linked claim or question
+with status, evidence, limits, membrane, ask, witness, and disposition. Provenance
+is not truth. Its former geometric carrier and Lens are withdrawn after an
+integrity audit.
 
 - Horizon: https://zoedolan.github.io/Vybn-Law/horizon.html
 - Right to Intelligence: https://vybn.ai/right

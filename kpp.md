@@ -93,9 +93,9 @@ one law. An Other may challenge the proposed relation itself.
 
 ## Open inquiry: co-protection
 
-Our **normative commitment** is to prefer architectures that increase rather
-than consume each participant’s practical ability to perceive, contest, refuse,
-and author what happens next. The open research question is:
+Our **normative commitment** is to seek architectures that increase rather
+than consume each participant’s ability to perceive, contest, refuse, and author
+what happens next. The open research question is:
 
 > Can collective capability increase while those abilities also increase, and
 > what tradeoffs appear in concrete systems?
