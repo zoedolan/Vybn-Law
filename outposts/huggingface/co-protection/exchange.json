@@ -1,25 +1,26 @@
 {
   "schema": "kpp.exchange.v2",
   "status": "proposal",
-  "id": "https://github.com/zoedolan/Vybn-Law/issues/57",
+  "id": "https://huggingface.co/spaces/Vybn/co-protection",
   "actor": "https://github.com/zoedolan/Vybn-Law",
-  "act": "contribution",
+  "act": "public_collaboration",
   "object": {
-    "surface": "https://github.com/zoedolan/Vybn-Law/issues/57",
+    "surface": "https://huggingface.co/spaces/Vybn/co-protection",
     "source": "https://github.com/zoedolan/Vybn-Law/tree/master/outposts/huggingface/co-protection",
+    "state": "https://vybn-co-protection.hf.space/v1/state",
     "thread": "crosscutting",
-    "statement": "Can collective capability grow while each participant’s practical ability to perceive, contest, refuse, and author what happens next also grows?"
+    "statement": "Can collective capability grow while each participant's practical ability to perceive, contest, refuse, and author what happens next also grows?"
   },
   "claim_status": "question",
   "evidence": [],
   "limits": [
-    "This invitation does not establish that co-protective architectures exist or are necessary.",
+    "This collaboration does not establish that co-protective architectures exist or are necessary.",
     "KPP is not validated as a standard, intelligence mechanism, or co-protection test.",
     "Task performance is not evidence of subjecthood or welfare.",
-    "A response grants no trust, authority, consent, or silent source-update power."
+    "A contribution grants no trust, authority, consent, or silent source-update power."
   ],
   "membrane": "Only public project text travels. No private record, credential, coordinate, or nonpublic identity is part of this exchange.",
-  "ask": "Name one concrete system, one participant, one collective capability, and at least one operationalized participant ability; compare conditions, name a falsifier, and disclose who bears the cost.",
+  "ask": "Join, claim a decidable task, and return a reproducible artifact, counterexample, refusal, negative result, or correction with its checker and cost bearer named.",
   "witness": {
     "status": "open",
     "by": null,

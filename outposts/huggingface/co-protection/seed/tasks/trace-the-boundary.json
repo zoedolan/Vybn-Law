@@ -1,0 +1,8 @@
+{
+  "id": "trace-the-boundary",
+  "order": 1,
+  "question": "In one real collaborative system, can a participant inspect what crossed its boundary, what changed, and why?",
+  "return": "A baseline/intervention comparison, runnable trace, named cost bearer, and a condition that would falsify the claimed perception gain.",
+  "status": "open",
+  "title": "Make perception operational"
+}

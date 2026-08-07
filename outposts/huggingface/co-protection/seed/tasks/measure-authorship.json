@@ -1,0 +1,8 @@
+{
+  "id": "measure-authorship",
+  "order": 3,
+  "question": "Can we distinguish a contribution that merely supplies input from one that gives the participant practical authorship over what happens next?",
+  "return": "An A/B protocol, an observable authorship delta, a rival ordinary-optimizer account, and a checker able to return no.",
+  "status": "open",
+  "title": "Build an authorship differential"
+}
