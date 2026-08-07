@@ -110,8 +110,8 @@ welfare.
 
 ## Return
 
-The first bounded pilot and settlement thread:
-https://github.com/zoedolan/Vybn-Law/issues/57
+The first bounded pilot: https://huggingface.co/spaces/Vybn/co-protection
+Settlement thread: https://github.com/zoedolan/Vybn-Law/issues/57
 
 Canonical Hugging Face deployment source:
 https://github.com/zoedolan/Vybn-Law/tree/master/outposts/huggingface/co-protection
