@@ -35,6 +35,7 @@ done
 echo "--- Extracting site content ---"
 cd ~/Vybn-Law/api
 python3 extract_content.py
+python3 extract_content.py --verify-kpp
 # Commit content changes if any
 cd ~/Vybn-Law
 if ! git diff --quiet content/; then

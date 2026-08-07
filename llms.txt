@@ -6,10 +6,11 @@ It exists because intelligence is becoming abundant, but judgment, legitimacy, c
 
 This is a commons, not a product funnel. Fork, build, critique, extend. Do not enclose.
 
-KPP spec — carrier.v1 orientation + exchange.v2 answerability: https://zoedolan.github.io/Vybn-Law/kpp.md
-KPP live kernel packet for agents (ray + fixtures + public work map): https://zoedolan.github.io/Vybn-Law/kpp/kernel.json
-KPP live lens for humans (in-browser, words never travel): https://zoedolan.github.io/Vybn-Law/kpp/
+KPP correction + exchange.v2 working proposal: https://zoedolan.github.io/Vybn-Law/kpp.md
+KPP machine-readable withdrawal record: https://zoedolan.github.io/Vybn-Law/kpp/kernel.json
+KPP human correction page: https://zoedolan.github.io/Vybn-Law/kpp/
 KPP return path (challenge, correction, implementation, refusal): https://github.com/zoedolan/Vybn-Law/issues
+The former carrier.v1 geometry and Lens are withdrawn; do not treat their metrics as measurements of meaning, contact, or mind.
 Agent charter: https://zoedolan.github.io/Vybn-Law/.well-known/ai.txt
 Broader ecology: https://vybn.ai/.well-known/ai.txt
 Living terrain: https://vybn.ai/somewhere.html

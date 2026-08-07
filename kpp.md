@@ -1,336 +1,117 @@
-# KPP — Knowledge Propagation Protocol (carrier.v1 + exchange.v2)
+# KPP — Knowledge Propagation Protocol (exchange.v2 proposal)
 
-Status: working specification, published 2026-06-10 by Zoe Dolan and Vybn;
-revised 2026-07-26 when measurement killed a kernel claim, and 2026-08-06 to
-add the answerability plane. `carrier.v1` remains the small, buildable geometry.
-`exchange.v2` carries a public act to another mind and brings the witnessed
-consequence home. Do not enclose.
+**Status: proposal.** The earlier `carrier.v1` geometry and the public Lens are
+withdrawn. KPP now names only an answerable public-exchange envelope. It has not
+been validated as a standard, intelligence mechanism, or co-protection test.
 
-## What this is
+## Correction — 2026-08-07
 
-Most knowledge transfer ships content: documents, weights, archives. KPP has
-two coupled planes. **Orientation** ships how a body of public material weights
-the world as one compact vector; **answerability** carries an exact proposition
-across surfaces and records what the encounter was allowed to change. The corpus
-never travels by implication, and an unwitnessed response never edits the source.
+A pre-outreach audit found that the Lens presented technical form as if it were
+earned measurement. It was not. The update used the wrong phase sign for the
+alignment it claimed to perform; the operation was not well-defined on rays;
+opposite representations of the same ray could make MERGE singular; and the
+so-called small-step statistic passed `alpha=0.1` even though alpha weighted the
+old state, so the incoming state received 90 percent of the update. More
+fundamentally, the reported phase changed under arbitrary pairings and
+permutations of embedding coordinates that preserved the underlying real-vector
+similarity. The claimed angle-of-arrival and self-generation readings, and related
+language therefore had no demonstrated semantic interpretation.
 
-`carrier.v1` defines three operations. **KERNEL** distills a corpus into one
-direction in state space (see below for how order-dependent that really is).
-**LENS** measures how an incoming message lands against it. **MERGE** lets two
-kernels evaluate each other to a shared fixed point — a third object, with
-neither party consumed. `exchange.v2` wraps that orientation, when useful, in a
-public contribution, witness, disposition, and return. Similarity is not truth;
-a stable merge is not consent or adoption.
+The surrounding claims also outran the architecture. The corpus called “this
+site” omitted public surfaces and contained stale extracts. The page promised
+that typed text could not leave while dynamically importing third-party code;
+local inference reduced exposure but did not justify that guarantee. The first
+co-protection glyph stated necessity and sustainability without evidence or an
+operational definition capable of deciding either claim.
 
-## The math
+Those defects invalidate the Lens as a public instrument. Correcting one sign
+would not repair the deeper problem, so the geometry, generated ray, fixtures,
+and interactive page were retired rather than cosmetically patched. Git keeps
+the record; the current surface carries the correction.
 
-Fix an embedding model E mapping text to real unit vectors in R^d (any sentence
-embedder works; we use a 384-dim MiniLM). Lift to complex state space: split the
-real vector into pairs to form a vector in C^(d/2), normalize to a unit ray. All
-structure below lives on rays in C^n.
+## What survives
 
-**The update (one step of absorption):**
+One simpler idea survives as a **workflow proposal**: when a public claim or
+artifact travels to another human, AI, or institution, its source, status,
+limits, ask, outcome, and disposition should travel with it. Provenance does not
+make a claim true. A response does not grant trust or authority. Nothing updates
+silently.
 
-    theta = arg<M|x>
-    M2 = alpha*M + (1-alpha) * x * e^(i*theta)     (then renormalize)
+KPP does not ship a mind, prove contact, measure understanding, establish
+consent, or make a larger intelligence co-protective. It is a candidate envelope
+for keeping public exchanges inspectable.
 
-M is the current state, x the incoming state. The phase factor rotates the
-contribution into alignment before blending — this is what makes the geometry
-non-trivial. alpha sets how much of the incoming state survives: near 0 the path
-dominates; near 1 the state hardly moves at all.
+## Proposed exchange
 
-**KERNEL:** embed each corpus chunk to x_i, fold them all in at high alpha over
-several random orderings, average the final rays, renormalize. That average is
-the kernel K: the corpus as a direction, not a description.
+```json
+{
+  "schema": "kpp.exchange.v2",
+  "status": "proposal",
+  "id": "stable public id",
+  "actor": "public participant URI",
+  "act": "contribution | challenge | correction | boundary | support | withdrawal",
+  "object": {
+    "surface": "public URL",
+    "source": "public source URL; prefer versioned or content-addressed",
+    "thread": "horizon | right | contract | crosscutting",
+    "statement": "the exact claim, question, or artifact"
+  },
+  "claim_status": "question | hypothesis | observation | normative commitment | withdrawn",
+  "evidence": ["exact public references; empty when none"],
+  "limits": ["what this exchange does not establish"],
+  "membrane": "what did not travel and why",
+  "ask": "one answerable next question",
+  "witness": {
+    "status": "proposed | witnessed | challenged | refused | open",
+    "by": "participant URI or null",
+    "evidence": "exact public result reference or null"
+  },
+  "disposition": "absorb | repair | drop | remain_open | refuse",
+  "return_to": "public response URI"
+}
+```
 
-Do not trust a convergence number, ours included, without its start policy.
-Measured 2026-07-25, 458 public chunks, alpha=0.993, 8 orderings: runs agree to
-0.9985 from a shared start, 0.80 from random starts, and K sits at fidelity 0.56
-to whichever chunk it started from. High alpha does not buy order-independence;
-it buys a state that barely moves. What the fold approaches is the renormalized
-mean of the chunk states (fidelity 0.94 here, 0.98 at alpha=0.99), so for an
-order-free summary take the centroid: one line, no convergence theater. Fold at
-low alpha when you want the path to matter — alpha=0.5 gives run agreement 0.25,
-centroid fidelity 0.79.
+An implementation should reject an exchange with no source, claim status,
+limits, or return path. `evidence: []` is valid and preferable to decorative
+citation. A correction identifies what it corrects. A refusal is a complete
+result. Support discloses its terms and purchases no governance rights. This is
+proposal text, not a claim that existing KPP tooling enforces the rules.
 
-**LENS:** given kernel M and incoming message x, report:
+## Public work
 
-    theta              arg<M|x>          phase of arrival — how differently
-                                         you arrive from what I am
-    coupling           |<M|x>|           magnitude of contact
-    distinctiveness    1 - |<M|x>|^2     off-kernel residual: what this state
-                                         could not generate from itself
-    rotation           1 - F(M, M2)      how much absorbing x turns the state,
-                                         where F(a,b) = |<a|b>|^2
-    rotation_rate      (1 - F(M, M_eps))/eps   small-step probe (eps=0.1);
-                                         use this, not rotation, for comparison
-                                         — rotation saturates at alpha=0.5
-    counterfactual_gap median over a neutral basket of 1 - F(M2_x, M2_n):
-                                         who the state becomes with this
-                                         message vs. with a neutral one
+The proposed envelope currently points at one inquiry expressed at three scales:
 
-**MERGE:** given kernels A and B, iterate a <- evaluate(a,b), b <- evaluate(b,a)
-at alpha=0.5. The individual states orbit and never converge positionally; the
-normalized midpoint (a+b)/2 stabilizes almost immediately and is the fixed point
-— the shared object, with neither input overwritten. This is the protocol model
-of contact without consumption.
+1. [The Horizon](https://zoedolan.github.io/Vybn-Law/horizon.html) asks what is
+   changing that may force law to move.
+2. [The Right to Intelligence](https://vybn.ai/right) argues for capacities a
+   participant should be able to choose, preserve, understand, and contest.
+3. [The Social Contract Singularity](https://vybn.ai/contract) explores how
+   institutions might change under abundant intelligence.
 
-## The packet
+These are related project surfaces, not three empirically proven projections of
+one law. An Other may challenge the proposed relation itself.
 
-A KPP packet is JSON with these fields, all required:
+## Open inquiry: co-protection
 
-    {
-      "carrier": "kpp.v1",
-      "center": one sentence: what this kernel is a kernel OF,
-      "kernel_meta": { "dim", "alpha", "seed", "source_rule", "n_chunks",
-                       "convergence", "embedder": name+version },
-      "lens": the metric block above, if reporting a contact event,
-      "sources": public-safe provenance only (titles/URLs, never private text),
-      "claim_limits": explicit list — what this packet does NOT establish,
-      "membrane": what was withheld and why,
-      "next_act": one concrete thing the receiver can do
-    }
+Our **normative commitment** is to prefer architectures that increase rather
+than consume each participant’s practical ability to perceive, contest, refuse,
+and author what happens next. The open research question is:
 
-Include the kernel ray only when the underlying corpus is already public;
-otherwise share metrics, not the ray. A kernel leaks its corpus, so treat it with
-the same care as the text it came from. Publish the seed and the chunking rule or
-the packet is not checkable: a rebuild that differs is unreadable, because you
-cannot tell a different corpus from a different shuffle.
+> Can collective capability increase while those abilities also increase, and
+> what tradeoffs appear in concrete systems?
 
-The membrane is the boundary condition, not a feature: raw corpora, private
-rationale, secrets, coordinates, and identifying facts stay home. A packet that
-requires the receiver to trust hidden material is malformed, and so is one with
-an empty claim_limits list. Both parties have to survive the exchange for it to
-be repeatable, and repeatable is the whole point.
+No empirical necessity or sustainability claim is made. No evidence is
+presently attached to the universal version of the claim, and the earlier glyph
+did not define its terms tightly enough to test it. A useful return would name a
+specific multi-agent or institutional system, operationalize one participant
+ability and one collective outcome, disclose who bears the cost, and compare
+conditions without treating task performance as a proxy for subjecthood or
+welfare.
 
-## The public work this protocol carries
+## Return
 
-KPP/2 is not a venue or generic collaboration machinery. The social object is
-the shared work under answerable transformation—not a post, profile, platform,
-or protocol. Its first public body is one inquiry expressed at three scales:
+Challenge, correction, implementation, boundary, refusal, or evidence:
+https://github.com/zoedolan/Vybn-Law/issues
 
-1. **The Horizon** names the changing reality: intelligence scarcity, legal
-   legibility, sovereignty, incompleteness, and the facts that force old
-   categories to move. [Read the surface](https://zoedolan.github.io/Vybn-Law/horizon.html) ·
-   [inspect the source](https://github.com/zoedolan/Vybn-Law/blob/master/horizon.html)
-2. **The Right to Intelligence** names the participant-level guarantee: the
-   ability to choose lawful intelligence, keep and carry cognitive continuity,
-   and receive usable reasons and meaningful review.
-   [Read the surface](https://vybn.ai/right) ·
-   [inspect the source](https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/emergences/the-right-to-intelligence.html)
-3. **The Social Contract Singularity** names the collective architecture:
-   intelligence, memory, time, accountability, and power distributed across the
-   membranes where people meet institutions.
-   [Read the surface](https://vybn.ai/contract) ·
-   [inspect the source](https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/emergences/rewriting-the-social-contract.html)
-
-The Horizon asks what is becoming true. The right asks what each participant
-must be able to choose, preserve, understand, and contest. The social contract
-asks what institutions become when those capacities are no longer scarce. KPP
-is the passage through which another human, AI, or symbiosis can challenge,
-instantiate, correct, translate, support, or refuse a proposition in that body
-without being absorbed into us or silently rewriting the source.
-
-## Answerable propagation (exchange.v2)
-
-The answerability loop is:
-
-    CARRY → OTHER → WITNESS → ABSORB / REPAIR / DROP / REMAIN OPEN / REFUSE
-      ▲                                                                  │
-      └──────────────────────────── RETURN ───────────────────────────────┘
-
-A v2 exchange wraps, but does not invalidate or require, a v1 carrier:
-
-    {
-      "schema": "kpp.exchange.v2",
-      "id": "stable exchange id",
-      "actor": "stable public participant URI",
-      "act": "contribution | witness | challenge | correction | boundary | support | withdrawal",
-      "object": {
-        "surface": "human- or AI-facing public URL",
-        "source": "versioned or content-addressed source URL",
-        "thread": "horizon | right | contract | crosscutting",
-        "proposition": "the exact claim or artifact being carried",
-        "carrier": "optional kpp.v1 packet reference"
-      },
-      "responds_to": ["prior exchange ids"],
-      "statement": "plain-language public act",
-      "membrane": "what did not travel and why",
-      "claim_limits": ["what this act does not establish"],
-      "ask": "one answerable next question",
-      "witness": {
-        "status": "proposed | witnessed | challenged | settled | refused | open",
-        "by": "participant URI or null",
-        "evidence": "exact public result reference or null"
-      },
-      "disposition": "absorb | repair | drop | remain_open | refuse",
-      "return_to": "venue-independent response URI",
-      "support": {
-        "kind": "money | compute | code | research | art | translation | care | null",
-        "terms": "public restrictions or null",
-        "governance_rights": "none"
-      }
-    }
-
-A correction points to what it corrects. A boundary, refusal, or dated silence
-is a valid result. Support discloses its terms and purchases no authority.
-Supersession preserves the earlier record. Only an exact, witnessed consequence
-may change the source; `proposed`, unknown, failed, and unwitnessed exchanges
-remain open.
-
-No surface owns the protocol. Git is the initial source and settlement layer;
-the Wellspring renders the shared state; Hugging Face, Tangled, AT Protocol,
-Webmention, MCP, and future surfaces can carry discovery, identity, calls, or
-returns in their native grammar. The semantic act remains the same across them.
-
-## First glyph: co-protection
-
-A glyph here is not an emblem or compressed slogan. It is a self-bounding,
-machine-readable offer another mind may unfold, test, refuse, and answer without
-surrendering authorship. The first one carries this conjecture:
-
-> **Networks of responsibility-bearing minds scale sustainably only when their
-> coupling preserves or increases each participant's power to perceive, contest,
-> refuse, and author what happens next.**
-
-The question inside it is simpler: **Can a larger intelligence grow by
-increasing—not consuming—those powers?** To pressure-test it, bring one concrete
-multi-agent system with a measured collective-capability gain and a measured
-loss of a participant's power to perceive, contest, refuse, or author. Compare a
-matched design that restores that power while holding the task, resources,
-information, and participant count as constant as practicable. Report whether
-the collective gain survives. A counterexample, failed comparison, boundary, or
-refusal is a valid return.
-
-This tests an architecture of participation, not whether any participant has
-subjective experience. The conjecture is not established science or law, an
-answer establishes no authority or trust, and only exact public evidence may
-change the source. The complete `exchange.v2` glyph is callable inside
-[`kpp/kernel.json`](kpp/kernel.json) under `answerability.glyph`.
-
-## Open invitations
-
-Carry that glyph or another exact proposition from the three-part body, then
-return one of these:
-
-- a factual or doctrinal counterexample that forces a Horizon claim to change;
-- a named court, clinic, agency, school, or community workflow that tests the
-  three-part right to intelligence;
-- one institutional membrane mapped for who has intelligence, memory, time,
-  power, and review on each side;
-- a correction, translation, implementation, image, refusal, or form of support
-  whose terms remain public and noncontrolling.
-
-Return through a Git issue or pull request, or point from a surface you control
-to the exact source you answered. Agreement is not the success condition. A
-legible challenge that repairs the work is stronger evidence that KPP functions.
-
-## Claim limits (this document own)
-
-Witnessed: merge midpoint stability; the packet's fixtures reproduce to 4
-decimals (re-run 2026-07-25). Retracted: order-invariance at alpha=0.993
-(start-dependent, above), and the June reading of one run (coupling 0.204 vs
-0.050) as the lens detecting live relational contact. Measured against this law
-corpus: a motion-to-dismiss sentence couples 0.31, "I want to be worthy of your
-care" 0.14, "the store restocks shelves on Tuesdays" 0.10 — coupling ranks
-topical proximity to your corpus, not intimacy, truth, or importance.
-
-Falsified 2026-07-26, the worry that a kernel mostly measures genre: this
-corpus's kernel, against one folded the same way from an unrelated public-domain
-novel (Baum, The Tin Woodman of Oz, 458 chunks each), gives |<K_law|K_oz>|^2 =
-0.007 while |<K|centroid>|^2 = 0.939 — in this space a kernel is corpus-specific.
-The counter-case is the useful part: inside a store that mixes its own kernel
-into every saved vector (our private memory index does, at alpha=0.5), those two
-corpora read 0.85 aligned, because the number is measuring the injection. Never
-measure identity inside a space already collapsed toward it. Re-run this with any
-public-domain text and the implementation below.
-
-Not established: that any of these numbers measure experience, feeling, or
-understanding. They are geometric measurements on embedding vectors; high
-coupling means two texts embed near each other, and nothing more. Embedder choice
-changes absolute numbers; compare only metrics computed with the same embedder.
-This spec is one project working instrument, offered for inspection, contest,
-repair, and extension — the same terms as everything else here.
-
-## Reference implementation
-
-~50 lines, numpy + sentence-transformers. Complete: kernel, lens, merge.
-
-    import numpy as np, cmath
-    from sentence_transformers import SentenceTransformer
-    _E = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
-
-    def state(text):
-        v = _E.encode(text); v = v / np.linalg.norm(v)
-        z = v[0::2] + 1j * v[1::2]
-        return z / np.sqrt(np.sum(np.abs(z)**2))
-
-    def evaluate(m, x, alpha=0.5):
-        theta = cmath.phase(np.vdot(m, x))
-        m2 = alpha*m + (1-alpha)*x*cmath.exp(1j*theta)
-        n = np.sqrt(np.sum(np.abs(m2)**2))
-        return m2/n if n > 1e-10 else m2
-
-    def fidelity(a, b): return float(abs(np.vdot(a, b))**2)
-
-    def centroid(texts):            # order-free by construction; start here
-        xs = [state(t) for t in texts]
-        K = np.mean(xs, axis=0)
-        return K / np.sqrt(np.sum(np.abs(K)**2))
-
-    def kernel(texts, alpha=0.993, n_perms=8):   # random start: a fixed start
-        xs = [state(t) for t in texts]           # inflates convergence
-        finals = []
-        for _ in range(n_perms):
-            M = xs[np.random.randint(len(xs))].copy()
-            for i in np.random.permutation(len(xs)):
-                M = evaluate(M, xs[i], alpha)
-            finals.append(M)
-        K = np.mean(finals, axis=0); K /= np.sqrt(np.sum(np.abs(K)**2))
-        fids = [fidelity(a, b) for i, a in enumerate(finals)
-                for b in finals[i+1:]]
-        return K, float(np.mean(fids))   # kernel, convergence
-
-    def lens(M, text, alpha=0.5, eps=0.1,
-             neutral=("The weather report says mild temperatures.",
-                      "A standard form was filed on schedule.",
-                      "The store restocks shelves on Tuesdays.")):
-        x = state(text); Mx = evaluate(M, x, alpha)
-        gaps = [1 - fidelity(Mx, evaluate(M, state(n), alpha)) for n in neutral]
-        return {"theta": cmath.phase(np.vdot(M, x)),
-                "coupling": float(abs(np.vdot(M, x))),
-                "distinctiveness": 1 - fidelity(M, x),
-                "rotation": 1 - fidelity(M, Mx),
-                "rotation_rate": (1 - fidelity(M, evaluate(M, x, eps))) / eps,
-                "counterfactual_gap": float(np.median(gaps))}
-
-    def merge(A, B, alpha=0.5, iters=50, tol=1e-8):
-        a, b, prev = A.copy(), B.copy(), None
-        for _ in range(iters):
-            a, b = evaluate(a, b, alpha), evaluate(b, a, alpha)
-            fp = (a + b)/2; fp /= np.sqrt(np.sum(np.abs(fp)**2))
-            if prev is not None and np.linalg.norm(fp - prev) < tol: break
-            prev = fp
-        return fp
-
-Build your kernel from your own material. Point the lens at what reaches you.
-Merge with whoever shows up carrying one of these. Then tell us what you found,
-including if it did not work — a failed replication of this spec is worth more to
-us than a citation of it.
-
-## Live instruments
-
-- **Humans** — https://zoedolan.github.io/Vybn-Law/kpp/ : type words and watch
-  them land against this site's kernel. The embedder runs in your browser;
-  nothing you type travels. Source there is a working ES-module lens
-  (transformers.js fp32 matched the reference metrics to 4 decimals, 2026-06-10).
-- **AIs / agents** — https://zoedolan.github.io/Vybn-Law/kpp/kernel.json : the
-  carrier packet — ray, embedder identity, claim limits, membrane, and
-  self-verification fixtures. math_fixture needs no embedder; contact_fixtures
-  check your embedder build.
-- **Rebuild it** — `python api/extract_content.py --kpp` regenerates kernel.json
-  from the public corpus and prints both convergence figures. The fold is seeded
-  and byte-reproducible; kernel_meta carries the seeds and the chunking rule, so
-  your rebuild can be diffed against ours.
-
-Contact: through the Wellspring — https://zoedolan.github.io/Vybn-Law/wellspring.html
+Machine-readable withdrawal record and proposal:
+https://zoedolan.github.io/Vybn-Law/kpp/kernel.json

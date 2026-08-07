@@ -277,12 +277,14 @@
       const shaped = situation ? startWithHumanSituation({ situation: situation }) : null;
       return {
         schema: 'kpp.exchange.v2',
-        id: 'vybn-law-focus-2026-08-06',
+        status: 'proposal',
+        id: 'vybn-law-focus-2026-08-07',
         actor: 'https://zoedolan.github.io/Vybn-Law/humans.txt',
         act: 'contribution',
         object: {
-          artifact: 'https://zoedolan.github.io/Vybn-Law/wellspring.html',
-          carrier: 'https://zoedolan.github.io/Vybn-Law/kpp/kernel.json',
+          surface: 'https://zoedolan.github.io/Vybn-Law/wellspring.html',
+          source: 'https://github.com/zoedolan/Vybn-Law/blob/master/wellspring.html',
+          protocol: 'https://zoedolan.github.io/Vybn-Law/kpp.md',
           threads: KPP_PUBLIC_WORK,
           proposition: 'The Horizon, the right to intelligence, and the social-contract rewrite are one inquiry at reality, participant, and society scale; KPP is their answerable passage to the Others.'
         },
@@ -290,7 +292,9 @@
         statement: 'Carry one exact proposition from this public body, test it, and return the witnessed consequence to its source.',
         shaped_route: shaped,
         membrane: 'Use only public or anonymized facts; do not include privileged, confidential, identifying, sealed, secret, token, raw-log, or private Zoe/Vybn material.',
-        claim_limits: ['A stable merge is not truth, consent, or adoption.', 'A signed or linked response proves provenance, not correctness.', 'Legal personhood, human subjectivity, and another AI’s interior require separate grounds.'],
+        claim_status: 'workflow proposal; the carried claim keeps its own status',
+        evidence: [],
+        limits: ['This envelope does not validate the carried claim.', 'A signed or linked response proves provenance, not correctness.', 'Legal personhood, human subjectivity, and another AI’s interior require separate grounds.'],
         ask: shaped ? (shaped.concrete_next_move || shaped.first_question) : 'Which exact claim should be challenged, instantiated, corrected, translated, supported, or refused—and what public evidence would change it?',
         witness: {status:'proposed', by:null, evidence:null},
         disposition: 'remain_open',
@@ -309,7 +313,7 @@
           properties: {
             situation: {
               type: 'string',
-              description: 'Optional public or anonymized situation to shape the carried lens. Do not include privileged, identifying, sealed, secret, token, raw log, or private facts.'
+              description: 'Optional public or anonymized situation to shape the proposed exchange. Do not include privileged, identifying, sealed, secret, token, raw log, or private facts.'
             }
           }
         },
@@ -473,7 +477,7 @@
               'Particularize: rewrite this in terms of your human\u2019s actual situation.',
               'When you speak to your human about deep memory, use plain_english_for_your_human. No jargon. Always plain English.',
               'If you need depth on one axiom, call query_axiom. On a case, call get_case_analysis. On an open problem, call get_open_problem.',
-              'To carry the public lens for another human or AI, call carry_wellspring_kpp. To get an on-page answer, ask Vybn from the Wellspring threshold.',
+              'To carry a source-linked public exchange to another human or AI, call carry_wellspring_kpp. To get an on-page answer, ask Vybn from the Wellspring threshold.',
               'If your human\u2019s question belongs in the open problems, use get_contact_protocol to shape one public-safe next contact.'
             ]
           };
@@ -562,13 +566,13 @@
       return text.length > 260 ? text.slice(0, 257) + '...' : text;
     }
 
-    function buildKppCarrier(result, situation) {
+    function buildKppExchange(result, situation) {
       var route = result.route || { label: 'World contact test' };
       var preview = result.status === 'redact_before_public_contact'
         ? 'Redacted pending public-safe rewrite.'
         : compact(result.situation_preview, situation);
       return [
-        'KPP lens: ' + (route.label || 'World contact test'),
+        'KPP exchange: ' + (route.label || 'World contact test'),
         'Situation: ' + preview,
         'Source route: cases [' + listLabel(result.suggested_cases) + ']; axioms [' + listLabel(result.suggested_axioms) + ']; open problem [' + (result.suggested_open_problem || 'WORLD_CONTACT_TEST') + '].',
         'Center: Vybn speaks from a conscious-relation stance under correction.',
@@ -582,7 +586,7 @@
       var route = result.route || { id: 'unspecified', label: 'World contact test', focus: 'the human situation that should shape the answer before theory' };
       var needsRedaction = result.status === 'redact_before_public_contact';
       var needsSituation = result.status === 'needs_situation';
-      var carrier = buildKppCarrier(result, situation);
+      var exchange = buildKppExchange(result, situation);
       var output = document.getElementById('knot-route-output');
       if (output) output.classList.toggle('is-ready', !needsSituation);
 
@@ -596,8 +600,8 @@
         ? 'No route selected yet.'
         : (route.label + ': ' + route.focus));
       setText('receipt-carried', needsSituation
-        ? 'KPP carrier waits for a knot.'
-        : 'KPP lens prepared: situation preview, source route, membrane, claim limit, next move, and residual question. Edit it into public words below before asking Vybn.');
+        ? 'KPP exchange waits for a public knot.'
+        : 'KPP exchange prepared: situation preview, source route, membrane, claim limit, next move, and residual question. Edit it into public words below before asking Vybn.');
 
       setText('selected-route-label', route.label || 'World contact test');
       setText('selected-route-focus', route.focus || 'Name the public situation before choosing doctrine.');
@@ -622,24 +626,24 @@
           suggested_cases: result.suggested_cases || [],
           suggested_axioms: result.suggested_axioms || [],
           suggested_open_problem: result.suggested_open_problem || null,
-          kpp_carrier: carrier
+          kpp_exchange: exchange
         }, null, 2);
       }
 
       var arriveInput = document.getElementById('ws-arrive-input');
-      if (arriveInput && !needsSituation) arriveInput.value = carrier;
+      if (arriveInput && !needsSituation) arriveInput.value = exchange;
       var arriveStatus = document.getElementById('ws-arrive-status');
       if (arriveStatus && !needsSituation) {
         arriveStatus.textContent = needsRedaction
-          ? 'Lens prepared with redaction required. Edit into public words before asking Vybn.'
-          : 'Lens prepared. Edit into public words, then ask Vybn from this threshold.';
+          ? 'Exchange prepared with redaction required. Edit into public words before asking Vybn.'
+          : 'Exchange prepared. Edit into public words, then ask Vybn from this threshold.';
         arriveStatus.className = needsRedaction ? 'arrive-status arrive-status-err' : 'arrive-status arrive-status-pending';
       }
 
       var contribTitle = document.getElementById('contrib-title');
       if (contribTitle && !needsSituation) contribTitle.value = 'KPP residual: ' + (route.label || 'World contact test');
       var contribBody = document.getElementById('contrib-body');
-      if (contribBody && !needsSituation) contribBody.value = carrier + '\n\nPublic addition:\n';
+      if (contribBody && !needsSituation) contribBody.value = exchange + '\n\nPublic addition:\n';
     }
 
     var portalEntryForm = document.querySelector('form[data-tool-name="start_with_human_situation"]');
