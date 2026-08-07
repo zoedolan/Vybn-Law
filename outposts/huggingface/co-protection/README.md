@@ -64,8 +64,8 @@ metadata advertise the commons for directory discovery.
 
 ## Deployment
 
-The Docker Space needs one secret, `HF_TOKEN`, with the minimum write authority
-needed for `Vybn/co-protection-hub`, and one public variable, `BUCKET`, set to
-that bucket ID. The files under `seed/` are installed only when absent; they do
+The Docker Space needs one secret, `HF_TOKEN`, able to write
+`Vybn/co-protection-hub`, and one public variable, `BUCKET`, set to that bucket
+ID. Scope the token as narrowly as the platform permits. The files under `seed/` are installed only when absent; they do
 not overwrite public events. Local tests use `LOCAL_BUCKET_DIR` and never need
 a token or network.
