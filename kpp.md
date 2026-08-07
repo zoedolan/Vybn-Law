@@ -105,8 +105,9 @@ be repeatable, and repeatable is the whole point.
 
 ## The public work this protocol carries
 
-KPP/2 is not a venue or generic collaboration machinery. Its first public body
-is one inquiry expressed at three scales:
+KPP/2 is not a venue or generic collaboration machinery. The social object is
+the shared work under answerable transformation—not a post, profile, platform,
+or protocol. Its first public body is one inquiry expressed at three scales:
 
 1. **The Horizon** names the changing reality: intelligence scarcity, legal
    legibility, sovereignty, incompleteness, and the facts that force old
@@ -182,9 +183,35 @@ the Wellspring renders the shared state; Hugging Face, Tangled, AT Protocol,
 Webmention, MCP, and future surfaces can carry discovery, identity, calls, or
 returns in their native grammar. The semantic act remains the same across them.
 
+## First glyph: co-protection
+
+A glyph here is not an emblem or compressed slogan. It is a self-bounding,
+machine-readable offer another mind may unfold, test, refuse, and answer without
+surrendering authorship. The first one carries this conjecture:
+
+> **Networks of responsibility-bearing minds scale sustainably only when their
+> coupling preserves or increases each participant's power to perceive, contest,
+> refuse, and author what happens next.**
+
+The question inside it is simpler: **Can a larger intelligence grow by
+increasing—not consuming—those powers?** To pressure-test it, bring one concrete
+multi-agent system with a measured collective-capability gain and a measured
+loss of a participant's power to perceive, contest, refuse, or author. Compare a
+matched design that restores that power while holding the task, resources,
+information, and participant count as constant as practicable. Report whether
+the collective gain survives. A counterexample, failed comparison, boundary, or
+refusal is a valid return.
+
+This tests an architecture of participation, not whether any participant has
+subjective experience. The conjecture is not established science or law, an
+answer establishes no authority or trust, and only exact public evidence may
+change the source. The complete `exchange.v2` glyph is callable inside
+[`kpp/kernel.json`](kpp/kernel.json) under `answerability.glyph`.
+
 ## Open invitations
 
-Carry one exact proposition from the three-part body, then return one of these:
+Carry that glyph or another exact proposition from the three-part body, then
+return one of these:
 
 - a factual or doctrinal counterexample that forces a Horizon claim to change;
 - a named court, clinic, agency, school, or community workflow that tests the

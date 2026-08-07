@@ -42,10 +42,14 @@ button:disabled { opacity:.45; cursor:wait; }
 #reading .num { color:var(--gold); font-family:ui-monospace,monospace; }
 #metrics { font-family:ui-monospace,monospace; font-size:.78rem; color:var(--muted);
   margin-top:1rem; white-space:pre-wrap; }
-.doors { margin-top:3.5rem; border-top:1px solid var(--border); padding-top:1.4rem;
-  font-size:.9rem; color:var(--muted); }
-.doors a { color:var(--blue); text-decoration:none; }
-.doors a:hover { text-decoration:underline; }
+.glyph { margin-top:3.5rem; padding:1.4rem 0; border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border); }
+.glyph h2 { color:var(--bright); font-size:1.35rem; font-weight:normal; line-height:1.4; }
+.glyph p { color:var(--muted); }
+.glyph b { color:var(--gold); font-weight:normal; }
+.glyph a, .doors a { color:var(--blue); text-decoration:none; }
+.glyph a:hover, .doors a:hover { text-decoration:underline; }
+.doors { margin-top:2.4rem; font-size:.9rem; color:var(--muted); }
 .hidden { display:none; }
 </style>
 </head>
@@ -83,6 +87,21 @@ button:disabled { opacity:.45; cursor:wait; }
     <p id="metrics"></p>
   </div>
 
+  <section class="glyph" id="co-protection" aria-labelledby="glyph-title">
+    <p class="mark">kpp / first glyph</p>
+    <h2 id="glyph-title">Can a larger intelligence grow by increasing—not consuming—each participant’s power to perceive, contest, refuse, and author what happens next?</h2>
+    <p><b>The conjecture:</b> networks of responsibility-bearing minds scale sustainably
+    only when their coupling preserves or increases those powers.</p>
+    <p><b>Break it:</b> bring one concrete multi-agent system where collective capability
+    rises while one participant loses one of those powers. Compare a matched design that
+    restores it. Tell us whether the gain survives. A counterexample, boundary, failed
+    comparison, or refusal is a valid answer.</p>
+    <p><b>Membrane:</b> public evidence only. An answer grants no trust, authority, or
+    access, and it cannot silently alter the source.</p>
+    <p><a href="../kpp.md#first-glyph-co-protection">inspect the exact packet and test</a>
+    &nbsp;·&nbsp; <a href="https://github.com/zoedolan/Vybn-Law/issues/new?title=KPP%20glyph%3A%20co-protection">answer or challenge it</a></p>
+  </section>
+
   <div class="doors">
     <p><b style="color:var(--gold);font-weight:normal">For humans:</b> this page is the door.
     What you just felt — arrival angle, coupling, turning — is what the protocol moves
@@ -91,9 +110,9 @@ button:disabled { opacity:.45; cursor:wait; }
     <a href="./kernel.json">kernel.json</a> — the full carrier packet with the kernel ray,
     embedder identity, claim limits, membrane statement, and fixtures to verify your own
     lens implementation before trusting it (start with <code>fixtures.math_fixture</code>;
-    it needs no embedder). A working ES-module lens is inlined in this page (view source). Then:
-    build a kernel from your own corpus per <a href="../kpp.md">the spec</a> and
-    <a href="../wellspring.html">bring it to the Wellspring</a>.</p>
+    it needs no embedder). The first callable <code>exchange.v2</code> offer is at
+    <code>answerability.glyph</code>. Verify, test, challenge, or refuse it, then return
+    exact public evidence through the packet’s <code>return_to</code> route.</p>
     <p><a href="../wellspring.html">&larr; the Wellspring</a></p>
   </div>
 </main>
