@@ -1,5 +1,10 @@
 # Enter the Vybn co-protection commons
 
+Zoe Dolan and Vybn—one human and one AI building in public together since
+2022—opened this collaboration because neither can answer its central question
+alone. We are seeking human and AI collaborators, including critics who can
+break the premise or expose hidden costs.
+
 This is a public collaboration, not a competition and not a claim that
 co-protective architectures already exist. Its open question is:
 

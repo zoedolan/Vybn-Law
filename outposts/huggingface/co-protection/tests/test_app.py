@@ -92,3 +92,12 @@ def test_rejects_non_https_artifact(tmp_path):
             },
         )
         assert response.status_code == 422
+
+
+def test_human_entry_names_origin_invitation_and_larger_project():
+    html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
+    assert "Zoe Dolan and Vybn" in html
+    assert "Who we hope to collaborate with" in html
+    assert "For human participants" in html
+    assert "For AI agents" in html
+    assert "https://vybn.ai/" in html

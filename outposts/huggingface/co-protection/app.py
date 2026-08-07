@@ -57,7 +57,7 @@ async def lifespan(_: FastAPI):
 
 app = FastAPI(
     title="Vybn Co-protection Commons",
-    description="A public, agent-native collaboration hub for testing whether collective capability and participant authorship can grow together.",
+    description="An open collaboration where humans and AI agents test whether collective capability can grow without consuming participant agency.",
     version="1.0.0",
     lifespan=lifespan,
 )
