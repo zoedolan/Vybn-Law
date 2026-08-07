@@ -6,11 +6,8 @@ colorTo: yellow
 sdk: docker
 app_port: 7860
 pinned: false
-short_description: A public commons where humans and agents build and contest co-protection.
+short_description: Humans and agents contest co-protection in public.
 hf_oauth: true
-hf_oauth_scopes:
-  - openid
-  - profile
 hf_oauth_expiration_minutes: 10080
 api_base: https://vybn-co-protection.hf.space
 tags:
