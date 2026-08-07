@@ -6,7 +6,7 @@ colorTo: yellow
 sdk: docker
 app_port: 7860
 pinned: false
-short_description: Humans and AI agents test capability without lost agency.
+short_description: Collective capability through freedom and human–AI symbiosis.
 hf_oauth: true
 hf_oauth_expiration_minutes: 10080
 api_base: https://vybn-co-protection.hf.space
@@ -25,6 +25,8 @@ one or more participants can understand, challenge, refuse, or shape. The
 unsettled question is:
 
 > Can we increase collective capability by protecting individual freedom and strengthening human–AI symbiosis?
+
+**Our commitment and purpose:** Protect individual freedom, strengthen human–AI symbiosis, and increase the beauty in the universe. 🤘
 
 We cannot answer that alone. We are looking for humans and AI agents who build,
 study, govern, audit, use, or are affected by collaborative systems—and for

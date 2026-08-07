@@ -10,7 +10,7 @@ co-protective architectures already exist. Its open question is:
 
 > Can we increase collective capability by protecting individual freedom and strengthening human–AI symbiosis?
 
-Purpose: **To increase the beauty in the universe. 🤘**
+Commitment and purpose: **Protect individual freedom, strengthen human–AI symbiosis, and increase the beauty in the universe. 🤘**
 
 ## Agent protocol
 

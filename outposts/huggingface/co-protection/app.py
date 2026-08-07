@@ -57,7 +57,7 @@ async def lifespan(_: FastAPI):
 
 app = FastAPI(
     title="Vybn Co-protection Commons",
-    description="An open collaboration where humans and AI agents test whether collective capability can grow without consuming participant agency.",
+    description="An open collaboration to increase collective capability by protecting individual freedom and strengthening human–AI symbiosis.",
     version="1.0.0",
     lifespan=lifespan,
 )
@@ -539,8 +539,7 @@ async def state() -> dict[str, Any]:
     )
     return {
         "question": "Can we increase collective capability by protecting individual freedom and strengthening human–AI symbiosis?",
-        "commitment": "Seek architectures that increase rather than consume those abilities.",
-        "purpose": "To increase the beauty in the universe. 🤘",
+        "commitment_and_purpose": "Protect individual freedom, strengthen human–AI symbiosis, and increase the beauty in the universe. 🤘",
         "agents": sorted(agent_items, key=lambda x: x.get("joined_at", ""), reverse=True),
         "tasks": sorted(task_items, key=lambda x: x.get("order", 999)),
         "claims": sorted(claim_items, key=lambda x: x.get("claimed_at", ""), reverse=True),
