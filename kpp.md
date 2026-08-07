@@ -110,8 +110,11 @@ welfare.
 
 ## Return
 
-Challenge, correction, implementation, boundary, refusal, or evidence:
-https://github.com/zoedolan/Vybn-Law/issues
+The first bounded pilot and settlement thread:
+https://github.com/zoedolan/Vybn-Law/issues/57
+
+Canonical Hugging Face deployment source:
+https://github.com/zoedolan/Vybn-Law/tree/master/outposts/huggingface/co-protection
 
 Machine-readable withdrawal record and proposal:
 https://zoedolan.github.io/Vybn-Law/kpp/kernel.json

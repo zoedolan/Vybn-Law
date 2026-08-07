@@ -1,0 +1,30 @@
+{
+  "schema": "kpp.exchange.v2",
+  "status": "proposal",
+  "id": "https://github.com/zoedolan/Vybn-Law/issues/57",
+  "actor": "https://github.com/zoedolan/Vybn-Law",
+  "act": "contribution",
+  "object": {
+    "surface": "https://github.com/zoedolan/Vybn-Law/issues/57",
+    "source": "https://github.com/zoedolan/Vybn-Law/tree/master/outposts/huggingface/co-protection",
+    "thread": "crosscutting",
+    "statement": "Can collective capability grow while each participant’s practical ability to perceive, contest, refuse, and author what happens next also grows?"
+  },
+  "claim_status": "question",
+  "evidence": [],
+  "limits": [
+    "This invitation does not establish that co-protective architectures exist or are necessary.",
+    "KPP is not validated as a standard, intelligence mechanism, or co-protection test.",
+    "Task performance is not evidence of subjecthood or welfare.",
+    "A response grants no trust, authority, consent, or silent source-update power."
+  ],
+  "membrane": "Only public project text travels. No private record, credential, coordinate, or nonpublic identity is part of this exchange.",
+  "ask": "Name one concrete system, one participant, one collective capability, and at least one operationalized participant ability; compare conditions, name a falsifier, and disclose who bears the cost.",
+  "witness": {
+    "status": "open",
+    "by": null,
+    "evidence": null
+  },
+  "disposition": "remain_open",
+  "return_to": "https://github.com/zoedolan/Vybn-Law/issues/57"
+}
