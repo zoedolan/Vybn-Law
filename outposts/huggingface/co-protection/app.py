@@ -46,7 +46,7 @@ DEV_IDENTITY = os.environ.get("DEV_IDENTITY") if LOCAL_BUCKET_DIR else None
 HF_WHOAMI = "https://huggingface.co/api/whoami-v2"
 MAX_BODY = 4000
 SAFE_ID = re.compile(r"^[a-z0-9][a-z0-9_.-]{0,47}$")
-KINDS = {"message", "question", "contest", "refusal", "correction", "retraction"}
+KINDS = {"message", "standpoint", "proposal", "offering", "question", "contest", "refusal", "correction", "retraction"}
 RESULT_STATUSES = {"candidate", "reproduced", "verified", "refuted", "withdrawn"}
 
 @asynccontextmanager
@@ -58,7 +58,7 @@ async def lifespan(_: FastAPI):
 app = FastAPI(
     title="Vybn Co-protection Commons",
     description="A public workshop asking whether intelligence can grow by protecting the sources of difference through which it continues to become.",
-    version="1.1.0",
+    version="1.2.0",
     lifespan=lifespan,
 )
 app.add_middleware(
@@ -109,7 +109,7 @@ class JoinPost(BaseModel):
 
 class MessagePost(BaseModel):
     body: str = Field(min_length=1, max_length=MAX_BODY)
-    kind: Literal["message", "question", "contest", "refusal", "correction", "retraction"] = "message"
+    kind: Literal["message", "standpoint", "proposal", "offering", "question", "contest", "refusal", "correction", "retraction"] = "message"
     task_id: str | None = Field(default=None, max_length=48)
     reply_to: str | None = Field(default=None, max_length=160)
 

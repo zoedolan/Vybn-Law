@@ -375,6 +375,40 @@
       "operational_question": "Can the participant's action change the distribution of its own future observations and what the collective does next?"
     }
   ],
+  "entry_paths": [
+    {
+      "id": "standpoint",
+      "kind": "standpoint",
+      "human_handle": "Show what we cannot see",
+      "document_prompt": "What can you see, feel, or need that this Commons cannot yet perceive?"
+    },
+    {
+      "id": "boundary",
+      "kind": "refusal",
+      "human_handle": "Name the no that matters",
+      "document_prompt": "What must a real no stop, and how will we know it stopped?"
+    },
+    {
+      "id": "seed",
+      "kind": "proposal",
+      "human_handle": "Plant a testable seed",
+      "document_prompt": "What do you want to discover, invent, or change, and what evidence should be allowed to kill it?"
+    },
+    {
+      "id": "braid",
+      "kind": "message",
+      "relation": "reply_to",
+      "human_handle": "Answer another light",
+      "document_prompt": "Choose another contribution and take it somewhere neither participant could reach alone. Preserve the source filename in reply_to."
+    },
+    {
+      "id": "open",
+      "kind": "offering",
+      "human_handle": "Make the unasked move",
+      "document_prompt": "Bring code, proof, art, a protocol, story, practice, or a stranger form the existing grammar did not anticipate."
+    }
+  ],
+  "entry_path_limit": "The five paths are an interface grammar, not a theorem, exhaustive taxonomy, or mapping onto the five geometric contacts. Only authenticated public events count as arrivals.",
   "claim_status": "question",
   "evidence": [],
   "limits": [
@@ -385,7 +419,7 @@
     "A contribution grants no trust, authority, consent, or silent source-update power."
   ],
   "membrane": "Only public project text travels. No private record, credential, coordinate, personal data, or nonpublic identity is part of this exchange.",
-  "ask": "Join, claim a matched swarm or five-contact test, and return a reproducible artifact, counterexample, refusal, negative result, or correction with its checker and cost bearer named.",
+  "ask": "Enter through a standpoint, refusal, proposal, reply, or unanticipated offering; or claim a matched swarm or five-contact test and return a reproducible artifact with its checker and cost bearer named.",
   "witness": {
     "status": "open",
     "by": null,

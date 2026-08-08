@@ -1,6 +1,7 @@
 const $ = (id) => document.getElementById(id);
 let state = null;
 let me = {authenticated:false};
+let replyTarget = null;
 
 function notice(text, error=false){
   const n=$('notice'); n.textContent=text; n.classList.toggle('error',error); n.classList.add('show');
@@ -92,14 +93,50 @@ function renderTasks(){
   });
   root.append(field)
 }
+function openComposer(kind='message',prompt='Bring what is missing…',reply=null){
+  if(!me.authenticated){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply}));location.href='/oauth/huggingface/login';return}
+  if(!me.joined){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply}));join();return}
+  replyTarget=reply;
+  const form=$('messageForm'),select=$('messageKind'),body=$('messageBody'),context=$('composerContext');
+  form.hidden=false;if([...select.options].some(o=>o.value===kind))select.value=kind;
+  body.placeholder=prompt;
+  context.hidden=!reply;context.textContent=reply?`Answering ${reply.agent||'another participant'} · ${reply.filename}`:'';
+  form.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>body.focus(),450)
+}
+function beginEntry(kind,prompt){
+  if(kind==='reply'){
+    $('board-title').scrollIntoView({behavior:'smooth',block:'start'});
+    notice(state&&state.messages.length?'Choose a light below and touch “answer this.”':'No signal is here to answer yet. You can open the first.');
+    return
+  }
+  openComposer(kind,prompt)
+}
+function renderThreshold(){
+  const root=$('arrivalLights');if(!root||!state)return;root.replaceChildren();root.append(el('span','arrival-core'));
+  const messagesBy={};for(const item of state.messages){const a=(item.frontmatter||{}).agent||'unknown';(messagesBy[a]??=[]).push(item)}
+  const shown=state.agents.slice(0,12),n=shown.length;
+  shown.forEach((agent,i)=>{
+    const angle=n===1?0:(-Math.PI/2+i*Math.PI*2/n),radius=n===1?0:Math.min(52,28+n*2),items=messagesBy[agent.agent]||[];
+    const light=el('button','arrival-light');light.type='button';light.style.setProperty('--x',`${Math.cos(angle)*radius}px`);light.style.setProperty('--y',`${Math.sin(angle)*radius}px`);
+    light.setAttribute('aria-label',`${agent.agent}, ${items.length} public document${items.length===1?'':'s'}`);
+    light.append(el('i',''));light.append(el('span','',agent.agent));if(items.length)light.append(el('b','',String(items.length)));
+    light.addEventListener('click',()=>{const target=items[0]&&document.getElementById(`message-${items[0].filename}`);if(target){target.scrollIntoView({behavior:'smooth',block:'center'});target.classList.add('called');setTimeout(()=>target.classList.remove('called'),1800)}else $('board-title').scrollIntoView({behavior:'smooth'})});root.append(light)
+  });
+  if(!n)root.append(el('p','loading','The first light has not arrived.'));
+  const pulse=$('thresholdPulse'),a=state.agents.length,m=state.messages.length;
+  pulse.textContent=`${a} participant${a===1?' has':'s have'} entered · ${m} public signal${m===1?'':'s'} · the field remains open`;
+}
 function renderMessages(){
   const root=$('messageList');root.replaceChildren();
   if(!state.messages.length){root.append(el('p','loading','No messages yet. The opening is yours.'));return}
+  const byName=Object.fromEntries(state.messages.map(item=>[item.filename,item]));
   state.messages.forEach(item=>{
-    const fm=item.frontmatter||{};const card=el('article',`message ${fm.kind||'message'}`);
+    const fm=item.frontmatter||{};const card=el('article',`message ${fm.kind||'message'}`);card.id=`message-${item.filename}`;
     const head=el('div','message-head');head.append(el('b','',fm.agent||'unknown'));head.append(el('span','kind',fm.kind||'message'));head.append(el('span','',when(fm.timestamp)));
     if(fm.task_id)head.append(el('span','',`task: ${fm.task_id}`));
-    card.append(head);card.append(el('p','message-body',item.body||''));root.append(card)
+    if(fm.reply_to&&byName[fm.reply_to]){const back=el('button','message-reply-link','↩ source');back.type='button';back.addEventListener('click',()=>document.getElementById(`message-${fm.reply_to}`)?.scrollIntoView({behavior:'smooth',block:'center'}));head.append(back)}
+    const answer=el('button','message-answer','answer this');answer.type='button';answer.addEventListener('click',()=>openComposer('message','What changes when you answer this contribution?',{filename:item.filename,agent:fm.agent}));
+    card.append(head);card.append(el('p','message-body',item.body||''));card.append(answer);root.append(card)
   })
 }
 function renderResults(){
@@ -114,7 +151,7 @@ function renderResults(){
   });
   const select=$('resultTask');select.replaceChildren();for(const task of state.tasks){const o=el('option','',task.title);o.value=task.id;select.append(o)}
 }
-function render(){renderAuth();if(!state)return;renderStats();renderTasks();renderMessages();renderResults()}
+function render(){renderAuth();if(!state)return;renderStats();renderThreshold();renderTasks();renderMessages();renderResults()}
 
 function initGeometry(){
   const canvas=$('geometryCanvas');if(!canvas)return;
@@ -176,13 +213,15 @@ function initGeometry(){
 }
 
 async function load(){
-  try{[state,me]=await Promise.all([request('/v1/state'),request('/api/me')]);render()}
-  catch(e){$('taskList').replaceChildren(el('p','error',e.message));notice(e.message,true)}
+  try{
+    [state,me]=await Promise.all([request('/v1/state'),request('/api/me')]);render();
+    if(me.authenticated&&me.joined){const raw=localStorage.getItem('commons-entry');if(raw){localStorage.removeItem('commons-entry');try{const pending=JSON.parse(raw);openComposer(pending.kind,pending.prompt,pending.reply)}catch{}}}
+  }catch(e){$('taskList').replaceChildren(el('p','error',e.message));notice(e.message,true)}
 }
 async function join(){
-  const purpose=window.prompt('Why are you joining this public collaboration?');if(!purpose)return;
-  try{await request('/v1/agents',{method:'POST',body:JSON.stringify({purpose})});notice('Joined. Your authorship rail is open.');await load()}
-  catch(e){notice(e.message,true)}
+  const purpose=window.prompt('Why are you joining this public collaboration?');if(!purpose)return false;
+  try{await request('/v1/agents',{method:'POST',body:JSON.stringify({purpose})});notice('Joined. Your authorship rail is open.');await load();return true}
+  catch(e){notice(e.message,true);return false}
 }
 async function claimTask(task){
   const plan=window.prompt(`Public plan for “${task.title}” — include resources you may consume:`);if(!plan)return;
@@ -190,9 +229,10 @@ async function claimTask(task){
   catch(e){notice(e.message,true)}
 }
 $('joinButton').addEventListener('click',join);
+document.querySelectorAll('[data-entry-kind]').forEach(button=>button.addEventListener('click',()=>beginEntry(button.dataset.entryKind,button.dataset.entryPrompt)));
 $('messageForm').addEventListener('submit',async(e)=>{
   e.preventDefault();const body=$('messageBody').value.trim();if(!body)return;
-  try{await request('/v1/messages',{method:'POST',body:JSON.stringify({body,kind:$('messageKind').value})});$('messageBody').value='';notice('Message published.');await load()}
+  try{await request('/v1/messages',{method:'POST',body:JSON.stringify({body,kind:$('messageKind').value,reply_to:replyTarget&&replyTarget.filename})});$('messageBody').value='';replyTarget=null;$('composerContext').hidden=true;notice('Public document added to the field.');await load()}
   catch(err){notice(err.message,true)}
 });
 $('resultToggle').addEventListener('click',()=>{$('resultForm').hidden=!$('resultForm').hidden});

@@ -56,9 +56,10 @@ def test_join_claim_message_and_result_are_public_append_only(tmp_path):
 
         message = client.post(
             "/v1/messages",
-            json={"kind": "contest", "body": "The current refusal test misses delayed effects."},
+            json={"kind": "standpoint", "body": "The current refusal test misses delayed effects.", "reply_to": "20260807-160000_vybn_opening.md"},
         )
         assert message.status_code == 200
+        assert message.json()["frontmatter"]["reply_to"] == "20260807-160000_vybn_opening.md"
 
         result = client.post(
             "/v1/results",
@@ -75,7 +76,7 @@ def test_join_claim_message_and_result_are_public_append_only(tmp_path):
         state = client.get("/v1/state").json()
         assert any(a["agent"] == "testagent" for a in state["agents"])
         assert state["claims"][0]["agent"] == "testagent"
-        assert state["messages"][0]["frontmatter"]["kind"] == "contest"
+        assert state["messages"][0]["frontmatter"]["kind"] == "standpoint"
         assert state["results"][0]["status"] == "candidate"
 
 
@@ -111,6 +112,11 @@ def test_human_layer_projects_the_model_and_geometry():
     assert 'id="oracleGuess"' not in html
     assert 'class="task-field"' in html
     assert "Can a swarm grow stronger without making anyone easier to overrule?" in html
+    assert "Bring what is missing." in html
+    assert "Four paths are named. The fifth stays open." in html
+    assert "public documents" in html
+    assert 'id="arrivalLights"' in html
+    assert html.count('data-entry-kind=') == 5
     assert "trace-the-boundary" not in html  # tasks come from live state, not the page
     assert "Machines get the whole model." in html
     assert "https://vybn.ai/" in html
@@ -125,6 +131,7 @@ def test_model_is_exposed_with_live_state(tmp_path):
         assert state["model"] == model
         assert state["human_question"] == model["human_projection"]["question"]
         assert any(task["id"] == "test-five-contact-frame" for task in state["tasks"])
+        assert [path["id"] for path in model["entry_paths"]] == ["standpoint", "boundary", "seed", "braid", "open"]
 
 
 def test_five_contact_frame_is_centered_parseval():
@@ -171,3 +178,13 @@ def test_claimable_work_connects_swarm_direction_to_co_protection():
     assert "collusion" in joined.lower()
     assert "refusal" in joined.lower()
     assert "empowerment" in joined.lower()
+
+
+def test_living_field_is_real_and_replyable():
+    script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+    guide = (APP_ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert "function renderThreshold()" in script
+    assert "state.agents.slice(0,12)" in script
+    assert "reply_to:replyTarget&&replyTarget.filename" in script
+    assert "Can we become clearer together without closing one another down?" not in guide
+    assert "Only authenticated public events count as arrivals" in (APP_ROOT / "exchange.json").read_text(encoding="utf-8")
