@@ -158,3 +158,7 @@ $('resultForm').addEventListener('submit',async(e)=>{
   catch(err){notice(err.message,true)}
 });
 initGeometry();load();setInterval(load,30000);
+
+
+// Progressive disclosure on touch and click: tapping a disclosure block toggles it; links, buttons, and forms keep their own behavior.
+document.addEventListener('click',e=>{if(e.target.closest('a,button,select,textarea,input,label,form'))return;const host=e.target.closest('.has-more');if(host)host.classList.toggle('open')});
