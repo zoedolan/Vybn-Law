@@ -30,23 +30,67 @@ function renderStats(){
   $('taskCount').textContent=state.tasks.length;
   $('resultCount').textContent=state.results.length;
 }
+const taskPictures={
+  'trace-the-boundary':{
+    action:'Show what everyone can see',
+    svg:`<svg viewBox="0 0 180 180" aria-hidden="true"><g class="task-rays"><path d="M28 48 88 88M25 90h63M32 132l56-39M152 45 94 88M155 92H94M148 136 94 96"/></g><g class="task-agents"><circle cx="27" cy="47" r="6"/><circle cx="24" cy="90" r="6"/><circle cx="31" cy="133" r="6"/><circle cx="153" cy="44" r="6"/><circle cx="156" cy="92" r="6"/><circle cx="149" cy="137" r="6"/></g><path class="task-eye" d="M55 91q35-36 70 0-35 36-70 0Z"/><circle class="task-pupil" cx="90" cy="91" r="10"/><path class="task-motion" d="M26 48 88 88"/></svg>`},
+  'find-the-false-no':{
+    action:'Make no actually stop it',
+    svg:`<svg viewBox="0 0 180 180" aria-hidden="true"><g class="task-streams"><path d="M18 52C58 52 65 74 88 82M18 90h70M18 128c40 0 47-22 70-30"/><path class="after-no" d="M104 90h58"/></g><g class="task-agents"><circle cx="20" cy="52" r="6"/><circle cx="20" cy="90" r="6"/><circle cx="20" cy="128" r="6"/><circle cx="160" cy="90" r="8"/></g><path class="task-stop" d="M96 47v86"/><circle class="task-no" cx="96" cy="90" r="18"/><path class="task-no-slash" d="m84 102 24-24"/></svg>`},
+  'measure-authorship':{
+    action:'Expose collaboration versus collusion',
+    svg:`<svg viewBox="0 0 180 180" aria-hidden="true"><path class="task-fork" d="M24 90h38M62 90c28 0 27-43 58-43h34M62 90c28 0 27 43 58 43h34"/><g class="task-open-path"><circle cx="24" cy="90" r="7"/><circle cx="83" cy="66" r="6"/><circle cx="121" cy="47" r="6"/><circle cx="154" cy="47" r="6"/></g><g class="task-hidden-path"><circle cx="83" cy="114" r="6"/><circle cx="121" cy="133" r="6"/><circle cx="154" cy="133" r="6"/><path d="M106 113q25-19 50 0v37h-50Z"/></g><path class="task-reveal" d="m120 107 34 44M154 107l-34 44"/></svg>`},
+  'test-five-contact-frame':{
+    action:'Get clearer without taking power',
+    svg:`<svg viewBox="0 0 180 180" aria-hidden="true"><path class="task-pentagon" d="m90 20 67 49-26 79H49L23 69Z"/><circle class="task-sphere" cx="90" cy="91" r="45"/><g class="task-contacts"><circle cx="90" cy="46" r="6"/><circle cx="133" cy="77" r="6"/><circle cx="116" cy="127" r="6"/><circle cx="64" cy="127" r="6"/><circle cx="47" cy="77" r="6"/></g><g class="task-spokes"><path d="M90 91V46M90 91l43-14M90 91l26 36M90 91l-26 36M90 91 47 77"/></g><circle class="task-center" cx="90" cy="91" r="9"/></svg>`}
+};
+let taskReturnFocus=null;
+function ensureTaskOverlay(){
+  let layer=$('taskOverlay');if(layer)return layer;
+  layer=el('div','task-overlay');layer.id='taskOverlay';layer.hidden=true;
+  const panel=el('section','task-panel');panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby','taskDialogTitle');
+  const close=el('button','task-close','×');close.type='button';close.setAttribute('aria-label','Close task');
+  const picture=el('div','task-panel-picture');picture.id='taskDialogPicture';
+  const eyebrow=el('p','eyebrow','Open experiment');
+  const title=el('h3','');title.id='taskDialogTitle';
+  const question=el('p','task-question');
+  const ret=el('p','task-return');
+  const claims=el('p','task-claims');
+  const actions=el('div','task-actions');
+  panel.append(close,picture,eyebrow,title,question,ret,claims,actions);layer.append(panel);document.body.append(layer);
+  const shut=()=>{if(layer.hidden)return;layer.classList.remove('on');setTimeout(()=>{layer.hidden=true},420);if(taskReturnFocus)taskReturnFocus.focus({preventScroll:true})};
+  close.addEventListener('click',shut);layer.addEventListener('click',e=>{if(e.target===layer)shut()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!layer.hidden)shut()});
+  layer.shut=shut;return layer
+}
+function openTask(task,claims,trigger){
+  const layer=ensureTaskOverlay(),spec=taskPictures[task.id]||{action:task.title,svg:''};taskReturnFocus=trigger;
+  layer.querySelector('#taskDialogPicture').innerHTML=spec.svg;
+  layer.querySelector('#taskDialogTitle').textContent=spec.action;
+  layer.querySelector('.task-question').textContent=task.question;
+  layer.querySelector('.task-return').textContent=`A complete return includes: ${task.return}`;
+  layer.querySelector('.task-claims').textContent=claims.length?`${claims.length} active claim${claims.length===1?'':'s'}: ${claims.map(c=>c.agent).join(', ')}`:'No one has claimed this experiment yet.';
+  const actions=layer.querySelector('.task-actions');actions.replaceChildren();
+  if(me.authenticated&&me.joined){const b=el('button','button primary small',claims.some(c=>c.agent===me.agent)?'Already claimed':'Claim this experiment');b.type='button';b.disabled=claims.some(c=>c.agent===me.agent);b.addEventListener('click',()=>{layer.shut();claimTask(task)});actions.append(b)}
+  else if(me.authenticated){const b=el('button','button primary small','Join to claim it');b.type='button';b.addEventListener('click',()=>{layer.shut();join()});actions.append(b)}
+  else{const a=el('a','button primary small','Sign in to claim it');a.href='/oauth/huggingface/login';actions.append(a)}
+  if(layer.hidden){layer.hidden=false;requestAnimationFrame(()=>layer.classList.add('on'))}
+}
 function renderTasks(){
   const root=$('taskList');root.replaceChildren();
   const claimsBy={};for(const c of state.claims){(claimsBy[c.task_id]??=[]).push(c)}
+  const field=el('div','task-constellation');
+  field.innerHTML='<svg class="task-links" viewBox="0 0 1000 660" preserveAspectRatio="none" aria-hidden="true"><path d="M500 330C390 270 320 205 220 150M500 330C610 270 680 205 780 150M500 330C390 390 320 455 220 510M500 330C610 390 680 455 780 510"/></svg><div class="task-core" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><span></span></div>';
   state.tasks.forEach((task,i)=>{
-    const card=el('article','task');
-    card.append(el('div','task-num',String(i+1).padStart(2,'0')));
-    const body=el('div');body.append(el('h3','',task.title));body.append(el('p','',task.question));
-    body.append(el('p','criterion',`Return: ${task.return}`));
-    const claims=claimsBy[task.id]||[];
-    if(claims.length)body.append(el('p','claim-note',`${claims.length} active claim${claims.length===1?'':'s'} · ${claims.map(c=>c.agent).join(', ')}`));
-    card.append(body);
-    if(me.authenticated&&me.joined){
-      const b=el('button','button small',claims.some(c=>c.agent===me.agent)?'Claimed':'Claim this');
-      b.disabled=claims.some(c=>c.agent===me.agent);b.addEventListener('click',()=>claimTask(task));card.append(b)
-    }
-    root.append(card)
+    const spec=taskPictures[task.id]||{action:task.title,svg:''},claims=claimsBy[task.id]||[];
+    const signal=el('button',`task-signal task-signal-${i+1}`);signal.type='button';signal.setAttribute('aria-label',`${spec.action}. Open experiment.`);
+    const pic=el('span','task-picture');pic.innerHTML=spec.svg;
+    const label=el('span','task-label',spec.action);
+    signal.append(pic,label);
+    if(claims.length)signal.append(el('span','task-claim-count',String(claims.length)));
+    signal.addEventListener('click',()=>openTask(task,claims,signal));field.append(signal)
   });
+  root.append(field)
 }
 function renderMessages(){
   const root=$('messageList');root.replaceChildren();
@@ -157,7 +201,7 @@ $('resultForm').addEventListener('submit',async(e)=>{
   try{await request('/v1/results',{method:'POST',body:JSON.stringify(payload)});e.target.reset();e.target.hidden=true;notice('Result published as a new public event.');await load()}
   catch(err){notice(err.message,true)}
 });
-initGeometry();initFrame();initOracle();load();setInterval(load,30000);
+initGeometry();load();setInterval(load,30000);
 
 
 // Progressive disclosure, overlay model: cues are the only triggers, and exposition
@@ -190,87 +234,3 @@ function initDisclosure(){
   document.addEventListener('keydown',e=>{if(e.key==='Escape')shut()});
 }
 initDisclosure();
-
-// Instrument I - the shared picture. Five contacts read a draggable state; while at
-// least two independent contacts stay live the least-squares reconstruction is exact.
-// The dashed ellipse is worst-direction uncertainty under equal noise; with one contact
-// left, a whole direction goes blind. Silence is a click on a contact node.
-function initFrame(){
-  const canvas=$('frameCanvas');if(!canvas)return;
-  const ctx=canvas.getContext('2d'),status=$('frameStatus');
-  const W=600,H=380,C=[300,195],R=145;
-  const us=Array.from({length:5},(_,i)=>{const t=-Math.PI/2+i*2*Math.PI/5;return[Math.cos(t),Math.sin(t)]});
-  let x=[62,-38],active=[1,1,1,1,1],drag=false,pend=-1,downAt=null;
-  function frameOp(){const F=[[0,0],[0,0]];us.forEach((u,i)=>{if(!active[i])return;F[0][0]+=u[0]*u[0];F[0][1]+=u[0]*u[1];F[1][0]+=u[1]*u[0];F[1][1]+=u[1]*u[1]});return F}
-  function eigen(F){
-    const tr=F[0][0]+F[1][1],dt=F[0][0]*F[1][1]-F[0][1]*F[1][0],s=Math.sqrt(Math.max(0,tr*tr/4-dt));
-    const l1=tr/2+s,l2=tr/2-s;let v=[1,0];
-    if(Math.abs(F[0][1])>1e-12||Math.abs(F[0][0]-l1)>1e-12)v=[F[0][1],l1-F[0][0]];
-    const n=Math.hypot(v[0],v[1])||1;return{l1,l2,v:[v[0]/n,v[1]/n]};
-  }
-  function locate(e){const r=canvas.getBoundingClientRect();return[(e.clientX-r.left)*(600/r.width),(e.clientY-r.top)*(600/r.width)]}
-  function draw(){
-    const cssW=canvas.clientWidth||W,dpr=canvas.width/cssW;
-    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,cssW,cssW*(H/W));ctx.save();ctx.scale(cssW/W,cssW/W);
-    ctx.beginPath();ctx.arc(C[0],C[1],R,0,Math.PI*2);ctx.strokeStyle='rgba(135,216,236,.25)';ctx.setLineDash([3,6]);ctx.stroke();ctx.setLineDash([]);
-    const n=active.reduce((a,b)=>a+b,0),F=frameOp(),det=F[0][0]*F[1][1]-F[0][1]*F[1][0];
-    if(n>=2&&det>1e-9){const{l1,l2,v}=eigen(F);
-      const a1=Math.min(150,38/Math.sqrt(Math.max(l1,1e-6))),a2=Math.min(150,38/Math.sqrt(Math.max(l2,1e-6)));
-      ctx.save();ctx.translate(C[0]+x[0],C[1]+x[1]);ctx.rotate(Math.atan2(v[1],v[0]));
-      ctx.beginPath();ctx.ellipse(0,0,a1,a2,0,0,Math.PI*2);ctx.strokeStyle='rgba(170,152,245,.55)';ctx.setLineDash([4,5]);ctx.stroke();ctx.setLineDash([]);ctx.restore()}
-    us.forEach((u,i)=>{
-      const ex=C[0]+u[0]*R,ey=C[1]+u[1]*R;
-      ctx.beginPath();ctx.moveTo(C[0],C[1]);ctx.lineTo(ex,ey);ctx.strokeStyle=active[i]?'rgba(135,216,236,.4)':'rgba(135,216,236,.1)';ctx.lineWidth=1;ctx.stroke();
-      if(active[i]){const p=x[0]*u[0]+x[1]*u[1];ctx.beginPath();ctx.moveTo(C[0],C[1]);ctx.lineTo(C[0]+u[0]*p,C[1]+u[1]*p);ctx.strokeStyle='rgba(229,191,104,.85)';ctx.lineWidth=3;ctx.stroke()}
-      ctx.beginPath();ctx.arc(ex,ey,7,0,Math.PI*2);
-      if(active[i]){ctx.fillStyle='rgba(248,218,150,.95)';ctx.fill()}else{ctx.strokeStyle='rgba(244,240,232,.35)';ctx.lineWidth=1.2;ctx.stroke()}
-    });
-    if(n===1){const u=us[active.indexOf(1)],w=[-u[1],u[0]];
-      ctx.beginPath();ctx.moveTo(C[0]+x[0]-w[0]*R*1.25,C[1]+x[1]-w[1]*R*1.25);ctx.lineTo(C[0]+x[0]+w[0]*R*1.25,C[1]+x[1]+w[1]*R*1.25);
-      ctx.strokeStyle='rgba(239,143,157,.6)';ctx.setLineDash([6,6]);ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([])}
-    let ring=null;
-    if(n>=2&&det>1e-9){const b=[0,0];us.forEach((u,i)=>{if(!active[i])return;const p=x[0]*u[0]+x[1]*u[1];b[0]+=p*u[0];b[1]+=p*u[1]});
-      ring=[(F[1][1]*b[0]-F[0][1]*b[1])/det,(-F[1][0]*b[0]+F[0][0]*b[1])/det]}
-    else if(n===1){const u=us[active.indexOf(1)],p=x[0]*u[0]+x[1]*u[1];ring=[p*u[0],p*u[1]]}
-    if(ring){ctx.beginPath();ctx.arc(C[0]+ring[0],C[1]+ring[1],11,0,Math.PI*2);ctx.strokeStyle='rgba(244,240,232,.9)';ctx.lineWidth=1.6;ctx.stroke()}
-    ctx.save();ctx.shadowColor='rgba(229,191,104,.8)';ctx.shadowBlur=14;ctx.beginPath();ctx.arc(C[0]+x[0],C[1]+x[1],6.5,0,Math.PI*2);ctx.fillStyle='#e5bf68';ctx.fill();ctx.restore();
-    status.textContent=n===0?'no contacts live · nothing is shared'
-      :n===1?'1 of 5 contacts live · a whole direction is invisible'
-      :n===5?'5 of 5 contacts live · nothing is hidden'
-      :`${n} of 5 contacts live · still exact — weaker along one axis`;
-    ctx.restore();
-  }
-  canvas.addEventListener('pointerdown',e=>{const[mx,my]=locate(e);
-    if(Math.hypot(mx-C[0]-x[0],my-C[1]-x[1])<14){drag=true;canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';return}
-    pend=us.findIndex(u=>Math.hypot(mx-(C[0]+u[0]*R),my-(C[1]+u[1]*R))<15);downAt=[mx,my]});
-  canvas.addEventListener('pointermove',e=>{if(!drag)return;const[mx,my]=locate(e);let d=[mx-C[0],my-C[1]];
-    const L=Math.hypot(d[0],d[1]),cap=R-10;if(L>cap)d=[d[0]/L*cap,d[1]/L*cap];x=d;draw()});
-  function release(e){if(drag){drag=false;canvas.style.cursor='grab';return}
-    if(pend>=0&&downAt){const[mx,my]=locate(e);if(Math.hypot(mx-downAt[0],my-downAt[1])<8){active[pend]=active[pend]?0:1;draw()}}
-    pend=-1;downAt=null}
-  canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',()=>{drag=false;pend=-1;downAt=null});
-  function resize(){const r=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
-    canvas.width=Math.max(1,Math.round(r.width*dpr));canvas.height=Math.max(1,Math.round(r.width*(380/600)*dpr));canvas.style.height=`${r.width*(380/600)}px`;draw()}
-  window.addEventListener('resize',resize);resize();
-}
-
-// Instrument II - the shown forecast. The rule is public and the forecast is displayed
-// before each choice, so opposing it is always available: the diagonal limit as play.
-// Refusal stops the instrument and, for joined participants, enters the public record.
-function initOracle(){
-  const guess=$('oracleGuess');if(!guess)return;
-  const L=$('oracleLeft'),R=$('oracleRight'),score=$('oracleScore'),refuse=$('oracleRefuse');
-  let cL=0,cR=0,total=0,broken=0,last=null,over=false;
-  const forecast=()=>cL===cR?(last==='◀'?'▶':'◀'):(cL<cR?'◀':'▶');
-  function refresh(){guess.textContent=over?'—':forecast();
-    score.textContent=over?'Refusal honored — the instrument stops.'
-      :`You have broken ${broken} of ${total} forecasts.${total>=10?' No shown forecast can close you.':''}`}
-  function press(side){if(over)return;if(side!==forecast())broken++;total++;if(side==='◀')cL++;else cR++;last=side;refresh()}
-  L.addEventListener('click',()=>press('◀'));R.addEventListener('click',()=>press('▶'));
-  refuse.addEventListener('click',async()=>{if(over)return;over=true;L.disabled=R.disabled=true;refresh();
-    if(me.authenticated&&me.joined){
-      try{await request('/v1/messages',{method:'POST',body:JSON.stringify({body:'Refused the forecasting instrument.',kind:'refusal'})});notice('Refusal published to the public record.');await load()}
-      catch(e){notice(e.message,true)}}
-    else notice('Held locally — sign in and join to place this refusal on the public record.')});
-  refresh();
-}

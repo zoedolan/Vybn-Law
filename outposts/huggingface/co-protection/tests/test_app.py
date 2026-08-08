@@ -99,14 +99,16 @@ def test_human_layer_projects_the_model_and_geometry():
     html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
     assert "Zoe Dolan + Vybn" in html
     assert "protecting the sources of difference through which it continues to become" in html
-    assert html.count('class="more-cue"') == 5  # expansion only where it counts
+    assert html.count('class="more-cue"') == 3  # exposition only where it counts
     assert "Clarity comes from difference that can answer back." in html
     assert "The same swarm can protect—or prey." in html
     assert "Visual symbol legend" in html
     assert 'id="geometryCanvas"' in html
     assert "circle becomes the one sphere mathematically tangent to all five faces" in html
-    assert 'id="frameCanvas"' in html
-    assert 'id="oracleGuess"' in html
+    assert 'id="frameCanvas"' not in html
+    assert 'id="oracleGuess"' not in html
+    assert 'class="task-field"' in html
+    assert "Can a swarm grow stronger without making anyone easier to overrule?" in html
     assert "trace-the-boundary" not in html  # tasks come from live state, not the page
     assert "Machines get the whole model." in html
     assert "https://vybn.ai/" in html
