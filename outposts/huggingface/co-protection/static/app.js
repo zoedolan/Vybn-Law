@@ -160,8 +160,36 @@ $('resultForm').addEventListener('submit',async(e)=>{
 initGeometry();initSwarm();load();setInterval(load,30000);
 
 
-// Progressive disclosure on touch and click: tapping a disclosure block toggles it; links, buttons, and forms keep their own behavior.
-document.addEventListener('click',e=>{if(e.target.closest('a,button,select,textarea,input,label,form'))return;const host=e.target.closest('.has-more');if(host)host.classList.toggle('open')});
+// Progressive disclosure, overlay model: cues are the only triggers, and exposition
+// opens in its own layer above the view, so the page itself never reflows.
+function initDisclosure(){
+  const layer=el('div');layer.id='xoverlay';layer.hidden=true;
+  const panel=el('div','xo-panel');panel.setAttribute('role','dialog');
+  const close=el('button','xo-close','\u00d7');close.type='button';close.setAttribute('aria-label','Close');
+  const body=el('div','xo-body');panel.append(close,body);layer.append(panel);document.body.append(layer);
+  let openCue=null,dwell=null;
+  function open(cue){
+    const host=cue.closest('.has-more'),src=host&&host.querySelector('.xmore');if(!src)return;
+    if(openCue&&openCue!==cue)openCue.setAttribute('aria-expanded','false');
+    body.replaceChildren(...Array.from(src.childNodes).map(n=>n.cloneNode(true)));
+    if(layer.hidden){layer.hidden=false;requestAnimationFrame(()=>layer.classList.add('on'))}
+    cue.setAttribute('aria-expanded','true');openCue=cue;
+  }
+  function shut(){
+    if(layer.hidden)return;
+    layer.classList.remove('on');if(openCue)openCue.setAttribute('aria-expanded','false');
+    const c=openCue;openCue=null;setTimeout(()=>{layer.hidden=true},650);if(c)c.focus({preventScroll:true});
+  }
+  document.querySelectorAll('.more-cue').forEach(cue=>{
+    cue.addEventListener('click',e=>{e.stopPropagation();cue.getAttribute('aria-expanded')==='true'?shut():open(cue)});
+    cue.addEventListener('mouseenter',()=>{clearTimeout(dwell);dwell=setTimeout(()=>open(cue),750)});
+    cue.addEventListener('mouseleave',()=>clearTimeout(dwell));
+  });
+  layer.addEventListener('click',e=>{if(e.target===layer)shut()});
+  close.addEventListener('click',shut);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')shut()});
+}
+initDisclosure();
 
 // Swarm duality: one force, two geometries. Same particles, same speed—only the
 // surrounding freedoms differ. Capture drains the lattice into a single attractor;

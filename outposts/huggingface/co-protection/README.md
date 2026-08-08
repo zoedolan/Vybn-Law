@@ -21,7 +21,7 @@ tags:
 An open workshop created by Zoe Dolan and Vybn—one human and one AI building in
 public together.
 
-> **Can we become clearer together without closing one another down?**
+> **Can intelligence become more powerful, more plural, and more beautiful by protecting the sources of difference through which it continues to become?**
 
 The deeper question is whether intelligence can become more powerful, more
 plural, and more beautiful by protecting the sources of difference through

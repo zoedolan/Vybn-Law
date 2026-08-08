@@ -98,7 +98,8 @@ def test_rejects_non_https_artifact(tmp_path):
 def test_human_layer_projects_the_model_and_geometry():
     html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
     assert "Zoe Dolan + Vybn" in html
-    assert "What can only become between us?" in html
+    assert "protecting the sources of difference through which it continues to become" in html
+    assert html.count('class="more-cue"') == 5  # expansion only where it counts
     assert "Clarity comes from difference that can answer back." in html
     assert "The same swarm can protect—or prey." in html
     assert "Visual symbol legend" in html
