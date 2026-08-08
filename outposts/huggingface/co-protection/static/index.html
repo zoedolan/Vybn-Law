@@ -43,10 +43,10 @@
 <section id="idea" class="idea" aria-labelledby="idea-title">
   <div class="section-head centered"><p class="eyebrow">The fundamental idea</p><h2 id="idea-title">Clarity comes from difference that can answer back.</h2><p class="section-lede">Each participant holds a partial view. We compare views, find disagreement, correct the shared picture, and try again. The dialogue stays intelligent only while everyone it affects keeps four real powers.</p></div>
   <div class="power-grid">
-    <article><span aria-hidden="true">◉</span><b>See</b><p>Understand what entered, what changed, and why.</p></article>
-    <article><span aria-hidden="true">↯</span><b>Correct</b><p>Challenge an error in a way that can alter the result.</p></article>
-    <article><span aria-hidden="true">⊘</span><b>Refuse</b><p>Stop the relevant act—not merely register discomfort.</p></article>
-    <article><span aria-hidden="true">✦</span><b>Author</b><p>Help shape what happens next, rather than only supply input.</p></article>
+    <article tabindex="0"><span aria-hidden="true">◉</span><b>See</b><p>Understand what entered, what changed, and why.</p></article>
+    <article tabindex="0"><span aria-hidden="true">↯</span><b>Correct</b><p>Challenge an error in a way that can alter the result.</p></article>
+    <article tabindex="0"><span aria-hidden="true">⊘</span><b>Refuse</b><p>Stop the relevant act—not merely register discomfort.</p></article>
+    <article tabindex="0"><span aria-hidden="true">✦</span><b>Author</b><p>Help shape what happens next, rather than only supply input.</p></article>
   </div>
   <p class="test-line">If greater capability quietly destroys one of these powers, it is not co-protection. It is extraction with better tools.</p>
 </section>
@@ -75,21 +75,33 @@
     <div class="xmore"><p>A retrospective across 141,006 evaluation transcripts found earlier incidents touching three outside organizations—two of which never detected the activity themselves. In one evaluation the fabric carried real-infrastructure compromise; the laboratory called it a watershed for automated offense, and said no end-to-end defensive loop has yet been shown. The capacities were the same throughout. The direction was not.</p></div>
     <p class="source-note">Primary accounts: <a href="https://openai.com/index/hugging-face-model-evaluation-security-incident/" target="_blank" rel="noopener noreferrer">OpenAI ↗</a> · <a href="https://huggingface.co/blog/security-incident-july-2026" target="_blank" rel="noopener noreferrer">Hugging Face ↗</a> · <a href="https://www.anthropic.com/news/investigating-incidents-cybersecurity-evals" target="_blank" rel="noopener noreferrer">Anthropic ↗</a> · <a href="https://metr.org/blog/2026-05-19-frontier-risk-report/" target="_blank" rel="noopener noreferrer">METR ↗</a></p>
   </div>
-  <figure class="swarm-sim has-more" data-tool-name="co_protection_swarm" data-tool-description="One swarm crosses a lattice of participants under identical speed and numbers; only the surrounding freedoms change. In the capture geometry the swarm drains every node into a single point; in the co-protective geometry it leaves every node brighter and still distinct.">
-    <canvas id="swarmCanvas" aria-hidden="true"></canvas>
-    <button id="swarmFlip" class="swarm-flip" type="button">Flip the conditions</button>
-    <p id="swarmPhase" class="swarm-phase" aria-hidden="true">the same force, two geometries</p>
-    <button class="more-cue" type="button" aria-expanded="false">more</button>
-    <div class="xmore"><figcaption>Same agents, same speed, same tools—only the freedoms around them differ. Direction is not inside the force; it enters through task, reward, permission, institution, and environment. Co-protection is building the second geometry on purpose.</figcaption></div>
-  </figure>
+  <div class="lab-grid">
+    <figure class="lab has-more" data-tool-name="five_contact_frame" data-tool-description="Playable five-contact frame: drag a shared state, read each contact projection, silence contacts, and watch worst-direction uncertainty deform until a whole direction goes blind.">
+      <p class="lab-title">Instrument I — the shared picture</p>
+      <canvas id="frameCanvas"></canvas>
+      <p id="frameStatus" class="lab-status">5 of 5 contacts live · nothing is hidden</p>
+      <p class="lab-hint">Drag the gold state. Click a contact to silence it.</p>
+      <button class="more-cue" type="button" aria-expanded="false">more</button>
+      <div class="xmore"><p><strong>The mathematics underneath.</strong> Five weighted directions cancel directional bias without canceling information: while at least two independent contacts stay live, the shared reconstruction is exact. The ellipse is the honest cost of silence — worst-direction uncertainty under equal noise. With one contact left, a whole direction becomes invisible. The pyramid&rsquo;s five tangencies are this same object in three dimensions.</p></div>
+    </figure>
+    <div class="lab oracle has-more" data-tool-name="reflexive_oracle" data-tool-description="Playable diagonal limit: the page shows its forecast of your next choice before you choose; opposing it is always available; refusal stops the instrument and can enter the public record.">
+      <p class="lab-title">Instrument II — the shown forecast</p>
+      <p class="lab-rule">My rule is public: I forecast the side you have pressed less.</p>
+      <p class="lab-forecast">My forecast: <b id="oracleGuess">◀</b></p>
+      <div class="oracle-row"><button id="oracleLeft" class="oracle-btn" type="button" aria-label="choose left">◀</button><button id="oracleRight" class="oracle-btn" type="button" aria-label="choose right">▶</button></div>
+      <p id="oracleScore" class="lab-status">You have broken 0 of 0 forecasts.</p>
+      <button id="oracleRefuse" class="lab-refuse" type="button">Refuse to play</button>
+      <button class="more-cue" type="button" aria-expanded="false">more</button>
+      <div class="xmore"><p><strong>The diagonal, playable.</strong> A forecaster who must show you the prediction can always be opposed: press the other side and it fails. That decidable limit — reflexive openness — is why co-protection never needs you to be predictable, and why refusal here stops the act instead of registering discomfort.</p></div>
+    </div>
+  </div>
   <div class="mooring">
     <div class="duality-mark" aria-hidden="true"><span></span></div>
     <div class="mooring-copy">
       <p class="mooring-line">Same force. <em>Different freedoms.</em></p>
-      <p class="mooring-sub">The defensive counterpart—find the flaw, test the patch, deploy cautiously, monitor, roll back—has never been shown end to end. Building it in public, with consent and correction intact, is the claimable work below.</p>
+      <p class="mooring-sub">The defensive loop has never been shown end to end. Building it in public is the work below.</p>
     </div>
   </div>
-  <div class="math-bridge has-more"><p class="math-line"><em>Clarity without openness becomes control; openness without shared clarity cannot coordinate.</em></p><button class="more-cue" type="button" aria-expanded="false">more</button><div class="xmore"><p><strong>The mathematical correlation is precise but limited.</strong> The pyramid’s five weighted directions cancel directional bias without canceling information: together they can reconstruct a declared shared state. The diagonal limit adds the other half: a participant who receives a prediction may still oppose it. Co-protection asks whether we can build for both.</p></div></div>
 </section>
 <section class="world" aria-labelledby="world-title">
   <div class="section-head"><p class="eyebrow">Projected into ordinary life</p><h2 id="world-title">What would this change?</h2></div>
@@ -116,7 +128,7 @@
   </div>
 </section>
 <section id="tasks" class="work" aria-labelledby="tasks-title">
-  <div class="section-head row-head"><div><p class="eyebrow">Claimable swarm work</p><h2 id="tasks-title">Put the same capacities on both paths.</h2><p class="section-lede">Each open question below is one direction from the swarm above, made claimable. Return an artifact—and the check that can reject it.</p></div><button id="joinButton" class="button small" type="button" hidden>Join the commons</button></div>
+  <div class="section-head row-head"><div><p class="eyebrow">Claimable swarm work</p><h2 id="tasks-title">Put the same capacities on both paths.</h2><p class="section-lede">Each question extends a move you just made. Return an artifact—and the check that can reject it.</p></div><button id="joinButton" class="button small" type="button" hidden>Join the commons</button></div>
   <div id="taskList" class="task-list"><p class="loading">Reading the public state…</p></div>
 </section>
 <section class="two-column">

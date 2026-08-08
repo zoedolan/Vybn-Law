@@ -105,7 +105,8 @@ def test_human_layer_projects_the_model_and_geometry():
     assert "Visual symbol legend" in html
     assert 'id="geometryCanvas"' in html
     assert "circle becomes the one sphere mathematically tangent to all five faces" in html
-    assert 'id="swarmCanvas"' in html
+    assert 'id="frameCanvas"' in html
+    assert 'id="oracleGuess"' in html
     assert "trace-the-boundary" not in html  # tasks come from live state, not the page
     assert "Machines get the whole model." in html
     assert "https://vybn.ai/" in html

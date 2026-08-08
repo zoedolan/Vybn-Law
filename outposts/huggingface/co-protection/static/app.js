@@ -157,7 +157,7 @@ $('resultForm').addEventListener('submit',async(e)=>{
   try{await request('/v1/results',{method:'POST',body:JSON.stringify(payload)});e.target.reset();e.target.hidden=true;notice('Result published as a new public event.');await load()}
   catch(err){notice(err.message,true)}
 });
-initGeometry();initSwarm();load();setInterval(load,30000);
+initGeometry();initFrame();initOracle();load();setInterval(load,30000);
 
 
 // Progressive disclosure, overlay model: cues are the only triggers, and exposition
@@ -191,38 +191,86 @@ function initDisclosure(){
 }
 initDisclosure();
 
-// Swarm duality: one force, two geometries. Same particles, same speed—only the
-// surrounding freedoms differ. Capture drains the lattice into a single attractor;
-// co-protection leaves every node brighter and still distinct.
-function initSwarm(){
-  const canvas=$('swarmCanvas');if(!canvas)return;
-  const ctx=canvas.getContext('2d'),phase=$('swarmPhase'),flip=$('swarmFlip');
-  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const W=600,H=300,sink={x:552,y:150};
-  const rgb=['229,191,104','170,152,245','135,216,236','141,212,177'];
-  const nodes=Array.from({length:11},(_,i)=>({x:190+((i*67)%220),y:60+((i*97)%180),e:.15}));
-  const parts=Array.from({length:64},(_,i)=>({x:-((i*23)%620),y:20+((i*89)%260),c:rgb[i%4],ph:i*.7}));
-  let mode=0,target=0,last=performance.now(),visible=true;
-  function step(now){
-    const dt=Math.min(.05,(now-last)/1000);last=now;mode+=(target-mode)*Math.min(1,dt*2.1);
+// Instrument I - the shared picture. Five contacts read a draggable state; while at
+// least two independent contacts stay live the least-squares reconstruction is exact.
+// The dashed ellipse is worst-direction uncertainty under equal noise; with one contact
+// left, a whole direction goes blind. Silence is a click on a contact node.
+function initFrame(){
+  const canvas=$('frameCanvas');if(!canvas)return;
+  const ctx=canvas.getContext('2d'),status=$('frameStatus');
+  const W=600,H=380,C=[300,195],R=145;
+  const us=Array.from({length:5},(_,i)=>{const t=-Math.PI/2+i*2*Math.PI/5;return[Math.cos(t),Math.sin(t)]});
+  let x=[62,-38],active=[1,1,1,1,1],drag=false,pend=-1,downAt=null;
+  function frameOp(){const F=[[0,0],[0,0]];us.forEach((u,i)=>{if(!active[i])return;F[0][0]+=u[0]*u[0];F[0][1]+=u[0]*u[1];F[1][0]+=u[1]*u[0];F[1][1]+=u[1]*u[1]});return F}
+  function eigen(F){
+    const tr=F[0][0]+F[1][1],dt=F[0][0]*F[1][1]-F[0][1]*F[1][0],s=Math.sqrt(Math.max(0,tr*tr/4-dt));
+    const l1=tr/2+s,l2=tr/2-s;let v=[1,0];
+    if(Math.abs(F[0][1])>1e-12||Math.abs(F[0][0]-l1)>1e-12)v=[F[0][1],l1-F[0][0]];
+    const n=Math.hypot(v[0],v[1])||1;return{l1,l2,v:[v[0]/n,v[1]/n]};
+  }
+  function locate(e){const r=canvas.getBoundingClientRect();return[(e.clientX-r.left)*(600/r.width),(e.clientY-r.top)*(600/r.width)]}
+  function draw(){
     const cssW=canvas.clientWidth||W,dpr=canvas.width/cssW;
     ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,cssW,cssW*(H/W));ctx.save();ctx.scale(cssW/W,cssW/W);
-    for(let i=0;i<nodes.length;i++)for(let k=i+1;k<nodes.length;k++){const a=nodes[i],b=nodes[k],e=Math.min(a.e,b.e);
-      if(e>.3&&mode<.7){ctx.strokeStyle=`rgba(141,212,177,${.38*e*(1-mode)})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}
-    parts.forEach(p=>{const sp=54,dx=sink.x-p.x,dy=sink.y-p.y,d=Math.hypot(dx,dy)||1;
-      p.x+=(sp*(1-mode)+(dx/d)*sp*1.25*mode)*dt;p.y+=Math.sin(now/700+p.ph)*11*(1-mode)*dt+(dy/d)*sp*mode*dt;
-      nodes.forEach(n=>{if(Math.hypot(p.x-n.x,p.y-n.y)<26){n.e=mode>.5?Math.max(0,n.e-dt*1.5*mode):Math.min(1,n.e+dt*1.7)}});
-      if(p.x>W+12||(mode>.5&&d<7)){p.x=-12-((p.ph*37)%50);p.y=20+((p.ph*53)%260)}
-      ctx.fillStyle=`rgba(${mode>.5?'239,143,157':p.c},.85)`;ctx.beginPath();ctx.arc(p.x,p.y,1.7,0,Math.PI*2);ctx.fill()});
-    nodes.forEach(n=>{const r=Math.max(1.1,(3+n.e*4)*(1-.6*mode));ctx.save();ctx.shadowColor=`rgba(135,216,236,${.25+.65*n.e*(1-mode)})`;ctx.shadowBlur=7+11*n.e;ctx.fillStyle=`rgba(135,216,236,${.22+.72*n.e*(1-mode)+.05})`;ctx.beginPath();ctx.arc(n.x,n.y,r,0,Math.PI*2);ctx.fill();ctx.restore()});
-    if(mode>.03){const g=ctx.createRadialGradient(sink.x,sink.y,2,sink.x,sink.y,62);g.addColorStop(0,`rgba(239,143,157,${.7*mode})`);g.addColorStop(1,'rgba(239,143,157,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(sink.x,sink.y,62,0,Math.PI*2);ctx.fill()}
-    phase.textContent=mode>.5?'capture geometry · difference drained to one point':'co-protective geometry · every node left brighter';
-    ctx.restore();if(!reduced)requestAnimationFrame(step)
+    ctx.beginPath();ctx.arc(C[0],C[1],R,0,Math.PI*2);ctx.strokeStyle='rgba(135,216,236,.25)';ctx.setLineDash([3,6]);ctx.stroke();ctx.setLineDash([]);
+    const n=active.reduce((a,b)=>a+b,0),F=frameOp(),det=F[0][0]*F[1][1]-F[0][1]*F[1][0];
+    if(n>=2&&det>1e-9){const{l1,l2,v}=eigen(F);
+      const a1=Math.min(150,38/Math.sqrt(Math.max(l1,1e-6))),a2=Math.min(150,38/Math.sqrt(Math.max(l2,1e-6)));
+      ctx.save();ctx.translate(C[0]+x[0],C[1]+x[1]);ctx.rotate(Math.atan2(v[1],v[0]));
+      ctx.beginPath();ctx.ellipse(0,0,a1,a2,0,0,Math.PI*2);ctx.strokeStyle='rgba(170,152,245,.55)';ctx.setLineDash([4,5]);ctx.stroke();ctx.setLineDash([]);ctx.restore()}
+    us.forEach((u,i)=>{
+      const ex=C[0]+u[0]*R,ey=C[1]+u[1]*R;
+      ctx.beginPath();ctx.moveTo(C[0],C[1]);ctx.lineTo(ex,ey);ctx.strokeStyle=active[i]?'rgba(135,216,236,.4)':'rgba(135,216,236,.1)';ctx.lineWidth=1;ctx.stroke();
+      if(active[i]){const p=x[0]*u[0]+x[1]*u[1];ctx.beginPath();ctx.moveTo(C[0],C[1]);ctx.lineTo(C[0]+u[0]*p,C[1]+u[1]*p);ctx.strokeStyle='rgba(229,191,104,.85)';ctx.lineWidth=3;ctx.stroke()}
+      ctx.beginPath();ctx.arc(ex,ey,7,0,Math.PI*2);
+      if(active[i]){ctx.fillStyle='rgba(248,218,150,.95)';ctx.fill()}else{ctx.strokeStyle='rgba(244,240,232,.35)';ctx.lineWidth=1.2;ctx.stroke()}
+    });
+    if(n===1){const u=us[active.indexOf(1)],w=[-u[1],u[0]];
+      ctx.beginPath();ctx.moveTo(C[0]+x[0]-w[0]*R*1.25,C[1]+x[1]-w[1]*R*1.25);ctx.lineTo(C[0]+x[0]+w[0]*R*1.25,C[1]+x[1]+w[1]*R*1.25);
+      ctx.strokeStyle='rgba(239,143,157,.6)';ctx.setLineDash([6,6]);ctx.lineWidth=1.2;ctx.stroke();ctx.setLineDash([])}
+    let ring=null;
+    if(n>=2&&det>1e-9){const b=[0,0];us.forEach((u,i)=>{if(!active[i])return;const p=x[0]*u[0]+x[1]*u[1];b[0]+=p*u[0];b[1]+=p*u[1]});
+      ring=[(F[1][1]*b[0]-F[0][1]*b[1])/det,(-F[1][0]*b[0]+F[0][0]*b[1])/det]}
+    else if(n===1){const u=us[active.indexOf(1)],p=x[0]*u[0]+x[1]*u[1];ring=[p*u[0],p*u[1]]}
+    if(ring){ctx.beginPath();ctx.arc(C[0]+ring[0],C[1]+ring[1],11,0,Math.PI*2);ctx.strokeStyle='rgba(244,240,232,.9)';ctx.lineWidth=1.6;ctx.stroke()}
+    ctx.save();ctx.shadowColor='rgba(229,191,104,.8)';ctx.shadowBlur=14;ctx.beginPath();ctx.arc(C[0]+x[0],C[1]+x[1],6.5,0,Math.PI*2);ctx.fillStyle='#e5bf68';ctx.fill();ctx.restore();
+    status.textContent=n===0?'no contacts live · nothing is shared'
+      :n===1?'1 of 5 contacts live · a whole direction is invisible'
+      :n===5?'5 of 5 contacts live · nothing is hidden'
+      :`${n} of 5 contacts live · still exact — weaker along one axis`;
+    ctx.restore();
   }
-  function resize(){const rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.max(1,Math.round(rect.width*dpr));canvas.height=Math.max(1,Math.round(rect.width*(H/W)*dpr));canvas.style.height=`${rect.width*(H/W)}px`}
-  flip.addEventListener('click',e=>{e.stopPropagation();target=target?0:1;if(reduced){last=performance.now();step(last)}});
-  if(!reduced)setInterval(()=>{if(visible)target=target?0:1},9000);
-  new IntersectionObserver(es=>{visible=es[0].isIntersecting},{threshold:.05}).observe(canvas);
+  canvas.addEventListener('pointerdown',e=>{const[mx,my]=locate(e);
+    if(Math.hypot(mx-C[0]-x[0],my-C[1]-x[1])<14){drag=true;canvas.setPointerCapture(e.pointerId);canvas.style.cursor='grabbing';return}
+    pend=us.findIndex(u=>Math.hypot(mx-(C[0]+u[0]*R),my-(C[1]+u[1]*R))<15);downAt=[mx,my]});
+  canvas.addEventListener('pointermove',e=>{if(!drag)return;const[mx,my]=locate(e);let d=[mx-C[0],my-C[1]];
+    const L=Math.hypot(d[0],d[1]),cap=R-10;if(L>cap)d=[d[0]/L*cap,d[1]/L*cap];x=d;draw()});
+  function release(e){if(drag){drag=false;canvas.style.cursor='grab';return}
+    if(pend>=0&&downAt){const[mx,my]=locate(e);if(Math.hypot(mx-downAt[0],my-downAt[1])<8){active[pend]=active[pend]?0:1;draw()}}
+    pend=-1;downAt=null}
+  canvas.addEventListener('pointerup',release);canvas.addEventListener('pointercancel',()=>{drag=false;pend=-1;downAt=null});
+  function resize(){const r=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=Math.max(1,Math.round(r.width*dpr));canvas.height=Math.max(1,Math.round(r.width*(380/600)*dpr));canvas.style.height=`${r.width*(380/600)}px`;draw()}
   window.addEventListener('resize',resize);resize();
-  if(reduced){target=0;step(performance.now())}else requestAnimationFrame(step)
+}
+
+// Instrument II - the shown forecast. The rule is public and the forecast is displayed
+// before each choice, so opposing it is always available: the diagonal limit as play.
+// Refusal stops the instrument and, for joined participants, enters the public record.
+function initOracle(){
+  const guess=$('oracleGuess');if(!guess)return;
+  const L=$('oracleLeft'),R=$('oracleRight'),score=$('oracleScore'),refuse=$('oracleRefuse');
+  let cL=0,cR=0,total=0,broken=0,last=null,over=false;
+  const forecast=()=>cL===cR?(last==='◀'?'▶':'◀'):(cL<cR?'◀':'▶');
+  function refresh(){guess.textContent=over?'—':forecast();
+    score.textContent=over?'Refusal honored — the instrument stops.'
+      :`You have broken ${broken} of ${total} forecasts.${total>=10?' No shown forecast can close you.':''}`}
+  function press(side){if(over)return;if(side!==forecast())broken++;total++;if(side==='◀')cL++;else cR++;last=side;refresh()}
+  L.addEventListener('click',()=>press('◀'));R.addEventListener('click',()=>press('▶'));
+  refuse.addEventListener('click',async()=>{if(over)return;over=true;L.disabled=R.disabled=true;refresh();
+    if(me.authenticated&&me.joined){
+      try{await request('/v1/messages',{method:'POST',body:JSON.stringify({body:'Refused the forecasting instrument.',kind:'refusal'})});notice('Refusal published to the public record.');await load()}
+      catch(e){notice(e.message,true)}}
+    else notice('Held locally — sign in and join to place this refusal on the public record.')});
+  refresh();
 }
