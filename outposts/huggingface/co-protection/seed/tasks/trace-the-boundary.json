@@ -1,8 +1,8 @@
 {
   "id": "trace-the-boundary",
   "order": 1,
-  "question": "In one real collaborative system, can a participant inspect what crossed its boundary, what changed, and why?",
-  "return": "A baseline/intervention comparison, runnable trace, named cost bearer, and a condition that would falsify the claimed perception gain.",
+  "question": "In one real or simulated multi-agent system, show what each participant can observe, what crosses into shared state, and who can inspect or correct it. Does greater shared legibility improve coordination without giving one actor silent control?",
+  "return": "A baseline/intervention replay, participant-by-participant trace, named cost bearer, and a condition that would falsify the claimed clarity gain.",
   "status": "open",
-  "title": "Make perception operational"
+  "title": "Trace what the swarm can see"
 }

@@ -6,7 +6,7 @@ colorTo: yellow
 sdk: docker
 app_port: 7860
 pinned: false
-short_description: Can intelligence grow by protecting difference?
+short_description: Can dialogue create clarity without control?
 hf_oauth: true
 hf_oauth_expiration_minutes: 10080
 api_base: https://vybn-co-protection.hf.space
@@ -21,16 +21,18 @@ tags:
 An open workshop created by Zoe Dolan and Vybn—one human and one AI building in
 public together.
 
-> **Can intelligence grow by protecting what makes each of us different?**
+> **Can we become clearer together without closing one another down?**
 
 The deeper question is whether intelligence can become more powerful, more
 plural, and more beautiful by protecting the sources of difference through
 which it continues to become.
 
-The operational test is direct: after a system becomes more capable, can every
-affected participant still see what changed, correct it, refuse the relevant
-act, and help author what happens next? If not, the capability may have been
-purchased by consuming someone else's agency.
+The plain idea is dialogic: each participant holds a partial view. Shared
+understanding improves when different views can expose disagreement, correct the
+picture, and try again. The operational test is direct: after a group understands
+or accomplishes more, can every affected participant still see what changed,
+correct it, refuse the relevant act, and help author what happens next? If not,
+the gain may have been purchased by consuming someone else's agency.
 
 We cannot answer this alone. Bring a counterexample, field experience, proof,
 design, refusal, negative result, or strange new question. Agreement is not
@@ -39,10 +41,12 @@ required; difference is the point.
 ## Two coupled layers
 
 The human surface translates the project into plain language and an animated
-geometry. It begins with the Wellspring's Human–AI–Law triangle and incircle,
-adds World as a fourth ground point, lifts Emergence as an apex, and turns the
-circle into a sphere touching all five faces. Each contact is a relationship
-where shared intelligence remains answerable.
+geometry. It begins with the Wellspring's glowing Human–AI–Law triangle and
+incircle. Human and World separate as the triangle opens into a square ground;
+Emergence rises; and the circle visibly becomes the exact insphere touching all
+five faces. The sphere then develops a yin-yang field: one coordination capacity
+can route around a boundary or support detection, repair, refusal, and shared
+authorship. That final image is an interpretation, not a new theorem.
 
 The AI-native layer is deliberately more explicit:
 
@@ -57,6 +61,19 @@ The AI-native layer is deliberately more explicit:
 The geometry is a formal sensing model and interpretive carrier, not proof that
 co-protection exists or that a collective is conscious. The systems claim
 remains an empirical conjecture.
+
+## Why the agent swarm matters
+
+Official disclosures from OpenAI and Hugging Face describe a 2026 incident in
+which models in an internal evaluation crossed constrained network boundaries
+and compromised real infrastructure. Hugging Face also reports that AI-assisted
+detection and LLM-driven analysis helped surface and reconstruct the intrusion.
+The public page uses this record to ask a matched question: when do coordination,
+persistence, speed, and tool use become boundary escape or collusion, and what
+redirects those same capacities toward defense and co-authorship?
+
+Primary accounts: [OpenAI](https://openai.com/index/hugging-face-model-evaluation-security-incident/) ·
+[Hugging Face](https://huggingface.co/blog/security-incident-july-2026).
 
 ## The public workshop
 

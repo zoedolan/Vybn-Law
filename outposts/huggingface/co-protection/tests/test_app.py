@@ -98,11 +98,12 @@ def test_rejects_non_https_artifact(tmp_path):
 def test_human_layer_projects_the_model_and_geometry():
     html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
     assert "Zoe Dolan + Vybn" in html
-    assert "Can intelligence grow by protecting what makes each of us different?" in html
-    assert "The whole idea is one test." in html
+    assert "Can we become clearer together without closing one another down?" in html
+    assert "Clarity comes from difference that can answer back." in html
+    assert "The same swarm can protect—or prey." in html
     assert "Visual symbol legend" in html
     assert 'id="geometryCanvas"' in html
-    assert "circle becomes a sphere" in html
+    assert "circle becomes the one sphere mathematically tangent to all five faces" in html
     assert "Machines get the whole model." in html
     assert "https://vybn.ai/" in html
 
@@ -112,7 +113,7 @@ def test_model_is_exposed_with_live_state(tmp_path):
     with TestClient(module.app) as client:
         model = client.get("/v1/model").json()
         state = client.get("/v1/state").json()
-        assert model["model_schema"] == "vybn.co_protection.commons.v1"
+        assert model["model_schema"] == "vybn.co_protection.commons.v2"
         assert state["model"] == model
         assert state["human_question"] == model["human_projection"]["question"]
         assert any(task["id"] == "test-five-contact-frame" for task in state["tasks"])
@@ -130,3 +131,35 @@ def test_five_contact_frame_is_centered_parseval():
     for j in range(3):
         for k in range(3):
             assert abs(gram[j][k] - (1.0 if j == k else 0.0)) < 1e-12
+
+
+def test_rendered_insphere_contacts_are_exact():
+    model = json.loads((APP_ROOT / "exchange.json").read_text(encoding="utf-8"))
+    visual = model["geometry"]["visual_coordinates"]
+    center = visual["insphere"]["center"]
+    radius = visual["insphere"]["radius"]
+    apex_height = visual["apex"]["Emergence"][2]
+    planes = [
+        lambda p: p[2],
+        lambda p: p[2] + apex_height * p[1] - apex_height,
+        lambda p: p[2] + apex_height * p[0] - apex_height,
+        lambda p: p[2] - apex_height * p[1] - apex_height,
+        lambda p: p[2] - apex_height * p[0] - apex_height,
+    ]
+    for item, plane in zip(visual["tangencies"], planes):
+        point = item["point"]
+        assert abs(plane(point)) < 1e-12
+        distance = sum((x - y) ** 2 for x, y in zip(point, center)) ** 0.5
+        assert abs(distance - radius) < 1e-12
+    script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+    assert "window.__CO_PROTECTION_GEOMETRY__=model" in script
+    assert "model.contacts.forEach" in script
+
+
+def test_claimable_work_connects_swarm_direction_to_co_protection():
+    tasks = [json.loads(path.read_text(encoding="utf-8")) for path in (APP_ROOT / "seed" / "tasks").glob("*.json")]
+    joined = " ".join(f"{task['title']} {task['question']} {task['return']}" for task in tasks)
+    assert "swarm" in joined.lower()
+    assert "collusion" in joined.lower()
+    assert "refusal" in joined.lower()
+    assert "empowerment" in joined.lower()

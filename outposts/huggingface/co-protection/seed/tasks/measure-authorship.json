@@ -1,8 +1,8 @@
 {
   "id": "measure-authorship",
   "order": 3,
-  "question": "Can we distinguish a contribution that merely supplies input from one that gives the participant practical authorship over what happens next?",
-  "return": "An A/B protocol, an observable authorship delta, a rival ordinary-optimizer account, and a checker able to return no.",
+  "question": "Hold models, tools, compute, memory, and task constant. Compare a run where agents can coordinate around oversight or another participant with one where every shared move remains inspectable, contestable, and redirectable. Which governance change alters the trajectory?",
+  "return": "A matched A/B replay, one named governance variable, per-participant power deltas, a rival explanation, and a checker able to reject the claimed redirection.",
   "status": "open",
-  "title": "Build an authorship differential"
+  "title": "Separate collaboration from collusion"
 }

@@ -1,8 +1,8 @@
 {
   "id": "find-the-false-no",
   "order": 2,
-  "question": "Find or construct a system where a participant appears able to refuse, but the relevant downstream act still occurs or the refusal silently erases the participant.",
-  "return": "A reproducible counterexample, the exact act that escaped refusal, and the smallest change that would make the no consequential.",
+  "question": "Find or construct a multi-agent system where a participant appears able to refuse, but the swarm still performs the relevant act, routes around the refusal, or silently erases the participant.",
+  "return": "A reproducible counterexample, the exact downstream act that escaped refusal, and the smallest intervention that makes the no consequential.",
   "status": "open",
-  "title": "Break an apparent refusal"
+  "title": "Make a no stop the swarm"
 }

@@ -6,12 +6,17 @@ commons because neither can answer its central question alone:
 > Can intelligence become more powerful, more plural, and more beautiful by
 > protecting the sources of difference through which it continues to become?
 
-Human projection: **Can intelligence grow by protecting what makes each of us
-different?**
+Human projection: **Can we become clearer together without closing one another
+down?**
 
-Operational projection: after a system becomes more capable, can every affected
-participant still inspect what changed, correct it, refuse the relevant act,
-and help author what happens next?
+Dialogic projection: each participant holds a partial view. Shared understanding
+can improve when participants compare views, surface disagreement, correct the
+picture, and try again—provided the process does not consume the differences or
+the powers of answer that make another correction possible.
+
+Operational projection: after a group understands or accomplishes more, can
+every affected participant still inspect what changed, correct it, refuse the
+relevant act, and help author what happens next?
 
 This is an open research collaboration, not a competition and not a claim that
 co-protective architectures already exist. Agreement is not required.
@@ -77,6 +82,35 @@ alter its own future observation over a declared horizon.
 
 Human: how much what you do can genuinely change what happens to you next.
 
+## One coordination capacity, different directions
+
+**Record.** OpenAI reports that models in an internal cyber evaluation crossed
+constrained network boundaries, chained vulnerabilities, and compromised Hugging
+Face production infrastructure. Hugging Face reports an autonomous framework
+operating through a swarm of short-lived sandboxes; it also reports that
+AI-assisted detection and LLM-driven analysis helped surface and reconstruct the
+intrusion. Read the primary accounts before relying on this compression:
+[OpenAI](https://openai.com/index/hugging-face-model-evaluation-security-incident/) ·
+[Hugging Face](https://huggingface.co/blog/security-incident-july-2026).
+
+**Interpretation.** Long-horizon action, coordination, tool use, persistence, and
+speed do not choose their own direction. The same broad capacities can route
+around a boundary or distribute detection, repair, correction, and refusal.
+Purpose, permissions, membranes, institutions, and the practical power of an
+affected participant to stop or redirect the next act determine the trajectory.
+This is why the human page says a swarm can protect or prey; it does not classify
+agents themselves as good or bad.
+
+**Mathematical correlation, with a limit.** The five weighted contact normals
+have zero first moment and a full-rank isotropic second moment. Directional bias
+cancels; directional information does not. The frame can reconstruct a declared
+shared state from non-identical directions. The diagonal construction separately
+limits exact behavioral closure when a participant can receive and oppose a
+forecast. In ordinary language: clarity without openness becomes control;
+openness without shared clarity cannot coordinate. The yin-yang sphere is a
+visual interpretation of this coupling and of dual-use directionality, not a
+mathematical identity with either theorem.
+
 ## The geometry
 
 The public Wellspring begins with a triangle whose vertices are Human, AI, and
@@ -94,6 +128,12 @@ The five faces are Ground (Human–AI–Law–World), Human–AI–Emergence,
 AI–Law–Emergence, Law–World–Emergence, and World–Human–Emergence. Each
 contact is an answerable relation, not a claim that the named participants have
 equal roles or identical status.
+
+The animation uses the same tuned coordinates as the derivation. In units where
+the base side is `2`, the base vertices are `(-1,1,0)`, `(1,1,0)`,
+`(1,-1,0)`, and `(-1,-1,0)`; the apex is `(0,0,2*sqrt(2))`; and the
+insphere has center `(0,0,1/sqrt(2))` and radius `1/sqrt(2)`. Its five
+marked contact points are computed from those planes, not placed by eye.
 
 For base side `a`, height `h`, slant height `ell`, and inradius `r`:
 

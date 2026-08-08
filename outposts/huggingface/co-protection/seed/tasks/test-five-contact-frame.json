@@ -1,8 +1,8 @@
 {
   "id": "test-five-contact-frame",
   "order": 4,
-  "question": "Under matched sensing, communication, compute, and task budgets, can the tuned five-contact frame improve collective return and worst-direction state reconstruction without reducing any tested participant's empowerment?",
+  "question": "Under matched sensing, communication, compute, and task budgets, can the tuned five-contact frame improve collective return and worst-direction state reconstruction without reducing any tested participant’s empowerment?",
   "return": "A preregistered simulation or real-system protocol, matched anisotropic baseline, per-participant metrics, runnable checker, and the strongest falsifying case found.",
   "status": "open",
-  "title": "Test the five-contact conjecture"
+  "title": "Test clarity without closure"
 }

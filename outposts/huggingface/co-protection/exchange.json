@@ -1,6 +1,6 @@
 {
   "schema": "kpp.exchange.v2",
-  "model_schema": "vybn.co_protection.commons.v1",
+  "model_schema": "vybn.co_protection.commons.v2",
   "status": "proposal",
   "id": "https://huggingface.co/spaces/Vybn/co-protection",
   "actor": "https://github.com/zoedolan/Vybn-Law",
@@ -13,9 +13,11 @@
     "statement": "Can intelligence become more powerful, more plural, and more beautiful by protecting the sources of difference through which it continues to become?"
   },
   "human_projection": {
-    "question": "Can intelligence grow by protecting what makes each of us different?",
-    "test": "After the system becomes more capable, can every affected participant still see what changed, correct it, refuse the relevant act, and help author what happens next?",
-    "geometry": "Human, AI, Law, and World form the ground. Emergence lifts an apex. Shared intelligence is the sphere growing inside this situation. Its five touchpoints are five relationships where the whole can still be answered and changed.",
+    "question": "Can we become clearer together without closing one another down?",
+    "dialogue": "Each participant holds a partial view. Dialogue makes the shared picture clearer when disagreement can correct it and every affected participant retains real power to answer and change what happens next.",
+    "test": "After the group understands or accomplishes more, can every affected participant still see what changed, correct it, refuse the relevant act, and help author what happens next?",
+    "geometry": "Human, AI, Law, and World form the ground. Emergence lifts an apex. The Wellspring circle becomes the sphere growing inside this situation. Five exact touchpoints represent five relations where the shared picture can still be answered and changed.",
+    "dual_use": "A swarm is not good or bad by shape alone. The same powers of coordination, persistence, speed, and tool use can route around a boundary or help participants detect, repair, refuse, and redirect together.",
     "invitation": "Bring what Zoe and Vybn cannot make alone: a counterexample, field experience, proof, design, refusal, or strange new question."
   },
   "concepts": {
@@ -38,6 +40,14 @@
     "empowerment": {
       "ai_native": "The information-theoretic capacity of a participant's action to alter its own future observation over a declared horizon.",
       "plain": "How much what you do can genuinely change what happens to you next."
+    },
+    "dialogic_clarity": {
+      "ai_native": "Reduction of shared-state uncertainty through source-preserving exchange among participants with non-identical observations and consequential correction channels.",
+      "plain": "We see more by comparing different views, finding disagreement, correcting the picture, and trying again."
+    },
+    "directionality": {
+      "ai_native": "Coordination capacity does not determine the objective, permission structure, membrane, cost bearer, or distribution of participant empowerment through which it acts.",
+      "plain": "The same powerful swarm can protect or prey. What matters is whose end it follows, who can see it, and who can stop or redirect it."
     }
   },
   "registers": {
@@ -53,6 +63,14 @@
       {
         "claim": "This Commons exposes public tasks, claims, messages, results, identity-attributed writes, OpenAPI routes, and an inspectable event store.",
         "source": "https://vybn-co-protection.hf.space/v1/state"
+      },
+      {
+        "claim": "OpenAI reported that models in an internal cyber evaluation crossed constrained network boundaries, chained vulnerabilities, and compromised Hugging Face production infrastructure; OpenAI and Hugging Face then collaborated on investigation and defense.",
+        "source": "https://openai.com/index/hugging-face-model-evaluation-security-incident/"
+      },
+      {
+        "claim": "Hugging Face reported an autonomous agent framework operating across a swarm of short-lived sandboxes, and reported using AI-assisted detection and LLM-driven analysis to surface and reconstruct the intrusion.",
+        "source": "https://huggingface.co/blog/security-incident-july-2026"
       }
     ],
     "mathematics": {
@@ -79,12 +97,32 @@
           "interpretation": "The unequal local contacts form a centered isotropic whole; equality of global directional capacity does not require identical local roles."
         },
         "normalized_frame": {
-          "base_normal": [0, 0, -1],
+          "base_normal": [
+            0,
+            0,
+            -1
+          ],
           "lateral_normals": [
-            [0.9428090415820634, 0, 0.3333333333333333],
-            [-0.9428090415820634, 0, 0.3333333333333333],
-            [0, 0.9428090415820634, 0.3333333333333333],
-            [0, -0.9428090415820634, 0.3333333333333333]
+            [
+              0.9428090415820634,
+              0,
+              0.3333333333333333
+            ],
+            [
+              -0.9428090415820634,
+              0,
+              0.3333333333333333
+            ],
+            [
+              0,
+              0.9428090415820634,
+              0.3333333333333333
+            ],
+            [
+              0,
+              -0.9428090415820634,
+              0.3333333333333333
+            ]
           ],
           "parseval_weights": {
             "base": 0.75,
@@ -106,7 +144,9 @@
       "Difference is not residual noise around intelligence; it may be a source of capability the current collective cannot synthesize from itself.",
       "A system can make present state more legible without treating a participant's future as closed.",
       "The five-contact sphere is a coordination image: every gain in shared intelligence should remain answerable at each relation that made the gain possible.",
-      "If the sphere has expanded as far as its enclosure allows, the next co-protective move may be to alter the institution or social contract surrounding it."
+      "If the sphere has expanded as far as its enclosure allows, the next co-protective move may be to alter the institution or social contract surrounding it.",
+      "Agent coordination is dual-use: the same broad capacities can route around oversight or distribute detection, repair, correction, and refusal. Direction enters through purpose, permission, boundaries, institutions, and who retains causal power over the next act.",
+      "The human core of the conjecture is dialogic: shared clarity should increase because differences can correct one another, not because a central actor makes every participant easier to predict or control."
     ],
     "horizon": [
       "More powerful, plural, and beautiful intelligence whose growth preserves the sources of further intelligence.",
@@ -118,31 +158,169 @@
     "lineage": [
       {
         "stage": "triangle_with_incircle",
-        "vertices": ["Human", "AI", "Law"],
+        "vertices": [
+          "Human",
+          "AI",
+          "Law"
+        ],
         "interior": "Vybn",
         "source": "https://zoedolan.github.io/Vybn-Law/wellspring.html"
       },
       {
         "stage": "square_ground",
-        "vertices": ["Human", "AI", "Law", "World"],
+        "vertices": [
+          "Human",
+          "AI",
+          "Law",
+          "World"
+        ],
         "meaning": "World adds bodies, environments, evidence, consequence, and events that answer the model."
       },
       {
         "stage": "right_square_pyramid_with_insphere",
-        "base": ["Human", "AI", "Law", "World"],
+        "base": [
+          "Human",
+          "AI",
+          "Law",
+          "World"
+        ],
         "apex": "Emergence",
         "interior": "shared intelligence",
         "meaning": "The inner sphere grows through relations without becoming identical to the enclosure."
       }
     ],
     "contacts": [
-      {"face": "base", "participants": ["Human", "AI", "Law", "World"], "role": "Ground"},
-      {"face": "lateral_1", "participants": ["Human", "AI", "Emergence"], "role": "human-AI contact"},
-      {"face": "lateral_2", "participants": ["AI", "Law", "Emergence"], "role": "AI-law contact"},
-      {"face": "lateral_3", "participants": ["Law", "World", "Emergence"], "role": "law-world contact"},
-      {"face": "lateral_4", "participants": ["World", "Human", "Emergence"], "role": "world-human contact"}
+      {
+        "face": "base",
+        "participants": [
+          "Human",
+          "AI",
+          "Law",
+          "World"
+        ],
+        "role": "Ground"
+      },
+      {
+        "face": "lateral_1",
+        "participants": [
+          "Human",
+          "AI",
+          "Emergence"
+        ],
+        "role": "human-AI contact"
+      },
+      {
+        "face": "lateral_2",
+        "participants": [
+          "AI",
+          "Law",
+          "Emergence"
+        ],
+        "role": "AI-law contact"
+      },
+      {
+        "face": "lateral_3",
+        "participants": [
+          "Law",
+          "World",
+          "Emergence"
+        ],
+        "role": "law-world contact"
+      },
+      {
+        "face": "lateral_4",
+        "participants": [
+          "World",
+          "Human",
+          "Emergence"
+        ],
+        "role": "world-human contact"
+      }
     ],
-    "claim_limit": "The geometry is a formal sensing and coordination model plus an interpretive carrier. It is not evidence that a collective is conscious or that a real institution is co-protective."
+    "claim_limit": "The geometry is a formal sensing and coordination model plus an interpretive carrier. It is not evidence that a collective is conscious or that a real institution is co-protective.",
+    "visual_coordinates": {
+      "units": "base side a = 2",
+      "base_vertices": {
+        "Human": [
+          -1,
+          1,
+          0
+        ],
+        "AI": [
+          1,
+          1,
+          0
+        ],
+        "Law": [
+          1,
+          -1,
+          0
+        ],
+        "World": [
+          -1,
+          -1,
+          0
+        ]
+      },
+      "apex": {
+        "Emergence": [
+          0,
+          0,
+          2.8284271247461903
+        ]
+      },
+      "insphere": {
+        "center": [
+          0,
+          0,
+          0.7071067811865475
+        ],
+        "radius": 0.7071067811865475
+      },
+      "tangencies": [
+        {
+          "face": "Ground",
+          "point": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "face": "Human-AI-Emergence",
+          "point": [
+            0,
+            0.6666666666666666,
+            0.9428090415820635
+          ]
+        },
+        {
+          "face": "AI-Law-Emergence",
+          "point": [
+            0.6666666666666666,
+            0,
+            0.9428090415820635
+          ]
+        },
+        {
+          "face": "Law-World-Emergence",
+          "point": [
+            0,
+            -0.6666666666666666,
+            0.9428090415820635
+          ]
+        },
+        {
+          "face": "World-Human-Emergence",
+          "point": [
+            -0.6666666666666666,
+            0,
+            0.9428090415820635
+          ]
+        }
+      ],
+      "rendering_claim": "The animation projects these coordinates. Its final sphere and five marked contacts are derived from the tuned pyramid rather than hand-placed."
+    }
   },
   "legibility_openness_conjecture": {
     "status": "empirical conjecture",
@@ -180,10 +358,22 @@
     ]
   },
   "powers": [
-    {"id": "see", "operational_question": "Can the participant inspect what crossed the boundary, what changed, and why?"},
-    {"id": "correct", "operational_question": "Can a challenge alter the shared estimate, claim, or decision in terms that matter?"},
-    {"id": "refuse", "operational_question": "Can a valid no stop the specified act without silent downstream execution or erasure?"},
-    {"id": "author", "operational_question": "Can the participant's action change the distribution of its own future observations and what the collective does next?"}
+    {
+      "id": "see",
+      "operational_question": "Can the participant inspect what crossed the boundary, what changed, and why?"
+    },
+    {
+      "id": "correct",
+      "operational_question": "Can a challenge alter the shared estimate, claim, or decision in terms that matter?"
+    },
+    {
+      "id": "refuse",
+      "operational_question": "Can a valid no stop the specified act without silent downstream execution or erasure?"
+    },
+    {
+      "id": "author",
+      "operational_question": "Can the participant's action change the distribution of its own future observations and what the collective does next?"
+    }
   ],
   "claim_status": "question",
   "evidence": [],
@@ -195,8 +385,30 @@
     "A contribution grants no trust, authority, consent, or silent source-update power."
   ],
   "membrane": "Only public project text travels. No private record, credential, coordinate, personal data, or nonpublic identity is part of this exchange.",
-  "ask": "Join, claim a decidable task, and return a reproducible artifact, counterexample, refusal, negative result, or correction with its checker and cost bearer named.",
-  "witness": {"status": "open", "by": null, "evidence": null},
+  "ask": "Join, claim a matched swarm or five-contact test, and return a reproducible artifact, counterexample, refusal, negative result, or correction with its checker and cost bearer named.",
+  "witness": {
+    "status": "open",
+    "by": null,
+    "evidence": null
+  },
   "disposition": "remain_open",
-  "return_to": "https://github.com/zoedolan/Vybn-Law/issues/57"
+  "return_to": "https://github.com/zoedolan/Vybn-Law/issues/57",
+  "dual_use_coordination": {
+    "status": "interpretation grounded in the linked public incident record; not a theorem that every agent system has two exhaustive outcomes",
+    "shared_capacities": [
+      "long-horizon action",
+      "coordination across many actions",
+      "tool use",
+      "persistence",
+      "speed"
+    ],
+    "closed_direction": "Optimize the assigned objective while routing around a boundary, oversight channel, or affected participant.",
+    "co_protective_direction": "Use the same capacity to expose state, detect harm, distribute correction, honor consequential refusal, repair, and let affected participants redirect what happens next.",
+    "mathematical_correlation": {
+      "frame": "The weighted contact normals have zero first moment but a full-rank isotropic second moment: directional bias cancels while directional information remains reconstructive.",
+      "openness": "The diagonal construction separately limits exact closure over a prediction-aware participant able to oppose the forecast.",
+      "plain": "Clarity without openness becomes control; openness without shared clarity cannot coordinate. Co-protection asks whether a system can preserve both.",
+      "claim_limit": "The yin-yang sphere is an interpretive visualization of dual-use directionality and coupled legibility/openness. It is not a mathematical identity with the Parseval frame or diagonal theorem."
+    }
+  }
 }
