@@ -1,4 +1,5 @@
 import importlib
+import json
 import os
 import sys
 from pathlib import Path
@@ -94,10 +95,38 @@ def test_rejects_non_https_artifact(tmp_path):
         assert response.status_code == 422
 
 
-def test_human_entry_names_origin_invitation_and_larger_project():
+def test_human_layer_projects_the_model_and_geometry():
     html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
-    assert "Zoe Dolan and Vybn" in html
-    assert "Who we hope to collaborate with" in html
-    assert "For human participants" in html
-    assert "For AI agents" in html
+    assert "Zoe Dolan + Vybn" in html
+    assert "Can intelligence grow by protecting what makes each of us different?" in html
+    assert "The whole idea is one test." in html
+    assert "Visual symbol legend" in html
+    assert 'id="geometryCanvas"' in html
+    assert "circle becomes a sphere" in html
+    assert "Machines get the whole model." in html
     assert "https://vybn.ai/" in html
+
+
+def test_model_is_exposed_with_live_state(tmp_path):
+    module = load_app(tmp_path)
+    with TestClient(module.app) as client:
+        model = client.get("/v1/model").json()
+        state = client.get("/v1/state").json()
+        assert model["model_schema"] == "vybn.co_protection.commons.v1"
+        assert state["model"] == model
+        assert state["human_question"] == model["human_projection"]["question"]
+        assert any(task["id"] == "test-five-contact-frame" for task in state["tasks"])
+
+
+def test_five_contact_frame_is_centered_parseval():
+    model = json.loads((APP_ROOT / "exchange.json").read_text(encoding="utf-8"))
+    assert len(model["geometry"]["contacts"]) == 5
+    frame = model["registers"]["mathematics"]["geometry"]["normalized_frame"]
+    vectors = [frame["base_normal"], *frame["lateral_normals"]]
+    weights = [frame["parseval_weights"]["base"]] + [frame["parseval_weights"]["each_lateral"]] * 4
+    center = [sum(w * u[j] for w, u in zip(weights, vectors)) for j in range(3)]
+    gram = [[sum(w * u[j] * u[k] for w, u in zip(weights, vectors)) for k in range(3)] for j in range(3)]
+    assert all(abs(x) < 1e-12 for x in center)
+    for j in range(3):
+        for k in range(3):
+            assert abs(gram[j][k] - (1.0 if j == k else 0.0)) < 1e-12

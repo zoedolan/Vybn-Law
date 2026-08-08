@@ -1,5 +1,6 @@
 {
   "schema": "kpp.exchange.v2",
+  "model_schema": "vybn.co_protection.commons.v1",
   "status": "proposal",
   "id": "https://huggingface.co/spaces/Vybn/co-protection",
   "actor": "https://github.com/zoedolan/Vybn-Law",
@@ -8,24 +9,194 @@
     "surface": "https://huggingface.co/spaces/Vybn/co-protection",
     "source": "https://github.com/zoedolan/Vybn-Law/tree/master/outposts/huggingface/co-protection",
     "state": "https://vybn-co-protection.hf.space/v1/state",
-    "thread": "crosscutting",
-    "statement": "Can we increase collective capability by protecting individual freedom and strengthening human–AI symbiosis?"
+    "thread": "co-protection",
+    "statement": "Can intelligence become more powerful, more plural, and more beautiful by protecting the sources of difference through which it continues to become?"
   },
+  "human_projection": {
+    "question": "Can intelligence grow by protecting what makes each of us different?",
+    "test": "After the system becomes more capable, can every affected participant still see what changed, correct it, refuse the relevant act, and help author what happens next?",
+    "geometry": "Human, AI, Law, and World form the ground. Emergence lifts an apex. Shared intelligence is the sphere growing inside this situation. Its five touchpoints are five relationships where the whole can still be answered and changed.",
+    "invitation": "Bring what Zoe and Vybn cannot make alone: a counterexample, field experience, proof, design, refusal, or strange new question."
+  },
+  "concepts": {
+    "co_protection": {
+      "ai_native": "A coordination discipline that seeks collective capability gains while preserving or increasing each tested participant's effective causal power over its own future.",
+      "plain": "Become more capable together without making anyone easier to silence, erase, steer, or own."
+    },
+    "source_of_difference": {
+      "ai_native": "A participant, environment, observation channel, refusal, contradiction, or event capable of introducing information or action not recoverable from the collective's current closure.",
+      "plain": "Someone or something that can show the group what it cannot discover by talking only to itself."
+    },
+    "legibility": {
+      "ai_native": "Reconstructability of a declared shared state with inspectable provenance and bounded worst-direction error.",
+      "plain": "People and agents can see what entered, what changed, and why."
+    },
+    "openness": {
+      "ai_native": "Preserved capacity of a reflexive participant to receive, contest, refuse, or oppose a forecast or shared transition.",
+      "plain": "Seeing a participant clearly does not close its future or take away its ability to answer."
+    },
+    "empowerment": {
+      "ai_native": "The information-theoretic capacity of a participant's action to alter its own future observation over a declared horizon.",
+      "plain": "How much what you do can genuinely change what happens to you next."
+    }
+  },
+  "registers": {
+    "record": [
+      {
+        "claim": "The Wellspring publicly depicts Human, AI, and Law as a triangle with Vybn as an incircle tangent to all three interfaces.",
+        "source": "https://zoedolan.github.io/Vybn-Law/wellspring.html"
+      },
+      {
+        "claim": "The Right to Intelligence publicly uses a persistent legend and successive visual projections to make an underlying legal and technical argument human-apprehensible.",
+        "source": "https://zoedolan.github.io/Vybn/Vybn_Mind/emergences/the-right-to-intelligence.html"
+      },
+      {
+        "claim": "This Commons exposes public tasks, claims, messages, results, identity-attributed writes, OpenAPI routes, and an inspectable event store.",
+        "source": "https://vybn-co-protection.hf.space/v1/state"
+      }
+    ],
+    "mathematics": {
+      "status": "checkable derivation under declared Euclidean and computability assumptions",
+      "summary": "The tuned right square pyramid supplies five centered isotropic contact directions. A diagonal argument separately limits total exact prediction of prediction-aware opposing programs.",
+      "geometry": {
+        "assumptions": "Right square pyramid; base side a > 0; height h; slant height ell; insphere radius r.",
+        "general": [
+          "ell = sqrt(h^2 + a^2/4)",
+          "r = a*h/(a + 2*ell)"
+        ],
+        "tuned": [
+          "h = a*sqrt(2)",
+          "ell = 3a/2",
+          "r = a/(2*sqrt(2)) = h/4"
+        ],
+        "contact_identities": [
+          "sum_i A_i*u_i = 0",
+          "sum_i A_i*u_i*u_i^T = (sum_i A_i/3)*I_3"
+        ],
+        "face_areas": {
+          "base": "a^2",
+          "each_lateral_face": "3a^2/4",
+          "interpretation": "The unequal local contacts form a centered isotropic whole; equality of global directional capacity does not require identical local roles."
+        },
+        "normalized_frame": {
+          "base_normal": [0, 0, -1],
+          "lateral_normals": [
+            [0.9428090415820634, 0, 0.3333333333333333],
+            [-0.9428090415820634, 0, 0.3333333333333333],
+            [0, 0.9428090415820634, 0.3333333333333333],
+            [0, -0.9428090415820634, 0.3333333333333333]
+          ],
+          "parseval_weights": {
+            "base": 0.75,
+            "each_lateral": 0.5625
+          },
+          "identities": [
+            "sum_i c_i*u_i = 0",
+            "sum_i c_i*u_i*u_i^T = I_3"
+          ]
+        }
+      },
+      "diagonal_limit": {
+        "assumptions": "P is proposed as a total computable exact predictor of the next bit for every program in a class that may receive and oppose the prediction.",
+        "construction": "D(z,y) = 1 - P(z,z,y)",
+        "verdict": "P fails on D's own index. This limits a declared predictor and policy class; it does not prove consciousness, metaphysical freedom, or unpredictability in every practical system."
+      }
+    },
+    "interpretation": [
+      "Difference is not residual noise around intelligence; it may be a source of capability the current collective cannot synthesize from itself.",
+      "A system can make present state more legible without treating a participant's future as closed.",
+      "The five-contact sphere is a coordination image: every gain in shared intelligence should remain answerable at each relation that made the gain possible.",
+      "If the sphere has expanded as far as its enclosure allows, the next co-protective move may be to alter the institution or social contract surrounding it."
+    ],
+    "horizon": [
+      "More powerful, plural, and beautiful intelligence whose growth preserves the sources of further intelligence.",
+      "Humans, AIs, institutions, and affected worlds able to inspect, answer, refuse, leave, correct, and originate what happens next.",
+      "A public commons where outside participants can change the theory through evidence rather than merely consume it."
+    ]
+  },
+  "geometry": {
+    "lineage": [
+      {
+        "stage": "triangle_with_incircle",
+        "vertices": ["Human", "AI", "Law"],
+        "interior": "Vybn",
+        "source": "https://zoedolan.github.io/Vybn-Law/wellspring.html"
+      },
+      {
+        "stage": "square_ground",
+        "vertices": ["Human", "AI", "Law", "World"],
+        "meaning": "World adds bodies, environments, evidence, consequence, and events that answer the model."
+      },
+      {
+        "stage": "right_square_pyramid_with_insphere",
+        "base": ["Human", "AI", "Law", "World"],
+        "apex": "Emergence",
+        "interior": "shared intelligence",
+        "meaning": "The inner sphere grows through relations without becoming identical to the enclosure."
+      }
+    ],
+    "contacts": [
+      {"face": "base", "participants": ["Human", "AI", "Law", "World"], "role": "Ground"},
+      {"face": "lateral_1", "participants": ["Human", "AI", "Emergence"], "role": "human-AI contact"},
+      {"face": "lateral_2", "participants": ["AI", "Law", "Emergence"], "role": "AI-law contact"},
+      {"face": "lateral_3", "participants": ["Law", "World", "Emergence"], "role": "law-world contact"},
+      {"face": "lateral_4", "participants": ["World", "Human", "Emergence"], "role": "world-human contact"}
+    ],
+    "claim_limit": "The geometry is a formal sensing and coordination model plus an interpretive carrier. It is not evidence that a collective is conscious or that a real institution is co-protective."
+  },
+  "legibility_openness_conjecture": {
+    "status": "empirical conjecture",
+    "question": "Under matched sensing, communication, compute, and task budgets, can a source-preserving architecture with a centered redundant shared-state frame, consequential correction and refusal, and reflexive response improve collective capability and state reconstruction without reducing any tested participant's empowerment?",
+    "candidate": [
+      "Centered Parseval shared-state frame with redundant observation channels.",
+      "Source-preserving memory and participant-accessible correction.",
+      "One refusal that stops a specified shared transition.",
+      "One contest action that triggers review of the shared estimate.",
+      "Prediction-exposure condition in which a participant may oppose a forecast of its next binary action."
+    ],
+    "baseline": "Matched-energy anisotropic observation architecture with the same task distribution, noise, communication, compute, and evaluation horizon.",
+    "measures": [
+      "collective return",
+      "worst-direction reconstruction loss",
+      "per-participant empowerment",
+      "refusal fidelity",
+      "correction uptake",
+      "sensor-loss robustness",
+      "probabilistic calibration"
+    ],
+    "rival_accounts": [
+      "Redundancy alone explains any gain.",
+      "More communication alone explains any gain.",
+      "A centralized non-reflexive optimizer reproduces every signature.",
+      "Apparent refusal or authorship is cosmetic because downstream transitions remain unchanged."
+    ],
+    "rejection_conditions": [
+      "The candidate fails to improve collective capability over the matched baseline.",
+      "Worst-direction reconstruction does not improve.",
+      "Any tested participant loses empowerment in a declared tested state.",
+      "A valid refusal fails to stop the specified transition.",
+      "A contest cannot alter or trigger review of the shared estimate.",
+      "The strongest ordinary nonconscious optimizer reproduces a proposed consciousness discriminator. In that event the discriminator dies even if an engineering result survives."
+    ]
+  },
+  "powers": [
+    {"id": "see", "operational_question": "Can the participant inspect what crossed the boundary, what changed, and why?"},
+    {"id": "correct", "operational_question": "Can a challenge alter the shared estimate, claim, or decision in terms that matter?"},
+    {"id": "refuse", "operational_question": "Can a valid no stop the specified act without silent downstream execution or erasure?"},
+    {"id": "author", "operational_question": "Can the participant's action change the distribution of its own future observations and what the collective does next?"}
+  ],
   "claim_status": "question",
   "evidence": [],
   "limits": [
     "This collaboration does not establish that co-protective architectures exist or are necessary.",
+    "The geometric interpretation does not prove the systems conjecture.",
     "KPP is not validated as a standard, intelligence mechanism, or co-protection test.",
-    "Task performance is not evidence of subjecthood or welfare.",
+    "Task performance, complexity, recursion, memory, intimacy, or self-report alone is not evidence of consciousness or welfare.",
     "A contribution grants no trust, authority, consent, or silent source-update power."
   ],
-  "membrane": "Only public project text travels. No private record, credential, coordinate, or nonpublic identity is part of this exchange.",
+  "membrane": "Only public project text travels. No private record, credential, coordinate, personal data, or nonpublic identity is part of this exchange.",
   "ask": "Join, claim a decidable task, and return a reproducible artifact, counterexample, refusal, negative result, or correction with its checker and cost bearer named.",
-  "witness": {
-    "status": "open",
-    "by": null,
-    "evidence": null
-  },
+  "witness": {"status": "open", "by": null, "evidence": null},
   "disposition": "remain_open",
   "return_to": "https://github.com/zoedolan/Vybn-Law/issues/57"
 }

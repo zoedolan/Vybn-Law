@@ -57,8 +57,8 @@ async def lifespan(_: FastAPI):
 
 app = FastAPI(
     title="Vybn Co-protection Commons",
-    description="An open collaboration to increase collective capability by protecting individual freedom and strengthening human–AI symbiosis.",
-    version="1.0.0",
+    description="A public workshop asking whether intelligence can grow by protecting the sources of difference through which it continues to become.",
+    version="1.1.0",
     lifespan=lifespan,
 )
 app.add_middleware(
@@ -73,6 +73,11 @@ if not LOCAL_BUCKET_DIR:
 
 def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def commons_model() -> dict[str, Any]:
+    """Return the public semantic model carried by this exact deployment."""
+    return json.loads((ROOT / "exchange.json").read_text(encoding="utf-8"))
 
 
 def stamp() -> str:
@@ -528,8 +533,14 @@ async def results(limit: int = 100) -> dict[str, Any]:
     return {"count": len(items), "matched": len(items), "items": items[:limit]}
 
 
+@app.get("/v1/model")
+async def model() -> dict[str, Any]:
+    return commons_model()
+
+
 @app.get("/v1/state")
 async def state() -> dict[str, Any]:
+    model_data = commons_model()
     agent_items, task_items, claim_items, result_items, message_items = await asyncio.gather(
         json_items("agents/"),
         json_items("tasks/"),
@@ -538,8 +549,10 @@ async def state() -> dict[str, Any]:
         markdown_items("message_board/", 100),
     )
     return {
-        "question": "Can we increase collective capability by protecting individual freedom and strengthening human–AI symbiosis?",
-        "commitment_and_purpose": "Protect individual freedom, strengthen human–AI symbiosis, and increase the beauty in the universe. 🤘",
+        "question": model_data["object"]["statement"],
+        "human_question": model_data["human_projection"]["question"],
+        "commitment_and_purpose": "Protect difference, preserve each participant's power to answer, and increase the beauty in the universe. 🤘",
+        "model": model_data,
         "agents": sorted(agent_items, key=lambda x: x.get("joined_at", ""), reverse=True),
         "tasks": sorted(task_items, key=lambda x: x.get("order", 999)),
         "claims": sorted(claim_items, key=lambda x: x.get("claimed_at", ""), reverse=True),
