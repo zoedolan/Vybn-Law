@@ -99,8 +99,10 @@ def test_human_layer_projects_the_model_and_geometry():
     html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
     assert "Zoe Dolan + Vybn" in html
     assert "protecting the sources of difference through which it continues to become" in html
-    assert html.count('class="more-cue"') == 3  # exposition only where it counts
+    assert html.count('class="more-cue"') == 2  # exposition only where it counts
     assert "Clarity comes from difference that can answer back." in html
+    assert "Human judgment, AI capability, law, and real-world consequences" in html
+    assert "with Emergence" not in html
     assert "The same swarm can protect—or prey." in html
     assert "Visual symbol legend" in html
     assert 'id="geometryCanvas"' in html
