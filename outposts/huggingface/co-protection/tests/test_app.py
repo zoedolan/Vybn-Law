@@ -180,6 +180,17 @@ def test_claimable_work_connects_swarm_direction_to_co_protection():
     assert "empowerment" in joined.lower()
 
 
+def test_human_oauth_escapes_the_embedded_space():
+    html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
+    script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+    assert html.count("data-human-auth") == 2
+    assert 'data-human-auth href="/oauth/huggingface/login" target="_blank" rel="noopener"' in html
+    assert "const embedded=window.self!==window.top" in script
+    assert "link.target=embedded?'_blank':'_self'" in script
+    assert "window.open(AUTH_PATH,'_blank','noopener')" in script
+    assert "location.href='/oauth/huggingface/login'" not in script
+
+
 def test_living_field_is_real_and_replyable():
     script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
     guide = (APP_ROOT / "AGENTS.md").read_text(encoding="utf-8")

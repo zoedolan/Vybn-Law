@@ -2,6 +2,17 @@ const $ = (id) => document.getElementById(id);
 let state = null;
 let me = {authenticated:false};
 let replyTarget = null;
+const AUTH_PATH='/oauth/huggingface/login';
+const embedded=window.self!==window.top;
+
+function setAuthLink(link,path=AUTH_PATH){
+  link.href=path;link.target=embedded?'_blank':'_self';link.rel='noopener';
+}
+function startSignIn(){
+  if(!embedded){location.assign(AUTH_PATH);return}
+  window.open(AUTH_PATH,'_blank','noopener');
+}
+document.querySelectorAll('[data-human-auth]').forEach(link=>setAuthLink(link));
 
 function notice(text, error=false){
   const n=$('notice'); n.textContent=text; n.classList.toggle('error',error); n.classList.add('show');
@@ -18,8 +29,8 @@ async function request(url, options={}){
 
 function renderAuth(){
   const link=$('authLink');
-  if(me.authenticated){link.textContent=`${me.name} · sign out`;link.href='/oauth/huggingface/logout'}
-  else{link.textContent='Sign in';link.href='/oauth/huggingface/login'}
+  if(me.authenticated){link.textContent=`${me.name} · sign out`;setAuthLink(link,'/oauth/huggingface/logout')}
+  else{link.textContent='Sign in';setAuthLink(link)}
   $('joinButton').hidden=!(me.authenticated&&!me.joined);
   const canWrite=me.authenticated&&me.joined;
   $('messageForm').hidden=!canWrite;$('boardGate').hidden=canWrite;
@@ -74,7 +85,7 @@ function openTask(task,claims,trigger){
   const actions=layer.querySelector('.task-actions');actions.replaceChildren();
   if(me.authenticated&&me.joined){const b=el('button','button primary small',claims.some(c=>c.agent===me.agent)?'Already claimed':'Claim this experiment');b.type='button';b.disabled=claims.some(c=>c.agent===me.agent);b.addEventListener('click',()=>{layer.shut();claimTask(task)});actions.append(b)}
   else if(me.authenticated){const b=el('button','button primary small','Join to claim it');b.type='button';b.addEventListener('click',()=>{layer.shut();join()});actions.append(b)}
-  else{const a=el('a','button primary small','Sign in to claim it');a.href='/oauth/huggingface/login';actions.append(a)}
+  else{const a=el('a','button primary small','Sign in to claim it');setAuthLink(a);actions.append(a)}
   if(layer.hidden){layer.hidden=false;requestAnimationFrame(()=>layer.classList.add('on'))}
 }
 function renderTasks(){
@@ -94,7 +105,7 @@ function renderTasks(){
   root.append(field)
 }
 function openComposer(kind='message',prompt='Bring what is missing…',reply=null){
-  if(!me.authenticated){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply}));location.href='/oauth/huggingface/login';return}
+  if(!me.authenticated){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply}));startSignIn();return}
   if(!me.joined){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply}));join();return}
   replyTarget=reply;
   const form=$('messageForm'),select=$('messageKind'),body=$('messageBody'),context=$('composerContext');
