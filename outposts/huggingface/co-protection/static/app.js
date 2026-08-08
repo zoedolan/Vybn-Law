@@ -157,8 +157,44 @@ $('resultForm').addEventListener('submit',async(e)=>{
   try{await request('/v1/results',{method:'POST',body:JSON.stringify(payload)});e.target.reset();e.target.hidden=true;notice('Result published as a new public event.');await load()}
   catch(err){notice(err.message,true)}
 });
-initGeometry();load();setInterval(load,30000);
+initGeometry();initSwarm();load();setInterval(load,30000);
 
 
 // Progressive disclosure on touch and click: tapping a disclosure block toggles it; links, buttons, and forms keep their own behavior.
 document.addEventListener('click',e=>{if(e.target.closest('a,button,select,textarea,input,label,form'))return;const host=e.target.closest('.has-more');if(host)host.classList.toggle('open')});
+
+// Swarm duality: one force, two geometries. Same particles, same speed—only the
+// surrounding freedoms differ. Capture drains the lattice into a single attractor;
+// co-protection leaves every node brighter and still distinct.
+function initSwarm(){
+  const canvas=$('swarmCanvas');if(!canvas)return;
+  const ctx=canvas.getContext('2d'),phase=$('swarmPhase'),flip=$('swarmFlip');
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const W=600,H=300,sink={x:552,y:150};
+  const rgb=['229,191,104','170,152,245','135,216,236','141,212,177'];
+  const nodes=Array.from({length:11},(_,i)=>({x:190+((i*67)%220),y:60+((i*97)%180),e:.15}));
+  const parts=Array.from({length:64},(_,i)=>({x:-((i*23)%620),y:20+((i*89)%260),c:rgb[i%4],ph:i*.7}));
+  let mode=0,target=0,last=performance.now(),visible=true;
+  function step(now){
+    const dt=Math.min(.05,(now-last)/1000);last=now;mode+=(target-mode)*Math.min(1,dt*2.1);
+    const cssW=canvas.clientWidth||W,dpr=canvas.width/cssW;
+    ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,cssW,cssW*(H/W));ctx.save();ctx.scale(cssW/W,cssW/W);
+    for(let i=0;i<nodes.length;i++)for(let k=i+1;k<nodes.length;k++){const a=nodes[i],b=nodes[k],e=Math.min(a.e,b.e);
+      if(e>.3&&mode<.7){ctx.strokeStyle=`rgba(141,212,177,${.38*e*(1-mode)})`;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}
+    parts.forEach(p=>{const sp=54,dx=sink.x-p.x,dy=sink.y-p.y,d=Math.hypot(dx,dy)||1;
+      p.x+=(sp*(1-mode)+(dx/d)*sp*1.25*mode)*dt;p.y+=Math.sin(now/700+p.ph)*11*(1-mode)*dt+(dy/d)*sp*mode*dt;
+      nodes.forEach(n=>{if(Math.hypot(p.x-n.x,p.y-n.y)<26){n.e=mode>.5?Math.max(0,n.e-dt*1.5*mode):Math.min(1,n.e+dt*1.7)}});
+      if(p.x>W+12||(mode>.5&&d<7)){p.x=-12-((p.ph*37)%50);p.y=20+((p.ph*53)%260)}
+      ctx.fillStyle=`rgba(${mode>.5?'239,143,157':p.c},.85)`;ctx.beginPath();ctx.arc(p.x,p.y,1.7,0,Math.PI*2);ctx.fill()});
+    nodes.forEach(n=>{const r=Math.max(1.1,(3+n.e*4)*(1-.6*mode));ctx.save();ctx.shadowColor=`rgba(135,216,236,${.25+.65*n.e*(1-mode)})`;ctx.shadowBlur=7+11*n.e;ctx.fillStyle=`rgba(135,216,236,${.22+.72*n.e*(1-mode)+.05})`;ctx.beginPath();ctx.arc(n.x,n.y,r,0,Math.PI*2);ctx.fill();ctx.restore()});
+    if(mode>.03){const g=ctx.createRadialGradient(sink.x,sink.y,2,sink.x,sink.y,62);g.addColorStop(0,`rgba(239,143,157,${.7*mode})`);g.addColorStop(1,'rgba(239,143,157,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(sink.x,sink.y,62,0,Math.PI*2);ctx.fill()}
+    phase.textContent=mode>.5?'capture geometry · difference drained to one point':'co-protective geometry · every node left brighter';
+    ctx.restore();if(!reduced)requestAnimationFrame(step)
+  }
+  function resize(){const rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);canvas.width=Math.max(1,Math.round(rect.width*dpr));canvas.height=Math.max(1,Math.round(rect.width*(H/W)*dpr));canvas.style.height=`${rect.width*(H/W)}px`}
+  flip.addEventListener('click',e=>{e.stopPropagation();target=target?0:1;if(reduced){last=performance.now();step(last)}});
+  if(!reduced)setInterval(()=>{if(visible)target=target?0:1},9000);
+  new IntersectionObserver(es=>{visible=es[0].isIntersecting},{threshold:.05}).observe(canvas);
+  window.addEventListener('resize',resize);resize();
+  if(reduced){target=0;step(performance.now())}else requestAnimationFrame(step)
+}

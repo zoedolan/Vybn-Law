@@ -14,13 +14,44 @@
 .has-more{position:relative}
 .has-more .xmore{max-height:0;opacity:0;overflow:hidden;transform:translateY(-.35rem);transition:max-height .55s ease,opacity .45s ease,transform .45s ease}
 .has-more:hover .xmore,.has-more:focus-within .xmore,.has-more.open .xmore{max-height:34em;opacity:1;transform:none}
+/* Intent gating: on a precise pointer, expansion waits for a deliberate rest (~.5s)
+   so an ordinary scroll under a parked cursor never springs it. Pointing at the cue
+   itself is the pinpoint path and opens almost at once. Keyboard focus and tap (the
+   .open class) stay immediate. */
+@media (hover:hover) and (pointer:fine){
+.has-more:hover .xmore{transition-delay:.5s,.45s,.45s}
+.has-more:has(.more-cue:hover) .xmore{transition-delay:.1s,.08s,.08s}
+.has-more:focus-within .xmore,.has-more.open .xmore{transition-delay:0s,0s,0s}
+}
 .has-more:focus-visible{outline:1px dashed var(--gold);outline-offset:4px}
 .more-cue{display:block;margin:.3rem 0 0;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);opacity:.34;transition:opacity .3s;animation:cue-pulse 3s ease-in-out infinite}
 .more-cue::before{content:"\25B8 more"}
-.has-more:hover .more-cue,.has-more:focus-within .more-cue,.has-more.open .more-cue{opacity:0;animation:none}
+.has-more:hover .more-cue,.has-more:focus-within .more-cue{opacity:.92;animation:none}
+.has-more.open .more-cue{opacity:0;animation:none}
 @keyframes cue-pulse{0%,100%{opacity:.16}50%{opacity:.42}}
 .direction .xmore p,.contact-copy .xmore p{color:var(--muted)}
 .contact-copy .xmore p{max-width:44rem;font:400 1.12rem/1.6 var(--serif)}
 .math-line{margin:0}
 .hero-more .lede{margin-bottom:0}
 @media(prefers-reduced-motion:reduce){.more-cue{animation:none}.has-more .xmore{transition:none}}
+
+/* Swarm simulation + claimable direction glyphs (2026-08-08) */
+.swarm-sim{position:relative;margin:2.4rem 0 0;padding:1rem;border:1px solid rgba(170,152,245,.28);background:linear-gradient(145deg,rgba(17,16,25,.86),rgba(8,8,14,.6));overflow:hidden}
+.swarm-sim canvas{display:block;width:100%;height:auto;aspect-ratio:600/300}
+.swarm-sim figcaption{max-width:38rem;margin:.8rem auto 0;color:var(--muted);font:.78rem/1.45 var(--sans);text-align:center}
+.swarm-phase{position:absolute;left:1rem;top:1rem;margin:0;color:rgba(244,240,232,.72);font:.62rem/1.2 ui-monospace,SFMono-Regular,monospace;letter-spacing:.1em;text-transform:uppercase}
+.swarm-flip{position:absolute;right:1rem;top:1rem;padding:.38rem .55rem;border:1px solid rgba(244,240,232,.22);background:rgba(7,7,12,.66);color:var(--muted);font:.63rem ui-monospace,SFMono-Regular,monospace;cursor:pointer}
+.swarm-flip:hover,.swarm-flip:focus-visible{color:var(--ink);border-color:var(--gold)}
+.theme-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:2.4rem 0}
+.theme{padding:1.35rem;background:rgba(7,7,12,.72)}
+.theme svg{display:block;width:4.2rem;height:4.2rem;margin-bottom:1.1rem;overflow:visible}
+.theme b{display:block;font:400 1.18rem/1.28 var(--serif)}
+.theme .xmore p{color:var(--muted);font-size:.9rem}
+.tg-core{fill:#e5bf68}.tg-rays line{stroke:#87d8ec;stroke-width:1.4;opacity:.8}.tg-dots circle{fill:#f4f0e8}
+.tg-flow,.tg-arrow{stroke:#aa98f5;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.tg-stop{stroke:#ef8f9d;stroke-width:2;fill:none}
+.tg-loop{stroke:#aa98f5;stroke-width:1.6;fill:none;opacity:.55}
+.tg-open{stroke:#8dd4b1;stroke-width:1.6;fill:none;stroke-dasharray:3 3}
+.tg-spark{fill:#8dd4b1}.tg-gap{stroke:#87d8ec;stroke-width:1.8;fill:none;stroke-linecap:round}
+@media(max-width:960px){.theme-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.theme-grid{grid-template-columns:1fr}}

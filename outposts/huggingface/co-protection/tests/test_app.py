@@ -98,12 +98,14 @@ def test_rejects_non_https_artifact(tmp_path):
 def test_human_layer_projects_the_model_and_geometry():
     html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
     assert "Zoe Dolan + Vybn" in html
-    assert "Can we become clearer together without closing one another down?" in html
+    assert "What can only become between us?" in html
     assert "Clarity comes from difference that can answer back." in html
     assert "The same swarm can protect—or prey." in html
     assert "Visual symbol legend" in html
     assert 'id="geometryCanvas"' in html
     assert "circle becomes the one sphere mathematically tangent to all five faces" in html
+    assert 'id="swarmCanvas"' in html
+    assert "trace-the-boundary" not in html  # tasks come from live state, not the page
     assert "Machines get the whole model." in html
     assert "https://vybn.ai/" in html
 
