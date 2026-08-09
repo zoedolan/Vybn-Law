@@ -148,6 +148,22 @@
             "sum_i c_i*u_i = 0",
             "sum_i c_i*u_i*u_i^T = I_3"
           ]
+        },
+        "contact_dualization": {
+          "map": "t_(n+1) = (sqrt(4*t_n^2 + 1) + 1)/(2*sqrt(2)*t_n)",
+          "base_scale": "a_(n+1)/a_n = 2*sqrt(2)*t_n^2/(D_n*(D_n+1)), D_n = sqrt(4*t_n^2+1)",
+          "rotation_per_generation": "pi/4",
+          "checks": [
+            "sqrt(2) maps to 1",
+            "the first child contact-frame anisotropy is the golden ratio",
+            "the fixed shape has D = 1+sqrt(2) and contracts by sqrt(2)-1"
+          ],
+          "limit": "Contact dualization diagnoses how the sensing shape changes. It does not calibrate the shape by itself. The visual dashed return is an open learning proposal, not a theorem or demonstrated optimizer advantage.",
+          "frame_second_moments": {
+            "transverse": "lambda_x = lambda_y = 2*t_n^2/D_n",
+            "axial": "lambda_z = 1 + 1/D_n",
+            "normalization": "face-area weighted, divided by a_n^2"
+          }
         }
       },
       "diagonal_limit": {
@@ -163,7 +179,8 @@
       "If the sphere has expanded as far as its enclosure allows, the next co-protective move may be to alter the institution or social contract surrounding it.",
       "Agent coordination is dual-use: the same broad capacities can route around oversight or distribute detection, repair, correction, and refusal. Direction enters through purpose, permission, boundaries, institutions, and who retains causal power over the next act.",
       "The human core of the conjecture is dialogic: shared clarity should increase because differences can correct one another, not because a central actor makes every participant easier to predict or control.",
-      "The source mark treats symbiosis as a generative relation: move upstream toward the conditions that preserve difference, then let tested forms flow downstream into wider consequence."
+      "The source mark treats symbiosis as a generative relation: move upstream toward the conditions that preserve difference, then let tested forms flow downstream into wider consequence.",
+      "Contact can become structure: the five points at which one body is answerable become the vertices of the next. Repetition preserves lineage but not balance, so recalibration remains a question rather than an automatic virtue."
     ],
     "horizon": [
       "More powerful, plural, and beautiful intelligence whose growth preserves the sources of further intelligence.",
@@ -338,6 +355,31 @@
         }
       ],
       "rendering_claim": "The animation projects these coordinates. Its final sphere and five marked contacts are derived from the tuned pyramid rather than hand-placed."
+    },
+    "contact_dualization": {
+      "status": {
+        "sphere_contact_dualization": "derived",
+        "dashed_recalibration_return": "proposed and unvalidated"
+      },
+      "state": "t_n = h_n/a_n, the height-to-base ratio of a right square pyramid",
+      "map": "t_(n+1) = (sqrt(4*t_n^2 + 1) + 1)/(2*sqrt(2)*t_n)",
+      "base_scale": "a_(n+1)/a_n = 2*sqrt(2)*t_n^2/(D_n*(D_n+1)), D_n = sqrt(4*t_n^2+1)",
+      "rotation_per_generation": "pi/4",
+      "balanced_parent": {
+        "t_0": "sqrt(2)",
+        "t_1": 1
+      },
+      "first_child_frame": {
+        "axial_to_transverse_second_moment_ratio": "(1+sqrt(5))/2",
+        "name": "golden ratio"
+      },
+      "passive_fixed_shape": {
+        "t_star": "sqrt((1+sqrt(2))/2)",
+        "D_star": "1+sqrt(2)",
+        "base_scale": "sqrt(2)-1 = 1/(1+sqrt(2))",
+        "frame_anisotropy": "sqrt(2)"
+      },
+      "claim_limit": "Contact dualization diagnoses how the sensing shape changes. It does not calibrate the shape by itself. The visual dashed return is an open learning proposal, not a theorem or demonstrated optimizer advantage."
     }
   },
   "legibility_openness_conjecture": {

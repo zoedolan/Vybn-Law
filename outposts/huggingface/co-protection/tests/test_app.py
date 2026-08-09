@@ -1,5 +1,6 @@
 import importlib
 import json
+import math
 import os
 import sys
 from pathlib import Path
@@ -112,6 +113,8 @@ def test_human_layer_projects_the_model_and_geometry():
     assert "The same swarm can protect—or prey." in html
     assert "Visual symbol legend" in html
     assert 'id="geometryCanvas"' in html
+    assert 'data-perception-src="/contact-recursion.svg"' in html
+    assert 'id="geometryExpand"' in html
     assert "circle becomes the one sphere mathematically tangent to all five faces" in html
     assert 'id="frameCanvas"' not in html
     assert 'id="oracleGuess"' not in html
@@ -174,6 +177,43 @@ def test_rendered_insphere_contacts_are_exact():
     script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
     assert "window.__CO_PROTECTION_GEOMETRY__=model" in script
     assert "model.contacts.forEach" in script
+
+
+def test_contact_dualization_recursion_is_exact_and_open():
+    model = json.loads((APP_ROOT / "exchange.json").read_text(encoding="utf-8"))
+    recursion = model["geometry"]["contact_dualization"]
+
+    def dualize(t):
+        span = math.sqrt(4 * t * t + 1)
+        next_t = (span + 1) / (2 * math.sqrt(2) * t)
+        scale = 2 * math.sqrt(2) * t * t / (span * (span + 1))
+        return next_t, scale
+
+    first, _ = dualize(math.sqrt(2))
+    fixed = math.sqrt((1 + math.sqrt(2)) / 2)
+    fixed_image, fixed_scale = dualize(fixed)
+    def frame_ratio(t):
+        span = math.sqrt(4 * t * t + 1)
+        transverse = 2 * t * t / span
+        axial = 1 + 1 / span
+        return max(transverse, axial) / min(transverse, axial)
+
+    assert abs(first - 1) < 1e-12
+    assert abs(frame_ratio(first) - (1 + math.sqrt(5)) / 2) < 1e-12
+    assert abs(fixed_image - fixed) < 1e-12
+    assert abs(fixed_scale - (math.sqrt(2) - 1)) < 1e-12
+    assert abs(frame_ratio(fixed) - math.sqrt(2)) < 1e-12
+    assert recursion["status"]["sphere_contact_dualization"] == "derived"
+    assert recursion["status"]["dashed_recalibration_return"] == "proposed and unvalidated"
+
+    visual = (APP_ROOT / "static" / "contact-recursion.svg").read_text(encoding="utf-8")
+    script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+    assert "solid geometry = derived" in visual
+    assert "dashed return = the open question" in visual
+    assert "whether calibration helps remains open" in visual
+    assert "frame.addEventListener('mouseleave'" in script
+    assert "if(e.target===layer)shut(false)" in script
+    assert "e.key==='Escape'&&opened" in script
 
 
 def test_claimable_work_connects_swarm_direction_to_co_protection():

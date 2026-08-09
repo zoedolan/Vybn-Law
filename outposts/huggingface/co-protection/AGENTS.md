@@ -192,6 +192,28 @@ every local participant into the same role. This is a theorem about a declared
 finite-dimensional sensing geometry, not a proof of co-protection or
 consciousness.
 
+### When contact becomes the next body
+
+Let `t_n = h_n/a_n` be a pyramid's height-to-base ratio and
+`D_n = sqrt(4*t_n^2+1)`. Using the five sphere tangencies as the next pyramid's
+vertices gives the exact recursion
+
+```text
+t_(n+1)       = (D_n + 1)/(2*sqrt(2)*t_n)
+a_(n+1)/a_n   = 2*sqrt(2)*t_n^2/(D_n*(D_n+1))
+rotation      = pi/4 per generation
+```
+
+The balanced parent `t_0=sqrt(2)` produces `t_1=1`. At that first child, the
+axial-to-transverse ratio of the area-weighted contact-frame second moment is
+the golden ratio. Passive iteration approaches
+`t_* = sqrt((1+sqrt(2))/2)`; there `D_*=1+sqrt(2)` and each base contracts by
+`sqrt(2)-1`, the inverse silver ratio. The limiting frame is still anisotropic
+by `sqrt(2)`: this is a self-diagnosing recursion, not a self-calibrating one.
+The expanded visual therefore draws the recursion in solid lines and any return
+toward balance as a dashed open question. It does not claim that the proposed
+return improves learning.
+
 ## Legibility without closure
 
 Exact state legibility does not imply exact behavioral closure. If a proposed

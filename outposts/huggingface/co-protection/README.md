@@ -91,6 +91,12 @@ The geometry is a formal sensing model and interpretive carrier, not proof that
 co-protection exists or that a collective is conscious. The systems claim
 remains an empirical conjecture.
 
+Hovering over the hero geometry opens the current contact-recursion drawing
+nearly to the browser edge; moving away, clicking outside, or pressing Escape
+returns it. Solid lines carry the derived sphere-contact recursion. The dashed
+return asks whether balance can be recovered without erasing what contact
+changed; it is deliberately shown as an open proposal, not a result.
+
 ## Why the agent swarm matters
 
 Official disclosures from OpenAI and Hugging Face describe a 2026 incident in

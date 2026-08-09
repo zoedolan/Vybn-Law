@@ -142,3 +142,22 @@
 @media(max-width:960px){.source{grid-template-columns:1fr}.source-figure{width:min(680px,100%);margin:auto}.source-copy{max-width:760px}.source-copy h2{max-width:18ch}}
 @media(max-width:480px){.source{margin-top:5rem}.source-figure{padding:.35rem .35rem 2.1rem}.source-test{font-size:.68rem}.topbar .source-seal{width:1.05rem}.topbar .wordmark{gap:.25rem}}
 @media(prefers-reduced-motion:reduce){.source-relation-ring,.source-relation,.source-flow,.source-delta path,.source-ripples ellipse{animation:none}}
+
+
+/* Perception aperture: the hero geometry opens into the exact contact recursion.
+   Hover-out reverses the same transform; click-out, Escape, and the close control
+   keep the expanded view non-capturing. */
+.geometry canvas{cursor:zoom-in}
+.geometry-expand{position:absolute;right:1rem;bottom:.75rem;width:2rem;height:2rem;padding:0;border:1px solid rgba(135,216,236,.22);border-radius:50%;background:rgba(7,7,12,.58);color:var(--blue);font:1rem/1 var(--sans);cursor:zoom-in;opacity:.62;transition:opacity .25s ease,border-color .25s ease,transform .45s ease,box-shadow .45s ease}
+.geometry:hover .geometry-expand,.geometry-expand:hover,.geometry-expand:focus-visible{opacity:1;border-color:var(--blue);transform:scale(1.08);box-shadow:0 0 1.8rem rgba(135,216,236,.34);outline:none}
+body.perception-open{overflow:hidden}
+#perceptionOverlay{position:fixed;inset:0;z-index:180;display:grid;place-items:center;padding:2.5vh 2.5vw;background:rgba(2,3,10,0);backdrop-filter:blur(0);opacity:0;pointer-events:none;transition:background .62s ease,backdrop-filter .62s ease,opacity .62s ease}
+#perceptionOverlay[hidden]{display:none}
+#perceptionOverlay.on{background:rgba(2,3,10,.88);backdrop-filter:blur(16px);opacity:1;pointer-events:auto}
+.perception-frame{position:relative;width:min(95vw,118.75vh);aspect-ratio:5/4;margin:0;opacity:.18;transform:translate(var(--from-x,0),var(--from-y,0)) scale(var(--from-sx,.25),var(--from-sy,.25));transform-origin:center;transition:transform .68s cubic-bezier(.2,.78,.2,1),opacity .5s ease;will-change:transform,opacity}
+#perceptionOverlay.on .perception-frame{opacity:1;transform:none}
+.perception-frame img{display:block;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2.5rem 5rem rgba(0,0,0,.62))}
+.perception-close{position:absolute;right:.7rem;top:.7rem;z-index:2;width:2.4rem;height:2.4rem;border:1px solid rgba(244,240,232,.28);border-radius:50%;background:rgba(7,7,12,.74);color:var(--ink);font:1.35rem/1 var(--sans);cursor:pointer;opacity:.72}
+.perception-close:hover,.perception-close:focus-visible{opacity:1;border-color:var(--gold);outline:none}
+@media(max-width:480px){.geometry-expand{right:.55rem;bottom:.5rem}.perception-frame{width:96vw}}
+@media(prefers-reduced-motion:reduce){#perceptionOverlay,.perception-frame,.geometry-expand{transition:none}}

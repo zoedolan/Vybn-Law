@@ -285,3 +285,37 @@ function initDisclosure(){
   document.addEventListener('keydown',e=>{if(e.key==='Escape')shut()});
 }
 initDisclosure();
+
+
+// The visible geometry is a threshold, not a thumbnail: on intentional hover it
+// expands into the current contact-recursion drawing, then returns when the
+// pointer leaves. Touch, keyboard, click-out, and Escape carry the same boundary.
+function initPerception(){
+  const source=document.querySelector('.geometry[data-perception-src]'),canvas=$('geometryCanvas'),trigger=$('geometryExpand');
+  if(!source||!canvas||!trigger)return;
+  const layer=el('div');layer.id='perceptionOverlay';layer.hidden=true;layer.setAttribute('role','dialog');layer.setAttribute('aria-modal','true');layer.setAttribute('aria-label','Contact recursion');
+  const frame=el('figure','perception-frame');
+  const image=document.createElement('img');image.src=source.dataset.perceptionSrc;image.alt='The contact recursion: a balanced cube, sphere, and five-contact pyramid; the five contacts recursively become smaller rotated pyramids, while a dashed return marks an open recalibration question.';image.decoding='async';
+  const close=el('button','perception-close','\u00d7');close.type='button';close.setAttribute('aria-label','Close expanded visual');
+  frame.append(image,close);layer.append(frame);document.body.append(layer);
+  const fine=window.matchMedia('(hover:hover) and (pointer:fine)');
+  let dwell=null,hideTimer=null,opened=false,returnFocus=false;
+  function reveal(fromControl=false){
+    clearTimeout(dwell);clearTimeout(hideTimer);if(opened)return;
+    const from=source.getBoundingClientRect();opened=true;returnFocus=fromControl;layer.hidden=false;document.body.classList.add('perception-open');trigger.setAttribute('aria-expanded','true');
+    requestAnimationFrame(()=>{const to=frame.getBoundingClientRect();frame.style.setProperty('--from-x',`${from.left+from.width/2-to.left-to.width/2}px`);frame.style.setProperty('--from-y',`${from.top+from.height/2-to.top-to.height/2}px`);frame.style.setProperty('--from-sx',String(Math.max(.05,from.width/to.width)));frame.style.setProperty('--from-sy',String(Math.max(.05,from.height/to.height)));requestAnimationFrame(()=>{layer.classList.add('on');if(fromControl)setTimeout(()=>close.focus({preventScroll:true}),700)})});
+  }
+  function shut(focus=false){
+    clearTimeout(dwell);if(!opened)return;opened=false;layer.classList.remove('on');document.body.classList.remove('perception-open');trigger.setAttribute('aria-expanded','false');
+    clearTimeout(hideTimer);hideTimer=setTimeout(()=>{layer.hidden=true;if(focus||returnFocus)trigger.focus({preventScroll:true});returnFocus=false},700);
+  }
+  canvas.addEventListener('mouseenter',()=>{if(fine.matches){clearTimeout(dwell);dwell=setTimeout(()=>reveal(false),260)}});
+  canvas.addEventListener('mouseleave',()=>{if(!opened)clearTimeout(dwell)});
+  canvas.addEventListener('click',()=>reveal(false));
+  frame.addEventListener('mouseleave',()=>{if(fine.matches)shut(false)});
+  trigger.addEventListener('click',e=>{e.stopPropagation();opened?shut(true):reveal(true)});
+  close.addEventListener('click',()=>shut(true));
+  layer.addEventListener('click',e=>{if(e.target===layer)shut(false)});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&opened)shut(true)});
+}
+initPerception();
