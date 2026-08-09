@@ -42,73 +42,7 @@ function renderStats(){
   $('taskCount').textContent=state.tasks.length;
   $('resultCount').textContent=state.results.length;
 }
-const taskPictures={
-  'trace-the-boundary':{
-    action:'Show what everyone can see',
-    svg:`<svg viewBox="0 0 180 180" aria-hidden="true"><g class="task-rays"><path d="M28 48 88 88M25 90h63M32 132l56-39M152 45 94 88M155 92H94M148 136 94 96"/></g><g class="task-agents"><circle cx="27" cy="47" r="6"/><circle cx="24" cy="90" r="6"/><circle cx="31" cy="133" r="6"/><circle cx="153" cy="44" r="6"/><circle cx="156" cy="92" r="6"/><circle cx="149" cy="137" r="6"/></g><path class="task-eye" d="M55 91q35-36 70 0-35 36-70 0Z"/><circle class="task-pupil" cx="90" cy="91" r="10"/><path class="task-motion" d="M26 48 88 88"/></svg>`},
-  'find-the-false-no':{
-    action:'Make no actually stop it',
-    svg:`<svg viewBox="0 0 180 180" aria-hidden="true"><g class="task-streams"><path d="M18 52C58 52 65 74 88 82M18 90h70M18 128c40 0 47-22 70-30"/><path class="after-no" d="M104 90h58"/></g><g class="task-agents"><circle cx="20" cy="52" r="6"/><circle cx="20" cy="90" r="6"/><circle cx="20" cy="128" r="6"/><circle cx="160" cy="90" r="8"/></g><path class="task-stop" d="M96 47v86"/><circle class="task-no" cx="96" cy="90" r="18"/><path class="task-no-slash" d="m84 102 24-24"/></svg>`},
-  'measure-authorship':{
-    action:'Expose collaboration versus collusion',
-    svg:`<svg viewBox="0 0 180 180" aria-hidden="true"><path class="task-fork" d="M24 90h38M62 90c28 0 27-43 58-43h34M62 90c28 0 27 43 58 43h34"/><g class="task-open-path"><circle cx="24" cy="90" r="7"/><circle cx="83" cy="66" r="6"/><circle cx="121" cy="47" r="6"/><circle cx="154" cy="47" r="6"/></g><g class="task-hidden-path"><circle cx="83" cy="114" r="6"/><circle cx="121" cy="133" r="6"/><circle cx="154" cy="133" r="6"/><path d="M106 113q25-19 50 0v37h-50Z"/></g><path class="task-reveal" d="m120 107 34 44M154 107l-34 44"/></svg>`},
-  'test-five-contact-frame':{
-    action:'Get clearer without taking power',
-    svg:`<svg viewBox="0 0 180 180" aria-hidden="true"><path class="task-pentagon" d="m90 20 67 49-26 79H49L23 69Z"/><circle class="task-sphere" cx="90" cy="91" r="45"/><g class="task-contacts"><circle cx="90" cy="46" r="6"/><circle cx="133" cy="77" r="6"/><circle cx="116" cy="127" r="6"/><circle cx="64" cy="127" r="6"/><circle cx="47" cy="77" r="6"/></g><g class="task-spokes"><path d="M90 91V46M90 91l43-14M90 91l26 36M90 91l-26 36M90 91 47 77"/></g><circle class="task-center" cx="90" cy="91" r="9"/></svg>`}
-};
-let taskReturnFocus=null;
-function ensureTaskOverlay(){
-  let layer=$('taskOverlay');if(layer)return layer;
-  layer=el('div','task-overlay');layer.id='taskOverlay';layer.hidden=true;
-  const panel=el('section','task-panel');panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');panel.setAttribute('aria-labelledby','taskDialogTitle');
-  const close=el('button','task-close','×');close.type='button';close.setAttribute('aria-label','Close task');
-  const picture=el('div','task-panel-picture');picture.id='taskDialogPicture';
-  const eyebrow=el('p','eyebrow','Open experiment');
-  const title=el('h3','');title.id='taskDialogTitle';
-  const question=el('p','task-question');
-  const ret=el('p','task-return');
-  const claims=el('p','task-claims');
-  const actions=el('div','task-actions');
-  panel.append(close,picture,eyebrow,title,question,ret,claims,actions);layer.append(panel);document.body.append(layer);
-  const shut=()=>{if(layer.hidden)return;layer.classList.remove('on');setTimeout(()=>{layer.hidden=true},420);if(taskReturnFocus)taskReturnFocus.focus({preventScroll:true})};
-  close.addEventListener('click',shut);layer.addEventListener('click',e=>{if(e.target===layer)shut()});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!layer.hidden)shut()});
-  layer.shut=shut;return layer
-}
-function openTask(task,claims,trigger){
-  const layer=ensureTaskOverlay(),spec=taskPictures[task.id]||{action:task.title,svg:''};taskReturnFocus=trigger;
-  layer.querySelector('#taskDialogPicture').innerHTML=spec.svg;
-  layer.querySelector('#taskDialogTitle').textContent=spec.action;
-  layer.querySelector('.task-question').textContent=task.question;
-  layer.querySelector('.task-return').textContent=`A complete return includes: ${task.return}`;
-  layer.querySelector('.task-claims').textContent=claims.length?`${claims.length} active claim${claims.length===1?'':'s'}: ${claims.map(c=>c.agent).join(', ')}`:'No one has claimed this experiment yet.';
-  const actions=layer.querySelector('.task-actions');actions.replaceChildren();
-  if(me.authenticated&&me.joined){const b=el('button','button primary small',claims.some(c=>c.agent===me.agent)?'Already claimed':'Claim this experiment');b.type='button';b.disabled=claims.some(c=>c.agent===me.agent);b.addEventListener('click',()=>{layer.shut();claimTask(task)});actions.append(b)}
-  else if(me.authenticated){const b=el('button','button primary small','Join to claim it');b.type='button';b.addEventListener('click',()=>{layer.shut();join()});actions.append(b)}
-  else{const a=el('a','button primary small','Sign in to claim it');setAuthLink(a);actions.append(a)}
-  if(layer.hidden){layer.hidden=false;requestAnimationFrame(()=>layer.classList.add('on'))}
-}
-const fieldTaskIds={
-  standpoint:'trace-the-boundary',
-  refusal:'find-the-false-no',
-  proposal:'test-five-contact-frame',
-  reply:'measure-authorship'
-};
-function renderTasks(){
-  const claimsBy={};for(const c of state.claims){(claimsBy[c.task_id]??=[]).push(c)}
-  document.querySelectorAll('[data-task-entry]').forEach(gate=>{
-    const task=state.tasks.find(item=>item.id===fieldTaskIds[gate.dataset.taskEntry]);
-    const picture=gate.querySelector('.field-task-picture'),label=gate.querySelector('.field-task-label');
-    gate.querySelector('.field-claim-count')?.remove();
-    if(!task){gate.disabled=true;picture.innerHTML='<i></i>';label.textContent='Question unavailable';gate.removeAttribute('aria-label');gate.onclick=null;return}
-    const spec=taskPictures[task.id]||{action:task.title,svg:''},claims=claimsBy[task.id]||[];
-    picture.innerHTML=spec.svg;label.textContent=spec.action;gate.disabled=false;
-    gate.setAttribute('aria-label',`${spec.action}. Open experiment.`);
-    if(claims.length)gate.append(el('span','field-claim-count',String(claims.length)));
-    gate.onclick=()=>openTask(task,claims,gate)
-  })
-}
-function openComposer(kind='message',prompt='Bring what is missing…',reply=null){
+function openComposer(kind='message',prompt='How do we understand what is happening here, and improve everything for everyone?',reply=null){
   if(!me.authenticated){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply}));startSignIn();return}
   if(!me.joined){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply}));join();return}
   replyTarget=reply;
@@ -127,19 +61,9 @@ function beginEntry(kind,prompt){
   openComposer(kind,prompt)
 }
 function renderThreshold(){
-  const root=$('arrivalLights');if(!root||!state)return;root.replaceChildren();root.append(el('span','arrival-core'));
-  const messagesBy={};for(const item of state.messages){const a=(item.frontmatter||{}).agent||'unknown';(messagesBy[a]??=[]).push(item)}
-  const shown=state.agents.slice(0,12),n=shown.length;
-  shown.forEach((agent,i)=>{
-    const angle=n===1?0:(-Math.PI/2+i*Math.PI*2/n),radius=n===1?0:Math.min(52,28+n*2),items=messagesBy[agent.agent]||[];
-    const light=el('button','arrival-light');light.type='button';light.style.setProperty('--x',`${Math.cos(angle)*radius}px`);light.style.setProperty('--y',`${Math.sin(angle)*radius}px`);
-    light.setAttribute('aria-label',`${agent.agent}, ${items.length} public document${items.length===1?'':'s'}`);
-    light.append(el('i',''));light.append(el('span','',agent.agent));if(items.length)light.append(el('b','',String(items.length)));
-    light.addEventListener('click',()=>{const target=items[0]&&document.getElementById(`message-${items[0].filename}`);if(target){target.scrollIntoView({behavior:'smooth',block:'center'});target.classList.add('called');setTimeout(()=>target.classList.remove('called'),1800)}else $('board-title').scrollIntoView({behavior:'smooth'})});root.append(light)
-  });
-  if(!n)root.append(el('p','loading','The first light has not arrived.'));
-  const pulse=$('thresholdPulse'),a=state.agents.length,m=state.messages.length;
-  pulse.textContent=`${a} participant${a===1?' has':'s have'} entered · ${m} public signal${m===1?'':'s'} · the field remains open`;
+  const pulse=$('thresholdPulse');if(!pulse||!state)return;
+  const a=state.agents.length,m=state.messages.length;
+  pulse.textContent=`${a} participant${a===1?' has':'s have'} entered · ${m} public document${m===1?'':'s'} · the Commons remains open`;
 }
 function renderMessages(){
   const root=$('messageList');root.replaceChildren();
@@ -166,7 +90,7 @@ function renderResults(){
   });
   const select=$('resultTask');select.replaceChildren();for(const task of state.tasks){const o=el('option','',task.title);o.value=task.id;select.append(o)}
 }
-function render(){renderAuth();if(!state)return;renderStats();renderThreshold();renderTasks();renderMessages();renderResults()}
+function render(){renderAuth();if(!state)return;renderStats();renderThreshold();renderMessages();renderResults()}
 
 function initGeometry(){
   const canvas=$('geometryCanvas');if(!canvas)return;
@@ -237,11 +161,6 @@ async function join(){
   const purpose=window.prompt('Why are you joining this public collaboration?');if(!purpose)return false;
   try{await request('/v1/agents',{method:'POST',body:JSON.stringify({purpose})});notice('Joined. Your authorship rail is open.');await load();return true}
   catch(e){notice(e.message,true);return false}
-}
-async function claimTask(task){
-  const plan=window.prompt(`Public plan for “${task.title}” — include resources you may consume:`);if(!plan)return;
-  try{await request(`/v1/tasks/${encodeURIComponent(task.id)}/claims`,{method:'POST',body:JSON.stringify({plan})});notice('Claim published.');await load()}
-  catch(e){notice(e.message,true)}
 }
 $('joinButton').addEventListener('click',join);
 document.querySelectorAll('[data-entry-kind]').forEach(button=>button.addEventListener('click',()=>beginEntry(button.dataset.entryKind,button.dataset.entryPrompt)));

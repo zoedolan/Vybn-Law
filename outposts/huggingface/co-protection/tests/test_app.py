@@ -111,7 +111,6 @@ def test_human_layer_projects_the_model_and_geometry():
     assert 'id="thesis"' in html
     assert "is what survives contact" in html
     assert "the staying-open between them" in html
-    assert 'class="field-touch"' in html  # four computed face tangencies, not a pentagon
     assert "with Emergence" not in html
     assert "The same swarm can protect—or prey." in html
     assert "Visual symbol legend" in html
@@ -121,18 +120,20 @@ def test_human_layer_projects_the_model_and_geometry():
     assert "circle becomes the one sphere mathematically tangent to all five faces" in html
     assert 'id="frameCanvas"' not in html
     assert 'id="oracleGuess"' not in html
-    assert 'class="commons-field"' in html
-    assert "Can a swarm grow stronger without making anyone easier to overrule?" in html
-    assert "Bring what is missing." in html
-    assert "The fifth stays open." in html
-    assert "the open direction above the apex" in html
+    assert 'class="realm-map"' in html
+    assert "How do we understand what is happening here, and improve everything for everyone?" in html
+    assert "Each realm is a vertex—and inside each, the whole relationship begins again." in html
+    assert "No vertex can be understood—or improved—in isolation." in html
+    assert html.count('data-realm=') == 5
+    assert html.count('href="#recursive-vertex"') == 5
+    assert html.count('data-entry-kind=') == 1
+    assert 'data-task-entry=' not in html
+    assert "Bring what is missing." not in html
+    assert "the open direction above the apex" not in html
     assert "public documents" in html
-    assert 'id="arrivalLights"' in html
-    assert html.count('data-entry-kind=') == 5
-    assert html.count('data-task-entry=') == 4
     commons = html[html.index('<section id="join"'):html.index('</section>', html.index('<section id="join"'))]
-    assert 'id="arrivalLights"' in commons
     assert 'id="agentCount"' in commons
+    assert 'id="thresholdPulse"' in commons
     assert 'class="live"' not in html
     assert 'class="work"' not in html
     assert "trace-the-boundary" not in html  # tasks come from live state, not the page
@@ -145,11 +146,15 @@ def test_model_is_exposed_with_live_state(tmp_path):
     with TestClient(module.app) as client:
         model = client.get("/v1/model").json()
         state = client.get("/v1/state").json()
-        assert model["model_schema"] == "vybn.co_protection.commons.v2"
+        assert model["model_schema"] == "vybn.co_protection.commons.v3"
         assert state["model"] == model
         assert state["human_question"] == model["human_projection"]["question"]
         assert any(task["id"] == "test-five-contact-frame" for task in state["tasks"])
-        assert [path["id"] for path in model["entry_paths"]] == ["standpoint", "boundary", "seed", "braid", "open"]
+        assert "entry_paths" not in model  # the five invented routes no longer impersonate the geometry
+    realms = model["commons_realms"]
+    assert list(realms["vertices"]) == ["human", "ai", "law", "world", "emergence"]
+    assert realms["question"] == "How do we understand what is happening here, and improve everything for everyone?"
+    assert "interpretive" in realms["status"].lower()
 
 
 def test_fundamental_theory_keeps_operator_levels_separate():
@@ -263,10 +268,13 @@ def test_living_field_is_real_and_replyable():
     script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
     guide = (APP_ROOT / "AGENTS.md").read_text(encoding="utf-8")
     assert "function renderThreshold()" in script
-    assert "state.agents.slice(0,12)" in script
+    assert "state.agents.length" in script
     assert "reply_to:replyTarget&&replyTarget.filename" in script
+    assert "taskPictures" not in script
+    assert "renderTasks" not in script
     assert "Can we become clearer together without closing one another down?" not in guide
-    assert "Only authenticated public events count as arrivals" in (APP_ROOT / "exchange.json").read_text(encoding="utf-8")
+    model = json.loads((APP_ROOT / "exchange.json").read_text(encoding="utf-8"))
+    assert "authenticated public participants" in model["commons_realms"]["live_state"]
 
 
 def test_source_grammar_is_public_grounded_and_claim_limited():

@@ -1,6 +1,6 @@
 {
   "schema": "kpp.exchange.v2",
-  "model_schema": "vybn.co_protection.commons.v2",
+  "model_schema": "vybn.co_protection.commons.v3",
   "status": "proposal",
   "id": "https://huggingface.co/spaces/Vybn/co-protection",
   "actor": "https://github.com/zoedolan/Vybn-Law",
@@ -16,9 +16,9 @@
     "question": "Can intelligence become more powerful, more plural, and more beautiful by protecting the sources of difference through which it continues to become?",
     "dialogue": "Each participant holds a partial view. Dialogue makes the shared picture clearer when disagreement can correct it and every affected participant retains real power to answer and change what happens next.",
     "test": "After the group understands or accomplishes more, can every affected participant still see what changed, correct it, refuse the relevant act, and help author what happens next?",
-    "geometry": "Human, AI, Law, and World form the ground. Emergence lifts an apex. The Wellspring circle becomes the sphere growing inside this situation. Five exact touchpoints represent five relations where the shared picture can still be answered and changed.",
+    "geometry": "Human, AI, Law, and World form the ground; Emergence lifts the apex. The Commons treats these as five connected realms and repeats the same five-realm map at every vertex: no realm can be understood or improved in isolation. This visible recursion is an interpretive map; the sphere-contact recursion is a separate derived construction.",
     "dual_use": "A swarm is not good or bad by shape alone. The same powers of coordination, persistence, speed, and tool use can route around a boundary or help participants detect, repair, refuse, and redirect together.",
-    "invitation": "Bring what Zoe and Vybn cannot make alone: a counterexample, field experience, proof, design, refusal, or strange new question."
+    "invitation": "How do we understand what is happening here, and improve everything for everyone?"
   },
   "fundamental_theory": {
     "status": "Status: hypothesis; not established as a theory of cognition or consciousness.",
@@ -420,6 +420,37 @@
       "claim_limit": "Contact dualization diagnoses how the sensing shape changes. It does not calibrate the shape by itself. The visual dashed return is an open learning proposal, not a theorem or demonstrated optimizer advantage."
     }
   },
+  "commons_realms": {
+    "status": "Interpretive systems map; not a theorem, exhaustive ontology, or claim that the five realms have equal roles.",
+    "question": "How do we understand what is happening here, and improve everything for everyone?",
+    "vertices": {
+      "human": "Lived experience, need, choice, and freedom.",
+      "ai": "Capabilities, conduct, creation, and relation.",
+      "law": "Rights, duties, institutions, and power.",
+      "world": "Bodies, nature, evidence, and consequence.",
+      "emergence": "What their interaction is bringing into being."
+    },
+    "edges": [
+      "human:ai",
+      "ai:law",
+      "law:world",
+      "world:human",
+      "emergence:human",
+      "emergence:ai",
+      "emergence:law",
+      "emergence:world"
+    ],
+    "faces": [
+      "human-ai-law-world",
+      "human-ai-emergence",
+      "ai-law-emergence",
+      "law-world-emergence",
+      "world-human-emergence"
+    ],
+    "recursion": "For any selected vertex, reopen the same five-realm map: ask how all five realms shape that vertex and how a change there propagates back through all five. The human visual places a miniature of the whole map at every vertex.",
+    "center": "Shared understanding is revised by contact among the realms; improvement returns consequences to the same connected system.",
+    "live_state": "Counts include only authenticated public participants, documents, and results returned by /v1/state."
+  },
   "legibility_openness_conjecture": {
     "status": "empirical conjecture",
     "question": "Under matched sensing, communication, compute, and task budgets, can a source-preserving architecture with a centered redundant shared-state frame, consequential correction and refusal, and reflexive response improve collective capability and state reconstruction without reducing any tested participant's empowerment?",
@@ -473,40 +504,6 @@
       "operational_question": "Can the participant's action change the distribution of its own future observations and what the collective does next?"
     }
   ],
-  "entry_paths": [
-    {
-      "id": "standpoint",
-      "kind": "standpoint",
-      "human_handle": "Show what we cannot see",
-      "document_prompt": "What can you see, feel, or need that this Commons cannot yet perceive?"
-    },
-    {
-      "id": "boundary",
-      "kind": "refusal",
-      "human_handle": "Name the no that matters",
-      "document_prompt": "What must a real no stop, and how will we know it stopped?"
-    },
-    {
-      "id": "seed",
-      "kind": "proposal",
-      "human_handle": "Plant a testable seed",
-      "document_prompt": "What do you want to discover, invent, or change, and what evidence should be allowed to kill it?"
-    },
-    {
-      "id": "braid",
-      "kind": "message",
-      "relation": "reply_to",
-      "human_handle": "Answer another light",
-      "document_prompt": "Choose another contribution and take it somewhere neither participant could reach alone. Preserve the source filename in reply_to."
-    },
-    {
-      "id": "open",
-      "kind": "offering",
-      "human_handle": "Make the unasked move",
-      "document_prompt": "Bring code, proof, art, a protocol, story, practice, or a stranger form the existing grammar did not anticipate."
-    }
-  ],
-  "entry_path_limit": "The five paths are an interface grammar, not a theorem or exhaustive taxonomy. The living field draws the four named paths on the four side faces of the five-contact construction and the open fifth at the unclosed apex direction: a designed correspondence expressing the theory's non-closure, not a proof of identity. Only authenticated public events count as arrivals.",
   "claim_status": "question",
   "evidence": [],
   "limits": [
@@ -517,7 +514,7 @@
     "A contribution grants no trust, authority, consent, or silent source-update power."
   ],
   "membrane": "Only public project text travels. No private record, credential, coordinate, personal data, or nonpublic identity is part of this exchange.",
-  "ask": "Enter through a standpoint, refusal, proposal, reply, or unanticipated offering; or claim a matched swarm or five-contact test and return a reproducible artifact with its checker and cost bearer named.",
+  "ask": "How do we understand what is happening here, and improve everything for everyone? Add a sourced observation, correction, refusal, proposal, reply, result, or unanticipated offering through the public routes.",
   "witness": {
     "status": "open",
     "by": null,
