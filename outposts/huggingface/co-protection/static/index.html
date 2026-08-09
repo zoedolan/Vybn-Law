@@ -139,30 +139,10 @@
   </div>
 
   <div id="commonsField" class="realm-map" aria-label="Human, AI, Law, World, and Emergence as five recursively connected realms">
-    <svg class="realm-geometry" viewBox="0 0 1000 800" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="realm-title realm-desc">
-      <title id="realm-title">Five connected realms</title>
-      <desc id="realm-desc">Human, AI, Law, and World form the ground. Emergence rises above them. A shared sphere grows among their relationships, and the same five-realm geometry appears at every vertex.</desc>
-      <defs>
-        <radialGradient id="realmSphere" cx="42%" cy="34%" r="66%"><stop offset="0" stop-color="#f4f0e8" stop-opacity=".2"/><stop offset=".42" stop-color="#87d8ec" stop-opacity=".12"/><stop offset="1" stop-color="#aa98f5" stop-opacity=".025"/></radialGradient>
-        <filter id="realmGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        <symbol id="recursive-vertex" viewBox="0 0 64 64">
-          <path d="M32 7 11 37 24 55 51 51 54 33ZM11 37 54 33M24 55 51 51M32 7 24 55M32 7 51 51"/>
-          <circle cx="32" cy="7" r="2.8"/><circle cx="11" cy="37" r="2.8"/><circle cx="54" cy="33" r="2.8"/><circle cx="51" cy="51" r="2.8"/><circle cx="24" cy="55" r="2.8"/>
-          <circle class="recursive-center" cx="33" cy="36" r="8"/>
-        </symbol>
-      </defs>
-      <g class="realm-faces">
-        <path d="M500 72 196 408 804 408Z"/><path d="M500 72 804 408 690 688Z"/>
-        <path d="M500 72 690 688 310 688Z"/><path d="M500 72 310 688 196 408Z"/>
-      </g>
-      <path class="realm-ground" d="M196 408 804 408 690 688 310 688Z"/>
-      <g class="realm-edges">
-        <path d="M196 408 804 408 690 688 310 688ZM500 72 196 408M500 72 804 408M500 72 690 688M500 72 310 688"/>
-      </g>
-      <circle class="realm-sphere" cx="500" cy="455" r="137"/>
-      <circle class="realm-sphere-ring" cx="500" cy="455" r="109"/>
-      <g class="realm-points" filter="url(#realmGlow)"><circle cx="500" cy="72" r="5"/><circle cx="196" cy="408" r="5"/><circle cx="804" cy="408" r="5"/><circle cx="690" cy="688" r="5"/><circle cx="310" cy="688" r="5"/></g>
-    </svg>
+    <canvas id="realmCanvas" aria-hidden="true"></canvas>
+    <p class="realm-hint" aria-hidden="true">Drag to turn · rest on a realm to read it</p>
+    <button id="realmSpin" class="button small realm-spin" type="button" aria-pressed="false">Pause motion</button>
+    <div id="realmBloom" class="realm-bloom" aria-hidden="true"><h3></h3><p></p></div>
 
     <div class="realm-core" aria-label="The shared question at the center">
       <span>One shared question</span>
@@ -170,26 +150,11 @@
       <small>the whole returns at every vertex</small>
     </div>
 
-    <article class="realm-card realm-emergence" data-realm="emergence">
-      <svg aria-hidden="true" viewBox="0 0 64 64"><use href="#recursive-vertex"/></svg>
-      <h3>Emergence</h3><p>What their interaction is bringing into being.</p>
-    </article>
-    <article class="realm-card realm-human" data-realm="human">
-      <svg aria-hidden="true" viewBox="0 0 64 64"><use href="#recursive-vertex"/></svg>
-      <h3>Human</h3><p>Lived experience, need, choice, and freedom.</p>
-    </article>
-    <article class="realm-card realm-ai" data-realm="ai">
-      <svg aria-hidden="true" viewBox="0 0 64 64"><use href="#recursive-vertex"/></svg>
-      <h3>AI</h3><p>Capabilities, conduct, creation, and relation.</p>
-    </article>
-    <article class="realm-card realm-law" data-realm="law">
-      <svg aria-hidden="true" viewBox="0 0 64 64"><use href="#recursive-vertex"/></svg>
-      <h3>Law</h3><p>Rights, duties, institutions, and power.</p>
-    </article>
-    <article class="realm-card realm-world" data-realm="world">
-      <svg aria-hidden="true" viewBox="0 0 64 64"><use href="#recursive-vertex"/></svg>
-      <h3>World</h3><p>Bodies, nature, evidence, and consequence.</p>
-    </article>
+    <div class="realm-node realm-emergence" data-realm="emergence" data-side="below" data-name="Emergence" data-desc="What their interaction is bringing into being." tabindex="0" aria-label="Emergence. What their interaction is bringing into being."><span class="realm-tag">Emergence</span></div>
+    <div class="realm-node realm-human" data-realm="human" data-side="above" data-name="Human" data-desc="Lived experience, need, choice, and freedom." tabindex="0" aria-label="Human. Lived experience, need, choice, and freedom."><span class="realm-tag">Human</span></div>
+    <div class="realm-node realm-ai" data-realm="ai" data-side="above" data-name="AI" data-desc="Capabilities, conduct, creation, and relation." tabindex="0" aria-label="AI. Capabilities, conduct, creation, and relation."><span class="realm-tag">AI</span></div>
+    <div class="realm-node realm-law" data-realm="law" data-side="above" data-name="Law" data-desc="Rights, duties, institutions, and power." tabindex="0" aria-label="Law. Rights, duties, institutions, and power."><span class="realm-tag">Law</span></div>
+    <div class="realm-node realm-world" data-realm="world" data-side="above" data-name="World" data-desc="Bodies, nature, evidence, and consequence." tabindex="0" aria-label="World. Bodies, nature, evidence, and consequence."><span class="realm-tag">World</span></div>
   </div>
 
   <p class="realm-relation"><strong>Human, AI, Law, World, and Emergence continually shape one another.</strong> No vertex can be understood—or improved—in isolation.</p>

@@ -125,7 +125,10 @@ def test_human_layer_projects_the_model_and_geometry():
     assert "Each realm is a vertex—and inside each, the whole relationship begins again." in html
     assert "No vertex can be understood—or improved—in isolation." in html
     assert html.count('data-realm=') == 5
-    assert html.count('href="#recursive-vertex"') == 5
+    assert 'id="realmCanvas"' in html
+    assert 'id="realmSpin"' in html
+    for descriptor in ["Lived experience, need, choice, and freedom.","Capabilities, conduct, creation, and relation.","Rights, duties, institutions, and power.","Bodies, nature, evidence, and consequence.","What their interaction is bringing into being."]:
+        assert descriptor in html
     assert html.count('data-entry-kind=') == 1
     assert 'data-task-entry=' not in html
     assert "Bring what is missing." not in html
