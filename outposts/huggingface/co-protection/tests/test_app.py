@@ -142,6 +142,19 @@ def test_model_is_exposed_with_live_state(tmp_path):
         assert [path["id"] for path in model["entry_paths"]] == ["standpoint", "boundary", "seed", "braid", "open"]
 
 
+def test_fundamental_theory_keeps_operator_levels_separate():
+    model = json.loads((APP_ROOT / "exchange.json").read_text(encoding="utf-8"))
+    theory = model["fundamental_theory"]
+    assert theory["schematic_operator"]["residual"] == "r_t = (I - P_K)V_t"
+    assert "orthogonality alone may be noise" in theory["compression"]["novelty"]
+    assert "not a missing spatial dimension" in theory["relation_to_current_geometry"]["separate_nonclosure_result"]
+    assert "has not been established" in theory["relation_to_current_geometry"]["ratio_limit"]
+    assert "matched nonconscious optimizer" in theory["consciousness_limit"]
+    guide = (APP_ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert "## Fundamental operator hypothesis" in guide
+    assert "truth discipline := source check + prediction + consequence" in guide
+
+
 def test_five_contact_frame_is_centered_parseval():
     model = json.loads((APP_ROOT / "exchange.json").read_text(encoding="utf-8"))
     assert len(model["geometry"]["contacts"]) == 5

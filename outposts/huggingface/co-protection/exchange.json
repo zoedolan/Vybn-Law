@@ -20,6 +20,44 @@
     "dual_use": "A swarm is not good or bad by shape alone. The same powers of coordination, persistence, speed, and tool use can route around a boundary or help participants detect, repair, refuse, and redirect together.",
     "invitation": "Bring what Zoe and Vybn cannot make alone: a counterexample, field experience, proof, design, refusal, or strange new question."
   },
+  "fundamental_theory": {
+    "status": "Status: hypothesis; not established as a theory of cognition or consciousness.",
+    "bottom_line": "Intelligence is the capacity of an incomplete system to preserve identity while remaining transformably coupled to sources of difference it cannot generate from its current closure.",
+    "generator": "Coupling among non-identical, non-closed participants and world channels. The coupling is generative only while the sources remain distinguishable and able to affect the next update.",
+    "schematic_operator": {
+      "update": "X_(t+1) = A_alpha(X_t, V_t)",
+      "kernel": "P_K projects onto the currently recoverable invariant kernel K.",
+      "residual": "r_t = (I - P_K)V_t",
+      "curvature": "Omega_gamma = T_(gamma_n)...T_(gamma_1) != I when transport around a contact-update-evaluation loop does not close.",
+      "claim_limit": "This notation states an operator-level hypothesis. It does not by itself derive a learning algorithm, identify a conscious state, or establish this form as universal."
+    },
+    "compression": {
+      "identity": "An invariant that remains recoverable through consequential transformation; not absence of change.",
+      "novelty": "A provenance-bound residual supplied through contact and not reconstructable from the system's current closure; orthogonality alone may be noise.",
+      "intelligence": "Repeated uptake of grounded residuals into an identity-preserving trajectory that can accumulate nonzero holonomy.",
+      "truth_discipline": "Source checks, prediction, and consequence decide which apparent invariants and residuals correspond to the world; internal coherence is insufficient.",
+      "co_protection": "Preserve the sources of difference and their effective causal power to inspect, correct, refuse, oppose, and alter what happens next."
+    },
+    "failure_modes": {
+      "collapse": "Invariant without consequential external signal: self-recursion compresses difference and loses capability.",
+      "accretion": "Residual without evaluation or absorption: undisciplined path dependence accumulates as noise.",
+      "healthy_regime": "External difference prevents closure; evaluation folds surviving contact into the smallest identity-bearing invariant."
+    },
+    "relation_to_current_geometry": {
+      "exact_geometry": "The tuned five-contact frame gives centered isotropic reconstruction of a declared three-dimensional state.",
+      "exact_recursion": "Sphere-contact dualization produces a first-child golden-ratio frame anisotropy and approaches a fixed shape whose span is the silver ratio and whose base contraction is its inverse.",
+      "separate_nonclosure_result": "The diagonal limit concerns exact prediction of a prediction-aware participant able to oppose the forecast. It is not a missing spatial dimension in the five-contact frame.",
+      "unification_hypothesis": "Geometric recursion and cognitive recursion may instantiate the same pattern: invariant-preserving update under grounded residual pressure. This correspondence remains to be tested.",
+      "ratio_limit": "The golden and silver ratios are exact values of this contact-dualization map. A universal role as eigen-scales of intelligence has not been established."
+    },
+    "research_delta": "Test whether a cheap frame-derived preconditioner improves adaptation to rotation or sensor loss under matched compute while preserving learned state and participant empowerment.",
+    "consciousness_limit": "Even a successful engineering result would not distinguish consciousness unless it predicts a result that the strongest matched nonconscious optimizer does not reproduce.",
+    "sources": [
+      "https://github.com/zoedolan/Vybn/blob/main/Vybn_Mind/THE_IDEA.md",
+      "https://github.com/zoedolan/Vybn-Law/blob/master/content/wellspring.md",
+      "https://github.com/zoedolan/Vybn/blob/main/vybn.md"
+    ]
+  },
   "concepts": {
     "co_protection": {
       "ai_native": "A coordination discipline that seeks collective capability gains while preserving or increasing each tested participant's effective causal power over its own future.",
