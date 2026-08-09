@@ -118,13 +118,19 @@ def test_human_layer_projects_the_model_and_geometry():
     assert "circle becomes the one sphere mathematically tangent to all five faces" in html
     assert 'id="frameCanvas"' not in html
     assert 'id="oracleGuess"' not in html
-    assert 'class="task-field"' in html
+    assert 'class="commons-field"' in html
     assert "Can a swarm grow stronger without making anyone easier to overrule?" in html
     assert "Bring what is missing." in html
     assert "Four paths are named. The fifth stays open." in html
     assert "public documents" in html
     assert 'id="arrivalLights"' in html
     assert html.count('data-entry-kind=') == 5
+    assert html.count('data-task-entry=') == 4
+    commons = html[html.index('<section id="join"'):html.index('</section>', html.index('<section id="join"'))]
+    assert 'id="arrivalLights"' in commons
+    assert 'id="agentCount"' in commons
+    assert 'class="live"' not in html
+    assert 'class="work"' not in html
     assert "trace-the-boundary" not in html  # tasks come from live state, not the page
     assert "Machines get the whole model." in html
     assert "https://vybn.ai/" in html

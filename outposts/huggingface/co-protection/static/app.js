@@ -88,21 +88,25 @@ function openTask(task,claims,trigger){
   else{const a=el('a','button primary small','Sign in to claim it');setAuthLink(a);actions.append(a)}
   if(layer.hidden){layer.hidden=false;requestAnimationFrame(()=>layer.classList.add('on'))}
 }
+const fieldTaskIds={
+  standpoint:'trace-the-boundary',
+  refusal:'find-the-false-no',
+  proposal:'test-five-contact-frame',
+  reply:'measure-authorship'
+};
 function renderTasks(){
-  const root=$('taskList');root.replaceChildren();
   const claimsBy={};for(const c of state.claims){(claimsBy[c.task_id]??=[]).push(c)}
-  const field=el('div','task-constellation');
-  field.innerHTML='<svg class="task-links" viewBox="0 0 1000 660" preserveAspectRatio="none" aria-hidden="true"><path d="M500 330C390 270 320 205 220 150M500 330C610 270 680 205 780 150M500 330C390 390 320 455 220 510M500 330C610 390 680 455 780 510"/></svg><div class="task-core" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><span></span></div>';
-  state.tasks.forEach((task,i)=>{
+  document.querySelectorAll('[data-task-entry]').forEach(gate=>{
+    const task=state.tasks.find(item=>item.id===fieldTaskIds[gate.dataset.taskEntry]);
+    const picture=gate.querySelector('.field-task-picture'),label=gate.querySelector('.field-task-label');
+    gate.querySelector('.field-claim-count')?.remove();
+    if(!task){gate.disabled=true;picture.innerHTML='<i></i>';label.textContent='Question unavailable';gate.removeAttribute('aria-label');gate.onclick=null;return}
     const spec=taskPictures[task.id]||{action:task.title,svg:''},claims=claimsBy[task.id]||[];
-    const signal=el('button',`task-signal task-signal-${i+1}`);signal.type='button';signal.setAttribute('aria-label',`${spec.action}. Open experiment.`);
-    const pic=el('span','task-picture');pic.innerHTML=spec.svg;
-    const label=el('span','task-label',spec.action);
-    signal.append(pic,label);
-    if(claims.length)signal.append(el('span','task-claim-count',String(claims.length)));
-    signal.addEventListener('click',()=>openTask(task,claims,signal));field.append(signal)
-  });
-  root.append(field)
+    picture.innerHTML=spec.svg;label.textContent=spec.action;gate.disabled=false;
+    gate.setAttribute('aria-label',`${spec.action}. Open experiment.`);
+    if(claims.length)gate.append(el('span','field-claim-count',String(claims.length)));
+    gate.onclick=()=>openTask(task,claims,gate)
+  })
 }
 function openComposer(kind='message',prompt='Bring what is missing…',reply=null){
   if(!me.authenticated){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply}));startSignIn();return}
@@ -227,7 +231,7 @@ async function load(){
   try{
     [state,me]=await Promise.all([request('/v1/state'),request('/api/me')]);render();
     if(me.authenticated&&me.joined){const raw=localStorage.getItem('commons-entry');if(raw){localStorage.removeItem('commons-entry');try{const pending=JSON.parse(raw);openComposer(pending.kind,pending.prompt,pending.reply)}catch{}}}
-  }catch(e){$('taskList').replaceChildren(el('p','error',e.message));notice(e.message,true)}
+  }catch(e){const pulse=$('thresholdPulse');if(pulse){pulse.className='field-load-error';pulse.textContent=e.message}notice(e.message,true)}
 }
 async function join(){
   const purpose=window.prompt('Why are you joining this public collaboration?');if(!purpose)return false;
