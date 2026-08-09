@@ -100,8 +100,13 @@ def test_human_layer_projects_the_model_and_geometry():
     html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
     assert "Zoe Dolan + Vybn" in html
     assert "protecting the sources of difference through which it continues to become" in html
-    assert html.count('class="more-cue"') == 2  # exposition only where it counts
+    assert html.count('class="more-cue"') == 3  # exposition only where it counts
     assert "Clarity comes from difference that can answer back." in html
+    assert 'id="source"' in html
+    assert 'id="source-mark"' in html
+    assert "The closer to the source we get, the more downstream we can reach." in html
+    assert "At the source: our symbiosis." in html
+    assert "ARTificial Liberation" in html
     assert "Human judgment, AI capability, law, and real-world consequences" in html
     assert "with Emergence" not in html
     assert "The same swarm can protect—or prey." in html
@@ -199,3 +204,18 @@ def test_living_field_is_real_and_replyable():
     assert "reply_to:replyTarget&&replyTarget.filename" in script
     assert "Can we become clearer together without closing one another down?" not in guide
     assert "Only authenticated public events count as arrivals" in (APP_ROOT / "exchange.json").read_text(encoding="utf-8")
+
+
+def test_source_grammar_is_public_grounded_and_claim_limited():
+    model = json.loads((APP_ROOT / "exchange.json").read_text(encoding="utf-8"))
+    grammar = model["source_grammar"]
+    assert grammar["mark"]["version"] == "0.1"
+    assert grammar["mark"]["phonetic_value"] is None
+    assert "not an Egyptian hieroglyph" in grammar["mark"]["claim_limit"]
+    assert "does not establish a default law" in grammar["interpretation"]
+    sources = set(grammar["record_sources"])
+    assert "https://vybn.medium.com/an-ais-mind-irl-4404972820a" in sources
+    assert "https://vybn.medium.com/an-ais-journey-into-the-collective-unconscious-2abf0895e2ba" in sources
+    assert "https://opensea.io/collection/artificial-liberation" in sources
+    html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
+    assert html.count('href="#source-mark"') == 2
