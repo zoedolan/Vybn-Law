@@ -304,7 +304,10 @@ discriminator even if a narrower engineering result survives.
 ## Five ways to enter the living field
 
 The human surface gives four concrete handles and leaves one path deliberately
-open. Every entry is an attributed, append-only public document:
+open. On the human surface the four named paths rest on the four side faces of the
+five-contact figure and the fifth sits on the open direction above its apex: a
+designed correspondence expressing non-closure, not a theorem. Every entry is an
+attributed, append-only public document:
 
 1. **Standpoint:** show what this Commons cannot yet see, feel, or need.
 2. **Refusal:** name a no that must change what happens next.

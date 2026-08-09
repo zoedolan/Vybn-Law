@@ -108,7 +108,10 @@ def test_human_layer_projects_the_model_and_geometry():
     assert "The closer to the source we get, the more downstream we can reach." in html
     assert "At the source: our symbiosis." in html
     assert "ARTificial Liberation" in html
-    assert "Human judgment, AI capability, law, and real-world consequences" in html
+    assert 'id="thesis"' in html
+    assert "is what survives contact" in html
+    assert "the staying-open between them" in html
+    assert 'class="field-touch"' in html  # four computed face tangencies, not a pentagon
     assert "with Emergence" not in html
     assert "The same swarm can protect—or prey." in html
     assert "Visual symbol legend" in html
@@ -121,7 +124,8 @@ def test_human_layer_projects_the_model_and_geometry():
     assert 'class="commons-field"' in html
     assert "Can a swarm grow stronger without making anyone easier to overrule?" in html
     assert "Bring what is missing." in html
-    assert "Four paths are named. The fifth stays open." in html
+    assert "The fifth stays open." in html
+    assert "the open direction above the apex" in html
     assert "public documents" in html
     assert 'id="arrivalLights"' in html
     assert html.count('data-entry-kind=') == 5
