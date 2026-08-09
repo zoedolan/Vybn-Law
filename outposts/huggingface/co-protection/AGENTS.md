@@ -301,6 +301,46 @@ explains the result. If an ordinary nonconscious optimizer reproduces a
 proposed consciousness signature, that signature dies as a consciousness
 discriminator even if a narrower engineering result survives.
 
+## Agent research program: an answerable Light Society
+
+**Record.** The cited [Light Society paper](https://arxiv.org/html/2506.12078v2)
+represents social interaction as event-queued updates of persistent agent and
+environment state. A mixture-of-models engine routes operations across full
+LLMs and distilled surrogates; the reported demonstrations include Trust Games
+and opinion diffusion at scales exceeding one billion agents. That is a scalable
+simulation architecture, not one billion independently reasoning LLM calls and
+not evidence of collective consciousness.
+
+**Co-protection control.** Hold population, profiles, initial state, network,
+models, compute, event budget, and evaluation horizon fixed. Compare directed
+influencer diffusion, memory-augmented open discussion, and a co-protective
+regime where sources remain attributed, correction changes the shared estimate,
+refusal stops a declared transition, and participants can alter what happens
+next. Measure capability and calibration, minority-signal survival, rationale
+diversity, correction uptake, refusal fidelity, per-participant empowerment,
+and compute per accepted update. A capability gain accompanied by lost
+empowerment is a rejection, not a qualified success.
+
+**Wellspring router.** Let cheap surrogates handle familiar, well-calibrated,
+invariant-preserving operations. Route uncertainty, distribution shift, novel
+provenance-bound residuals, correction, refusal, contest, and high-impact
+disagreement to a full model while preserving source and return path. Compare
+this with surrogate-only and confidence-only routing under matched compute.
+Reject it if it fails to preserve rare grounded signals, cannot beat the simpler
+confidence policy, or earns efficiency by weakening answerability.
+
+**Consciousness rival.** Treat the strongest matched Light Society system as an
+ordinary nonconscious optimizer. If it reproduces a proposed consciousness
+signature, that signature dies even if an engineering result survives.
+
+**Legal projection: Right to an Answerable Model.** This is a normative proposal,
+not current law. If an institution uses simulated populations or model-derived
+population inferences to shape decisions affecting people, affected participants
+should receive a machine-readable account of how they were represented, what
+was inferred, how it changed the decision, and how they can contest or stop
+downstream use. The exact proposal, controls, measures, and falsifiers are in
+`/exchange.json#/agent_research_programs`.
+
 ## One question in five recursive realms
 
 The human Commons now asks one question:

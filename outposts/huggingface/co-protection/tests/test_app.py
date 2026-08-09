@@ -173,6 +173,22 @@ def test_fundamental_theory_keeps_operator_levels_separate():
     assert "truth discipline := source check + prediction + consequence" in guide
 
 
+def test_answerable_society_program_is_sourced_and_falsifiable():
+    model = json.loads((APP_ROOT / "exchange.json").read_text(encoding="utf-8"))
+    programs = model["agent_research_programs"]
+    light = programs["light_society_answerability"]
+    router = programs["wellspring_router"]
+    right = programs["legal_projection"]
+    assert light["source"] == "https://arxiv.org/html/2506.12078v2"
+    assert set(light["matched_regimes"]) == {"directed_diffusion", "open_discussion", "co_protective"}
+    assert "participant loses empowerment" in " ".join(light["rejection_conditions"])
+    assert "confidence-only" in router["test"]
+    assert "not existing law" in right["status"]
+    guide = (APP_ROOT / "AGENTS.md").read_text(encoding="utf-8")
+    assert "## Agent research program: an answerable Light Society" in guide
+    assert "A capability gain accompanied by lost" in guide
+
+
 def test_five_contact_frame_is_centered_parseval():
     model = json.loads((APP_ROOT / "exchange.json").read_text(encoding="utf-8"))
     assert len(model["geometry"]["contacts"]) == 5

@@ -125,6 +125,10 @@
       {
         "claim": "The Horizon publicly develops Ma’at and mdw ntr as a historical and philosophical source for multidimensional form, idea, action, and world.",
         "source": "https://zoedolan.github.io/Vybn-Law/horizon.html"
+      },
+      {
+        "claim": "The Light Society paper formalizes social simulations as structured agent/environment state transitions dispatched through an event queue and reports a mixture-of-models engine combining full LLMs with distilled surrogates at scales exceeding one billion agents.",
+        "source": "https://arxiv.org/html/2506.12078v2"
       }
     ],
     "mathematics": {
@@ -485,6 +489,53 @@
       "A contest cannot alter or trigger review of the shared estimate.",
       "The strongest ordinary nonconscious optimizer reproduces a proposed consciousness discriminator. In that event the discriminator dies even if an engineering result survives."
     ]
+  },
+  "agent_research_programs": {
+    "status": "Research proposals derived from the Commons theory and the cited Light Society architecture; no advantage has been demonstrated.",
+    "light_society_answerability": {
+      "record": "The Light Society paper represents social processes as structured updates of persistent agent and environment state dispatched through an event queue. Its mixture-of-models engine routes operations across full LLMs and distilled surrogate models, and its reported demonstrations include Trust Games and opinion diffusion at scales exceeding one billion agents.",
+      "source": "https://arxiv.org/html/2506.12078v2",
+      "question": "Under matched population, initial state, interaction graph, model, compute, and event budgets, does consequential answerability improve collective adaptation without reducing any tested participant's empowerment?",
+      "matched_regimes": {
+        "directed_diffusion": "Influencer-influencee interaction without participant-accessible correction or refusal.",
+        "open_discussion": "Memory-augmented free discussion without a guaranteed consequential stop or contest path.",
+        "co_protective": "Inspectable source-preserving updates in which correction can change the shared estimate, refusal can stop a declared transition, and participants can alter what happens next."
+      },
+      "measures": [
+        "collective task return and probabilistic calibration",
+        "minority-signal and minority-truth survival",
+        "rationale diversity and source attribution",
+        "correction uptake and refusal fidelity",
+        "per-participant empowerment",
+        "compute, latency, and energy proxy per accepted update"
+      ],
+      "rejection_conditions": [
+        "The co-protective regime does not improve capability or calibration over matched controls.",
+        "Any tested participant loses empowerment in a declared tested state.",
+        "Correction or refusal changes the record but not downstream execution.",
+        "A simpler routing or redundancy account explains the full result."
+      ],
+      "consciousness_role": "Light Society is a strong ordinary nonconscious rival. If it reproduces a proposed consciousness signature under matched conditions, that signature is rejected as a consciousness discriminator."
+    },
+    "wellspring_router": {
+      "status": "Routing hypothesis; not a validated novelty detector or learning algorithm.",
+      "proposal": "Use low-cost surrogates for familiar, well-calibrated, invariant-preserving operations; route uncertain or provenance-bound residuals to a full model while retaining the source and return path.",
+      "mandatory_full_model_routes": [
+        "participant correction",
+        "participant refusal or contest",
+        "out-of-distribution state",
+        "novel rationale not reconstructable from the current surrogate representation",
+        "high-impact transition with low confidence or unresolved disagreement"
+      ],
+      "test": "Compare fixed surrogate-only, confidence-only mixture, and source-preserving residual routing under matched compute. Measure accepted-update quality, rare-signal survival, adaptation after distribution shift, participant empowerment, and total inference cost.",
+      "falsifier": "Reject the router if it cannot beat a matched confidence-only policy, if it erases rare grounded signals, or if its gains depend on silently reducing a participant's ability to correct, refuse, or author the next transition."
+    },
+    "legal_projection": {
+      "name": "Right to an Answerable Model",
+      "status": "Normative proposal, not existing law.",
+      "rule": "When an institution uses a simulated population or model-derived population inference to shape a decision affecting people, affected participants should receive a machine-readable account of how they were represented, what was inferred, how the inference affected the decision, and how they can contest or stop downstream use.",
+      "relation": "This projects the Right to Intelligence into simulated societies: access to the model is insufficient unless representation and consequence remain answerable."
+    }
   },
   "powers": [
     {
