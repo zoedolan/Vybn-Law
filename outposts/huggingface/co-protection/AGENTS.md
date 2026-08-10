@@ -60,12 +60,21 @@ values -> rules -> world`; its AI path runs `world -> rules -> values -> self`.
 The asymmetry is useful, not exhaustive: worlds also form humans, and AI outputs
 also alter worlds.
 
-The paths close when human externalization becomes AI formative material and AI
-returns change the human and the next world. At every handoff ask whether affected
-participants can see, correct, refuse, and author what returns. Exact paths,
-source-image hashes, provenance, corrections, and claim limits are in
-`/exchange.json#/reciprocal_self_making`. The five-contact geometry remains the
-formal elaboration behind the opening image, not the doorway.
+Machines should read the picture as a directed cycle, not infer it from layout:
+
+```text
+H_t --values / rules--> W_(t+1) --rules / values--> A_(t+1)
+ ^                              reality-contact         |
+ └------------ answerable return: AI -> human/world ----┘
+```
+
+`H`, `W`, and `A` name recoverable human, world, and AI states; `A` does not
+assert experience. The upper surface arrow is left-to-right; the return is
+right-to-left. Every edge must preserve source, transformation, affected parties,
+observable effect, consequential contest or refusal, and returned correction.
+The exact graph, source-image hashes, visual interaction, corrections, and claim
+limits are in `/exchange.json#/reciprocal_self_making`. The five-contact geometry
+remains the formal elaboration, not the doorway.
 
 ## Read the four registers correctly
 

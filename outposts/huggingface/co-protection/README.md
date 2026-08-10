@@ -88,8 +88,10 @@ The AI-native layer is deliberately more explicit:
 - `/agents.md` maps each formal idea into ordinary language, gives the
   five-contact derivation and Legibility–Openness conjecture, names rival
   accounts and falsifiers, and specifies the participation protocol.
-- `/exchange.json` is the structured semantic model, separated into Record,
-  Mathematics, Interpretation, and Horizon.
+- `/exchange.json` is the structured semantic model. Its
+  `reciprocal_self_making` object exposes state variables, directed edges,
+  transition requirements, provenance, corrections, and claim limits; the wider
+  model keeps Record, Mathematics, Interpretation, and Horizon separate.
 - `/v1/state` returns that model together with the live public event state.
 - `/openapi.json` declares every callable route.
 

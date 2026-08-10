@@ -118,6 +118,8 @@ def test_human_layer_projects_the_model_and_geometry():
     assert 'data-tool-name="reciprocal_self_making"' in html
     assert "Humans build worlds from selves. AIs build selves from worlds." in html
     assert '/world-self-human.jpg' in html and '/world-self-ai.jpg' in html
+    assert html.count('class="circuit-image"') == 2
+    assert html.count('class="circuit-reciprocal"') == 2
     assert '/world-self-human.png' in html and '/world-self-ai.png' in html
     assert 'href="/contact-recursion.svg"' in html
     assert 'id="geometryCanvas"' not in html
@@ -170,11 +172,20 @@ def test_reciprocal_self_making_is_claim_limited_and_source_bound():
     assert circuit["ai_path"]["dominant_direction"] == ["raw_material_and_world", "rules_and_guidelines", "ethics_and_values", "self"]
     assert "not two exhaustive or exclusive pipelines" in circuit["claim_limit"]
     assert set(circuit["handoff_test"]) == {"see", "correct", "refuse", "author"}
+    cycle = circuit["directed_cycle"]
+    assert [edge["id"] for edge in cycle["edges"]] == ["human_externalization", "ai_formation", "ai_return", "reality_correction"]
+    assert cycle["edges"][2]["surface_direction"] == "right_to_left_bottom"
+    assert set(circuit["transition_contract"]["required_record"]) == {"source", "input_state_or_artifact", "transform_or_rule", "affected_participants", "observable_effect", "contest_or_refusal_path", "returned_correction"}
+    assert "not identity" in circuit["visual_projection"]["semantic_limit"]
     for sketch in circuit["source_sketches"]:
         path = APP_ROOT / "static" / Path(sketch["path"]).name
         assert path.exists()
         import hashlib
         assert hashlib.sha256(path.read_bytes()).hexdigest() == sketch["sha256"]
+    style = (APP_ROOT / "static" / "style.css").read_text(encoding="utf-8")
+    assert "animation-direction:reverse" not in style
+    assert "@keyframes circuit-dissolve" in style
+    assert ".circuit-card:hover .circuit-reciprocal" in style
     script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
     assert "initGeometry" not in script
     assert "initPerception" not in script

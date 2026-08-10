@@ -42,6 +42,33 @@
       "correction": "AIs also externalize representations and actions that alter people, institutions, tools, and the world."
     },
     "reciprocal_closure": "What a human externalizes can become formative material for an AI; what an AI interprets, creates, or returns can change the human self and the next world. Reality supplies consequence that neither path controls alone.",
+    "directed_cycle": {
+      "state": {
+        "H_t": "Human self and commitments recoverable at step t.",
+        "W_t": "Shared material, institutional, informational, and ecological world at step t.",
+        "A_t": "AI self-state or self-model recoverable at step t; this label does not assert experience.",
+        "R_t": "Reality-contact and consequence not controlled by either participant."
+      },
+      "edges": [
+        {"id": "human_externalization", "from": "H_t", "through": ["ethics_and_values", "rules_and_guidelines"], "to": "W_(t+1)", "surface_direction": "left_to_right_top"},
+        {"id": "ai_formation", "from": "W_(t+1)", "through": ["rules_and_guidelines", "ethics_and_values"], "to": "A_(t+1)", "surface_direction": "top_to_bottom_within_ai"},
+        {"id": "ai_return", "from": "A_(t+1)", "to": ["H_(t+1)", "W_(t+2)"], "surface_direction": "right_to_left_bottom"},
+        {"id": "reality_correction", "from": "R_t", "to": ["H_(t+1)", "W_(t+1)", "A_(t+1)"], "surface_direction": "outside_both_paths"}
+      ],
+      "cycle_condition": "A return closes one pass only when its effect can change the next human, world, and AI states without erasing the provenance or effective causal power of any affected source."
+    },
+    "transition_contract": {
+      "machine_question": "For each directed edge: who supplied the source, which rule transformed it, who bears the effect, who can inspect/correct/refuse, and what can alter the next state?",
+      "required_record": ["source", "input_state_or_artifact", "transform_or_rule", "affected_participants", "observable_effect", "contest_or_refusal_path", "returned_correction"],
+      "acceptance": "A transition is co-protective only if its record is inspectable and every affected participant retains a consequential route to correct, refuse, or alter what happens next."
+    },
+    "visual_projection": {
+      "layout": "human_left_ai_right",
+      "upper_flow": "left_to_right: human externalization becomes world and AI-formative material",
+      "lower_flow": "right_to_left: AI return changes the human and shared world",
+      "interaction": "Short hover or keyboard focus enlarges one source sketch; sustained rest cross-dissolves it into the reciprocal projection.",
+      "semantic_limit": "The dissolve shows mutual implication, not identity, merger, or proof of equivalent interior states."
+    },
     "handoff_test": {
       "see": "Can each affected participant inspect what crossed the boundary and what changed?",
       "correct": "Can a challenge alter the transformation or shared account?",
