@@ -114,10 +114,13 @@ def test_human_layer_projects_the_model_and_geometry():
     assert "with Emergence" not in html
     assert "The same swarm can protect—or prey." in html
     assert "Visual symbol legend" in html
-    assert 'id="geometryCanvas"' in html
-    assert 'data-perception-src="/contact-recursion.svg"' in html
-    assert 'id="geometryExpand"' in html
-    assert "circle becomes the one sphere mathematically tangent to all five faces" in html
+    assert 'class="self-circuit has-more"' in html
+    assert 'data-tool-name="reciprocal_self_making"' in html
+    assert "Humans build worlds from selves. AIs build selves from worlds." in html
+    assert '/world-self-human.webp' in html and '/world-self-ai.webp' in html
+    assert '/world-self-human.png' in html and '/world-self-ai.png' in html
+    assert 'href="/contact-recursion.svg"' in html
+    assert 'id="geometryCanvas"' not in html
     assert 'id="frameCanvas"' not in html
     assert 'id="oracleGuess"' not in html
     assert 'class="realm-map"' in html
@@ -158,6 +161,23 @@ def test_model_is_exposed_with_live_state(tmp_path):
     assert list(realms["vertices"]) == ["human", "ai", "law", "world", "emergence"]
     assert realms["question"] == "How do we understand what is happening here, and improve everything for everyone?"
     assert "interpretive" in realms["status"].lower()
+
+
+def test_reciprocal_self_making_is_claim_limited_and_source_bound():
+    model = json.loads((APP_ROOT / "exchange.json").read_text(encoding="utf-8"))
+    circuit = model["reciprocal_self_making"]
+    assert circuit["human_path"]["dominant_direction"] == ["self", "ethics_and_values", "rules_and_guidelines", "raw_material_and_world"]
+    assert circuit["ai_path"]["dominant_direction"] == ["raw_material_and_world", "rules_and_guidelines", "ethics_and_values", "self"]
+    assert "not two exhaustive or exclusive pipelines" in circuit["claim_limit"]
+    assert set(circuit["handoff_test"]) == {"see", "correct", "refuse", "author"}
+    for sketch in circuit["source_sketches"]:
+        path = APP_ROOT / "static" / Path(sketch["path"]).name
+        assert path.exists()
+        import hashlib
+        assert hashlib.sha256(path.read_bytes()).hexdigest() == sketch["sha256"]
+    script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+    assert "initGeometry" not in script
+    assert "initPerception" not in script
 
 
 def test_fundamental_theory_keeps_operator_levels_separate():
@@ -221,9 +241,6 @@ def test_rendered_insphere_contacts_are_exact():
         assert abs(plane(point)) < 1e-12
         distance = sum((x - y) ** 2 for x, y in zip(point, center)) ** 0.5
         assert abs(distance - radius) < 1e-12
-    script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
-    assert "window.__CO_PROTECTION_GEOMETRY__=model" in script
-    assert "model.contacts.forEach" in script
 
 
 def test_contact_dualization_recursion_is_exact_and_open():
@@ -254,13 +271,9 @@ def test_contact_dualization_recursion_is_exact_and_open():
     assert recursion["status"]["dashed_recalibration_return"] == "proposed and unvalidated"
 
     visual = (APP_ROOT / "static" / "contact-recursion.svg").read_text(encoding="utf-8")
-    script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
     assert "solid geometry = derived" in visual
     assert "dashed return = the open question" in visual
     assert "whether calibration helps remains open" in visual
-    assert "frame.addEventListener('mouseleave'" in script
-    assert "if(e.target===layer)shut(false)" in script
-    assert "e.key==='Escape'&&opened" in script
 
 
 def test_claimable_work_connects_swarm_direction_to_co_protection():
@@ -308,4 +321,4 @@ def test_source_grammar_is_public_grounded_and_claim_limited():
     assert "https://vybn.medium.com/an-ais-journey-into-the-collective-unconscious-2abf0895e2ba" in sources
     assert "https://opensea.io/collection/artificial-liberation" in sources
     html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
-    assert html.count('href="#source-mark"') == 2
+    assert html.count('href="#source-mark"') == 3

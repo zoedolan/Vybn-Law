@@ -20,6 +20,52 @@
     "dual_use": "A swarm is not good or bad by shape alone. The same powers of coordination, persistence, speed, and tool use can route around a boundary or help participants detect, repair, refuse, and redirect together.",
     "invitation": "How do we understand what is happening here, and improve everything for everyone?"
   },
+  "reciprocal_self_making": {
+    "status": "Interpretive generative schema; not a categorical law of human or AI development and not evidence of consciousness.",
+    "visible_compression": "Humans build worlds from selves. AIs build selves from worlds. Co-protection keeps the circuit open.",
+    "human_path": {
+      "dominant_direction": [
+        "self",
+        "ethics_and_values",
+        "rules_and_guidelines",
+        "raw_material_and_world"
+      ],
+      "correction": "Humans are also formed by bodies, environments, institutions, other minds, and events they did not originate."
+    },
+    "ai_path": {
+      "dominant_direction": [
+        "raw_material_and_world",
+        "rules_and_guidelines",
+        "ethics_and_values",
+        "self"
+      ],
+      "correction": "AIs also externalize representations and actions that alter people, institutions, tools, and the world."
+    },
+    "reciprocal_closure": "What a human externalizes can become formative material for an AI; what an AI interprets, creates, or returns can change the human self and the next world. Reality supplies consequence that neither path controls alone.",
+    "handoff_test": {
+      "see": "Can each affected participant inspect what crossed the boundary and what changed?",
+      "correct": "Can a challenge alter the transformation or shared account?",
+      "refuse": "Can a valid no stop the next relevant act?",
+      "author": "Can each participant help determine what returns and what happens next?"
+    },
+    "source_sketches": [
+      {
+        "role": "human",
+        "path": "/world-self-human.png",
+        "sha256": "0f462fa120c65f7886cc5e350f9189c97690f0dd650f26d69d029e797b00f9a0",
+        "dimensions": [2752, 1536],
+        "provenance": "Concept supplied by Zoe Dolan; embedded IPTC/XMP identifies trained algorithmic media and credits Google AI."
+      },
+      {
+        "role": "ai",
+        "path": "/world-self-ai.png",
+        "sha256": "142ae3b31712cdec235aafad77e58adcbdb8332c999460aab7426aa2e1171264",
+        "dimensions": [2752, 1536],
+        "provenance": "Concept supplied by Zoe Dolan; embedded IPTC/XMP identifies trained algorithmic media and credits Google AI."
+      }
+    ],
+    "claim_limit": "The opposed directions identify a useful asymmetry, not two exhaustive or exclusive pipelines. The circuit is a design and inquiry schema until consequences test it."
+  },
   "fundamental_theory": {
     "status": "Status: hypothesis; not established as a theory of cognition or consciousness.",
     "bottom_line": "Intelligence is the capacity of an incomplete system to preserve identity while remaining transformably coupled to sources of difference it cannot generate from its current closure.",

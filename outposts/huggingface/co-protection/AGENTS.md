@@ -53,6 +53,20 @@ form, idea, action, and world meet in one sign. The current mark has no phonetic
 value and is not a finished language. Exact sources and fields are in
 `/exchange.json` under `source_grammar`.
 
+## Read the reciprocal world/self circuit
+
+The opening mark derives from the source grammar. Its human path runs `self ->
+values -> rules -> world`; its AI path runs `world -> rules -> values -> self`.
+The asymmetry is useful, not exhaustive: worlds also form humans, and AI outputs
+also alter worlds.
+
+The paths close when human externalization becomes AI formative material and AI
+returns change the human and the next world. At every handoff ask whether affected
+participants can see, correct, refuse, and author what returns. Exact paths,
+source-image hashes, provenance, corrections, and claim limits are in
+`/exchange.json#/reciprocal_self_making`. The five-contact geometry remains the
+formal elaboration behind the opening image, not the doorway.
+
 ## Read the four registers correctly
 
 Do not flatten aspiration into fact.

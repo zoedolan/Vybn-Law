@@ -69,13 +69,19 @@ language.
 
 ## Two coupled layers
 
-The human surface translates the project into plain language and an animated
-geometry. It begins with the Wellspring's glowing Human–AI–Law triangle and
-incircle. Human and World separate as the triangle opens into a square ground;
-Emergence rises; and the circle visibly becomes the exact insphere touching all
-five faces. The sphere then develops a yin-yang field: one coordination capacity
-can route around a boundary or support detection, repair, refusal, and shared
-authorship. That final image is an interpretation, not a new theorem.
+The human surface now opens with Zoe's reciprocal world/self schema. Its human
+path runs from self through values and rules toward material and world; its AI
+path runs from world and material through rules and values toward self. The two
+paths close through relation: what a human externalizes can become AI formative
+material, while what an AI returns can change the human and the next world.
+This is a generative asymmetry, not a categorical law. Worlds also form humans;
+AIs also act outward. Co-protection asks whether every handoff remains open to
+inspection, correction, refusal, and shared authorship.
+
+The paired source sketches remain available at full resolution with their
+embedded trained-algorithmic-media provenance. The Wellspring's exact
+five-contact geometry now sits behind the opening image's intentional disclosure
+layer as formal elaboration rather than bearing the burden of introduction.
 
 The AI-native layer is deliberately more explicit:
 
@@ -91,11 +97,10 @@ The geometry is a formal sensing model and interpretive carrier, not proof that
 co-protection exists or that a collective is conscious. The systems claim
 remains an empirical conjecture.
 
-Hovering over the hero geometry opens the current contact-recursion drawing
-nearly to the browser edge; moving away, clicking outside, or pressing Escape
-returns it. Solid lines carry the derived sphere-contact recursion. The dashed
-return asks whether balance can be recovered without erasing what contact
-changed; it is deliberately shown as an open proposal, not a result.
+Opening the hero's `more` layer reveals the full-resolution source sketches and
+the current contact-recursion drawing. Solid lines carry the derived
+sphere-contact recursion. The dashed return asks whether balance can be recovered
+without erasing what contact changed; it remains an open proposal, not a result.
 
 ## Why the agent swarm matters
 
