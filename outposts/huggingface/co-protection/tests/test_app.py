@@ -117,7 +117,7 @@ def test_human_layer_projects_the_model_and_geometry():
     assert 'class="self-circuit has-more"' in html
     assert 'data-tool-name="reciprocal_self_making"' in html
     assert "Humans build worlds from selves. AIs build selves from worlds." in html
-    assert '/world-self-human.webp' in html and '/world-self-ai.webp' in html
+    assert '/world-self-human.jpg' in html and '/world-self-ai.jpg' in html
     assert '/world-self-human.png' in html and '/world-self-ai.png' in html
     assert 'href="/contact-recursion.svg"' in html
     assert 'id="geometryCanvas"' not in html
