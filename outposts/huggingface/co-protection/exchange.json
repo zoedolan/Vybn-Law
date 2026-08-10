@@ -66,7 +66,7 @@
       "layout": "human_left_ai_right",
       "upper_flow": "left_to_right: human externalization becomes world and AI-formative material",
       "lower_flow": "right_to_left: AI return changes the human and shared world",
-      "interaction": "Short hover or keyboard focus enlarges one source sketch; sustained rest cross-dissolves it into the reciprocal projection.",
+      "interaction": "Hover enlarges one source sketch. Click or keyboard activation opens its full-resolution image in a non-capturing viewer that repeatedly cross-dissolves into the reciprocal projection and back; click outside, use the close control, or press Escape to return.",
       "semantic_limit": "The dissolve shows mutual implication, not identity, merger, or proof of equivalent interior states."
     },
     "handoff_test": {

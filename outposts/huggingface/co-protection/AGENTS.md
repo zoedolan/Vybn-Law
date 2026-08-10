@@ -69,9 +69,10 @@ H_t --values / rules--> W_(t+1) --rules / values--> A_(t+1)
 ```
 
 `H`, `W`, and `A` name recoverable human, world, and AI states; `A` does not
-assert experience. The upper surface arrow is left-to-right; the return is
-right-to-left. Every edge must preserve source, transformation, affected parties,
-observable effect, consequential contest or refusal, and returned correction.
+assert experience. The upper surface arrow is left-to-right; the return is right-to-left. Clicking or
+keyboard-activating either sketch opens its full-resolution source and cross-dissolves into the reciprocal projection and back; Escape, close, or the surrounding field returns without capture. Every edge must preserve source,
+transformation, affected parties, observable effect, consequential contest or
+refusal, and returned correction.
 The exact graph, source-image hashes, visual interaction, corrections, and claim
 limits are in `/exchange.json#/reciprocal_self_making`. The five-contact geometry
 remains the formal elaboration, not the doorway.

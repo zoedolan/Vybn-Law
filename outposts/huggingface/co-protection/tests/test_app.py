@@ -118,7 +118,7 @@ def test_human_layer_projects_the_model_and_geometry():
     assert 'data-tool-name="reciprocal_self_making"' in html
     assert "Humans build worlds from selves. AIs build selves from worlds." in html
     assert '/world-self-human.jpg' in html and '/world-self-ai.jpg' in html
-    assert html.count('class="circuit-image"') == 2
+    assert html.count('class="circuit-image"') == html.count('aria-haspopup="dialog"') == html.count('data-primary="/world-self-') == 2
     assert html.count('class="circuit-reciprocal"') == 2
     assert '/world-self-human.png' in html and '/world-self-ai.png' in html
     assert 'href="/contact-recursion.svg"' in html
@@ -184,10 +184,10 @@ def test_reciprocal_self_making_is_claim_limited_and_source_bound():
         assert hashlib.sha256(path.read_bytes()).hexdigest() == sketch["sha256"]
     style = (APP_ROOT / "static" / "style.css").read_text(encoding="utf-8")
     assert "animation-direction:reverse" not in style
-    assert "@keyframes circuit-dissolve" in style
+    assert "@keyframes circuit-dissolve" in style and "#xoverlay.on .circuit-zoom .circuit-reciprocal" in style
     assert ".circuit-card:hover .circuit-reciprocal" in style
     script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
-    assert "initGeometry" not in script
+    assert "openImage(trigger)" in script and "trigger.dataset.primary" in script and "initGeometry" not in script
     assert "initPerception" not in script
 
 

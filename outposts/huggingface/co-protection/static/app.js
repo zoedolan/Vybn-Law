@@ -207,30 +207,28 @@ initRealmMap();load();setInterval(load,30000);
 // Progressive disclosure, overlay model: cues are the only triggers, and exposition
 // opens in its own layer above the view, so the page itself never reflows.
 function initDisclosure(){
-  const layer=el('div');layer.id='xoverlay';layer.hidden=true;
-  const panel=el('div','xo-panel');panel.setAttribute('role','dialog');
-  const close=el('button','xo-close','\u00d7');close.type='button';close.setAttribute('aria-label','Close');
-  const body=el('div','xo-body');panel.append(close,body);layer.append(panel);document.body.append(layer);
-  let openCue=null,dwell=null;
-  function open(cue){
-    const host=cue.closest('.has-more'),src=host&&host.querySelector('.xmore');if(!src)return;
-    if(openCue&&openCue!==cue)openCue.setAttribute('aria-expanded','false');
-    body.replaceChildren(...Array.from(src.childNodes).map(n=>n.cloneNode(true)));
+  const layer=el('div');layer.id='xoverlay';layer.hidden=true;const panel=el('div','xo-panel');panel.setAttribute('role','dialog');panel.setAttribute('aria-modal','true');
+  const close=el('button','xo-close','\u00d7');close.type='button';close.setAttribute('aria-label','Close');const body=el('div','xo-body');panel.append(close,body);layer.append(panel);document.body.append(layer);
+  let active=null,dwell=null,hide=null;
+  function show(trigger,nodes,image=false){
+    if(active&&active!==trigger)active.setAttribute('aria-expanded','false');
+    clearTimeout(hide);layer.classList.toggle('image',image);panel.classList.toggle('xo-image',image);body.className=image?'xo-body circuit-zoom':'xo-body';body.replaceChildren(...nodes);
     if(layer.hidden){layer.hidden=false;requestAnimationFrame(()=>layer.classList.add('on'))}
-    cue.setAttribute('aria-expanded','true');openCue=cue;
+    document.body.classList.toggle('overlay-image-open',image);trigger.setAttribute('aria-expanded','true');active=trigger;
   }
-  function shut(){
-    if(layer.hidden)return;
-    layer.classList.remove('on');if(openCue)openCue.setAttribute('aria-expanded','false');
-    const c=openCue;openCue=null;setTimeout(()=>{layer.hidden=true},650);if(c)c.focus({preventScroll:true});
+  function openMore(cue){const src=cue.closest('.has-more')?.querySelector('.xmore');if(src)show(cue,Array.from(src.childNodes).map(n=>n.cloneNode(true)))}
+  function openImage(trigger){const primary=el('img','circuit-primary'),reciprocal=el('img','circuit-reciprocal');
+    primary.src=trigger.dataset.primary;primary.alt=`${trigger.dataset.label} world-model source sketch`;
+    reciprocal.src=trigger.dataset.reciprocal;reciprocal.alt='';reciprocal.setAttribute('aria-hidden','true');show(trigger,[primary,reciprocal],true);
+  }
+  function shut(){if(layer.hidden)return;layer.classList.remove('on');document.body.classList.remove('overlay-image-open');if(active)active.setAttribute('aria-expanded','false');
+    const trigger=active;active=null;hide=setTimeout(()=>{layer.hidden=true;layer.classList.remove('image')},650);if(trigger)trigger.focus({preventScroll:true});
   }
   document.querySelectorAll('.more-cue').forEach(cue=>{
-    cue.addEventListener('click',e=>{e.stopPropagation();cue.getAttribute('aria-expanded')==='true'?shut():open(cue)});
-    cue.addEventListener('mouseenter',()=>{clearTimeout(dwell);dwell=setTimeout(()=>open(cue),750)});
-    cue.addEventListener('mouseleave',()=>clearTimeout(dwell));
+    cue.addEventListener('click',e=>{e.stopPropagation();cue.getAttribute('aria-expanded')==='true'?shut():openMore(cue)});
+    cue.addEventListener('mouseenter',()=>{clearTimeout(dwell);dwell=setTimeout(()=>openMore(cue),750)});cue.addEventListener('mouseleave',()=>clearTimeout(dwell));
   });
-  layer.addEventListener('click',e=>{if(e.target===layer)shut()});
-  close.addEventListener('click',shut);
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')shut()});
+  document.querySelectorAll('.circuit-image').forEach(image=>image.addEventListener('click',()=>openImage(image)));
+  layer.addEventListener('click',e=>{if(e.target===layer)shut()});close.addEventListener('click',shut);document.addEventListener('keydown',e=>{if(e.key==='Escape')shut()});
 }
 initDisclosure();
