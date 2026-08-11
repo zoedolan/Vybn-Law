@@ -26,7 +26,8 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--amber); outline
 .slide-ai { position: absolute; inset: 0; opacity: 0; animation: xfade 30s ease-in-out infinite; }
 @keyframes xfade { 0% { opacity: 0; } 45% { opacity: 1; } 55% { opacity: 1; } 100% { opacity: 0; } }
 .hero-copy { position: absolute; left: 0; right: 0; bottom: 0; padding: clamp(1.25rem, 4vw, 3rem) clamp(1.25rem, 4vw, 3rem) clamp(.55rem, 1.4vw, 1.1rem); mix-blend-mode: difference; color: #fff; }
-.kicker { margin: 0 0 .6rem; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; }
+.kicker { margin: 0 0 .15rem; font-size: .78rem; letter-spacing: .18em; text-transform: uppercase; }
+.tagline { margin: 0 0 .6rem; font-size: .9rem; color: rgba(255,255,255,.62); }
 h1 { margin: 0; max-width: 21ch; font-family: var(--serif); font-weight: 500; font-size: clamp(1.5rem, 4vw, 3rem); line-height: 1.16; }
 
 main, footer { max-width: 44rem; margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
