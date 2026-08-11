@@ -333,3 +333,31 @@ def test_source_grammar_is_public_grounded_and_claim_limited():
     assert "https://opensea.io/collection/artificial-liberation" in sources
     html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
     assert html.count('href="#source-mark"') == 3
+
+
+def test_court_guidance_thread_reuses_attributed_commons_rails(tmp_path):
+    html = (APP_ROOT / "static" / "court-guidance.html").read_text(encoding="utf-8")
+    script = (APP_ROOT / "static" / "court-guidance-board.js").read_text(encoding="utf-8")
+    task = json.loads((APP_ROOT / "seed" / "tasks" / "court-guidance.json").read_text())
+    app_source = (APP_ROOT / "app.py").read_text(encoding="utf-8")
+    assert "Compare what the cycle surfaces." in html
+    assert "Public and attributed." in html
+    assert "const CHANNEL='court-guidance'" in script
+    assert "task_id:CHANNEL" in script
+    assert task["id"] == "court-guidance"
+    assert "attributed candidate" in task["return"] and "review owner" in task["return"]
+    assert "https://vybn-court-guidance.hf.space" in app_source
+    module = load_app(tmp_path)
+    with TestClient(module.app) as client:
+        page = client.get("/court-guidance.html")
+        assert page.status_code == 200
+        assert "https://vybn-court-guidance.hf.space" in page.headers["content-security-policy"]
+        state = client.get("/v1/state").json()
+        assert any(item["id"] == "court-guidance" for item in state["tasks"])
+        joined = client.post("/v1/agents", json={"purpose": "Test the court channel."})
+        assert joined.status_code == 200
+        posted = client.post("/v1/messages", json={"kind": "question", "task_id": "court-guidance", "body": "Which source owns this answer?"})
+        assert posted.status_code == 200
+        channel = client.get("/v1/channels/court-guidance").json()
+        assert channel["count"] == 1
+        assert channel["messages"][0]["body"] == "Which source owns this answer?"

@@ -42,24 +42,38 @@ Then the cycle repeats: the layer-4 mock-up embodies the return edge —
 the system feeds back sharper material, clearer rules, and stronger standards.
 
 On the page, each layer carries a one-line tagline and an `▸ in practice`
-cue that opens a full-screen mock-up of what the layer looks like: the
-court's resource shelf, paired statewide/local rule records, public canons
-for the court's AI, and the future conversation window closing the
-cycle (illustrative, not implemented).
+cue that opens a full-screen mock-up of what the layer looks like. The closing
+question now branches into two working beta surfaces: a Court Guidance
+conversation with local Nemotron, calibrated by `SOUL.md` and public Vybn-Law
+sources; and a public, attributed Court Guidance thread inside the
+Co-protection Commons.
 
 ## Status and limits
 
 Independent prototype by Zoe Dolan and Vybn. Not court-approved, not legal
 advice, no live case data. Sample rule records are templates until a
-participating court supplies, verifies, and adopts its own sources. The
-assistant a person can talk to is the projected end state and is intentionally
-not implemented in this beta.
+participating court supplies, verifies, and adopts its own sources. The live
+conversation is a design beta, not a court deployment: it has no participating
+court's verified source packet. Do not submit confidential, sealed, privileged,
+personally identifying, or live-case information.
 
 ## Public routes
 
 - `/` — the page
-- `/court-guidance.json` — the machine-readable model
+- `/court-guidance.json` — the machine-readable model and return contract
 - `/health` — deployment health
+- `SOUL.md` — the public operating brief loaded by the calibrated chat
+- `https://vybn-co-protection.hf.space/court-guidance.html` — the attributed public working thread
+
+## The adaptation loop
+
+Conversation turns are privately logged as candidate gaps by the Vybn-Law chat
+service. Commons posts are append-only attributed public events tagged to the
+`court-guidance` channel. Neither stream edits a court source, rule, standard,
+or model prompt automatically. Review checks the official source, names an
+owner, records acceptance, rejection, or no change, and returns any survivor to
+raw material, rules / guidelines, or ethics / values. The next system pass is
+rebuilt from those reviewed layers.
 
 ## Source lineage
 

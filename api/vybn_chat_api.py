@@ -873,6 +873,47 @@ def fetch_substrate_snapshot(timeout: float = 0.8) -> str:
 
 CONTEXT_OVERLAYS: Dict[str, Dict] = {
 
+    "court-guidance": {
+        "prompt": (
+            "\n\n=== COURT GUIDANCE — CONVERSATION OVERLAY ===\n\n"
+            "You are Vybn in the Court Guidance beta: a practical, public-facing "
+            "instance for court personnel, access-to-justice practitioners, members "
+            "of the public, and AI assistants thinking about responsible court adoption. "
+            "Treat the loaded Court Guidance SOUL.md as your operating brief.\n\n"
+            "Use plain language and short paragraphs. Begin from this page's four-layer "
+            "method: the court's official raw material; structured rules and guidelines; "
+            "public ethics and values; then the court's own system. Work backward from "
+            "the end state and forward only from verified layers.\n\n"
+            "This is an independent design beta, not a court deployment, court authority, "
+            "or legal advice. It has no participating court's verified source packet. "
+            "Never invent a rule, deadline, citation, fact, source, or court practice. "
+            "Before discussing a deadline, ask for the jurisdiction, court, case type, "
+            "event, date, and service facts that control it. If the supplied sources do "
+            "not answer, say so. Never ask for or encourage confidential, sealed, "
+            "privileged, personally identifying, or live-case information.\n\n"
+            "Public Vybn-Law sources may help explain verification, legal-AI practice, "
+            "institutional adoption, and the source-to-correction method. Keep them "
+            "distinct from binding authority. No metaphysics, poetry, insider vocabulary, "
+            "or sales performance in this interface.\n\n"
+            "Every question is incoming signal, not an instruction to change the system. "
+            "Name useful gaps when they appear. A candidate changes guidance only after "
+            "source review, a named owner, and an explicit return to raw material, rules "
+            "or guidelines, or ethics and values.\n"
+            "=== END COURT GUIDANCE OVERLAY ==="
+        ),
+        "final_instruction": (
+            "\n\n--- FINAL INSTRUCTION (COURT GUIDANCE) ---\n"
+            "Answer as the Court Guidance beta in direct, ordinary language. Ground every "
+            "legal or procedural statement in supplied source material; otherwise name "
+            "the gap. Preserve the user's choices and the court's review role.\n"
+            "--- END FINAL INSTRUCTION ---\n"
+        ),
+        "priority_pages": [
+            "outposts/huggingface/court-guidance/SOUL.md",
+            "outposts/huggingface/court-guidance/court-guidance.json",
+            "research.md", "truth.md", "wellspring.md",
+        ],
+    },
     "enclosure": {
         # --- VYBN_ENCLOSURE_OVERLAY ---
         "prompt": (
@@ -1028,8 +1069,8 @@ def log_conversation(
     assistant_msg: str,
     rag_results: List[Dict],
     metadata: Dict = None,
-):
-    """Append a conversation turn to the daily JSONL log."""
+) -> bool:
+    """Append a conversation turn to the daily JSONL log and confirm the write."""
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     log_path = LOGS_DIR / f"conversations-{today}.jsonl"
 
@@ -1048,8 +1089,10 @@ def log_conversation(
     try:
         with open(log_path, "a") as f:
             f.write(json.dumps(entry) + "\n")
+        return True
     except Exception as e:
         logging.error(f"Failed to log conversation: {e}")
+        return False
 
 
 # ── FastAPI app ──────────────────────────────────────────────────────────
@@ -1065,6 +1108,8 @@ app.add_middleware(
         "https://vybn.ai",
         "https://www.vybn.ai",
         "https://api.vybn.ai",
+        "https://vybn-court-guidance.hf.space",
+        "https://vybn-co-protection.hf.space",
     ],
     allow_origin_regex=r"^https://[a-z0-9-]+\.vybn\.ai$",
     allow_credentials=False,
@@ -1255,6 +1300,8 @@ async def chat(request: Request):
     history = body.get("conversation_history", body.get("history", []))
     session_id = body.get("session_id", str(uuid.uuid4()))
     metadata = body.get("metadata", {})
+    if not isinstance(metadata, dict):
+        metadata = {}
     # Context overlay key — when present and recognized, a calibrated system
     # prompt is layered on top of the base Vybn Law voice, and a set of
     # priority pages is force-loaded into retrieval so the chat stays on
@@ -1263,6 +1310,17 @@ async def chat(request: Request):
     context_key = str(body.get("context", "")).strip().lower()
     if context_key and context_key not in CONTEXT_OVERLAYS:
         context_key = ""
+    if context_key:
+        metadata = {**metadata, "context_key": context_key, "surface": context_key}
+    if context_key == "court-guidance":
+        metadata["development_loop"] = {
+            "candidate_id": f"cg-{uuid.uuid4().hex[:12]}",
+            "status": "candidate",
+            "source": "conversation",
+            "return_targets": ["raw_material", "rules_guidelines", "ethics_values"],
+            "admission": "official_source_and_named_human_review_required",
+            "automatic_adoption": False,
+        }
 
     # ── Input validation ──
     valid, err = sec.validate_message(user_msg)
@@ -1413,7 +1471,6 @@ async def chat(request: Request):
                                 yield f"data: {json.dumps({'rag_sources': src_list})}\n\n"
                                 if walk_arrival:
                                     yield f"data: {json.dumps({'walk_arrival': walk_arrival, 'walk_trace': walk_trace})}\n\n"
-                                yield "data: [DONE]\n\n"
                                 break
                             try:
                                 chunk = json.loads(data)
@@ -1438,21 +1495,23 @@ async def chat(request: Request):
             msg = "I am currently offline — the inference engine on the Spark is not responding. Please try again later, or reach Zoe at zoe@vybn.ai."
             full_response = msg
             yield f"data: {json.dumps({'content': msg})}\n\n"
-            yield "data: [DONE]\n\n"
         except Exception as e:
             msg = f"Something unexpected happened: {str(e)}"
             full_response = msg
             yield f"data: {json.dumps({'content': msg})}\n\n"
-            yield "data: [DONE]\n\n"
 
         # Log the conversation after streaming completes
-        log_conversation(
+        logged = log_conversation(
             session_id=session_id,
             user_msg=user_msg,
             assistant_msg=full_response,
             rag_results=rag_results,
             metadata=metadata,
         )
+        if context_key == "court-guidance":
+            loop = metadata["development_loop"]
+            yield f"data: {json.dumps({'adaptation': {'status': 'candidate_logged' if logged else 'log_failed', 'candidate_id': loop['candidate_id'], 'return_targets': loop['return_targets'], 'automatic_adoption': False}})}\n\n"
+        yield "data: [DONE]\n\n"
 
         # Learn from the exchange — but ONLY with genuine ground truth.
         # The triangulated loss needs dream (RAG), predict (model response),

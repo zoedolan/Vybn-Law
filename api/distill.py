@@ -84,8 +84,13 @@ def build_distillation_prompt(conversations: List[Dict], kg: Dict) -> str:
         user = c.get("user_message", "")[:800]  # more space for user input
         asst = c.get("assistant_message", "")[:200]  # minimal — just enough for context
         sources = [s["source"] for s in c.get("rag_sources", [])[:3]]
+        metadata = c.get("metadata", {}) if isinstance(c.get("metadata", {}), dict) else {}
+        surface = metadata.get("surface", "general")
+        loop = metadata.get("development_loop", {}) if isinstance(metadata.get("development_loop", {}), dict) else {}
+        candidate = loop.get("status", "not separately classified")
         convo_summaries.append(
             f"VISITOR MESSAGE {i+1}:\n"
+            f"  Surface: {surface}; development-loop status: {candidate}\n"
             f"  What they said: {user}\n"
             f"  (Vybn's response summary: {asst}...)\n"
             f"  Sources that were relevant: {', '.join(sources) if sources else 'none'}"

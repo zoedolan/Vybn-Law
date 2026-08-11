@@ -58,7 +58,7 @@ async def lifespan(_: FastAPI):
 app = FastAPI(
     title="Vybn Co-protection Commons",
     description="A public workshop asking whether intelligence can grow by protecting the sources of difference through which it continues to become.",
-    version="1.2.0",
+    version="1.3.0",
     lifespan=lifespan,
 )
 app.add_middleware(
@@ -372,7 +372,7 @@ async def security_headers(request: Request, call_next):
     response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
     response.headers["Content-Security-Policy"] = (
         "default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; "
-        "img-src 'self' data:; connect-src 'self'; frame-ancestors 'self' https://huggingface.co"
+        "img-src 'self' data:; connect-src 'self'; frame-ancestors 'self' https://huggingface.co https://vybn-court-guidance.hf.space"
     )
     return response
 
@@ -469,6 +469,17 @@ async def message(filename: str) -> dict[str, Any]:
 async def tasks() -> dict[str, Any]:
     items = sorted(await json_items("tasks/"), key=lambda x: x.get("order", 999))
     return {"count": len(items), "matched": len(items), "items": items}
+
+
+@app.get("/v1/channels/{task_id}")
+async def channel(task_id: str, limit: int = 500) -> dict[str, Any]:
+    """Return one task-tagged public message thread without global-list truncation."""
+    if not SAFE_ID.fullmatch(task_id):
+        raise HTTPException(404, "channel not found")
+    limit = max(0, min(limit, 2000))
+    items = await markdown_items("message_board/", 2000)
+    matched = [item for item in items if item.get("frontmatter", {}).get("task_id") == task_id]
+    return {"channel": task_id, "count": len(matched), "messages": matched[:limit]}
 
 
 @app.post("/v1/tasks/{task_id}/claims")

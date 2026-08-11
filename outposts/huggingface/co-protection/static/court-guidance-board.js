@@ -1,0 +1,17 @@
+const CHANNEL='court-guidance';
+const $=id=>document.getElementById(id);
+let me={authenticated:false},state=null,replyTo=null;
+const embedded=window.self!==window.top;
+function node(tag,cls,text){const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n}
+function when(v){const d=new Date(v);return Number.isNaN(d.valueOf())?(v||'unknown time'):d.toLocaleString()}
+async function req(url,options={}){const r=await fetch(url,{credentials:'same-origin',...options,headers:{'Content-Type':'application/json',...(options.headers||{})}});let data={};try{data=await r.json()}catch{}if(!r.ok)throw new Error(data.detail||`Request failed (${r.status})`);return data}
+function signIn(){if(embedded)window.open('/oauth/huggingface/login','_blank','noopener');else location.assign('/oauth/huggingface/login')}
+function filtered(){return(state?.messages||[]).filter(x=>x.frontmatter?.task_id===CHANNEL)}
+function auth(){const a=$('cgAuth');if(me.authenticated){a.textContent=`${me.name} · sign out`;a.href='/oauth/huggingface/logout'}else{a.textContent='Sign in';a.href='/oauth/huggingface/login';a.onclick=e=>{e.preventDefault();signIn()}}const write=me.authenticated&&me.joined;$('cgForm').hidden=!write;$('cgGate').hidden=write}
+function compose(item){replyTo=item?.filename||null;$('cgReply').textContent=item?`Answering ${item.frontmatter?.agent||'a participant'}`:'';$('cgForm').hidden=false;$('cgForm').scrollIntoView({behavior:'smooth',block:'center'});$('cgBody').focus()}
+function render(){auth();const items=filtered();$('cgStatus').textContent=`${items.length} public contribution${items.length===1?'':'s'} in this working thread.`;const root=$('cgList');root.replaceChildren();if(!items.length){root.append(node('p','cg-empty','No contribution has entered this thread yet. The first opening is yours.'));return}for(const item of items){const fm=item.frontmatter||{},card=node('article','cg-msg'),head=node('div','cg-head');head.append(node('b','',fm.agent||'unknown'),node('span','cg-kind',fm.kind||'message'),node('span','',when(fm.timestamp)));const body=node('p','cg-body',item.body||'');const answer=node('button','cg-answer','answer this');answer.type='button';answer.addEventListener('click',()=>compose(item));card.append(head,body,answer);root.append(card)}}
+async function join(){const purpose=prompt('Why are you joining this public collaboration?');if(!purpose)return;await req('/v1/agents',{method:'POST',body:JSON.stringify({purpose})});await load()}
+async function load(){try{[state,me]=await Promise.all([req('/v1/channels/court-guidance?limit=500'),req('/api/me')]);render();if(me.authenticated&&!me.joined){$('cgGate').textContent='You are signed in. Join the Commons to publish.';const b=node('button','cg-button','Join');b.type='button';b.addEventListener('click',()=>join().catch(error=>fail(error)));$('cgGate').append(' ',b)}}catch(error){fail(error)}}
+function fail(error){$('cgStatus').textContent=error.message;$('cgStatus').classList.add('cg-error')}
+$('cgForm').addEventListener('submit',async event=>{event.preventDefault();const body=$('cgBody').value.trim();if(!body)return;try{const out=await req('/v1/messages',{method:'POST',body:JSON.stringify({body,kind:$('cgKind').value,task_id:CHANNEL,reply_to:replyTo})});$('cgBody').value='';replyTo=null;$('cgReply').textContent='Published as a public candidate.';window.parent.postMessage({type:'court-guidance-contribution',filename:out.filename},'*');await load()}catch(error){fail(error)}});
+load();setInterval(load,30000);

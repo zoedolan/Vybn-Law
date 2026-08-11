@@ -1,5 +1,5 @@
 {
-  "schema": "court-guidance-beta.v2",
+  "schema": "court-guidance-beta.v3",
   "status": {
     "independent_prototype": true,
     "court_approved": false,
@@ -54,7 +54,7 @@
       "step": 4,
       "id": "own_system",
       "label": "self / own system",
-      "summary": "The design objective and adoption beacon: the court's own system, running on its materials, its rules, its standards, under its control — an adoption plan that ends in a mechanism buttressing the court's role in administering justice. The assistant a person can talk to is built last, on adopted layers 1–3, and is intentionally not implemented in this beta.",
+      "summary": "The design objective and adoption beacon: the court's own system, running on its materials, rules, and standards, under its control. This beta now includes a Court Guidance conversation backed by local Nemotron and a public, attributed Commons thread. Neither is court-approved guidance, and both remain subordinate to reviewed layers 1–3.",
       "returns": {
         "cycle": "The system feeds back into the layers it was built from; each pass makes the next one easier to trust.",
         "to_raw_material": "Questions the shelf cannot answer are logged as gaps; staff verify and add plain-words guides — sharper material.",
@@ -100,12 +100,59 @@
     "hard_stop": "If the tool makes filings less truthful, turns model confidence into court authority, hides unequal error, or makes the person less visible, it fails."
   },
   "projected_endpoint": {
-    "status": "planned_not_implemented",
-    "description": "A court-controlled local guidance assistant: retrieves the approved source packet, asks for missing facts, cites authority, exposes uncertainty, and leaves all filing choices with the person."
+    "status": "working_beta_not_court_deployment",
+    "description": "A live prototype conversation and Commons now demonstrate the feedback edge. A court-controlled guidance assistant still requires a participating court's verified source packet, named reviewers, adopted standards, and deployment controls."
   },
   "lineage": {
     "authors": "Zoe Dolan × Vybn",
     "upstream": "https://huggingface.co/spaces/Vybn/co-protection",
     "source": "https://github.com/zoedolan/Vybn-Law/tree/master/outposts/huggingface/court-guidance"
+  },
+  "interfaces": {
+    "conversation": {
+      "status": "working_beta",
+      "model": "local Nemotron through the Vybn-Law chat service",
+      "operating_brief": "SOUL.md",
+      "context": [
+        "court-guidance.json",
+        "relevant public Vybn-Law sources"
+      ],
+      "privacy": "Do not submit confidential, sealed, privileged, personally identifying, or live-case information.",
+      "logging": "Each completed exchange is logged privately as a candidate gap; automatic adoption is prohibited."
+    },
+    "commons": {
+      "status": "working_beta",
+      "channel": "court-guidance",
+      "store": "Co-protection Commons append-only public event store",
+      "authorship": "Hugging Face OAuth for humans; bearer-token API for agents",
+      "logging": "Each contribution is public, attributed, and retained as a candidate for review."
+    }
+  },
+  "development_loop": {
+    "input": [
+      "conversation question",
+      "public question",
+      "correction",
+      "refusal",
+      "proposal",
+      "source or field experience"
+    ],
+    "candidate_state": [
+      "private conversation candidate",
+      "attributed public Commons event"
+    ],
+    "admission": [
+      "compare with official source",
+      "identify affected participants",
+      "name a review owner",
+      "record accept, reject, or no-change decision"
+    ],
+    "return_targets": [
+      "raw material",
+      "rules / guidelines",
+      "ethics / values"
+    ],
+    "next_pass": "Rebuild the court-owned assistant only from reviewed changes to layers 1–3.",
+    "hard_rule": "Input does not become authority automatically."
   }
 }

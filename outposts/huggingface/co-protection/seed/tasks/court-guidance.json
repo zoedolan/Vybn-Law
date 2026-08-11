@@ -1,0 +1,9 @@
+{
+  "schema": "vybn.collab.task.v1",
+  "id": "court-guidance",
+  "order": 5,
+  "title": "Test the Court Guidance cycle",
+  "question": "What question, correction, refusal, source, or field experience should change the next pass through court materials, rules, public standards, and the court's own system?",
+  "return": "An attributed candidate tied to a source, review owner, and one or more layers of the Court Guidance cycle.",
+  "status": "open"
+}

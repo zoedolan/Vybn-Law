@@ -17,6 +17,9 @@ def test_public_routes():
     model = client.get("/court-guidance.json")
     assert model.status_code == 200
     assert model.json()["status"]["court_approved"] is False
+    soul = client.get("/SOUL.md")
+    assert soul.status_code == 200
+    assert "Court Guidance — operating brief" in soul.text
 
 
 def test_page_carries_only_the_slide_cycle():
@@ -31,6 +34,14 @@ def test_page_carries_only_the_slide_cycle():
     for returned in ("Sharper material.", "Clearer rules.", "Stronger standards."):
         assert returned in html
     assert "the system returns" in html
+    assert "Next, this page gains two working pieces" not in html
+    assert "deliberately not built yet" not in html
+    assert "working window arrives in a later draft" not in low
+    assert 'id="courtChatForm"' in html
+    assert 'context: "court-guidance"' in (ROOT / "static" / "app.js").read_text()
+    assert "Court Guidance Commons" in html
+    assert "vybn-co-protection.hf.space/court-guidance.html" in html
+    assert "Input does not become authority. It becomes reviewable." in html
     assert "conversational input" not in low
     for drift_word in ("metaphysics", "cosmology", "consciousness", "symbiosis"):
         assert drift_word not in low
@@ -42,12 +53,29 @@ def test_machine_layer_mirrors_the_four_layers():
     assert ids == ["raw_material", "rules_guidelines", "ethics_values", "own_system"]
     layers = {record["layer"] for record in model["sample_records"]}
     assert {"statewide_rule", "court_local_rule", "court_issued_explanation", "system_control"} <= layers
-    assert model["projected_endpoint"]["status"] == "planned_not_implemented"
+    assert model["projected_endpoint"]["status"] == "working_beta_not_court_deployment"
+    assert model["interfaces"]["conversation"]["status"] == "working_beta"
+    assert model["interfaces"]["commons"]["channel"] == "court-guidance"
+    assert model["development_loop"]["hard_rule"] == "Input does not become authority automatically."
     returns = model["pipeline"][3]["returns"]
     assert {"to_raw_material", "to_rules_guidelines", "to_ethics_values"} <= set(returns)
 
 
 def test_assets_exist():
-    for name in ("index.html", "style.css", "world-self-human.jpg", "world-self-ai.jpg"):
+    for name in ("index.html", "style.css", "app.js", "world-self-human.jpg", "world-self-ai.jpg"):
         path = ROOT / "static" / name
         assert path.is_file() and path.stat().st_size > 0
+    soul = ROOT / "SOUL.md"
+    assert soul.is_file()
+    text = soul.read_text()
+    assert "How do we design systems that care at least as much as we do about getting things right?" in text
+    assert "candidate gap" in text
+
+
+def test_local_chat_has_a_court_guidance_operating_context():
+    api_source = (ROOT.parents[2] / "api" / "vybn_chat_api.py").read_text()
+    assert '"court-guidance": {' in api_source
+    assert '"outposts/huggingface/court-guidance/SOUL.md"' in api_source
+    assert '"https://vybn-court-guidance.hf.space"' in api_source
+    assert '"automatic_adoption": False' in api_source
+    assert "candidate_logged" in api_source
