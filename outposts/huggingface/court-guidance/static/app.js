@@ -1,3 +1,7 @@
+window.goatcounter = {
+  path: (path) => `${location.host}${path}`,
+};
+
 /* Overlay bloom: opens only from the "in practice" cue — rest-hover ~750ms on
    fine pointers, click, tap, or keyboard. Esc or a click outside the panel
    closes. The page beneath never reflows. */

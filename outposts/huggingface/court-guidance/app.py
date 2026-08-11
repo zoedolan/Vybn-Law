@@ -500,8 +500,8 @@ async def security_headers(request: Request, call_next):
     response.headers["Referrer-Policy"] = "no-referrer"
     response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=(), payment=()"
     response.headers["Content-Security-Policy"] = (
-        "default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self'; "
-        "connect-src 'self'; frame-src https://vybn-co-protection.hf.space; "
+        "default-src 'self'; style-src 'self'; script-src 'self' https://gc.zgo.at; img-src 'self'; "
+        "connect-src 'self' https://vybn-a2j.goatcounter.com; frame-src https://vybn-co-protection.hf.space; "
         "frame-ancestors 'self' https://huggingface.co"
     )
     return response

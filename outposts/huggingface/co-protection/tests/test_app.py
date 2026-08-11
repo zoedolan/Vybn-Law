@@ -361,3 +361,16 @@ def test_court_guidance_thread_reuses_attributed_commons_rails(tmp_path):
         channel = client.get("/v1/channels/court-guidance").json()
         assert channel["count"] == 1
         assert channel["messages"][0]["body"] == "Which source owns this answer?"
+
+def test_goatcounter_is_host_distinct_and_allowed_by_csp(tmp_path):
+    module = load_app(tmp_path)
+    with TestClient(module.app) as client:
+        response = client.get("/")
+        assert response.text.count('data-goatcounter="https://vybn-a2j.goatcounter.com/count"') == 1
+        csp = response.headers["content-security-policy"]
+        assert "script-src 'self' https://gc.zgo.at" in csp
+        assert "connect-src 'self' https://vybn-a2j.goatcounter.com" in csp
+    script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+    assert "window.goatcounter" in script
+    assert "`${location.host}${path}`" in script
+

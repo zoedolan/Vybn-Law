@@ -1,3 +1,7 @@
+window.goatcounter = {
+  path: (path) => `${location.host}${path}`,
+};
+
 const $ = (id) => document.getElementById(id);
 let state = null;
 let me = {authenticated:false};

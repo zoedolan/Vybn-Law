@@ -175,3 +175,14 @@ def test_assets_and_seed_activity_exist():
     assert len(activity["items"]) == 4
     fallback = json.loads((ROOT / "returns.json").read_text())
     assert len(fallback["returns"]) == 1
+
+def test_goatcounter_is_host_distinct_and_allowed_by_csp():
+    response = client.get("/")
+    assert response.text.count('data-goatcounter="https://vybn-a2j.goatcounter.com/count"') == 1
+    csp = response.headers["content-security-policy"]
+    assert "script-src 'self' https://gc.zgo.at" in csp
+    assert "connect-src 'self' https://vybn-a2j.goatcounter.com" in csp
+    script = (ROOT / "static" / "app.js").read_text()
+    assert "window.goatcounter" in script
+    assert "`${location.host}${path}`" in script
+
