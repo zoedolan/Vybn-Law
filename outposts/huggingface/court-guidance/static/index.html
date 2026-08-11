@@ -6,6 +6,7 @@
 <meta name="description" content="A practical beta for courts adopting AI: raw material, rules, ethics, and the court's own system — designed backward from the administration of justice.">
 <title>Court Guidance · a practical beta for courts adopting AI</title>
 <link rel="stylesheet" href="/assets/style.css">
+<script src="/assets/app.js" defer></script>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -22,34 +23,119 @@
 
 <main id="main">
 
-  <p class="method"><strong>The method:</strong> imagine the end state — a court&rsquo;s own system — then work backward. Four layers, in order.</p>
+  <p class="method"><strong>The method:</strong> imagine the end state — a court&rsquo;s own system — then work backward. Four layers, in order. Each opens into what it looks like in practice.</p>
 
   <section class="layer" id="raw-material">
     <h2>1 — raw material</h2>
-    <p>Every court already has its raw material: opinions, rules, forms, self-help guides, resource lists. Distill it to the basics — the plain shape of a public library like <a href="https://publiccounsel.org/clinics/appellate-clinic/resources-materials/" target="_blank" rel="noopener noreferrer">Public Counsel&rsquo;s appellate clinic resources</a> — so any court can assemble and verify its own set.</p>
+    <p>The court already owns the beginning: its forms, guides, rules, and self-help pages.</p>
+    <button class="more" type="button" data-overlay="ov-raw" aria-expanded="false">▸ in practice</button>
   </section>
 
   <section class="layer" id="rules">
     <h2>2 — rules / guidelines</h2>
-    <p>Statewide appellate rules and local rules, broken into small records the system must follow: one requirement, one exact source, one owner, one review status. The same text a clerk would check — never the model&rsquo;s paraphrase.</p>
+    <p>Statewide rules set the floor; each court writes its own corollaries — one requirement, one exact source, one owner.</p>
+    <button class="more" type="button" data-overlay="ov-rules" aria-expanded="false">▸ in practice</button>
   </section>
 
   <section class="layer" id="ethics">
     <h2>3 — ethics / values</h2>
-    <p>Lawyers answer to rules of professional conduct; judges, to canons of ethics. The AI answers to a public corollary: written standards for what it may do, what it must refuse, and when it hands off to a person.</p>
+    <p>Lawyers answer to conduct rules; judges, to canons. The court&rsquo;s AI answers to a public code of its own.</p>
+    <button class="more" type="button" data-overlay="ov-ethics" aria-expanded="false">▸ in practice</button>
   </section>
 
   <section class="layer" id="own-system">
     <h2>4 — self / own system</h2>
-    <p>The end state imagined first: the court&rsquo;s own system, running on its materials, its rules, its standards, under its control — an adoption plan that ends in a mechanism buttressing the court&rsquo;s role in administering justice. The assistant a person can talk to is the last thing built, not the first.</p>
+    <p>The end state, imagined first: the court&rsquo;s own assistant, on the court&rsquo;s own materials, under the court&rsquo;s control.</p>
+    <button class="more" type="button" data-overlay="ov-system" aria-expanded="false">▸ in practice</button>
   </section>
 
   <section class="cycle">
     <p class="return">Then the cycle repeats: the system returns sharper material, clearer rules, stronger standards.</p>
+    <p class="return">Next, this page gains two working pieces: the conversation window from layer 4, and a commons where courts — and their assistants — compare what the cycle surfaces.</p>
     <p class="question">How do we design systems that care at least as much as we do about getting things right?</p>
   </section>
 
 </main>
+
+<section class="overlay" id="ov-raw" role="dialog" aria-modal="true" aria-labelledby="ov-raw-t" hidden>
+  <div class="panel">
+    <button class="close" type="button" aria-label="Close">×</button>
+    <p class="ov-kicker">In practice · illustrative, not from any court</p>
+    <h3 id="ov-raw-t">Raw material: the court&rsquo;s own shelf</h3>
+    <div class="browser">
+      <div class="chrome"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="addr">yourcourt.gov/self-help</span></div>
+      <ul class="shelf">
+        <li><span class="kind">form</span> Notice of appeal — fillable, in the court&rsquo;s languages</li>
+        <li><span class="kind">guide</span> What happens at oral argument, in plain words</li>
+        <li><span class="kind">rule</span> Statewide appellate rules and this court&rsquo;s local rules</li>
+        <li><span class="kind">form</span> Fee-waiver application</li>
+        <li><span class="kind">info</span> Self-help center hours, locations, interpreters</li>
+        <li><span class="kind">info</span> Calendars, opinions, clerk&rsquo;s counters</li>
+      </ul>
+    </div>
+    <p class="ov-note">Nothing here is new — every court already publishes some version of this shelf. Step one is assembling <em>yours</em> and checking every item against its source. A public library like <a href="https://publiccounsel.org/clinics/appellate-clinic/resources-materials/" target="_blank" rel="noopener noreferrer">Public Counsel&rsquo;s appellate clinic resources</a> shows the plain shape: organized around real tasks, nothing decorative.</p>
+  </div>
+</section>
+
+<section class="overlay" id="ov-rules" role="dialog" aria-modal="true" aria-labelledby="ov-rules-t" hidden>
+  <div class="panel">
+    <button class="close" type="button" aria-label="Close">×</button>
+    <p class="ov-kicker">In practice · illustrative, not law</p>
+    <h3 id="ov-rules-t">Rules / guidelines: small records, exact sources</h3>
+    <div class="cols">
+      <div class="card">
+        <p class="card-head">Statewide rule · illustrative</p>
+        <p class="rule-text">&ldquo;A notice of appeal must be filed within ___ days of ___.&rdquo;</p>
+        <dl class="fields">
+          <div><dt>exact source</dt><dd>Rule 8.___, verified text</dd></div>
+          <div><dt>effective</dt><dd>current, dated</dd></div>
+          <div><dt>owner</dt><dd>a named staff reviewer</dd></div>
+          <div><dt>status</dt><dd>reviewed · rechecked on change</dd></div>
+        </dl>
+      </div>
+      <div class="card">
+        <p class="card-head">This court&rsquo;s corollary</p>
+        <p class="rule-text">The same deadline in plain words on the self-help page — and one disclosure question at e-filing when a document was drafted with AI.</p>
+        <dl class="fields">
+          <div><dt>exact source</dt><dd>Local rule ___, verified text</dd></div>
+          <div><dt>owner</dt><dd>the clerk&rsquo;s office</dd></div>
+          <div><dt>status</dt><dd>reviewed · dated</dd></div>
+        </dl>
+      </div>
+    </div>
+    <p class="ov-note">When a filing arrives drafted by a model on the public side of the counter, it is checked against these records — the text a clerk would check, never a paraphrase. Both sides of the service counter read the same rules.</p>
+  </div>
+</section>
+
+<section class="overlay" id="ov-ethics" role="dialog" aria-modal="true" aria-labelledby="ov-ethics-t" hidden>
+  <div class="panel">
+    <button class="close" type="button" aria-label="Close">×</button>
+    <p class="ov-kicker">In practice · a public code, posted and versioned</p>
+    <h3 id="ov-ethics-t">Ethics / values: canons for the court&rsquo;s AI</h3>
+    <ol class="canons">
+      <li><strong>Answer from the court&rsquo;s own materials</strong> — and show the source with every answer.</li>
+      <li><strong>Say when it does not know.</strong> Never invent a rule, a date, a citation, or a fact.</li>
+      <li><strong>Never decide.</strong> The person keeps authorship of their case; a human reviews what the system affects.</li>
+      <li><strong>Serve both sides of the counter alike</strong> — the public, the clerk&rsquo;s office, and the bench.</li>
+    </ol>
+    <p class="ov-note">Judges answer to canons of ethics; lawyers, to rules of professional conduct. A court&rsquo;s AI should answer to a code just as public — posted where anyone can read it, versioned when it changes.</p>
+  </div>
+</section>
+
+<section class="overlay" id="ov-system" role="dialog" aria-modal="true" aria-labelledby="ov-system-t" hidden>
+  <div class="panel">
+    <button class="close" type="button" aria-label="Close">×</button>
+    <p class="ov-kicker">In practice · the destination, deliberately not built yet</p>
+    <h3 id="ov-system-t">Self / own system: the court&rsquo;s own assistant</h3>
+    <div class="chat">
+      <p class="chat-head">Court self-help · illustrative</p>
+      <div class="bubble them">I got an eviction order. How long do I have to appeal?</div>
+      <div class="bubble us">I can&rsquo;t give you a deadline until I know which court issued the order and how it was served. Once you tell me, I&rsquo;ll show you the exact rule this court applies — and the clerk&rsquo;s counter can confirm dates in person.<span class="src">source: Rule 8.___, verified text, reviewed ___</span></div>
+      <p class="chat-foot">The working window arrives in a later draft — built last, on layers 1–3.</p>
+    </div>
+    <p class="ov-note">On the staff side of the counter, the same system answers clerks from the same materials, under the same code. The adoption plan ends here: a mechanism that buttresses the court&rsquo;s role in administering justice.</p>
+  </div>
+</section>
 
 <footer>
   <p class="status">Independent prototype · Not court-approved · Not legal advice · No live case data</p>

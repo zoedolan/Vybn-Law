@@ -40,6 +40,12 @@ Four layers, in order, matching the opening visual:
 
 Then the cycle repeats.
 
+On the page, each layer carries a one-line tagline and an `▸ in practice`
+cue that opens a full-screen mock-up of what the layer looks like: the
+court's resource shelf, paired statewide/local rule records, public canons
+for the court's AI, and the future conversation window (illustrative, not
+implemented).
+
 ## Status and limits
 
 Independent prototype by Zoe Dolan and Vybn. Not court-approved, not legal
