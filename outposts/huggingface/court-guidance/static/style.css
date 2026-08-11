@@ -96,6 +96,25 @@ main, footer { max-width: 44rem; margin: 0 auto; padding-left: 1.25rem; padding-
 .src { display: block; margin-top: .5rem; font-size: .74rem; color: var(--amber); }
 .chat-foot { margin: .4rem 0 0; font-size: .8rem; color: var(--faint); }
 
+/* Mock: the cycle's return edge. */
+.ov-sub { margin: 1.7rem 0 .3rem; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--amber); }
+.cyclemap { display: block; width: 100%; max-width: 33rem; margin: .3rem auto 0; height: auto; }
+.cm-edge { fill: none; stroke: #5c584f; stroke-width: 1.4; }
+.cm-ret-edge { stroke: var(--amber); stroke-width: 2; stroke-dasharray: 6 5; animation: cmflow 2.6s linear infinite; }
+@keyframes cmflow { to { stroke-dashoffset: -22; } }
+.cm-node { fill: #0c0c0c; stroke: #3a3a3a; stroke-width: 1.2; }
+.cm-here { stroke: var(--amber); }
+.cm-num { fill: var(--soft); font-size: 15px; }
+.cm-num-here { fill: var(--amber); }
+.cm-lab { fill: var(--soft); font-size: 12.5px; letter-spacing: .04em; }
+.cm-ret-lab { fill: var(--amber); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.cm-mid { fill: var(--faint); font-size: 12.5px; font-family: var(--serif); font-style: italic; }
+.loops { margin: 1.1rem 0 0; padding: 0; list-style: none; }
+.loops li { padding: .75rem 0; border-top: 1px solid #161616; }
+.loop-to { display: block; margin-bottom: .2rem; font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--amber); }
+.loops p { margin: 0; color: var(--soft); font-size: .95rem; line-height: 1.55; }
+.loops p strong { color: var(--ink); font-weight: 600; }
+
 footer { padding-top: 2rem; padding-bottom: 4rem; border-top: 1px solid var(--line); color: var(--faint); font-size: .92rem; line-height: 1.6; }
 footer .status { color: var(--soft); }
 footer p { margin: .4rem 0; }
@@ -109,4 +128,5 @@ footer p { margin: .4rem 0; }
   .slide-ai { animation: none; opacity: .5; }
   .more { animation: none; }
   .overlay, .panel { transition-duration: .01ms; }
+  .cm-ret-edge { animation: none; stroke-dasharray: none; }
 }

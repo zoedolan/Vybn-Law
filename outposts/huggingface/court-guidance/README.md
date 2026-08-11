@@ -38,13 +38,14 @@ Four layers, in order, matching the opening visual:
    its control, ending in a mechanism that buttresses the court's role in
    administering justice.
 
-Then the cycle repeats.
+Then the cycle repeats: the layer-4 mock-up embodies the return edge —
+the system feeds back sharper material, clearer rules, and stronger standards.
 
 On the page, each layer carries a one-line tagline and an `▸ in practice`
 cue that opens a full-screen mock-up of what the layer looks like: the
 court's resource shelf, paired statewide/local rule records, public canons
-for the court's AI, and the future conversation window (illustrative, not
-implemented).
+for the court's AI, and the future conversation window closing the
+cycle (illustrative, not implemented).
 
 ## Status and limits
 

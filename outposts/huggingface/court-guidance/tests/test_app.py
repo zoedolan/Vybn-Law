@@ -28,6 +28,9 @@ def test_page_carries_only_the_slide_cycle():
     assert "Public Counsel" in html
     for label in ("1 — raw material", "2 — rules / guidelines", "3 — ethics / values", "4 — self / own system"):
         assert label in low
+    for returned in ("Sharper material.", "Clearer rules.", "Stronger standards."):
+        assert returned in html
+    assert "the system returns" in html
     assert "conversational input" not in low
     for drift_word in ("metaphysics", "cosmology", "consciousness", "symbiosis"):
         assert drift_word not in low
@@ -40,6 +43,8 @@ def test_machine_layer_mirrors_the_four_layers():
     layers = {record["layer"] for record in model["sample_records"]}
     assert {"statewide_rule", "court_local_rule", "court_issued_explanation", "system_control"} <= layers
     assert model["projected_endpoint"]["status"] == "planned_not_implemented"
+    returns = model["pipeline"][3]["returns"]
+    assert {"to_raw_material", "to_rules_guidelines", "to_ethics_values"} <= set(returns)
 
 
 def test_assets_exist():

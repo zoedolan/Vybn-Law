@@ -54,7 +54,13 @@
       "step": 4,
       "id": "own_system",
       "label": "self / own system",
-      "summary": "The design objective and adoption beacon: the court's own system, running on its materials, its rules, its standards, under its control — an adoption plan that ends in a mechanism buttressing the court's role in administering justice. The assistant a person can talk to is built last, on adopted layers 1–3, and is intentionally not implemented in this beta."
+      "summary": "The design objective and adoption beacon: the court's own system, running on its materials, its rules, its standards, under its control — an adoption plan that ends in a mechanism buttressing the court's role in administering justice. The assistant a person can talk to is built last, on adopted layers 1–3, and is intentionally not implemented in this beta.",
+      "returns": {
+        "cycle": "The system feeds back into the layers it was built from; each pass makes the next one easier to trust.",
+        "to_raw_material": "Questions the shelf cannot answer are logged as gaps; staff verify and add plain-words guides — sharper material.",
+        "to_rules_guidelines": "Recurring ambiguity in filings reaches the record's owner, and the next corollary is drafted — clearer rules.",
+        "to_ethics_values": "Corrections and near-misses tighten the public code — stronger standards."
+      }
     }
   ],
   "sample_records": [
