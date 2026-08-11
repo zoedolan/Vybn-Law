@@ -1,0 +1,21 @@
+{
+  "schema": "court-guidance.returns.v1",
+  "feed": "Reviewed changes shipped back into this page. Newest first.",
+  "returns": [
+    {
+      "date": "2026-08-11",
+      "to": "this page",
+      "change": "Ask, share, and returned became one column; the loop stopped explaining itself and shows its work instead."
+    },
+    {
+      "date": "2026-08-11",
+      "to": "4 · own system",
+      "change": "The in-practice view now ends in the return edge — the system feeding sharper material, clearer rules, and stronger standards back."
+    },
+    {
+      "date": "2026-08-11",
+      "to": "this page",
+      "change": "The question above is set the way it was asked, in five lines."
+    }
+  ]
+}

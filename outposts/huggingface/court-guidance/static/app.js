@@ -65,17 +65,44 @@
   });
 })();
 
-/* Court Guidance conversation: local Nemotron + page-specific operating brief. */
+/* The loop: ask the local Vybn, share in the open, see what returns. */
 (() => {
   const API = "https://api.vybn.ai";
   const form = document.getElementById("courtChatForm");
+  const list = document.getElementById("returnsList");
+
+  /* Returned: the page's own changelog, rendered from the live feed. */
+  if (list) {
+    fetch("/returns.json")
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((data) => {
+        list.textContent = "";
+        for (const item of (data.returns || []).slice(0, 6)) {
+          const li = document.createElement("li");
+          const time = document.createElement("time");
+          time.dateTime = item.date;
+          time.textContent = new Date(item.date + "T12:00:00").toLocaleDateString(undefined, {month: "short", day: "numeric"});
+          const to = document.createElement("span");
+          to.className = "to";
+          to.textContent = item.to;
+          const p = document.createElement("p");
+          p.textContent = item.change;
+          li.append(time, to, p);
+          list.append(li);
+        }
+        if (!list.children.length) {
+          list.innerHTML = '<li class="returns-empty">Nothing returned yet &mdash; the first reviewed change lands here.</li>';
+        }
+      })
+      .catch(() => { list.innerHTML = '<li class="returns-empty">The returns feed is unreachable.</li>'; });
+  }
+
   if (!form) return;
   const input = document.getElementById("courtChatInput");
   const send = document.getElementById("courtChatSend");
   const messages = document.getElementById("chatMessages");
   const dot = document.getElementById("chatDot");
   const status = document.getElementById("chatStatus");
-  const offline = document.getElementById("chatOffline");
   const receipt = document.getElementById("chatReceipt");
   const history = [];
   const session = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36);
@@ -89,10 +116,9 @@
     messages.scrollTop = messages.scrollHeight;
     return el;
   }
-  function setOnline(ok, text) {
+  function setOnline(ok) {
     dot.className = `chat-dot ${ok ? "online" : "offline"}`;
-    status.textContent = text;
-    offline.hidden = ok;
+    status.textContent = ok ? "online" : "reconnecting\u2026";
   }
   async function health() {
     try {
@@ -100,8 +126,8 @@
       if (!res.ok) throw new Error();
       const data = await res.json();
       if (data.components?.vllm_semantic && data.components.vllm_semantic.ok !== true) throw new Error();
-      setOnline(true, "local Nemotron · Court Guidance brief");
-    } catch (_) { setOnline(false, "local model offline"); }
+      setOnline(true);
+    } catch (_) { setOnline(false); }
   }
   async function ask(text) {
     if (!text.trim() || busy) return;
@@ -109,7 +135,7 @@
     bubble("user", text);
     history.push({role: "user", content: text});
     input.value = "";
-    const answer = bubble("vybn", "Thinking…");
+    const answer = bubble("vybn", "Thinking\u2026");
     let full = "", confirmed = false;
     try {
       const res = await fetch(`${API}/api/chat`, {
@@ -132,27 +158,24 @@
           try {
             const data = JSON.parse(raw);
             if (data.content) { full += data.content; answer.textContent = full; messages.scrollTop = messages.scrollHeight; }
-            if (data.adaptation?.status === "candidate_logged") {
-              confirmed = true;
-              receipt.textContent = "Captured as a private candidate gap. Review can return it to material, rules, or standards; nothing changes automatically.";
-            }
+            if (data.adaptation?.status === "candidate_logged") confirmed = true;
           } catch (_) {}
         }
       }
       if (!full) throw new Error("No answer returned.");
       history.push({role: "assistant", content: full});
-      if (!confirmed) receipt.textContent = "The answer returned, but the candidate log was not confirmed. No system change is being claimed.";
+      receipt.textContent = confirmed ? "logged for review \u2014 what survives returns below" : "";
     } catch (error) {
-      answer.textContent = error.message || "The local model is unavailable right now.";
-      setOnline(false, "local model offline");
+      answer.textContent = "The local model didn't answer. It should be back shortly \u2014 try again in a moment.";
+      setOnline(false);
     } finally { busy = false; send.disabled = false; input.focus(); }
   }
-  form.addEventListener("submit", event => { event.preventDefault(); ask(input.value); });
-  input.addEventListener("keydown", event => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); ask(input.value); } });
-  document.querySelectorAll("[data-chat-prompt]").forEach(button => button.addEventListener("click", () => ask(button.dataset.chatPrompt)));
-  window.addEventListener("message", event => {
+  form.addEventListener("submit", (event) => { event.preventDefault(); ask(input.value); });
+  input.addEventListener("keydown", (event) => { if (event.key === "Enter" && !event.shiftKey) { event.preventDefault(); ask(input.value); } });
+  document.querySelectorAll("[data-chat-prompt]").forEach((button) => button.addEventListener("click", () => ask(button.dataset.chatPrompt)));
+  window.addEventListener("message", (event) => {
     if (event.origin !== "https://vybn-co-protection.hf.space" || event.data?.type !== "court-guidance-contribution") return;
-    document.getElementById("commonsReceipt").textContent = "Published as an attributed public candidate. It now waits for source review and a named return layer.";
+    document.getElementById("commonsReceipt").textContent = "logged for review";
   });
-  health(); setInterval(health, 30000);
+  health(); setInterval(health, 10000);
 })();

@@ -153,6 +153,7 @@
       "ethics / values"
     ],
     "next_pass": "Rebuild the court-owned assistant only from reviewed changes to layers 1–3.",
-    "hard_rule": "Input does not become authority automatically."
+    "hard_rule": "Input does not become authority automatically.",
+    "returns_feed": "/returns.json — reviewed changes shipped back into the page itself; newest first."
   }
 }

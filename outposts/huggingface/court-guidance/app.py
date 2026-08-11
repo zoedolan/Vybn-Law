@@ -34,6 +34,11 @@ def operating_brief() -> str:
     return (ROOT / "SOUL.md").read_text(encoding="utf-8")
 
 
+@app.get("/returns.json", response_class=JSONResponse)
+def returns_feed() -> dict:
+    return json.loads((ROOT / "returns.json").read_text(encoding="utf-8"))
+
+
 @app.get("/", response_class=FileResponse)
 def index() -> FileResponse:
     return FileResponse(STATIC / "index.html")

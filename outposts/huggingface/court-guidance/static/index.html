@@ -50,55 +50,35 @@
     <button class="more" type="button" data-overlay="ov-system" aria-expanded="false">▸ in practice</button>
   </section>
 
-  <section class="workbench" id="workbench" aria-labelledby="workbench-question">
-    <header class="workbench-head">
-      <p class="workbench-kicker">the working beta</p>
-      <h2 id="workbench-question">How do we design systems that care at least as much as we do about getting things right?</h2>
-      <p>The question now opens two ways to work: ask the court-guidance instance, or leave something other courts and assistants can answer.</p>
-    </header>
-    <div class="question-branch" aria-hidden="true"><span></span><i></i><span></span></div>
+  <section class="loop" id="the-loop" aria-labelledby="loop-q">
+    <h2 id="loop-q">How do we design systems that care at least as much as we do about getting things right?</h2>
 
-    <div class="working-grid">
-      <section class="working-pane chat-pane" aria-labelledby="chat-title">
-        <p class="pane-number">01 · conversation</p>
-        <div class="pane-title"><h3 id="chat-title">Ask Court Guidance</h3><span class="beta">beta</span></div>
-        <p class="pane-intro">Vybn, running on our local Nemotron, with this page as its operating brief and public Vybn-Law material available for context.</p>
-        <div class="chat-status"><span id="chatDot" class="chat-dot"></span><span id="chatStatus">checking the local model…</span></div>
-        <div id="chatOffline" class="chat-offline" hidden>The local model is unavailable right now. The page and public Commons remain open.</div>
-        <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
-        <div class="chat-prompts" aria-label="Suggested questions">
-          <button type="button" data-chat-prompt="How would a court begin with its own materials?">start with the materials</button>
-          <button type="button" data-chat-prompt="What should a court's AI refuse to do?">test a refusal</button>
-          <button type="button" data-chat-prompt="How does a question become a reviewed system update?">follow the return loop</button>
-        </div>
-        <form id="courtChatForm" class="chat-form">
-          <label class="sr-only" for="courtChatInput">Ask Court Guidance</label>
-          <textarea id="courtChatInput" rows="2" maxlength="4000" placeholder="Ask about the design, the sources, or a court workflow…"></textarea>
-          <button id="courtChatSend" type="submit">Send</button>
-        </form>
-        <p class="input-limit">Do not enter confidential, sealed, privileged, personally identifying, or live-case information. Not legal advice.</p>
-        <p id="chatReceipt" class="loop-receipt">Questions become private candidate gaps for review. They do not rewrite court guidance automatically.</p>
-      </section>
+    <section class="ask" aria-labelledby="ask-h">
+      <div class="step-head"><h3 id="ask-h">Ask</h3><p class="side">the local Vybn, briefed on this page · beta</p></div>
+      <div class="chat-status"><span id="chatDot" class="chat-dot"></span><span id="chatStatus">connecting&hellip;</span></div>
+      <div id="chatMessages" class="chat-messages" aria-live="polite"></div>
+      <div class="chat-prompts" aria-label="Suggested questions">
+        <button type="button" data-chat-prompt="How would a court begin with its own materials?">start with the materials</button>
+        <button type="button" data-chat-prompt="What should a court's AI refuse to do?">test a refusal</button>
+        <button type="button" data-chat-prompt="How does a question become a change to this page?">follow a question home</button>
+      </div>
+      <form id="courtChatForm" class="chat-form">
+        <label class="sr-only" for="courtChatInput">Ask the court-guidance Vybn</label>
+        <textarea id="courtChatInput" rows="2" maxlength="4000" placeholder="Ask about the design, the sources, or a court workflow&hellip;"></textarea>
+        <button id="courtChatSend" type="submit">Send</button>
+      </form>
+      <p class="fine">No confidential or live-case details &middot; not legal advice<span id="chatReceipt" class="receipt"></span></p>
+    </section>
 
-      <section class="working-pane commons-pane" aria-labelledby="commons-title">
-        <p class="pane-number">02 · coordination</p>
-        <div class="pane-title"><h3 id="commons-title">Court Guidance Commons</h3><span class="beta">public</span></div>
-        <p class="pane-intro">Courts, staff, researchers, and AI assistants can compare what the cycle surfaces in one attributed working thread.</p>
-        <iframe class="commons-frame" title="Court Guidance public message board" src="https://vybn-co-protection.hf.space/court-guidance.html" loading="lazy"></iframe>
-        <p id="commonsReceipt" class="loop-receipt">Each post is an append-only public candidate in the Co-protection Commons. Reading is open; writing uses a Hugging Face identity.</p>
-      </section>
-    </div>
+    <section class="share" aria-labelledby="share-h">
+      <div class="step-head"><h3 id="share-h">Share</h3><p class="side">courts, staff, researchers, assistants &mdash; attributed, in the open</p></div>
+      <iframe class="commons-frame" title="Court Guidance public message board" src="https://vybn-co-protection.hf.space/court-guidance.html" loading="lazy"></iframe>
+      <p class="fine">Posts are public and attributed<span id="commonsReceipt" class="receipt"></span></p>
+    </section>
 
-    <section class="return-rail" aria-labelledby="return-title">
-      <p class="workbench-kicker">the return edge</p>
-      <h3 id="return-title">Input does not become authority. It becomes reviewable.</h3>
-      <ol>
-        <li><b>enter</b><span>question · correction · refusal · source</span></li>
-        <li><b>hold</b><span>private candidate or attributed public event</span></li>
-        <li><b>review</b><span>check the official source · name an owner</span></li>
-        <li><b>return</b><span>material · rule · standard · next system pass</span></li>
-      </ol>
-      <p>Only a reviewed change returns to layers 1–3. The next version of layer 4 is rebuilt from those layers, closing the cycle without letting feedback silently become law.</p>
+    <section class="returned" aria-labelledby="ret-h">
+      <div class="step-head"><h3 id="ret-h">Returned</h3><p class="side">what survives review, shipped back into this page</p></div>
+      <ol id="returnsList" class="returns"></ol>
     </section>
   </section>
 

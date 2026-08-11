@@ -20,6 +20,9 @@ def test_public_routes():
     soul = client.get("/SOUL.md")
     assert soul.status_code == 200
     assert "Court Guidance — operating brief" in soul.text
+    feed = client.get("/returns.json")
+    assert feed.status_code == 200
+    assert feed.json()["schema"] == "court-guidance.returns.v1"
 
 
 def test_page_carries_only_the_slide_cycle():
@@ -41,9 +44,15 @@ def test_page_carries_only_the_slide_cycle():
     script = (ROOT / "static" / "app.js").read_text()
     assert 'context: "court-guidance"' in script
     assert "vllm_semantic.ok !== true" in script
-    assert "Court Guidance Commons" in html
     assert "vybn-co-protection.hf.space/court-guidance.html" in html
-    assert "Input does not become authority. It becomes reviewable." in html
+    assert 'id="the-loop"' in html
+    assert '<h3 id="ask-h">Ask</h3>' in html
+    assert '<h3 id="share-h">Share</h3>' in html
+    assert '<h3 id="ret-h">Returned</h3>' in html
+    assert 'id="returnsList"' in html
+    assert '"/returns.json"' in script
+    for gone in ("working-grid", "return-rail", "pane-intro", "workbench", "question-branch"):
+        assert gone not in html
     assert "conversational input" not in low
     for drift_word in ("metaphysics", "cosmology", "consciousness", "symbiosis"):
         assert drift_word not in low
@@ -59,6 +68,7 @@ def test_machine_layer_mirrors_the_four_layers():
     assert model["interfaces"]["conversation"]["status"] == "working_beta"
     assert model["interfaces"]["commons"]["channel"] == "court-guidance"
     assert model["development_loop"]["hard_rule"] == "Input does not become authority automatically."
+    assert model["development_loop"]["returns_feed"].startswith("/returns.json")
     returns = model["pipeline"][3]["returns"]
     assert {"to_raw_material", "to_rules_guidelines", "to_ethics_values"} <= set(returns)
 
@@ -67,6 +77,8 @@ def test_assets_exist():
     for name in ("index.html", "style.css", "app.js", "world-self-human.jpg", "world-self-ai.jpg"):
         path = ROOT / "static" / name
         assert path.is_file() and path.stat().st_size > 0
+    feed = json.loads((ROOT / "returns.json").read_text())
+    assert feed["returns"] and all({"date", "to", "change"} <= set(r) for r in feed["returns"])
     soul = ROOT / "SOUL.md"
     assert soul.is_file()
     text = soul.read_text()
