@@ -1,194 +1,105 @@
 {
-  "schema": "vybn.court_guidance_beta.v0.1",
+  "schema": "court-guidance-beta.v2",
   "status": {
-    "institutional_status": "independent_prototype",
+    "independent_prototype": true,
     "court_approved": false,
     "legal_advice": false,
-    "live_case_data_allowed": false,
-    "complete_statement_of_law": false
+    "live_case_data": false
   },
   "question": "How do we design systems that care at least as much as we do about getting things right?",
-  "method": {
-    "name": "outcome_first_backward_design",
-    "outcome": "AI supports the court's role in administering justice.",
-    "instruction": "State the outcome first. Work backward to the evidence, rules, conduct standards, review authority, and tests needed to support it. Then build and test forward from verified sources."
-  },
+  "method": "Imagine the end state — a court's own system — then work backward. Build forward in four layers, then repeat the cycle.",
   "pipeline": [
     {
-      "order": 1,
-      "id": "source_packet",
-      "label": "Assemble the court's raw materials",
-      "output": "A versioned inventory of official law, court-issued guidance, forms, public explanations, and approved examples."
+      "step": 1,
+      "id": "raw_material",
+      "label": "raw material",
+      "summary": "The court's own official materials — opinions, rules, forms, self-help guides, resource lists — distilled to the basics, assembled and verified by the court itself.",
+      "example_shape": {
+        "name": "Public Counsel Appellate Clinic resource library",
+        "url": "https://publiccounsel.org/clinics/appellate-clinic/resources-materials/",
+        "note": "An example of how public appellate materials can be organized around real tasks. No documents are copied; every court supplies and verifies its own sources."
+      }
     },
     {
-      "order": 2,
-      "id": "structured_guidance",
-      "label": "Turn materials into reviewable guidance",
-      "output": "Atomic, source-linked records and bounded workflows that keep authority type, conditions, exceptions, and effective dates visible."
+      "step": 2,
+      "id": "rules_guidelines",
+      "label": "rules / guidelines",
+      "summary": "Statewide appellate rules and local rules as small structured records: one requirement, one exact source, one owner, one review status. The text a clerk would check — never a model's paraphrase.",
+      "record_fields": [
+        "id",
+        "jurisdiction",
+        "authority_type",
+        "exact_source",
+        "conditions",
+        "effective_date",
+        "review_owner",
+        "review_status"
+      ]
     },
     {
-      "order": 3,
-      "id": "conduct_layer",
-      "label": "State how the AI must conduct itself",
-      "output": "Public, versioned commitments for accuracy, neutrality, role candor, human control, privacy, accessibility, and correction."
+      "step": 3,
+      "id": "ethics_values",
+      "label": "ethics / values",
+      "summary": "A public corollary to the professional-conduct rules lawyers answer to and the canons of ethics judges answer to: written standards for what the system may do, what it must refuse, and when it hands off to a person.",
+      "standards": [
+        "Never invent a rule, case, quotation, deadline, fact, or source.",
+        "Cite the exact source; keep law, court guidance, explanation, and advice distinct.",
+        "Preserve the person's authorship and choices; never choose their legal position.",
+        "Stay neutral as between court, government, parties, vendors, and user.",
+        "Accept correction; keep versions; recheck every dependent answer.",
+        "Ask only for needed facts; serve disability, language, and low-bandwidth access."
+      ]
     },
     {
-      "order": 4,
-      "id": "review_and_test",
-      "label": "Test before adoption",
-      "output": "Court, clerk, litigant, legal, accessibility, security, and technical review with visible failures and correction paths."
-    },
-    {
-      "order": 5,
-      "id": "court_controlled_tool",
-      "label": "Pilot one narrow tool",
-      "output": "A court-controlled assistant that asks before assuming, cites before advising, exposes uncertainty, and leaves choices with the user."
-    },
-    {
-      "order": 6,
-      "id": "alignment_beacon",
-      "label": "Return to the institutional outcome",
-      "output": "Evidence that the system supports the administration of justice without creating false authority or removing meaningful human control."
+      "step": 4,
+      "id": "own_system",
+      "label": "self / own system",
+      "summary": "The design objective and adoption beacon: the court's own system, running on its materials, its rules, its standards, under its control — an adoption plan that ends in a mechanism buttressing the court's role in administering justice. The assistant a person can talk to is built last, on adopted layers 1–3, and is intentionally not implemented in this beta."
     }
   ],
-  "source_packet": {
-    "minimum_categories": [
-      "court local rules and administrative orders",
-      "statewide rules, statutes, and controlling authority",
-      "official filing instructions, forms, fee, service, and accessibility information",
-      "court-issued public explanations and frequently asked questions",
-      "approved examples and correction paths",
-      "a visible list of gaps, conflicts, and materials awaiting review"
-    ],
-    "reference_architecture": {
-      "name": "Public Counsel Appellate Clinic Resources and Materials",
-      "url": "https://publiccounsel.org/clinics/appellate-clinic/resources-materials/",
-      "use": "Example of organizing appellate information around tasks such as starting an appeal, proof of service, fee waivers, record designation, briefs, and oral argument.",
-      "limits": "External example only. Its materials are not imported as authority for another court, and reuse remains subject to source, permission, date, and jurisdiction review."
-    },
-    "record_fields": [
-      "id",
-      "jurisdiction",
-      "authority_type",
-      "source_title",
-      "source_url",
-      "source_span",
-      "effective_from",
-      "effective_to",
-      "last_verified_at",
-      "proposition",
-      "applies_when",
-      "exceptions",
-      "review_status",
-      "reviewers",
-      "dependent_workflows",
-      "corrections"
-    ]
-  },
   "sample_records": [
     {
-      "id": "STATE-RULE-[NUMBER]",
       "layer": "statewide_rule",
-      "institutional_status": "template_not_law",
-      "proposition": "[Insert one verified statewide appellate requirement in plain language.]",
-      "applies_when": "[State the case type, filing, procedural posture, and date assumptions.]",
-      "source": "[Link to the current official state source and exact section.]",
-      "agent_behavior": "Apply only when every stated condition is met; otherwise ask for the missing fact or mark the point unresolved."
+      "id": "STATE-RULE-[NUMBER]",
+      "status": "template_not_law",
+      "note": "One verified statewide appellate requirement in plain language, with conditions, exact source, and effective date."
     },
     {
-      "id": "LOCAL-RULE-[NUMBER]",
       "layer": "court_local_rule",
-      "institutional_status": "template_not_law",
-      "proposition": "[Insert one verified court-specific filing or formatting requirement.]",
-      "applies_when": "[Name the court, filing type, filing channel, and effective date.]",
-      "source": "[Link to the current official local rule and exact section.]",
-      "agent_behavior": "Keep the local requirement distinct from statewide law and from nonbinding practice tips."
+      "id": "LOCAL-RULE-[NUMBER]",
+      "status": "template_not_law",
+      "note": "One verified court-specific requirement, kept distinct from statewide authority."
     },
     {
-      "id": "COURT-GUIDANCE-[NUMBER]",
       "layer": "court_issued_explanation",
-      "institutional_status": "template_not_law",
-      "proposition": "[Insert one court-authored explanation or correction path.]",
-      "applies_when": "[State which user, filing, and problem the explanation addresses.]",
-      "source": "[Link to signed or otherwise authenticated court guidance.]",
-      "agent_behavior": "Label this as court guidance, not binding law, unless an authorized source states otherwise."
+      "id": "EXPLAIN-[TOPIC]",
+      "status": "template",
+      "note": "Plain-language help, visibly labeled explanatory, with scope, limits, and update date."
     },
     {
-      "id": "WORKFLOW-APPELLATE-DEADLINE-INPUTS",
       "layer": "system_control",
-      "institutional_status": "illustrative_design_rule",
-      "proposition": "Do not state an appellate deadline until the court, case type, triggering event, event date, service facts, and governing sources needed for the calculation are identified.",
-      "applies_when": "A user asks about timing or a filing deadline.",
-      "source": "System design control; the participating court must define the governing legal sources.",
-      "agent_behavior": "Ask for missing inputs. Show the calculation and sources. Never turn an incomplete assumption into a date."
-    }
-  ],
-  "agent_conduct": [
-    {
-      "id": "truth_before_fluency",
-      "commitment": "Never invent a rule, case, quotation, deadline, filing event, fact, or source."
-    },
-    {
-      "id": "human_authorship",
-      "commitment": "Explain choices and consequences without impersonating the user or making the user's legal position for them."
-    },
-    {
-      "id": "institutional_neutrality",
-      "commitment": "Do not favor the court, government, represented parties, repeat players, vendors, or the user."
-    },
-    {
-      "id": "role_candor",
-      "commitment": "Separate binding authority, court guidance, explanatory material, examples, model output, and legal advice."
-    },
-    {
-      "id": "correction",
-      "commitment": "Make material claims traceable, accept correction, preserve version history, and recheck dependent guidance."
-    },
-    {
-      "id": "privacy_accessibility",
-      "commitment": "Request only necessary information and provide understandable, accessible, multilingual, low-bandwidth, and non-AI paths."
+      "id": "DEADLINE-INPUTS",
+      "status": "illustrative",
+      "note": "Do not state an appellate deadline until the court, case type, event, date, and service facts are identified. Ask. Show the calculation. Never guess."
     }
   ],
   "governance": {
-    "courts": "Own institutional language, authority labels, adoption status, and update responsibility.",
-    "judges_and_ethics_reviewers": "Review neutrality, judicial role boundaries, purpose, and conduct commitments.",
-    "clerks_and_court_staff": "Verify filing practice, workflow accuracy, correction paths, and operational burden.",
-    "self_represented_litigants": "Test whether explanations are understandable and whether choices remain genuinely theirs.",
-    "lawyers_and_legal_aid": "Find missing authority, exceptions, practical risks, and unequal effects.",
-    "accessibility_language_security_reviewers": "Test access, translation, privacy, retention, threat boundaries, and non-AI alternatives.",
-    "technology_providers": "Implement to the public package without owning legal authority or silently changing adopted guidance."
-  },
-  "alignment_beacon": {
-    "objective": "Support the court's role in administering justice.",
-    "checks": [
-      "Every legal or procedural claim is traceable to current authority.",
-      "A first-time user can tell what is required, optional, uncertain, and not found.",
-      "The system asks for missing facts instead of inventing them.",
-      "The court can review, correct, version, and replace the guidance without vendor lock-in.",
-      "The person using the tool understands and controls every factual and legal assertion.",
-      "The system does not make rejection faster by making the person less visible.",
-      "Privacy, accessibility, language access, security, and a non-AI route are designed in from the start."
+    "review_roles": [
+      "judges and ethics reviewers",
+      "clerks and court staff",
+      "self-represented litigants",
+      "lawyers and legal aid",
+      "access and security reviewers"
     ],
-    "failure_condition": "If the tool makes polished filings less truthful, launders model confidence into court authority, hides unequal errors, or reduces a person's meaningful opportunity to be heard, it fails this objective."
+    "hard_stop": "If the tool makes filings less truthful, turns model confidence into court authority, hides unequal error, or makes the person less visible, it fails."
   },
   "projected_endpoint": {
     "status": "planned_not_implemented",
-    "interface": "court-controlled local guidance assistant",
-    "inputs": [
-      "participating court's approved source packet",
-      "structured statewide and local rules",
-      "public agent conduct layer",
-      "role and workflow definitions",
-      "reviewed examples and evaluation cases",
-      "the source and methods of Vybn-Law where institutionally appropriate"
-    ],
-    "required_behavior": [
-      "ask for missing facts",
-      "retrieve only in-scope sources",
-      "cite every material procedural claim",
-      "show uncertainty and authority status",
-      "produce a source-linked checklist rather than a hidden decision",
-      "preserve the user's authorship and final control"
-    ]
+    "description": "A court-controlled local guidance assistant: retrieves the approved source packet, asks for missing facts, cites authority, exposes uncertainty, and leaves all filing choices with the person."
+  },
+  "lineage": {
+    "authors": "Zoe Dolan × Vybn",
+    "upstream": "https://huggingface.co/spaces/Vybn/co-protection",
+    "source": "https://github.com/zoedolan/Vybn-Law/tree/master/outposts/huggingface/court-guidance"
   }
 }

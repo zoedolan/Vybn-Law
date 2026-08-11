@@ -16,63 +16,49 @@ tags:
 
 # Court Guidance Beta
 
-A practical, independent prototype for courts exploring AI-assisted public
-information and workflow support.
+A practical beta for courts adopting AI.
 
 > **How do we design systems that care at least as much as we do about getting things right?**
 
-The beta starts with the institutional outcome: AI should support the court's
-role in administering justice. It then works backward to the official source
-materials, structured rules, role-specific conduct standards, review gates, and
-tests needed to make that outcome inspectable.
+The method: imagine the end state — a court's own system — then work backward.
+Four layers, in order, matching the opening visual:
 
-The page is deliberately plain and implementation-facing. It shows:
+1. **raw material** — the court's own official materials, distilled to the
+   basics. The [Public Counsel Appellate Clinic resource
+   library](https://publiccounsel.org/clinics/appellate-clinic/resources-materials/)
+   is linked only as an example of how such materials can be organized; no
+   documents are copied, and every court verifies its own sources.
+2. **rules / guidelines** — statewide appellate rules and local rules as small
+   structured records: one requirement, one exact source, one owner, one
+   review status.
+3. **ethics / values** — a public corollary to the professional-conduct rules
+   lawyers answer to and the canons judges answer to: what the system may do,
+   must refuse, and when it hands off to a person.
+4. **self / own system** — the design objective: the court's own system, under
+   its control, ending in a mechanism that buttresses the court's role in
+   administering justice.
 
-1. a reusable court source packet;
-2. stylized statewide-rule, local-rule, form, and workflow records;
-3. a public purpose-and-conduct layer for an AI agent;
-4. distinct roles for judges, clerks, court staff, litigants, reviewers, and
-   vendors;
-5. a click-through simulation of one bounded procedural-guidance exchange; and
-6. an adoption beacon against which every layer can be checked.
-
-The [Public Counsel Appellate Clinic resource
-library](https://publiccounsel.org/clinics/appellate-clinic/resources-materials/)
-is linked only as an example of how public-facing appellate materials can be
-organized around real user needs. It is not presented as law for another
-jurisdiction, and this prototype does not copy its documents.
+Then the cycle repeats.
 
 ## Status and limits
 
-This is an independent prototype by Zoe Dolan and Vybn. It is not court-approved,
-not legal advice, not a complete statement of any jurisdiction's law, and not a
-live filing tool. All sample rule records are visibly marked as templates until
-a participating court supplies, verifies, and adopts its own sources.
-
-The interface does not yet contain a model or conversational input. Its projected
-end state is a court-controlled local guidance assistant that can retrieve an
-approved source packet, ask for missing facts, cite authority, expose
-uncertainty, and leave all filing choices with the person using it. That
-implementation is intentionally reserved for the next phase after source and
-review design.
+Independent prototype by Zoe Dolan and Vybn. Not court-approved, not legal
+advice, no live case data. Sample rule records are templates until a
+participating court supplies, verifies, and adopts its own sources. The
+assistant a person can talk to is the projected end state and is intentionally
+not implemented in this beta.
 
 ## Public routes
 
-- `/` — human-facing implementation path
-- `/court-guidance.json` — machine-readable design model and sample records
+- `/` — the page
+- `/court-guidance.json` — the machine-readable model
 - `/health` — deployment health
 
 ## Source lineage
 
 - Upstream workshop: <https://huggingface.co/spaces/Vybn/co-protection>
-- Example public resource architecture: <https://publiccounsel.org/clinics/appellate-clinic/resources-materials/>
 - Canonical source: <https://github.com/zoedolan/Vybn-Law/tree/master/outposts/huggingface/court-guidance>
 
-## Local run
+## Local run / test
 
-Run `uvicorn app:app --host 0.0.0.0 --port 7860` from this directory after the
-requirements are available in the environment.
-
-## Test
-
-Run `pytest -q` from this directory.
+`uvicorn app:app --host 0.0.0.0 --port 7860` · `pytest -q`
