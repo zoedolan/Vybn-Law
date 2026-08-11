@@ -6,7 +6,7 @@ colorTo: yellow
 sdk: docker
 app_port: 7860
 pinned: false
-short_description: A court-owned path from source materials to dependable AI guidance.
+short_description: From court sources to dependable AI guidance.
 tags:
   - legal-tech
   - access-to-justice
