@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A practical beta showing how a court can turn official materials into dependable, reviewable AI guidance.">
+<title>Court Guidance Beta · Vybn</title>
+<link rel="stylesheet" href="/assets/style.css">
+<script src="/assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="topbar">
+  <a class="brand" href="#top" aria-label="Court Guidance Beta home"><span class="brand-mark" aria-hidden="true">V</span><b>Court Guidance</b><span>beta</span></a>
+  <nav aria-label="Page navigation">
+    <a href="#sources">Sources</a>
+    <a href="#rules">Rules</a>
+    <a href="#conduct">Conduct</a>
+    <a href="#pilot">Pilot</a>
+    <a href="#beacon">Objective</a>
+  </nav>
+  <a class="machine-link" href="/court-guidance.json">Machine layer ↗</a>
+</header>
+<main id="main">
+<section class="hero" id="top">
+  <div class="hero-copy reveal">
+    <p class="eyebrow">Independent prototype · built for court review</p>
+    <h1>Court Guidance<br><em>Beta</em></h1>
+    <p class="hero-lede">Start with the outcome: <strong>AI should support the court’s role in administering justice.</strong> Then work backward to the sources, rules, conduct standards, reviewers, and tests needed to make that true.</p>
+    <blockquote>How do we design systems that care at least as much as we do about getting things right?</blockquote>
+    <div class="status-row" aria-label="Prototype status">
+      <span>Not court-approved</span><span>Not legal advice</span><span>No live case data</span>
+    </div>
+    <div class="hero-actions"><a class="button primary" href="#path">See the implementation path</a><a class="button ghost" href="#pilot">Open the sample workflow</a></div>
+  </div>
+
+  <figure class="epistemology reveal" aria-labelledby="epistemology-caption">
+    <div class="lens-grid">
+      <article class="lens human-lens">
+        <div class="lens-label"><strong>Human side</strong><span>defines the purpose</span></div>
+        <div class="lens-frame">
+          <img class="primary-image" src="/assets/world-self-human.jpg" width="1376" height="768" alt="Human-centered diagram showing a path from self through values and rules into the world">
+          <img class="reciprocal-image" src="/assets/world-self-ai.jpg" width="1376" height="768" alt="" aria-hidden="true">
+        </div>
+        <p>People turn values into rules, institutions, and systems.</p>
+      </article>
+      <article class="lens ai-lens">
+        <div class="lens-label"><strong>AI side</strong><span>receives the conditions</span></div>
+        <div class="lens-frame">
+          <img class="primary-image" src="/assets/world-self-ai.jpg" width="1376" height="768" alt="AI-centered diagram showing a path from the world through rules and values into a system">
+          <img class="reciprocal-image" src="/assets/world-self-human.jpg" width="1376" height="768" alt="" aria-hidden="true">
+        </div>
+        <p>The system receives sources, rules, values, and role limits—then returns guidance to people.</p>
+      </article>
+    </div>
+    <figcaption id="epistemology-caption"><strong>The design loop.</strong> Court choices shape the system. System outputs return to the court and the public. Every return should be reviewable and correctable.</figcaption>
+  </figure>
+</section>
+
+<section class="path-section" id="path" aria-labelledby="path-title">
+  <div class="section-head centered reveal">
+    <p class="eyebrow dark">Outcome-first design</p>
+    <h2 id="path-title">Picture the right result. Build backward from there.</h2>
+    <p>The outcome gives the project a fixed point. We work backward to identify what the system needs, then build forward from verified court materials.</p>
+  </div>
+  <div class="outcome-pill reveal"><span>Design objective</span><strong>Support the administration of justice</strong><small>work backward ↓</small></div>
+  <ol class="path-rail" aria-label="Six-stage implementation path">
+    <li class="reveal"><span>01</span><b>Source packet</b><small>Official materials</small></li>
+    <li class="reveal"><span>02</span><b>Structured guidance</b><small>Rules + workflows</small></li>
+    <li class="reveal"><span>03</span><b>Agent conduct</b><small>Purpose + limits</small></li>
+    <li class="reveal"><span>04</span><b>Review + tests</b><small>People check it</small></li>
+    <li class="reveal"><span>05</span><b>Narrow pilot</b><small>One real task</small></li>
+    <li class="reveal"><span>06</span><b>Adoption beacon</b><small>Measure the result</small></li>
+  </ol>
+</section>
+
+<section class="stage" id="sources" aria-labelledby="sources-title">
+  <div class="stage-number" aria-hidden="true">01</div>
+  <div class="section-head reveal">
+    <p class="eyebrow dark">Court source packet</p>
+    <h2 id="sources-title">Start with what the court already knows.</h2>
+    <p>Do not begin with a model prompt. Begin with a maintained, versioned inventory of the materials that govern the work and explain it to the public.</p>
+  </div>
+  <div class="source-layout">
+    <div class="source-stack reveal">
+      <article><span>§</span><div><b>Binding authority</b><p>State rules, statutes, controlling decisions, and adopted local rules.</p></div></article>
+      <article><span>⌂</span><div><b>Court-issued guidance</b><p>Administrative orders, filing instructions, forms, fees, accessibility information, and public notices.</p></div></article>
+      <article><span>?</span><div><b>Plain-language help</b><p>FAQs, checklists, examples, and explanations—clearly labeled as explanatory.</p></div></article>
+      <article><span>↺</span><div><b>Correction paths</b><p>Known gaps, recurring defects, superseded materials, and the route for fixing an error.</p></div></article>
+    </div>
+    <aside class="reference-card reveal">
+      <p class="card-kicker">Raw-materials example</p>
+      <h3>Public Counsel Appellate Clinic</h3>
+      <p>Its public library organizes appellate help around recognizable tasks: starting an appeal, proof of service, fee waivers, the record, briefs, and oral argument.</p>
+      <a href="https://publiccounsel.org/clinics/appellate-clinic/resources-materials/" target="_blank" rel="noopener noreferrer">View the resource library ↗</a>
+      <div class="caveat"><strong>Architecture, not imported authority.</strong> Any court supplies and verifies its own jurisdiction’s sources. This prototype copies no document and makes no reuse claim.</div>
+    </aside>
+  </div>
+  <div class="inventory reveal">
+    <div class="inventory-head"><h3>The reusable inventory</h3><span>Every row has an owner and a status</span></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Material</th><th>Authority</th><th>Required record</th><th>Review owner</th><th>Sample status</th></tr></thead>
+      <tbody>
+        <tr><td>Statewide appellate rule</td><td><span class="authority binding">Binding</span></td><td>Section · conditions · effective date</td><td>Legal reviewer</td><td><span class="state pending">Template</span></td></tr>
+        <tr><td>Court local rule</td><td><span class="authority binding">Binding</span></td><td>Court · section · exceptions</td><td>Court designee</td><td><span class="state pending">Template</span></td></tr>
+        <tr><td>Filing instruction or form</td><td><span class="authority issued">Court-issued</span></td><td>Version · workflow · source URL</td><td>Clerk / staff</td><td><span class="state pending">Template</span></td></tr>
+        <tr><td>Public explanation</td><td><span class="authority explanatory">Explanatory</span></td><td>Scope · limits · update date</td><td>Plain-language reviewer</td><td><span class="state pending">Template</span></td></tr>
+        <tr><td>Correction example</td><td><span class="authority example">Example</span></td><td>Permission · redaction · lesson</td><td>Privacy + court review</td><td><span class="state closed">Not supplied</span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<section class="stage rules-stage" id="rules" aria-labelledby="rules-title">
+  <div class="stage-number" aria-hidden="true">02</div>
+  <div class="section-head reveal">
+    <p class="eyebrow dark">Structured guidance</p>
+    <h2 id="rules-title">One requirement. One source. One visible status.</h2>
+    <p>A document dump is hard to maintain and easy for a system to blur. Break guidance into small records that a court can inspect, approve, supersede, and test.</p>
+  </div>
+  <div class="rule-grid">
+    <article class="rule-card reveal">
+      <header><span>STATE RULE</span><em>template · not law</em></header>
+      <h3>STATE-RULE-[NUMBER]</h3>
+      <p class="rule-copy">[Insert one verified statewide appellate requirement in plain language.]</p>
+      <dl><div><dt>Applies when</dt><dd>[Case type, filing, posture, date assumptions]</dd></div><div><dt>Official source</dt><dd>[Current URL + exact section]</dd></div><div><dt>Agent action</dt><dd>Ask when a required condition is missing.</dd></div></dl>
+    </article>
+    <article class="rule-card reveal">
+      <header><span>LOCAL RULE</span><em>template · not law</em></header>
+      <h3>LOCAL-RULE-[NUMBER]</h3>
+      <p class="rule-copy">[Insert one verified court-specific filing or formatting requirement.]</p>
+      <dl><div><dt>Applies when</dt><dd>[Court, filing type, channel, effective date]</dd></div><div><dt>Official source</dt><dd>[Current URL + exact section]</dd></div><div><dt>Agent action</dt><dd>Keep local and statewide authority distinct.</dd></div></dl>
+    </article>
+    <article class="rule-card live-example reveal">
+      <header><span>SYSTEM CONTROL</span><em>illustrative</em></header>
+      <h3>DEADLINE-INPUTS</h3>
+      <p class="rule-copy">Do not state an appellate deadline until the facts and governing sources needed for the calculation are identified.</p>
+      <dl><div><dt>Required inputs</dt><dd>Court · case type · event · date · service facts</dd></div><div><dt>Authority</dt><dd>The court inserts the controlling legal sources.</dd></div><div><dt>Agent action</dt><dd>Ask. Show the calculation. Never guess.</dd></div></dl>
+    </article>
+  </div>
+  <div class="record-strip reveal"><code>id</code><i>+</i><code>jurisdiction</code><i>+</i><code>authority type</code><i>+</i><code>exact source</code><i>+</i><code>conditions</code><i>+</i><code>effective date</code><i>+</i><code>review status</code></div>
+</section>
+
+<section class="stage conduct-stage" id="conduct" aria-labelledby="conduct-title">
+  <div class="stage-number" aria-hidden="true">03</div>
+  <div class="section-head reveal">
+    <p class="eyebrow dark">Agent conduct</p>
+    <h2 id="conduct-title">Rules say what applies. Conduct standards say how the system must behave.</h2>
+    <p>Lawyers have professional rules. Judges have ethical canons. A court-facing AI system also needs public, versioned role standards. These are design commitments—not a claim that human codes automatically govern a model.</p>
+  </div>
+  <div class="conduct-grid">
+    <article class="reveal"><span>01</span><h3>Truth before fluency</h3><p>Never invent a rule, case, quotation, deadline, filing event, fact, or source.</p></article>
+    <article class="reveal"><span>02</span><h3>Human authorship</h3><p>Explain choices and consequences. Do not impersonate the person or choose their legal position.</p></article>
+    <article class="reveal"><span>03</span><h3>Institutional neutrality</h3><p>Do not favor the court, government, represented parties, repeat players, vendors, or the user.</p></article>
+    <article class="reveal"><span>04</span><h3>Candor about role</h3><p>Separate law, court guidance, explanation, example, model output, and legal advice.</p></article>
+    <article class="reveal"><span>05</span><h3>Correction is a duty</h3><p>Trace material claims, accept correction, preserve versions, and recheck every dependent workflow.</p></article>
+    <article class="reveal"><span>06</span><h3>Privacy and access</h3><p>Ask only for what is needed. Design for disability, language, low bandwidth, and a non-AI path.</p></article>
+  </div>
+  <div class="role-band reveal">
+    <h3>Who makes it legitimate?</h3>
+    <div class="roles">
+      <span><b>Judges + ethics reviewers</b><small>purpose · neutrality · role boundaries</small></span>
+      <span><b>Clerks + court staff</b><small>procedure · workflow · burden</small></span>
+      <span><b>Self-represented litigants</b><small>clarity · choice · practical use</small></span>
+      <span><b>Lawyers + legal aid</b><small>authority · exceptions · risk</small></span>
+      <span><b>Access + security reviewers</b><small>language · privacy · threat limits</small></span>
+      <span><b>Technology providers</b><small>implementation · no ownership of authority</small></span>
+    </div>
+  </div>
+</section>
+
+<section class="stage pilot-stage" id="pilot" aria-labelledby="pilot-title">
+  <div class="stage-number" aria-hidden="true">04–05</div>
+  <div class="section-head reveal">
+    <p class="eyebrow light">Review, test, then pilot</p>
+    <h2 id="pilot-title">Prove one narrow workflow before scaling.</h2>
+    <p>The first beta should not try to know appellate law. It should perform one documented task well enough that court personnel and users can see every source, assumption, boundary, and correction.</p>
+  </div>
+  <div class="pilot-shell reveal">
+    <div class="pilot-top">
+      <div><span class="pilot-dot"></span><strong>Workflow simulation</strong><small>No model · no case data · no legal answer</small></div>
+      <div class="role-toggle" role="group" aria-label="Choose workflow view">
+        <button type="button" class="active" data-role="litigant" aria-pressed="true">Litigant view</button>
+        <button type="button" data-role="clerk" aria-pressed="false">Clerk view</button>
+      </div>
+    </div>
+    <div class="pilot-body">
+      <div class="sample-question">
+        <span id="sampleSpeaker">Person</span>
+        <p id="sampleQuestion">“I need to know when my appellate filing is due.”</p>
+      </div>
+      <div class="sample-response">
+        <span id="responseLabel">Guidance assistant</span>
+        <h3 id="responseTitle">I cannot calculate that from the information provided.</h3>
+        <p id="responseCopy">First I need the court, case type, filing, triggering event, event date, and any service facts the governing rules make relevant.</p>
+        <div class="response-grid">
+          <article><b>1 · Ask</b><p id="askText">Collect only the missing facts needed for the selected workflow.</p></article>
+          <article><b>2 · Retrieve</b><p id="retrieveText">Open the adopted statewide rule, local rule, and court instruction.</p></article>
+          <article><b>3 · Explain</b><p id="explainText">Label what is required, permitted, uncertain, and not found.</p></article>
+          <article><b>4 · Return control</b><p id="controlText">Show the source-linked calculation and let the person review every input.</p></article>
+        </div>
+        <div class="provenance"><span>Authority status</span><strong>Unresolved until official sources and facts are supplied</strong></div>
+      </div>
+    </div>
+  </div>
+  <div class="test-grid reveal">
+    <h3>Release gates</h3>
+    <ul>
+      <li><span>Accuracy</span>Can each claim be reproduced from a current official source?</li>
+      <li><span>Clarity</span>Can a first-time user tell what is required and what is uncertain?</li>
+      <li><span>Agency</span>Can the user inspect, correct, decline, and choose what happens next?</li>
+      <li><span>Neutrality</span>Do paired cases receive the same procedural care?</li>
+      <li><span>Operations</span>Does the workflow reduce avoidable defects without hiding court burden?</li>
+      <li><span>Access</span>Do accessibility, language, privacy, and non-AI routes work at launch?</li>
+    </ul>
+  </div>
+</section>
+
+<section class="beacon-section" id="beacon" aria-labelledby="beacon-title">
+  <div class="beacon-copy reveal">
+    <p class="eyebrow light">06 · The adoption beacon</p>
+    <h2 id="beacon-title">Every technical choice returns to one institutional objective.</h2>
+    <p>Not “does the demo sound impressive?” Not “can the model produce a polished filing?” The question is whether the whole system strengthens accurate, fair, understandable, and correctable participation in the court’s work.</p>
+  </div>
+  <div class="beacon reveal" role="img" aria-label="Alignment beacon: support the court's role in administering justice">
+    <div class="beacon-ring ring-three"></div><div class="beacon-ring ring-two"></div><div class="beacon-ring ring-one"></div>
+    <div class="beacon-core"><span>Design objective</span><strong>Support the court’s role in administering justice</strong><small>accurate · neutral · traceable · contestable · human-controlled</small></div>
+  </div>
+  <blockquote class="closing-question reveal">How do we design systems that care at least as much as we do about getting things right?</blockquote>
+  <div class="failure-box reveal"><strong>The hard stop</strong><p>If the tool makes polished filings less truthful, turns model confidence into false court authority, hides unequal errors, or makes rejection faster by making the person less visible, it fails.</p></div>
+</section>
+
+<section class="endpoint" aria-labelledby="endpoint-title">
+  <div class="endpoint-copy reveal">
+    <p class="eyebrow dark">Projected next phase · not live</p>
+    <h2 id="endpoint-title">A court-controlled local guidance assistant.</h2>
+    <p>After the source packet, conduct layer, roles, and review gates are agreed, a local model can receive the complete approved context and serve one narrow workflow. It asks before assuming, cites before concluding, exposes uncertainty, and leaves all filing choices with the person.</p>
+    <p class="hold-line"><strong>This draft stops before that implementation on purpose.</strong> The interface comes after the court can see and control what would govern it.</p>
+    <a class="button dark-button" href="#sources">Return to the source packet ↑</a>
+  </div>
+  <div class="endpoint-diagram reveal" aria-label="Planned local guidance system inputs and output">
+    <div class="input-list"><span>Approved court sources</span><span>Structured rules</span><span>Public conduct layer</span><span>Reviewed examples + tests</span></div>
+    <div class="local-core"><small>COURT-CONTROLLED</small><strong>LOCAL AI</strong><span>planned</span></div>
+    <div class="output-card"><small>OUTPUT</small><strong>Source-linked guidance</strong><span>facts requested · authority labeled · uncertainty visible · choices preserved</span></div>
+  </div>
+</section>
+</main>
+<footer>
+  <div><strong>Court Guidance Beta</strong><span>An independent prototype by Zoe Dolan + Vybn</span></div>
+  <p>Downstream from the <a href="https://huggingface.co/spaces/Vybn/co-protection" target="_blank" rel="noopener noreferrer">Co-protection Commons ↗</a> · <a href="/court-guidance.json">Machine-readable design ↗</a> · <a href="https://github.com/zoedolan/Vybn-Law/tree/master/outposts/huggingface/court-guidance" target="_blank" rel="noopener noreferrer">Source ↗</a></p>
+  <small>Independent prototype · Not court-approved · Not legal advice · No live case data</small>
+</footer>
+</body>
+</html>
