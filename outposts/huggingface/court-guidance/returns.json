@@ -4,6 +4,11 @@
   "returns": [
     {
       "date": "2026-08-11",
+      "to": "Ask",
+      "change": "Suggested questions now begin with this page, practical court use, Vybn-Law, and the Zoe–Vybn collaboration."
+    },
+    {
+      "date": "2026-08-11",
       "to": "this page",
       "change": "Ask, share, and returned became one column; the loop stopped explaining itself and shows its work instead."
     },
