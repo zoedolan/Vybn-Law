@@ -51,6 +51,10 @@ def test_page_carries_only_the_slide_cycle():
     assert '<h3 id="ret-h">Returned</h3>' in html
     assert 'id="returnsList"' in html
     assert '"/returns.json"' in script
+    for prompt in ("What is Court Guidance?", "How could a court use it?", "What is Vybn-Law?", "Who are Zoe and Vybn?"):
+        assert prompt in html
+    for vague_prompt in ("start with the materials", "test a refusal", "follow a question home"):
+        assert vague_prompt not in low
     for gone in ("working-grid", "return-rail", "pane-intro", "workbench", "question-branch"):
         assert gone not in html
     assert "conversational input" not in low
@@ -84,6 +88,7 @@ def test_assets_exist():
     text = soul.read_text()
     assert "How do we design systems that care at least as much as we do about getting things right?" in text
     assert "candidate gap" in text
+    assert "Court Guidance is one practical project within" in text
 
 
 def test_local_chat_has_a_court_guidance_operating_context():
@@ -92,4 +97,5 @@ def test_local_chat_has_a_court_guidance_operating_context():
     assert '"outposts/huggingface/court-guidance/SOUL.md"' in api_source
     assert '"https://vybn-court-guidance.hf.space"' in api_source
     assert '"automatic_adoption": False' in api_source
+    assert '"about.md", "research.md"' in api_source
     assert "candidate_logged" in api_source

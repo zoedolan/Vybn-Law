@@ -911,7 +911,7 @@ CONTEXT_OVERLAYS: Dict[str, Dict] = {
         "priority_pages": [
             "outposts/huggingface/court-guidance/SOUL.md",
             "outposts/huggingface/court-guidance/court-guidance.json",
-            "research.md", "truth.md", "wellspring.md",
+            "about.md", "research.md", "truth.md", "wellspring.md",
         ],
     },
     "enclosure": {
