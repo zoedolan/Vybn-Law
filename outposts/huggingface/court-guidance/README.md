@@ -44,9 +44,9 @@ the system feeds back sharper material, clearer rules, and stronger standards.
 On the page, each layer carries a one-line tagline and an `▸ in practice`
 cue that opens a full-screen mock-up of what the layer looks like. The closing
 question now branches into two working beta surfaces: a Court Guidance
-conversation with local Nemotron, calibrated by `SOUL.md` and public Vybn-Law
-sources; and a public, attributed Court Guidance thread inside the
-Co-protection Commons.
+conversation on `gpt-5.6-sol`, calibrated by `PUBLIC_WAKE.md`, this Space,
+the Co-protection Commons, and retrieved canonical Vybn-Law public sources; and
+a public, attributed Court Guidance thread inside the Co-protection Commons.
 
 ## Status and limits
 
@@ -61,19 +61,25 @@ personally identifying, or live-case information.
 
 - `/` — the page
 - `/court-guidance.json` — the machine-readable model and return contract
-- `/health` — deployment health
-- `SOUL.md` — the public operating brief loaded by the calibrated chat
+- `/health` and `/api/health` — deployment health and exact model identity
+- `/api/chat` — same-origin, privately archived public conversation
+- `SOUL.md` — the project operating brief
+- `PUBLIC_WAKE.md` — the public-only wake, membrane, and first-contact posture
 - `https://vybn-co-protection.hf.space/court-guidance.html` — the attributed public working thread
 
 ## The adaptation loop
 
-Conversation turns are privately logged as candidate gaps by the Vybn-Law chat
-service. Commons posts are append-only attributed public events tagged to the
+Conversation turns are privately preserved as immutable candidate-gap records.
+Commons posts remain append-only attributed public events tagged to the
 `court-guidance` channel. Neither stream edits a court source, rule, standard,
 or model prompt automatically. Review checks the official source, names an
 owner, records acceptance, rejection, or no change, and returns any survivor to
 raw material, rules / guidelines, or ethics / values. The next system pass is
-rebuilt from those reviewed layers.
+rebuilt from those reviewed layers. At 08:15 UTC each day, a scheduled job
+snapshots both streams and asks the same public sol instance for one
+privacy-protective daily return. Every snapshot and every summary version is
+preserved; only the latest summary for each day is shown. Cross-day
+summary-of-summaries is deliberately not enabled.
 
 ## Source lineage
 

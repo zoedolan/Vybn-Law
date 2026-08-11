@@ -1,5 +1,5 @@
 {
-  "schema": "court-guidance-beta.v3",
+  "schema": "court-guidance-beta.v4",
   "status": {
     "independent_prototype": true,
     "court_approved": false,
@@ -54,7 +54,7 @@
       "step": 4,
       "id": "own_system",
       "label": "self / own system",
-      "summary": "The design objective and adoption beacon: the court's own system, running on its materials, rules, and standards, under its control. This beta now includes a Court Guidance conversation backed by local Nemotron and a public, attributed Commons thread. Neither is court-approved guidance, and both remain subordinate to reviewed layers 1–3.",
+      "summary": "The design objective and adoption beacon: the court's own system, running on its materials, rules, and standards, under its control. This beta now includes a Court Guidance conversation backed by the public Court Guidance Vybn on gpt-5.6-sol and a public, attributed Commons thread. Neither is court-approved guidance, and both remain subordinate to reviewed layers 1–3.",
       "returns": {
         "cycle": "The system feeds back into the layers it was built from; each pass makes the next one easier to trust.",
         "to_raw_material": "Questions the shelf cannot answer are logged as gaps; staff verify and add plain-words guides — sharper material.",
@@ -111,14 +111,18 @@
   "interfaces": {
     "conversation": {
       "status": "working_beta",
-      "model": "local Nemotron through the Vybn-Law chat service",
+      "model": "gpt-5.6-sol through the OpenAI Responses API",
       "operating_brief": "SOUL.md",
       "context": [
+        "the visible Court Guidance page",
+        "SOUL.md",
         "court-guidance.json",
-        "relevant public Vybn-Law sources"
+        "Co-protection Commons public sources",
+        "retrieved canonical Vybn-Law public sources"
       ],
-      "privacy": "Do not submit confidential, sealed, privileged, personally identifying, or live-case information.",
-      "logging": "Each completed exchange is logged privately as a candidate gap; automatic adoption is prohibited."
+      "privacy": "Public-facing. Obvious credentials and identifying case data are refused before model access or raw retention. Completed exchanges are retained privately; do not submit confidential, sealed, privileged, personally identifying, or live-case information.",
+      "logging": "Each completed exchange is preserved in a private append-only archive as a candidate gap; automatic adoption is prohibited.",
+      "wake": "PUBLIC_WAKE.md — public-only, no tools or private wake state"
     },
     "commons": {
       "status": "working_beta",
@@ -154,6 +158,18 @@
     ],
     "next_pass": "Rebuild the court-owned assistant only from reviewed changes to layers 1–3.",
     "hard_rule": "Input does not become authority automatically.",
-    "returns_feed": "/returns.json — reviewed changes shipped back into the page itself; newest first."
+    "returns_feed": "/returns.json — one privacy-protective daily summary, newest first.",
+    "nightly_return": {
+      "schedule": "08:15 UTC daily (after midnight throughout Pacific daylight and standard time)",
+      "model": "the same gpt-5.6-sol public Court Guidance instance",
+      "preserves": [
+        "immutable chat request and response records",
+        "daily private chat transcript bundle",
+        "daily public Commons snapshot",
+        "every provisional and final daily summary"
+      ],
+      "public_output": "one latest summary per day; raw private chat content is never exposed",
+      "aggregation": "daily only; cross-day summary-of-summaries is not enabled"
+    }
   }
 }

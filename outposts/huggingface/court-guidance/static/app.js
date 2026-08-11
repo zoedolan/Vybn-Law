@@ -65,9 +65,9 @@
   });
 })();
 
-/* The loop: ask the local Vybn, share in the open, see what returns. */
+/* The loop: ask the public Court Guidance Vybn, share in the open, see what returns. */
 (() => {
-  const API = "https://api.vybn.ai";
+  const API = "";
   const form = document.getElementById("courtChatForm");
   const list = document.getElementById("returnsList");
 
@@ -116,17 +116,17 @@
     messages.scrollTop = messages.scrollHeight;
     return el;
   }
-  function setOnline(ok) {
+  function setOnline(ok, label = "") {
     dot.className = `chat-dot ${ok ? "online" : "offline"}`;
-    status.textContent = ok ? "online" : "reconnecting\u2026";
+    status.textContent = ok ? (label || "online") : "reconnecting\u2026";
   }
   async function health() {
     try {
       const res = await fetch(`${API}/api/health`, {signal: AbortSignal.timeout(8000)});
       if (!res.ok) throw new Error();
       const data = await res.json();
-      if (data.components?.vllm_semantic && data.components.vllm_semantic.ok !== true) throw new Error();
-      setOnline(true);
+      if (data.components?.chat?.ok !== true) throw new Error();
+      setOnline(true, `${data.model || "gpt-5.6-sol"} · online`);
     } catch (_) { setOnline(false); }
   }
   async function ask(text) {
@@ -166,7 +166,7 @@
       history.push({role: "assistant", content: full});
       receipt.textContent = confirmed ? "logged for review \u2014 what survives returns below" : "";
     } catch (error) {
-      answer.textContent = "The local model didn't answer. It should be back shortly \u2014 try again in a moment.";
+      answer.textContent = "Court Guidance didn't answer. It should be back shortly \u2014 try again in a moment.";
       setOnline(false);
     } finally { busy = false; send.disabled = false; input.focus(); }
   }

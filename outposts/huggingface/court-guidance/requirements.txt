@@ -1,2 +1,5 @@
 fastapi==0.116.1
 uvicorn[standard]==0.35.0
+httpx==0.28.1
+huggingface-hub==1.6.0
+openai==2.32.0
