@@ -24,7 +24,7 @@ def test_page_carries_only_the_slide_cycle():
     low = html.lower()
     assert "Independent prototype" in html
     assert "Not court-approved" in html
-    assert "How do we design systems that care at least as much as we do about getting things right?" in html
+    assert "How do we<br>design systems that<br>care at least as much as<br>we do about getting<br>things right?" in html
     assert "Public Counsel" in html
     for label in ("1 — raw material", "2 — rules / guidelines", "3 — ethics / values", "4 — self / own system"):
         assert label in low
