@@ -38,7 +38,9 @@ def test_page_carries_only_the_slide_cycle():
     assert "deliberately not built yet" not in html
     assert "working window arrives in a later draft" not in low
     assert 'id="courtChatForm"' in html
-    assert 'context: "court-guidance"' in (ROOT / "static" / "app.js").read_text()
+    script = (ROOT / "static" / "app.js").read_text()
+    assert 'context: "court-guidance"' in script
+    assert "vllm_semantic.ok !== true" in script
     assert "Court Guidance Commons" in html
     assert "vybn-co-protection.hf.space/court-guidance.html" in html
     assert "Input does not become authority. It becomes reviewable." in html

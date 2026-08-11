@@ -98,6 +98,8 @@
     try {
       const res = await fetch(`${API}/api/health`, {signal: AbortSignal.timeout(8000)});
       if (!res.ok) throw new Error();
+      const data = await res.json();
+      if (data.components?.vllm_semantic && data.components.vllm_semantic.ok !== true) throw new Error();
       setOnline(true, "local Nemotron · Court Guidance brief");
     } catch (_) { setOnline(false, "local model offline"); }
   }
