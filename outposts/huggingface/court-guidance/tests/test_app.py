@@ -186,6 +186,6 @@ def test_goatcounter_is_host_distinct_and_allowed_by_csp():
     assert "script-src 'self' https://gc.zgo.at" in csp
     assert "connect-src 'self' https://vybn-a2j.goatcounter.com" in csp
     script = (ROOT / "static" / "app.js").read_text()
-    assert "window.goatcounter" in script
+    assert "allow_frame: true" in script
     assert "`${location.host}${path}`" in script
 

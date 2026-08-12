@@ -1,5 +1,5 @@
 window.goatcounter = {
-  path: (path) => `${location.host}${path}`,
+  allow_frame: true, path: (path) => `${location.host}${path}`,
 };
 
 const $ = (id) => document.getElementById(id);
