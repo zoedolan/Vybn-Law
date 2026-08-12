@@ -38,6 +38,9 @@ def test_page_carries_the_slide_cycle_and_one_clear_loop():
     assert "Not court-approved" in html
     assert "How do we<br>design systems that<br>care at least as much as<br>we do about getting<br>things right?" in html
     assert "Public Counsel" in html
+    public_counsel = "https://publiccounsel.org/clinics/appellate-clinic/resources-materials/"
+    assert html.count(public_counsel) == 2
+    assert ">Appellate Court Example</a>" in html
     for label in ("1 — raw material", "2 — rules / guidelines", "3 — ethics / values", "4 — self / own system"):
         assert label in low
     for returned in ("Sharper material.", "Clearer rules.", "Stronger standards."):
