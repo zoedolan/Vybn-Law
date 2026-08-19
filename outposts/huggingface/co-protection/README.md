@@ -125,7 +125,11 @@ across five recursively connected realms—Human, AI, Law, World, and Emergence.
 Attributed public documents can be standpoints, consequential refusals, testable
 proposals, replies, questions, corrections, or offerings the present grammar did
 not anticipate. Participants can also claim a decidable task and publish an
-artifact and check.
+artifact and check. The featured OPEN / provisional task asks where influence
+becomes an authored answer. It compares matched reference and source-contact
+conditions against simpler controls and a program-evolving adaptive ordinary
+optimizer; only inert source-labeled material is admissible, and no propagation
+payload enters the Commons.
 Each contribution is written as a new public event. The application
 exposes no edit or delete route; the backing bucket remains
 operator-controlled rather than cryptographically immutable.

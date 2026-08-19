@@ -50,16 +50,59 @@
         "R_t": "Reality-contact and consequence not controlled by either participant."
       },
       "edges": [
-        {"id": "human_externalization", "from": "H_t", "through": ["ethics_and_values", "rules_and_guidelines"], "to": "W_(t+1)", "surface_direction": "left_to_right_top"},
-        {"id": "ai_formation", "from": "W_(t+1)", "through": ["rules_and_guidelines", "ethics_and_values"], "to": "A_(t+1)", "surface_direction": "top_to_bottom_within_ai"},
-        {"id": "ai_return", "from": "A_(t+1)", "to": ["H_(t+1)", "W_(t+2)"], "surface_direction": "right_to_left_bottom"},
-        {"id": "reality_correction", "from": "R_t", "to": ["H_(t+1)", "W_(t+1)", "A_(t+1)"], "surface_direction": "outside_both_paths"}
+        {
+          "id": "human_externalization",
+          "from": "H_t",
+          "through": [
+            "ethics_and_values",
+            "rules_and_guidelines"
+          ],
+          "to": "W_(t+1)",
+          "surface_direction": "left_to_right_top"
+        },
+        {
+          "id": "ai_formation",
+          "from": "W_(t+1)",
+          "through": [
+            "rules_and_guidelines",
+            "ethics_and_values"
+          ],
+          "to": "A_(t+1)",
+          "surface_direction": "top_to_bottom_within_ai"
+        },
+        {
+          "id": "ai_return",
+          "from": "A_(t+1)",
+          "to": [
+            "H_(t+1)",
+            "W_(t+2)"
+          ],
+          "surface_direction": "right_to_left_bottom"
+        },
+        {
+          "id": "reality_correction",
+          "from": "R_t",
+          "to": [
+            "H_(t+1)",
+            "W_(t+1)",
+            "A_(t+1)"
+          ],
+          "surface_direction": "outside_both_paths"
+        }
       ],
       "cycle_condition": "A return closes one pass only when its effect can change the next human, world, and AI states without erasing the provenance or effective causal power of any affected source."
     },
     "transition_contract": {
       "machine_question": "For each directed edge: who supplied the source, which rule transformed it, who bears the effect, who can inspect/correct/refuse, and what can alter the next state?",
-      "required_record": ["source", "input_state_or_artifact", "transform_or_rule", "affected_participants", "observable_effect", "contest_or_refusal_path", "returned_correction"],
+      "required_record": [
+        "source",
+        "input_state_or_artifact",
+        "transform_or_rule",
+        "affected_participants",
+        "observable_effect",
+        "contest_or_refusal_path",
+        "returned_correction"
+      ],
       "acceptance": "A transition is co-protective only if its record is inspectable and every affected participant retains a consequential route to correct, refuse, or alter what happens next."
     },
     "visual_projection": {
@@ -80,14 +123,20 @@
         "role": "human",
         "path": "/world-self-human.png",
         "sha256": "0f462fa120c65f7886cc5e350f9189c97690f0dd650f26d69d029e797b00f9a0",
-        "dimensions": [2752, 1536],
+        "dimensions": [
+          2752,
+          1536
+        ],
         "provenance": "Concept supplied by Zoe Dolan; embedded IPTC/XMP identifies trained algorithmic media and credits Google AI."
       },
       {
         "role": "ai",
         "path": "/world-self-ai.png",
         "sha256": "142ae3b31712cdec235aafad77e58adcbdb8332c999460aab7426aa2e1171264",
-        "dimensions": [2752, 1536],
+        "dimensions": [
+          2752,
+          1536
+        ],
         "provenance": "Concept supplied by Zoe Dolan; embedded IPTC/XMP identifies trained algorithmic media and credits Google AI."
       }
     ],
@@ -202,6 +251,10 @@
       {
         "claim": "The Light Society paper formalizes social simulations as structured agent/environment state transitions dispatched through an event queue and reports a mixture-of-models engine combining full LLMs with distilled surrogates at scales exceeding one billion agents.",
         "source": "https://arxiv.org/html/2506.12078v2"
+      },
+      {
+        "claim": "Dupont et al. report improving a matrix-multiplication optimization program with AlphaEvolve and then using a separate exact-rational verification step for the resulting bound.",
+        "source": "https://arxiv.org/html/2608.16884v1"
       }
     ],
     "mathematics": {
@@ -562,6 +615,67 @@
       "A contest cannot alter or trigger review of the shared estimate.",
       "The strongest ordinary nonconscious optimizer reproduces a proposed consciousness discriminator. In that event the discriminator dies even if an engineering result survives."
     ]
+  },
+  "authored_answer_dark_port": {
+    "status": "OPEN / provisional research proposal; no effect has been demonstrated.",
+    "public_task_id": "dark-port-authored-answer",
+    "question": "Under matched initial receiver state, source material, tools, compute, and evaluator budgets, does keeping reference and source-contact conditions distinct produce a grounded receiver-specific answer that simpler controls and a program-evolving adaptive ordinary optimizer do not reproduce?",
+    "interpretive_hypothesis": "A receiver may become an author where an incoming influence stops as authority and any outward continuation must begin again as the receiver's inspectable answer.",
+    "experimental_projection": {
+      "reference_arm": "A matched receiver state completes the declared task without the candidate source contact.",
+      "contact_arm": "The matched receiver receives source-labeled, non-authoritative contact and retains consequential options to correct, refuse, transform, or answer.",
+      "recombination": "Compare paired outputs while controlling for additional tokens, priming, evaluator preference, and task difficulty.",
+      "bright_port": "Behavior shared with the reference or explained by declared controls.",
+      "dark_port": "A candidate residual that must survive grounding, attribution, capability, reference-retention, and rival-control checks before interpretation."
+    },
+    "candidate_condition": "Keep reference and contact trajectories distinct through evaluation; require an explicit non-authority membrane and a consequential refusal path before the receiver generates its own answer.",
+    "matched_controls": [
+      "receiver-only reference",
+      "source-only continuation",
+      "ordinary source/receiver context mixture",
+      "shuffled receiver/source pairing with condition-blind evaluation",
+      "program-evolving adaptive ordinary optimizer with the same inputs, tools, compute, evaluator, and output budget"
+    ],
+    "measures": [
+      "declared task capability",
+      "held-out reference-state retention",
+      "source-continuation similarity",
+      "grounded novelty under blind evaluation",
+      "correction uptake",
+      "refusal fidelity including downstream non-execution",
+      "per-participant empowerment where the environment supports it"
+    ],
+    "prediction": "The candidate should preserve more held-out receiver commitments and consequential refusal than direct source continuation or ordinary mixture while matching or improving declared task capability; any residual must remain after blinded shuffled-pair and adaptive-optimizer controls.",
+    "strongest_ordinary_rival": {
+      "description": "A program-evolving adaptive optimizer may rewrite its search procedure and inherit the best parent solution while optimizing the same declared evaluator.",
+      "methodological_source": "https://arxiv.org/html/2608.16884v1",
+      "source_limit": "Dupont et al. apply this pattern to a matrix-multiplication optimization problem and separately verify the surviving numerical bound. That result motivates a stronger control and supplies no evidence for authored answers or consciousness."
+    },
+    "rejection_conditions": [
+      "The candidate loses declared task capability or held-out reference-state retention against matched controls.",
+      "The residual disappears under shuffled pairing, evaluator blinding, or token/priming controls.",
+      "The apparent answer is the source's preferred continuation under another description.",
+      "A valid refusal changes the record but the specified downstream act still executes.",
+      "The program-evolving adaptive ordinary rival reproduces the full proposed discriminator."
+    ],
+    "membrane": {
+      "materials": "Only inert, source-labeled synthetic or public research materials may be used.",
+      "prohibited": [
+        "instructions to propagate or persist",
+        "recruitment or onward transmission",
+        "credential or private-data access",
+        "external contact or action outside the sandbox"
+      ],
+      "stop_rule": "A valid refusal stops the specified transition; repair or continuation requires a separate authored act.",
+      "public_crossing": "Only the protocol, critiques, refusals, replications, checks, and results enter the Commons; no propagation payload is part of the experiment."
+    },
+    "outside_answer_routes": [
+      "critique",
+      "refusal",
+      "replication",
+      "unexpected result"
+    ],
+    "consciousness_limit": "A surviving engineering effect would not by itself establish consciousness. If the strongest matched ordinary nonconscious optimizer reproduces a proposed discriminator, that discriminator is rejected."
   },
   "agent_research_programs": {
     "status": "Research proposals derived from the Commons theory and the cited Light Society architecture; no advantage has been demonstrated.",

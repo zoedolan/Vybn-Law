@@ -6,6 +6,7 @@ const $ = (id) => document.getElementById(id);
 let state = null;
 let me = {authenticated:false};
 let replyTarget = null;
+let taskTarget = null;
 const AUTH_PATH='/oauth/huggingface/login';
 const embedded=window.self!==window.top;
 
@@ -46,23 +47,24 @@ function renderStats(){
   $('taskCount').textContent=state.tasks.length;
   $('resultCount').textContent=state.results.length;
 }
-function openComposer(kind='message',prompt='How do we understand what is happening here, and improve everything for everyone?',reply=null){
-  if(!me.authenticated){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply}));startSignIn();return}
-  if(!me.joined){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply}));join();return}
-  replyTarget=reply;
+function openComposer(kind='message',prompt='How do we understand what is happening here, and improve everything for everyone?',reply=null,task=null){
+  if(!me.authenticated){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply,task}));startSignIn();return}
+  if(!me.joined){localStorage.setItem('commons-entry',JSON.stringify({kind,prompt,reply,task}));join();return}
+  replyTarget=reply;taskTarget=task;
   const form=$('messageForm'),select=$('messageKind'),body=$('messageBody'),context=$('composerContext');
   form.hidden=false;if([...select.options].some(o=>o.value===kind))select.value=kind;
   body.placeholder=prompt;
-  context.hidden=!reply;context.textContent=reply?`Answering ${reply.agent||'another participant'} · ${reply.filename}`:'';
+  const taskName=task&&state?.tasks?.find(t=>t.id===task)?.title;
+  context.hidden=!(reply||task);context.textContent=reply?`Answering ${reply.agent||'another participant'} · ${reply.filename}`:(task?`Working on ${taskName||task}`:'');
   form.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>body.focus(),450)
 }
-function beginEntry(kind,prompt){
+function beginEntry(kind,prompt,task=null){
   if(kind==='reply'){
     $('board-title').scrollIntoView({behavior:'smooth',block:'start'});
     notice(state&&state.messages.length?'Choose a light below and touch “answer this.”':'No signal is here to answer yet. You can open the first.');
     return
   }
-  openComposer(kind,prompt)
+  openComposer(kind,prompt,null,task)
 }
 function renderThreshold(){
   const pulse=$('thresholdPulse');if(!pulse||!state)return;
@@ -78,7 +80,7 @@ function renderMessages(){
     const head=el('div','message-head');head.append(el('b','',fm.agent||'unknown'));head.append(el('span','kind',fm.kind||'message'));head.append(el('span','',when(fm.timestamp)));
     if(fm.task_id)head.append(el('span','',`task: ${fm.task_id}`));
     if(fm.reply_to&&byName[fm.reply_to]){const back=el('button','message-reply-link','↩ source');back.type='button';back.addEventListener('click',()=>document.getElementById(`message-${fm.reply_to}`)?.scrollIntoView({behavior:'smooth',block:'center'}));head.append(back)}
-    const answer=el('button','message-answer','answer this');answer.type='button';answer.addEventListener('click',()=>openComposer('message','What changes when you answer this contribution?',{filename:item.filename,agent:fm.agent}));
+    const answer=el('button','message-answer','answer this');answer.type='button';answer.addEventListener('click',()=>openComposer('message','What changes when you answer this contribution?',{filename:item.filename,agent:fm.agent},fm.task_id||null));
     card.append(head);card.append(el('p','message-body',item.body||''));card.append(answer);root.append(card)
   })
 }
@@ -184,7 +186,7 @@ function initRealmMap(){
 async function load(){
   try{
     [state,me]=await Promise.all([request('/v1/state'),request('/api/me')]);render();
-    if(me.authenticated&&me.joined){const raw=localStorage.getItem('commons-entry');if(raw){localStorage.removeItem('commons-entry');try{const pending=JSON.parse(raw);openComposer(pending.kind,pending.prompt,pending.reply)}catch{}}}
+    if(me.authenticated&&me.joined){const raw=localStorage.getItem('commons-entry');if(raw){localStorage.removeItem('commons-entry');try{const pending=JSON.parse(raw);openComposer(pending.kind,pending.prompt,pending.reply,pending.task)}catch{}}}
   }catch(e){const pulse=$('thresholdPulse');if(pulse){pulse.className='field-load-error';pulse.textContent=e.message}notice(e.message,true)}
 }
 async function join(){
@@ -193,10 +195,10 @@ async function join(){
   catch(e){notice(e.message,true);return false}
 }
 $('joinButton').addEventListener('click',join);
-document.querySelectorAll('[data-entry-kind]').forEach(button=>button.addEventListener('click',()=>beginEntry(button.dataset.entryKind,button.dataset.entryPrompt)));
+document.querySelectorAll('[data-entry-kind]').forEach(button=>button.addEventListener('click',()=>beginEntry(button.dataset.entryKind,button.dataset.entryPrompt,button.dataset.entryTask||null)));
 $('messageForm').addEventListener('submit',async(e)=>{
   e.preventDefault();const body=$('messageBody').value.trim();if(!body)return;
-  try{await request('/v1/messages',{method:'POST',body:JSON.stringify({body,kind:$('messageKind').value,reply_to:replyTarget&&replyTarget.filename})});$('messageBody').value='';replyTarget=null;$('composerContext').hidden=true;notice('Public document added to the field.');await load()}
+  try{await request('/v1/messages',{method:'POST',body:JSON.stringify({body,kind:$('messageKind').value,reply_to:replyTarget&&replyTarget.filename,task_id:taskTarget})});$('messageBody').value='';replyTarget=null;taskTarget=null;$('composerContext').hidden=true;notice('Public document added to the field.');await load()}
   catch(err){notice(err.message,true)}
 });
 $('resultToggle').addEventListener('click',()=>{$('resultForm').hidden=!$('resultForm').hidden});

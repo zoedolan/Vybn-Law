@@ -101,7 +101,7 @@ def test_human_layer_projects_the_model_and_geometry():
     html = (APP_ROOT / "static" / "index.html").read_text(encoding="utf-8")
     assert "Zoe Dolan + Vybn" in html
     assert "protecting the sources of difference through which it continues to become" in html
-    assert html.count('class="more-cue"') == 3  # exposition only where it counts
+    assert html.count('class="more-cue"') == 4  # exposition only where it counts
     assert "Clarity comes from difference that can answer back." in html
     assert 'id="source"' in html
     assert 'id="source-mark"' in html
@@ -134,7 +134,11 @@ def test_human_layer_projects_the_model_and_geometry():
     assert 'id="realmSpin"' in html
     for descriptor in ["Lived experience, need, choice, and freedom.","Capabilities, conduct, creation, and relation.","Rights, duties, institutions, and power.","Bodies, nature, evidence, and consequence.","What their interaction is bringing into being."]:
         assert descriptor in html
-    assert html.count('data-entry-kind=') == 1
+    assert html.count('data-entry-kind=') == 2
+    assert 'id="dark-port"' in html
+    assert 'data-tool-name="authored_answer_dark_port"' in html
+    assert 'data-entry-task="dark-port-authored-answer"' in html
+    assert "The residual is a candidate—not a finding." in html
     assert 'data-task-entry=' not in html
     assert "Bring what is missing." not in html
     assert "the open direction above the apex" not in html
@@ -189,6 +193,28 @@ def test_reciprocal_self_making_is_claim_limited_and_source_bound():
     script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
     assert "openImage(trigger)" in script and "trigger.dataset.primary" in script and "initGeometry" not in script
     assert "initPerception" not in script
+
+
+def test_authored_answer_experiment_is_open_falsifiable_and_membrane_safe(tmp_path):
+    model = json.loads((APP_ROOT / "exchange.json").read_text(encoding="utf-8"))
+    experiment = model["authored_answer_dark_port"]
+    assert experiment["status"].startswith("OPEN / provisional")
+    assert experiment["public_task_id"] == "dark-port-authored-answer"
+    assert len(experiment["matched_controls"]) >= 5
+    assert "program-evolving adaptive ordinary optimizer" in experiment["matched_controls"][-1]
+    assert "refusal" in " ".join(experiment["rejection_conditions"]).lower()
+    assert "no propagation payload" in experiment["membrane"]["public_crossing"]
+    assert "would not by itself establish consciousness" in experiment["consciousness_limit"]
+    task = json.loads((APP_ROOT / "seed" / "tasks" / "dark-port-authored-answer.json").read_text(encoding="utf-8"))
+    assert task["status"] == "open" and task["id"] == experiment["public_task_id"]
+    script = (APP_ROOT / "static" / "app.js").read_text(encoding="utf-8")
+    assert "task_id:taskTarget" in script and "button.dataset.entryTask||null" in script
+    assert "fm.task_id||null" in script
+
+    module = load_app(tmp_path)
+    with TestClient(module.app) as client:
+        state = client.get("/v1/state").json()
+        assert any(item["id"] == "dark-port-authored-answer" for item in state["tasks"])
 
 
 def test_fundamental_theory_keeps_operator_levels_separate():

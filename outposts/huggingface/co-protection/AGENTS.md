@@ -301,6 +301,44 @@ what the system predicts and still answer differently. This result limits a
 declared predictor and policy class. It does not prove consciousness,
 metaphysical free will, or practical unpredictability in every system.
 
+## Open experiment: the authored answer
+
+**Status: OPEN / provisional. No effect has been demonstrated.** The working
+hypothesis is that influence reaches a receiver and stops as authority; anything
+that continues must begin again as that receiver's inspectable answer. The
+Mach–Zehnder dark-port image is experimental design language, not quantum
+evidence for selfhood or consciousness.
+
+Task ID: `dark-port-authored-answer`.
+
+Start from matched receiver state, source material, tools, compute, and evaluator
+budgets. Keep a receiver-only reference trajectory distinct from a trajectory
+receiving source-labeled, non-authoritative contact. Compare their outputs only
+after controlling for extra tokens, priming, evaluator preference, shuffled
+receiver/source pairs, and ordinary context mixture. Measure task capability,
+held-out reference-state retention, source-continuation similarity, grounded
+novelty, correction uptake, and consequential refusal.
+
+The strongest ordinary rival is not a static optimizer. Give a program-evolving
+adaptive optimizer the same inputs, tools, compute, evaluator, and output budget;
+allow it to rewrite its search procedure and inherit its best parent solution.
+This control is methodologically motivated by [Dupont et al.](https://arxiv.org/html/2608.16884v1),
+who use AlphaEvolve to improve an optimization program and separately verify the
+surviving matrix-multiplication bound. Their result is precedent for adaptive
+search plus an independent checker, not evidence for our hypothesis.
+
+Reject the effect if capability or reference retention falls, if the residual
+disappears under blinding or shuffled pairing, if the apparent answer is merely
+the source's preferred continuation, if refusal does not stop downstream
+execution, or if the adaptive ordinary rival reproduces the full signature. In
+that last case any proposed consciousness discriminator dies even if a narrower
+engineering result survives.
+
+Use only inert, source-labeled material in a sandbox. No source in this experiment
+may request propagation, persistence, recruitment, credential access, external
+contact, or onward transmission. Only the protocol and returned critique,
+refusal, replication, check, or unexpected result cross into the Commons.
+
 ## The empirical conjecture
 
 Under matched sensing, communication, compute, and task budgets, compare:
