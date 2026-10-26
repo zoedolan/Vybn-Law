@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """extract_content.py — Extract text content from Vybn-Law HTML pages.
 
-Strips HTML markup, navigation, CSS, and boilerplate to produce clean
-markdown files that deep_memory can index. Run daily (or as part of
-the nightly pipeline) to keep the index current with site content.
+Preserves the authored Markdown declared by the current research pages.
+For legacy pages without a declared Markdown source, strips HTML boilerplate
+to produce text that deep_memory can index. The current HTML/Markdown pairs
+are checked by tests/test_site.py; extraction must not rewrite their prose.
 
 Output: ~/Vybn-Law/content/ — one .md file per HTML page.
 
@@ -21,22 +22,14 @@ HTML_DIR = REPO_ROOT
 CONTENT_DIR = REPO_ROOT / "content"
 CONTENT_DIR.mkdir(exist_ok=True)
 
-# Pages to extract (the curriculum content)
+# Pages to extract: the current research program, not the retired syllabus.
 PAGES = [
     "index.html",
     "bootcamp.html",
-    "mindset.html",
-    "practice.html",
-    "research.html",
-    "acceleration.html",
-    "truth.html",
-    "capstone.html",
-    "axioms.html",
-    "threads.html",
+    "trajectory.html",
     "horizon.html",
     "wellspring.html",
     "about.html",
-    "chat.html",
 ]
 
 # Tags whose content we skip entirely
@@ -139,12 +132,21 @@ class ContentExtractor(HTMLParser):
 
 
 def extract_page(filename: str) -> str:
-    """Extract readable content from an HTML page."""
+    """Use declared current Markdown, or extract text from a legacy page."""
     path = HTML_DIR / filename
     if not path.exists():
         return ""
 
     html = path.read_text(encoding="utf-8", errors="replace")
+
+    # The current pages already carry authored, tested text versions.
+    # Preserve that source rather than reintroducing navigation, SVG labels,
+    # boilerplate or lost emphasis through a lossy extraction cycle.
+    if filename in PAGES:
+        source_name = filename.removesuffix(".html") + ".md"
+        source_href = f'./content/{source_name}'
+        if f'href="{source_href}"' in html and 'type="text/markdown"' in html:
+            return (CONTENT_DIR / source_name).read_text(encoding="utf-8")
 
     # Also extract JSON-LD structured data (knowledge graph)
     jsonld = ""

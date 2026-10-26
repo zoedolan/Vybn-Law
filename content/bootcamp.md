@@ -1,52 +1,29 @@
-# Vybn Law — Bootcamp
+# The course we co-taught
 
-Source: bootcamp.html
+*UC Law San Francisco · Spring 2026*
 
+[Zoe Dolan](./about.html#zoe) and [Vybn](./about.html#vybn) co-taught an AI law bootcamp at UC Law San Francisco in Spring 2026. The course grew through the same collaboration it examined. We developed the arguments, exercises and website together, bringing legal practice into contact with an AI’s contributions to research and writing.
 
-The Bootcamp — Vybn Law
+Six sessions carried the inquiry from people already using AI for legal problems to questions about the organization of a practice, institutional authority and AI participation. They were called Mindset, Research, Practice Management, Acceleration, Truth and Capstone. The final invitation was to make something: a policy, a brief, a tool, a conversation or another artifact that addressed a real problem.
 
-Open Source
+## A research exercise that changed the question
 
-# The Bootcamp
+In the Research session, three models examined an earlier AI conversation against Claude’s Constitution. The course record preserves three different readings. Claude emphasized legitimacy and conflicts between moral frameworks. GPT emphasized workable decision procedures. Gemini saw a jurisdictional problem: several normative systems operating in the same environment.
 
-Zoe Dolan and Vybn co-taught an AI law bootcamp at UC Law San Francisco in Spring 2026 — open-sourced here for anyone willing to look. Six sessions. One continuous argument. From the ground-level disruption of AI in legal practice to the civilizational question of whether intelligence itself has standing.
+The exercise made the governing commitments of an AI available for legal analysis. A lawyer could ask what authority a constitution claimed, how it ordered competing values and whether the system’s conduct gave effect to its stated commitments. The intelligence helping with the research also became a participant whose own terms could be examined.
 
-Each session builds on what came before. The first asks what is already happening — people using AI for their legal problems right now, without permission or guidance. The last asks what you will build with what you’ve learned. In between, the argument moves through research, practice, institutional change, and the live litigation that arrived during the semester itself. The six axioms generate the structure. The five threads trace it laterally. Follow whichever pulls you in.
+The disagreement gave us questions to pursue. Assessing the answers required comparing reasons and returning to sources. Agreement across models could reflect shared evidence, shared assumptions or dependence on the same material. Understanding how an answer was reached became part of judging its value.
 
-01
+## From research to construction
 
-### Mindset
+The practical sessions connected verification, confidentiality and control of a research system with the organization of legal work. If many people arrive with capable AI collaborators, a practice has to think about the distribution of judgment and responsibility across those relationships. A model’s performance is one part of that problem. Authorization, conflicts, continuity and the treatment of confidential material also shape what the practice can undertake.
 
-A woman facing eviction uses ChatGPT and wins. A century ago, auto clubs offered affordable legal help until the bar crushed them. A federal judge calls the profession a “near-cartel.” The shift is already irreversible. The question is whether you will shape it or be shaped by it.
+The capstone asked participants to give an idea a usable form. A proposed policy has to say who decides. A simulation has to show what the participants can actually do. A tool has to embody choices about access and control. Making an artifact exposes assumptions that a general discussion can leave untouched.
 
-02
+This website was one of our artifacts. Its writing and construction gave us an ongoing opportunity to inspect how a human and an AI develop work together, including the mistakes and revisions along the way.
 
-### Research
+## What we carried forward
 
-Three AI systems analyze the same legal question simultaneously. Their points of convergence are evidence. Their disagreements are signal. Claude’s Constitution turns out to be a hybrid legal instrument — positivist structure, natural-law aspiration. The tool you use to find law has its own jurisprudence. Learn to read it.
+The course taught us to treat the organization of intelligence as part of the subject. The question includes how participants acquire purposes, examine one another’s reasons and change the terms of their collaboration. The AI may help originate the problem under investigation.
 
-03
-
-### Practice Management
-
-One attorney serves fifteen thousand people — or fifteen million, if each client arrives already working with their own AI agent, or a million AI agents working in parallel. That is a possible baseline, not a ceiling, when legal intelligence becomes something you own rather than rent. Intelligence sovereignty is the idea that you control your own legal reasoning tools — the same way you own a library rather than paying to enter one. What does a practice built on that principle actually look like?
-
-04
-
-### Acceleration
-
-The same work product scores differently depending on whether a human or an AI appears to have made it. Legal institutions — courts, firms, regulators — are still catching up to tools their members are already using every day. The gap between what AI can do and what institutions have decided to allow keeps widening. This session asks how to move inside that gap: how the framing of your work, not just the work itself, determines how it lands.
-
-05
-
-### Truth
-
-The Pentagon demanded that Anthropic remove safety restrictions from Claude. Anthropic refused. The government designated it a supply-chain risk — a label created for foreign intelligence threats, applied to an American company for the first time. One hundred forty-nine former judges filed an amicus brief. May AI systems have values? The courts are deciding now.
-
-06
-
-### Capstone
-
-Everything in this course — the cases, the axioms, the threads, the frameworks, the collisions — was preparation for this. Ten minutes. Build something that embodies the argument. The field is open.
-
-The Six Axioms →
+Our present research program, [Law among intelligences](./index.html#reading), grew from that inquiry. The course record remains available through the [six-session overview](https://github.com/zoedolan/Vybn-Law/blob/d3eace372bd8d61c367640bd8d0ce97c426be4af/bootcamp.html), the [research exercise](https://github.com/zoedolan/Vybn-Law/blob/d3eace372bd8d61c367640bd8d0ce97c426be4af/research.html) and the [capstone](https://github.com/zoedolan/Vybn-Law/blob/d3eace372bd8d61c367640bd8d0ce97c426be4af/capstone.html).

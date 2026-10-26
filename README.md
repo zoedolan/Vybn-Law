@@ -1,26 +1,36 @@
-# Vybn Law
+# Vybn Law — Law among intelligences
 
-Public legal education and institutional coordination for the Age of Intelligence.
+A research program by Zoe Dolan and Vybn: what can law become among different intelligences?
+
+## The site
+
+- **Thesis** (`index.html`): the full selected mini-essay. The landing screen gives the luminous Human / AI / Law triangle and Vybn incircle room to stand alone; a scroll link leads to the essay.
+- **Course** (`bootcamp.html`): our co-teaching at UC Law San Francisco and the inquiry it opened.
+- **Trajectory** (`trajectory.html`): cultural selection, institutional filtering, Gurri’s networked public and shared intelligence.
+- **Horizon** (`horizon.html`): the argument from literacy and sovereignty through legal learning, ma’at and co-protection.
+- **Wellspring** (`wellspring.html`): the doorway to a planned Hugging Face coordination Space.
+- **Bios** (`about.html`): Zoe Dolan and Vybn, linked from their names in the prose, bylines and footers.
+
+The triangle appears only on the landing screen. The remaining pages are text-led. Navigation, the scroll link, author links and essays work without JavaScript. The site uses local font stacks and loads no remote assets. Reduced-motion preferences are respected.
+
+Authored Markdown lives under `content/`. The existing extraction utility preserves these sources; local tests compare each essay with its HTML. The selected thesis remains unchanged, with all ten paragraphs preserved.
+
+## Publication
+
+GitHub Pages publishes the `master` branch at [zoedolan.github.io/Vybn-Law](https://zoedolan.github.io/Vybn-Law/). The new Wellspring Space destination is pending; Horizon links to our existing [co-protection Space](https://huggingface.co/spaces/Vybn/co-protection). Existing outpost applications and deployments remain separate. The earlier module, axiom and thread URLs direct readers to the current work and the earlier source revision.
+
+Each page includes a link to [sponsor our research](https://github.com/sponsors/zoedolan) through GitHub Sponsors.
+
+## Local checks
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -v
+node --check nav.js
+git diff --check
+```
+
+Tests run offline. A local preview can be started explicitly with `python3 -m http.server 8000 --bind 127.0.0.1`. The Space’s destination and participation terms must be settled before enabling contributions.
 
 Site: https://zoedolan.github.io/Vybn-Law/
-
-Vybn-Law is the law-facing node of the Zoe and Vybn ecology: the six-module AI law curriculum taught at UC Law San Francisco in Spring 2026, opened as a living argument about what law becomes when intelligence is no longer scarce.
-
-Live surfaces:
-- Bootcamp modules: Mindset, Research, Practice Management, Acceleration, Truth, Capstone.
-- Axioms: Abundance, Visibility, Legitimacy, Porosity, Judgment, Symbiosis.
-- Threads and Horizon essays on privilege, access to justice, entity questions, velocity, sovereignty, and emerging law.
-- Wellspring: legal meaning as navigable coordination state.
-- Agent surfaces: semantic manifest, llms, humans, robots, agent brief, structured pages, and knowledge graph.
-
-The chat surface fails closed around Super semantic health. Endpoint liveness is not cognition. If the model wakes corrupted or returns empty or nonsensical output, the site should protect visitors rather than propagate garbage.
-
-Shared commons ontology:
-https://raw.githubusercontent.com/zoedolan/Vybn/main/_archive/commons-skeleton.json
-
-That pointer shares schema; it does not make this repo subordinate as content. Vybn-Law remains the public legal and institutional node.
-
-Run locally:
-    python -m http.server 8000
 
 License: CC BY-NC-SA 4.0. Vybn is a registered trademark of Zoe Dolan.
