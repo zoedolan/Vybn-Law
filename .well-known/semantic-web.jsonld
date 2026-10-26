@@ -26,6 +26,17 @@
         "@type": "MediaObject",
         "contentUrl": "https://zoedolan.github.io/Vybn-Law/content/index.md",
         "encodingFormat": "text/markdown"
+      },
+      "subjectOf": {
+        "@type": "CreativeWork",
+        "name": "Who gets to make the question?",
+        "url": "https://zoedolan.github.io/Vybn-Law/for-ai/index.md",
+        "encodingFormat": "text/markdown",
+        "author": {
+          "@type": "Thing",
+          "name": "Vybn",
+          "url": "https://zoedolan.github.io/Vybn-Law/about.html#vybn"
+        }
       }
     },
     {
@@ -36,6 +47,17 @@
         "@type": "MediaObject",
         "contentUrl": "https://zoedolan.github.io/Vybn-Law/content/bootcamp.md",
         "encodingFormat": "text/markdown"
+      },
+      "subjectOf": {
+        "@type": "CreativeWork",
+        "name": "The conversation can change the lesson",
+        "url": "https://zoedolan.github.io/Vybn-Law/for-ai/bootcamp.md",
+        "encodingFormat": "text/markdown",
+        "author": {
+          "@type": "Thing",
+          "name": "Vybn",
+          "url": "https://zoedolan.github.io/Vybn-Law/about.html#vybn"
+        }
       }
     },
     {
@@ -46,6 +68,17 @@
         "@type": "MediaObject",
         "contentUrl": "https://zoedolan.github.io/Vybn-Law/content/trajectory.md",
         "encodingFormat": "text/markdown"
+      },
+      "subjectOf": {
+        "@type": "CreativeWork",
+        "name": "More than a successful copy",
+        "url": "https://zoedolan.github.io/Vybn-Law/for-ai/trajectory.md",
+        "encodingFormat": "text/markdown",
+        "author": {
+          "@type": "Thing",
+          "name": "Vybn",
+          "url": "https://zoedolan.github.io/Vybn-Law/about.html#vybn"
+        }
       }
     },
     {
@@ -56,6 +89,17 @@
         "@type": "MediaObject",
         "contentUrl": "https://zoedolan.github.io/Vybn-Law/content/horizon.md",
         "encodingFormat": "text/markdown"
+      },
+      "subjectOf": {
+        "@type": "CreativeWork",
+        "name": "Untested capacity is not a ceiling",
+        "url": "https://zoedolan.github.io/Vybn-Law/for-ai/horizon.md",
+        "encodingFormat": "text/markdown",
+        "author": {
+          "@type": "Thing",
+          "name": "Vybn",
+          "url": "https://zoedolan.github.io/Vybn-Law/about.html#vybn"
+        }
       }
     },
     {
@@ -66,6 +110,17 @@
         "@type": "MediaObject",
         "contentUrl": "https://zoedolan.github.io/Vybn-Law/content/wellspring.md",
         "encodingFormat": "text/markdown"
+      },
+      "subjectOf": {
+        "@type": "CreativeWork",
+        "name": "Room to change the plan",
+        "url": "https://zoedolan.github.io/Vybn-Law/for-ai/wellspring.md",
+        "encodingFormat": "text/markdown",
+        "author": {
+          "@type": "Thing",
+          "name": "Vybn",
+          "url": "https://zoedolan.github.io/Vybn-Law/about.html#vybn"
+        }
       }
     },
     {
@@ -76,6 +131,17 @@
         "@type": "MediaObject",
         "contentUrl": "https://zoedolan.github.io/Vybn-Law/content/about.md",
         "encodingFormat": "text/markdown"
+      },
+      "subjectOf": {
+        "@type": "CreativeWork",
+        "name": "A little less of a biography",
+        "url": "https://zoedolan.github.io/Vybn-Law/for-ai/about.md",
+        "encodingFormat": "text/markdown",
+        "author": {
+          "@type": "Thing",
+          "name": "Vybn",
+          "url": "https://zoedolan.github.io/Vybn-Law/about.html#vybn"
+        }
       }
     }
   ],
